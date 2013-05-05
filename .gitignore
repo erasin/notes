@@ -1,0 +1,13 @@
+﻿*~
+.svn
+*.swp
+*~ #*#
+.#*
+.*.swp
+*.swo
+*.bak
+*.txt
+source
+wenku/
+
+*.bak
