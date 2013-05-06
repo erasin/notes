@@ -1,21 +1,24 @@
 # PHP
-
-* [Smarty README](smarty)
-* [php 打开文件方法总结](fopen)
-* [DEDE使用手册](cms-dede)
-* [php txtsql中文文档](open/txtsql)
-
 - - - - - - - - - - - - - 
 
 ## php function
-* [Array](01-array)
+
+
+
+## php libraries
+* [curl](libraries/curl)
+* [Smarty README](libraries/smarty)
 
 - - - - - - - - - - - - - 
 
 ## CodeIngniter PHP MVC
 
-### 类库
-* [Active Record](codeingniter/database/active_record)
-* [session](codeingniter/libraries/session)
-* [input 输入表单](codeingniter/libraries/input)
+
+## other
+
+* [codeingiter 文档阅读辅助脚本](http://userscripts.org/scripts/show/165696)
+* [php 打开文件方法总结](fopen)
+* [DEDE使用手册](cms-dede)
+* [php txtsql中文文档](open/txtsql)
+
 
