@@ -3,8 +3,8 @@
 **tags:** vim,linux,编辑器  
 
 
-* [vim](vim)
-* [vimrc 较为详尽的vim配置](vimrc)
-* [vim 图片详解](vim-sheet)
-* [vim 折叠](vim-floding)
-* [ctags php](ctags-php)
+* [vim](vim.md)
+* [vimrc 较为详尽的vim配置](vimrc.md)
+* [vim 图片详解](vim-sheet.md)
+* [vim 折叠](vim-floding.md)
+* [ctags php](ctags-php.md)
