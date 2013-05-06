@@ -11,3 +11,4 @@ source
 wenku/
 
 *.bak
+/docs

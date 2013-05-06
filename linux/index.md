@@ -2,11 +2,8 @@
 **title:** linux bash脚本命令，vim，树莓派
 **tags:** linux,bash,shell,vim,raspberry,树莓派
 
-
-* [linux 基础命令](linux-bash-shell-base '一些比较常用的linux命令列表')
-* [使用命令行查看硬件信息](hwinfo 'linux硬件信息的查看命令行下')
-
 ## [bash bash](bash)
+* [shell base](bash/shell-base)
 * [cut](bash/cut)
 * [ls](bash/ls)
 * [bash 基础语法](bash/bash-base)
@@ -25,7 +22,9 @@
 * [snort ](safe/snort)
 
 ## [soft](soft)
+* [hwinfo 使用命令行查看硬件信息](soft/hwinfo 'linux硬件信息的查看命令行下')
 * [siege 网站压力测试](soft/siege)
+* [ab 网站压力测试](soft/ab)
 * [CMUS 终端音乐播放器](soft/cmus)
 * [lftp 终端ftp](soft/lftp)
 * [ssh的sftp使用方法](soft/sftp)
