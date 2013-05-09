@@ -1,5 +1,8 @@
+# php 数组
 
-## array()
+
+
+## array() {#array}
 
 创建数组。	3
 
@@ -25,7 +28,7 @@ key     | 可选。规定 key，类型是数值或字符串。如果未设置，
 value   | 必需。规定值。
 
 
-## array_change_key_case()
+## array_change_key_case() {#array_change_key_case}
 
 返回其键均为大写或小写的数组。	4
 
@@ -59,195 +62,268 @@ case    | 可选。可能的值：
 
     Array ( [A] => Cat [B] => Bird [C] => Horse )
 
-## array_chunk()
+## array_chunk() {#array_chunk}
 
 把一个数组分割为新的数组块。	4
 
 定义和用法
-array_chunk() 函数把一个数组分割为新的数组块。
-其中每个数组的单元数目由 size 参数决定。最后一个数组的单元数目可能会少几个。
-可选参数 preserve_key 是一个布尔值，它指定新数组的元素是否有和原数组相同的键（用于关联数组），还是从 0 开始的新数字键（用于索引数组）。默认是分配新的键。
-语法
-array_chunk(array,size,preserve_key)
-参数	描述
-array	必需。规定要使用的数组。
-size	必需。规定每个新数组包含多少个元素。
-preserve_key	
-可选。可能的值：
-true - 保留原始数组中的键名。
-false - 默认。每个结果数组使用从零开始的新数组索引。
 
-## array_combine()
+`array_chunk()` 函数把一个数组分割为新的数组块。
+
+其中每个数组的单元数目由 size 参数决定。最后一个数组的单元数目可能会少几个。
+
+可选参数 `preserve_key` 是一个布尔值，它指定新数组的元素是否有和原数组相同的键（用于关联数组），还是从 0 开始的新数字键（用于索引数组）。默认是分配新的键。
+
+语法
+
+    array_chunk(array,size,preserve_key)
+
+参数                           | 描述
+-------------------------------|--------------------------------------------------- 
+array                          | 必需。规定要使用的数组。
+size                           | 必需。规定每个新数组包含多少个元素。
+preserve\_key                  | 可选。可能的值： 
+                               | true - 保留原始数组中的键名。
+                               | false - 默认。每个结果数组使用从零开始的新数组索引。
+
+## array_combine() {#array_combine}
 
 通过合并两个数组来创建一个新数组。	5
 
 定义和用法
-array_combine() 函数通过合并两个数组来创建一个新数组，其中的一个数组是键名，另一个数组的值为键值。
-如果其中一个数组为空，或者两个数组的元素个数不同，则该函数返回 false。
-语法
-array_combine(array1,array2)
-参数	描述
-array1	必需。规定键名。
-array2	必需。规定值。
-提示和注释
-注释：两个参数必须有相同数目的元素。
 
-## array_count_values()
+`array_combine()` 函数通过合并两个数组来创建一个新数组，其中的一个数组是键名，另一个数组的值为键值。
+
+如果其中一个数组为空，或者两个数组的元素个数不同，则该函数返回 false。
+
+语法
+
+    array_combine(array1,array2)
+
+参数                 | 描述
+---------------------|--------------------
+array1               | 必需。规定键名。
+array2               | 必需。规定值。
+
+> 注释：两个参数必须有相同数目的元素。
+
+## array_count_values() {#array_count_value}
 
 用于统计数组中所有值出现的次数。	4
+
 定义和用法
+
 array_count_values() 函数用于统计数组中所有值出现的次数。
+
 本函数返回一个数组，其元素的键名是原数组的值，键值是该值在原数组中出现的次数。
+
 语法
-array_count_values(array)
-参数	描述
-array	必需。规定输入的数组。
+
+    array_count_values(array)
+
+参数    | 描述
+--------|--------------
+array   | 必需。规定输入的数组。
+
 例子
-<?php
-$a=array("Cat","Dog","Horse","Dog");
-print_r(array_count_values($a));
-?>
+
+    <?php
+    $a=array("Cat","Dog","Horse","Dog");
+    print_r(array_count_values($a));
+    ?>
+
 输出：
-Array ( [Cat] => 1 [Dog] => 2 [Horse] => 1 )
+
+    Array ( [Cat] => 1 [Dog] => 2 [Horse] => 1 )
 
 
-## array_diff()
+## array_diff() {#array_diff}
 
 返回两个数组的差集数组。	4
 
 定义和用法
-array_diff() 函数返回两个数组的差集数组。该数组包括了所有在被比较的数组中，但是不在任何其他参数数组中的键值。
-在返回的数组中，键名保持不变。
-语法
-array_diff(array1,array2,array3...)
-参数	描述
-array1	必需。与其他数组进行比较的第一个数组。
-array2	必需。与第一个数组进行比较的数组。
-array3	可选。与第一个数组进行比较的数组。
-提示和注释
-提示：可用一个或任意多个数组与第一个数组进行比较。
-注释：仅有值用于比较。
-例子
-<?php
-$a1=array(0=>"Cat",1=>"Dog",2=>"Horse");
-$a2=array(3=>"Horse",4=>"Dog",5=>"Fish");
-print_r(array_diff($a1,$a2));
-?>
-输出：
-Array ( [0] => Cat )
 
-## array_diff_assoc()
+array_diff() 函数返回两个数组的差集数组。该数组包括了所有在被比较的数组中，但是不在任何其他参数数组中的键值。
+
+在返回的数组中，键名保持不变。
+
+语法
+
+    array_diff(array1,array2,array3...)
+
+参数     | 描述
+---------|-----------------------------------------------
+array1   | 必需。与其他数组进行比较的第一个数组。
+array2   | 必需。与第一个数组进行比较的数组。
+array3   | 可选。与第一个数组进行比较的数组。
+
+> 提示：可用一个或任意多个数组与第一个数组进行比较。  
+注释：仅有值用于比较。
+
+例子
+
+    <?php
+    $a1=array(0=>"Cat",1=>"Dog",2=>"Horse");
+    $a2=array(3=>"Horse",4=>"Dog",5=>"Fish");
+    print_r(array_diff($a1,$a2));
+    ?>
+
+输出：
+
+    Array ( [0] => Cat )
+
+## array_diff_assoc() {#array_diff_assoc}
 
 比较键名和键值，并返回两个数组的差集数组。	4
+
 定义和用法
-array_diff_assoc() 函数返回两个数组的差集数组。该数组包括了所有在被比较的数组中，但是不在任何其他参数数组中的键和值。
-和 array_diff() 函数 不同，本函数要求键名和键值都进行比较。返回的数组中键名保持不变。
+
+`array_diff_assoc()` 函数返回两个数组的差集数组。该数组包括了所有在被比较的数组中，但是不在任何其他参数数组中的键和值。
+
+和 `array_diff()` 函数 不同，本函数要求键名和键值都进行比较。返回的数组中键名保持不变。
+
 语法
-array_diff_assoc(array1,array2,array3...)
-参数	描述
-array1	必需。与其他数组进行比较的第一个数组。
-array2	必需。与第一个数组进行比较的数组。
-array3	可选。与第一个数组进行比较的数组。可以有多个。
-提示和注释
-提示：可用一个或任意多个数组与第一个数组进行比较。
+
+    array_diff_assoc(array1,array2,array3...)
+
+参数   | 描述
+-------|---------------------------------------------
+array1 | 必需。与其他数组进行比较的第一个数组。
+array2 | 必需。与第一个数组进行比较的数组。
+array3 | 可选。与第一个数组进行比较的数组。可以有多个。
+
+> 提示：可用一个或任意多个数组与第一个数组进行比较。  
 注释：键和值都用于比较。
+
 例子
-<?php
-$a1=array(0=>"Cat",1=>"Dog";,2=>"Horse");
-$a2=array(0=>"Rat",1=>"Horse";,2=>"Dog");
-$a3=array(0=>"Horse",1=>"Dog",2=>"Cat");
-print_r(array_diff_assoc($a1,$a2,$a3));
-?>
+
+    <?php
+    $a1=array(0=>"Cat",1=>"Dog";,2=>"Horse");
+    $a2=array(0=>"Rat",1=>"Horse";,2=>"Dog");
+    $a3=array(0=>"Horse",1=>"Dog",2=>"Cat");
+    print_r(array_diff_assoc($a1,$a2,$a3));
+    ?>
+
 输出：
-Array ( [0] => Cat [2] => Horse )
+
+    Array ( [0] => Cat [2] => Horse )
 
 
-## array_diff_key()
+## array_diff_key() {#array_diff_key}
 
 比较键名，并返回两个数组的差集数组。	5
+
 定义和用法
-array_diff_key() 函数返回一个数组，该数组包括了所有在被比较的数组中，但是不在任何其他参数数组中的键。
+
+`array_diff_key()` 函数返回一个数组，该数组包括了所有在被比较的数组中，但是不在任何其他参数数组中的键。
+
 语法
-array_diff_key(array1,array2,array3...)
-参数	描述
-array1	必需。与其他数组进行比较的第一个数组。
-array2	必需。与第一个数组进行比较的数组。
-array3	可选。与第一个数组进行比较的数组。可以有多个。
-提示和注释
-提示：可用一个或任意多个数组与第一个数组进行比较。
+
+    array_diff_key(array1,array2,array3...)
+
+参数   | 描述
+-------|----------------------------------------------
+array1 | 必需。与其他数组进行比较的第一个数组。
+array2 | 必需。与第一个数组进行比较的数组。
+array3 | 可选。与第一个数组进行比较的数组。可以有多个。
+
+> 提示：可用一个或任意多个数组与第一个数组进行比较。  
 注释：仅仅键名用于比较。
+
 例子
-<?php
-$a1=array(0=>"Cat",1=>"Dog",2=>"Horse");
-$a2=array(2=>"Bird",3=>"Rat",4=>"Fish");
-$a3=array(5=>"Horse",6=>"Dog",7=>"Bird");
-print_r(array_diff_key($a1,$a2,$a3));
-?>
+
+    <?php
+    $a1=array(0=>"Cat",1=>"Dog",2=>"Horse");
+    $a2=array(2=>"Bird",3=>"Rat",4=>"Fish");
+    $a3=array(5=>"Horse",6=>"Dog",7=>"Bird");
+    print_r(array_diff_key($a1,$a2,$a3));
+    ?>
+
 输出：
-Array ( [0] => Cat [1] => Dog )
-## array_diff_uassoc()
+
+    Array ( [0] => Cat [1] => Dog )
+
+## array_diff_uassoc() {#array_diff_uassoc}
 
 通过用户提供的回调函数做索引检查来计算数组的差集。	5
+
 定义和用法
-array_diff_uassoc() 函数使用用户自定义的回调函数 (callback) 做索引检查来计算两个或多个数组的差集。返回一个数组，该数组包括了在 array1 中但是不在任何其他参数数组中的值。
-注意，与 array_diff() 函数 不同的是，键名也要进行比较。
-参数 function 是用户自定义的用来比较两个数组的函数，该函数必须带有两个参数 - 即两个要进行对比的键名。因此与函数 array_diff_assoc() 的行为正好相反，后者是用内部函数进行比较的。
+
+`array_diff_uassoc()` 函数使用用户自定义的回调函数 (callback) 做索引检查来计算两个或多个数组的差集。返回一个数组，该数组包括了在 array1 中但是不在任何其他参数数组中的值。
+
+> 注意，与 `array_diff()` 函数 不同的是，键名也要进行比较。
+
+参数 function 是用户自定义的用来比较两个数组的函数，该函数必须带有两个参数 - 即两个要进行对比的键名。因此与函数 array_diff_assoc() 的行为__正好相反__，后者是用内部函数进行比较的。
+
 返回的数组中键名保持不变。
+
 语法
-array_diff_uassoc(array1,array2,array3...,function)
-参数	描述
-array1	必需。与其他数组进行比较的第一个数组。
-array2	必需。与第一个数组进行比较的数组。
-array3	可选。与第一个数组进行比较的数组。可以有多个。
-function	必需。用户自定义函数的名称。
+
+    array_diff_uassoc(array1,array2,array3...,function)
+
+参数       | 描述
+-----------|-----------------
+array1   | 必需。与其他数组进行比较的第一个数组。
+array2   | 必需。与第一个数组进行比较的数组。
+array3   | 可选。与第一个数组进行比较的数组。可以有多个。
+function | 必需。用户自定义函数的名称。
+
 例子 1
-<?php
-function myfunction($v1,$v2) 
-{
-if ($v1===$v2)
-	{
-	return 0;
-	}
-if ($v1>$v2)
-	{
-	return 1;
-	}
-else
-	{
-	return -1;
-	}
-}
-$a1=array(0=>"Dog",1=>"Cat",2=>"Horse");
-$a2=array(3=>"Dog",1=>"Cat",5=>"Horse");
-print_r(array_diff_uassoc($a1,$a2,"myfunction"));
-?>
+
+    <?php
+    function myfunction($v1,$v2) 
+    {
+    if ($v1===$v2)
+        {
+        return 0;
+        }
+    if ($v1>$v2)
+        {
+        return 1;
+        }
+    else
+        {
+        return -1;
+        }
+    }
+    $a1=array(0=>"Dog",1=>"Cat",2=>"Horse");
+    $a2=array(3=>"Dog",1=>"Cat",5=>"Horse");
+    print_r(array_diff_uassoc($a1,$a2,"myfunction"));
+    ?>
+
 输出：
-Array ( [0] => Dog [2] => Horse )
+
+    Array ( [0] => Dog [2] => Horse )
+
 例子 2
 如何为该函数分配多个数组：
-<?php
-function myfunction($v1,$v2) 
-{
-if ($v1===$v2)
-	{
-	return 0;
-	}
-if ($v1>$v2)
-	{
-	return 1;
-	}
-else
-	{
-	return -1;
-	}
-}
-$a1=array(0=>"Dog",1=>"Cat",2=>"Horse");
-$a2=array(3=>"Dog",1=>"Cat",5=>"Horse");
-$a3=array(6=>"Bird",0=>"Dog",5=>"Horse");
-print_r(array_diff_uassoc($a1,$a2,$a3,"myfunction"));
-?>
+
+    <?php
+    function myfunction($v1,$v2) 
+    {
+    if ($v1===$v2)
+        {
+        return 0;
+        }
+    if ($v1>$v2)
+        {
+        return 1;
+        }
+    else
+        {
+        return -1;
+        }
+    }
+    $a1=array(0=>"Dog",1=>"Cat",2=>"Horse");
+    $a2=array(3=>"Dog",1=>"Cat",5=>"Horse");
+    $a3=array(6=>"Bird",0=>"Dog",5=>"Horse");
+    print_r(array_diff_uassoc($a1,$a2,$a3,"myfunction"));
+    ?>
+
 输出：
-Array ( [2] => Horse )
+
+    Array ( [2] => Horse )
+
 ## array_diff_ukey()
 
 用回调函数对键名比较计算数组的差集。	5
