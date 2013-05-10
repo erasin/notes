@@ -1,9 +1,9 @@
 # 同步方案
 
-通道： 使用ssh协议通信,利用ssh的 authorized_keys 特性，使用ssh-keygen生成不带有密码的密钥。
+通道： 使用ssh协议通信,利用ssh的 `authorized_keys` 特性，使用ssh-keygen生成不带有密码的密钥。
 执行： crond来设定执行周期
 
-> 注： 下面  local 指本地，server指同步的服务器，pwd之当前目录路径
+> 注： 下面  local 指本地，server指同步的服务器，pwd 指当前目录路径
 
 ## 静态文件同步
 
@@ -13,34 +13,28 @@
 
 > 不使用同步删除时，去除  `--delete` 即可。
 
-周期性执行，稳定性待定。
-
 ## 站点中心同步
 
-使用git自动管理中心站点代码，及时检测站点文件变动。
+使用git自动管理中心站点代码，检测站点文件变动，防止客户端的文件篡改以及添加删除等。
 
 ### A-server:中心端
 
-建立git库
+在站点根目录中添加过滤列表文件 `.gitignore` 
 
-	$ vim .gitignore # 添加过滤列表
+    *.log
+    *.html
+    upload/
+    log/
+
+则在检测变动的时候，可以过滤 所有 log，html后缀和 upload,log文件夹。
+
+如果没有库索引则建立git库
+
 	$ git init 
 	$ git add .
 	$ git commit -a -m "site source init"
 
-每5m更新提交数据。
-
-	#!/bin/bash
-	# file : /pwd/shell/gitcommit.sh
-	de=`date +%Y%m%d%H%M%S`
-	cd /server/pwd
-	git add .
-	git commit -a -m "$de"
-
-添加执行
-
-	$ crontab -e
-	*/5 * * * * /pwd/shell/gitcommit.sh
+> **建议** 建立分支 `develop` 开发分支，本地运行成功后推送到服务器，然后合并到`master`供同步端拉取
 
 ### B-client: 同步端 
 
@@ -50,20 +44,82 @@
 
 每5m 更新下拉 master 分支 文件数据。
 
-	#!/bin/bash
-	# file : /pwd/shell/gitpull.sh
-	cd /local/pwd
-	git pull
+流程：
+
+![tamper](/mdnotes/upload/server/git-tamper.png)
+
+
+脚本功能实现
+
+1. 检测文件变动
+2. 无有变动则拉取服务器A的变动内容
+3. 有变动的时候则将变动文件提交到临时git分支中，并删除。 之后拉取服务器A的变动内容
+4. 同时将被篡改的内容部分写入到日志文件中去。
+
+- - - - - - - 
+
+    #!/bin/bash
+    # file : /pwd/shell/gitpull.sh
+
+    # 修改地址
+    cd `pwd`
+    # 修改日志地址
+    gitlog='/pwd/git.log'
+
+    today=`date +%Y%m%d`
+    gitstatus=`git status`
+    echo '检测库状态'
+    if [[ $gitstatus == *"working directory clean"* ]];then 
+        echo '无任何改变'
+        echo '拉取'
+        git pull
+    else 
+        echo '有文件变动'
+        echo '将改变提交到分支 '$today
+        git checkout -b $today 
+
+        echo '写入日志'
+        touch $gitlog
+        echo " " >> $gitlog 
+        date '+%Y-%m-%d %H:%M' >> $gitlog
+        echo "==========================================" >> $gitlog
+        git diff >> $gitlog
+        echo "==========================================" >> $gitlog
+        echo " " >> $gitlog 
+
+        git add .
+        git commit -a -m 'its change'
+        echo '回到 master'
+        git checkout master
+        echo '删除分支'
+        git branch -D $today
+        echo '拉取'
+        git pull
+    fi
 
 添加执行
 
 	$ crontab -e
 	*/5 * * * * /pwd/shell/gitpull.sh
 
-以上执行效果，只有文件被变动的时候才会发生。
 
-好处是，可以检测到具体某个文件中的某行某字符的变动。
+> 会产生5m的时间差。
 
-> 另外，时间虽然都是每5m，但是根据时间同步，会产生5m的时间差。
+## mysql 文件备份
+
+> 非均衡负载，可查阅[mysql 主从同步](mysql-master-slave.md)
+
+    #!/bin/bash
+    # filename: mysqlbak.sh
+    # 文件存储位置
+    mysqlfile=`/home/boc/bak/data`
+    n=` date +%Y%m%d ` 
+    mysqldump -uroot -p123456 cicms > ${mysqlfile}.${n}.sql.bak
+    # -h host
+
+添加每 30m 执行 
+
+    $ crontab -e
+    */30 * * * * /pwd/shell/mysqlbak.sh
 
 
