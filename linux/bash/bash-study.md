@@ -64,46 +64,69 @@ Shell命令和流程控制
 　　tail file : 打印文本文件末尾几行 
 　　sed: Sed是一个基本的查找替换程序。可以从标准输入（比如命令管道）读入文本，并将结果输出到标准输出（屏幕）。该命令采用正则表达式（见参考）进行搜索。 不要和shell中的通配符相混淆。比如：将linuxfocus 替换为 LinuxFocus ：cat text.file | sed 's/linuxfocus/LinuxFocus/' > newtext.file 
 　　awk: awk 用来从文本文件中提取字段。缺省地，字段分割符是空格，可以使用-F指定其他分割符。cat file.txt | awk -F, '{print $1 "," $3 }'这里我们使用，作为字段分割符，同时打印第一个和第三个字段。如果该文件内容如下： Adam Bor, 34, IndiaKerry Miller, 22, USA命令输出结果为：Adam Bor, IndiaKerry Miller, USA 
+
 2) 概念: 管道, 重定向和 backtick 
-　　这些不是系统命令，但是他们真的很重要。 
-　　管道 (|) 将一个命令的输出作为另外一个命令的输入。 
-grep "hello" file.txt | wc -l 
-　　在file.txt中搜索包含有”hello”的行并计算其行数。 
-　　在这里grep命令的输出作为wc命令的输入。当然您可以使用多个命令。 
-　　重定向：将命令的结果输出到文件，而不是标准输出（屏幕）。 
-　　> 写入文件并覆盖旧文件 
-　　>> 加到文件的尾部，保留旧文件内容。 
+
+这些不是系统命令，但是他们真的很重要。 
+
+管道 (|) 将一个命令的输出作为另外一个命令的输入。 
+
+	grep "hello" file.txt | wc -l 
+
+在file.txt中搜索包含有”hello”的行并计算其行数。 
+
+在这里grep命令的输出作为wc命令的输入。当然您可以使用多个命令。 
+
+重定向：将命令的结果输出到文件，而不是标准输出（屏幕）。 
+
+	> 写入文件并覆盖旧文件 
+	>> 加到文件的尾部，保留旧文件内容。 
+
 反短斜线 
-　使用反短斜线可以将一个命令的输出作为另外一个命令的一个命令行参数。 
-　　命令： 
-find . -mtime -1 -type f -print 
-　　用来查找过去24小时（-mtime –2则表示过去48小时）内修改过的文件。如果您想将所有查找到的文件打一个包，则可以使用以下脚本： 
-#!/bin/sh 
-# The ticks are backticks (`) not normal quotes ('): 
-tar -zcvf lastmod.tar.gz `find . -mtime -1 -type f -print` 
-　　3) 流程控制 
-　　"if" 表达式 如果条件为真则执行then后面的部分： 
-if ....; then 
-　 .... 
-elif ....; then 
-　 .... 
-else 
-　 .... 
-fi 
-　　大多数情况下，可以使用测试命令来对条件进行测试。比如可以比较字符串、判断文件是否存在及是否可读等等… 
-　　通常用" [ ] "来表示条件测试。注意这里的空格很重要。要确保方括号的空格。 
-[ -f "somefile" ] ：判断是否是一个文件 
-[ -x "/bin/ls" ] ：判断/bin/ls是否存在并有可执行权限 
-[ -n "$var" ] ：判断$var变量是否有值 
-[ "$a" = "$b" ] ：判断$a和$b是否相等 
-　　执行man test可以查看所有测试表达式可以比较和判断的类型。 
-　　直接执行以下脚本： 
-#!/bin/sh 
-if [ "$SHELL" = "/bin/bash" ]; then 
-　echo "your login shell is the bash (bourne again shell)" 
-else 
-　echo "your login shell is not bash but $SHELL" 
-fi 
+
+使用反短斜线可以将一个命令的输出作为另外一个命令的一个命令行参数。 
+
+命令： 
+
+	find . -mtime -1 -type f -print 
+
+用来查找过去24小时（-mtime –2则表示过去48小时）内修改过的文件。如果您想将所有查找到的文件打一个包，则可以使用以下脚本： 
+
+	#!/bin/sh 
+	# The ticks are backticks (`) not normal quotes ('): 
+	tar -zcvf lastmod.tar.gz `find . -mtime -1 -type f -print` 
+
+3) 流程控制 
+
+"if" 表达式 如果条件为真则执行then后面的部分： 
+
+	if ....; then 
+	　 .... 
+	elif ....; then 
+	　 .... 
+	else 
+	　 .... 
+	fi 
+
+大多数情况下，可以使用测试命令来对条件进行测试。比如可以比较字符串、判断文件是否存在及是否可读等等… 
+
+通常用" [ ] "来表示条件测试。注意这里的空格很重要。要确保方括号的空格。 
+
+	[ -f "somefile" ] ：判断是否是一个文件 
+	[ -x "/bin/ls" ] ：判断/bin/ls是否存在并有可执行权限 
+	[ -n "$var" ] ：判断$var变量是否有值 
+	[ "$a" = "$b" ] ：判断$a和$b是否相等 
+
+执行man test可以查看所有测试表达式可以比较和判断的类型。 
+
+直接执行以下脚本： 
+
+	#!/bin/sh 
+	if [ "$SHELL" = "/bin/bash" ]; then 
+	　echo "your login shell is the bash (bourne again shell)" 
+	else 
+	　echo "your login shell is not bash but $SHELL" 
+	fi 
 　　变量$SHELL包含了登录shell的名称，我们和/bin/bash进行了比较。 
 快捷操作符 
 　　熟悉C语言的朋友可能会很喜欢下面的表达式： 

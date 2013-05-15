@@ -26,11 +26,14 @@ http://philsturgeon.co.uk/code/codeigniter-curl
 
 ## Examples
 
+加载
+
 	$this->load->library('curl'); 
 
 ### Simple calls
 
-These do it all in one line of code to make life easy. They return the body of the page, or FALSE on fail.
+使用简单模式来获得页面body中的内容，失败则返回false。
+> These do it all in one line of code to make life easy. They return the body of the page, or FALSE on fail.
 
 	// Simple call to remote URL
 	echo $this->curl->simple_get('http://example.com/');
