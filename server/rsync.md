@@ -46,7 +46,7 @@
 
 流程：
 
-![tamper](/mdnotes/upload/server/git-tamper.png)
+![tamper](/upload/server/git-tamper.png)
 
 
 脚本功能实现
@@ -109,13 +109,40 @@
 
 > 非均衡负载，可查阅[mysql 主从同步](mysql-master-slave.md)
 
-    #!/bin/bash
-    # filename: mysqlbak.sh
-    # 文件存储位置
-    mysqlfile=`/home/boc/bak/data`
-    n=` date +%Y%m%d ` 
-    mysqldump -uroot -p123456 cicms > ${mysqlfile}.${n}.sql.bak
-    # -h host
+	#!/bin/bash
+	# filename: bakmysql.sh
+
+	# set path 文件存储位置
+
+	bakpath='/pwd/backup/'
+	logfile='/pwd/backup/bak.log'
+
+	themonth=${bakpath}`date +%m`'/'
+	theday=${themonth}`date +%d`'/' 
+	thetime=${theday}`date +%Y%m%d%H%M`'.dbname.sql.bak' 
+
+	echo '' >> $logfile
+	echo `date +%Y/%m/%d\ %H:%M%S` >> $logfile
+
+	if [[ -d $themonth ]]; then
+		echo $themonth 'is exist;' >> $logfile
+	else
+		echo 'makedir ' $theday >> $logfile
+		mkdir -p $theday
+	fi
+
+	if [[ -d $theday ]]; then
+		echo $theday 'is exist;' >> $logfile
+	else
+		echo 'makedir ' $theday >> $logfile
+		mkdir $theday
+	fi
+
+	echo 'bakup mysqldatabase dbname - '${thetime} >> $logfile
+	mysqldump -uroot -p123456 dbname > $thtime 
+
+	# -h host
+
 
 添加每 30m 执行 
 
