@@ -105,3 +105,7 @@ OPT 可选项
 
 	hydra -L user.txt -p secret 10.36.16.18 imap PLAIN
 	hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN
+
+## other
+
+[字典](http://big2.gd2.xdowns.com:8082/p/wpa2pojiezidian.rar)
