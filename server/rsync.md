@@ -117,12 +117,24 @@
 	bakpath='/pwd/backup/'
 	logfile='/pwd/backup/bak.log'
 
-	themonth=${bakpath}`date +%m`'/'
+	themonth=${bakpath}`date +%y%m`'/'
 	theday=${themonth}`date +%d`'/' 
 	thetime=${theday}`date +%Y%m%d%H%M`'.dbname.sql.bak' 
 
+	declare -i month=`date +%y%m`
+	month=$month-2
+
 	echo '' >> $logfile
-	echo `date +%Y/%m/%d\ %H:%M%S` >> $logfile
+	echo `date +%D\ %T` >> $logfile
+
+	for i in `ls -F $bakpath`; do
+		if [[ -d $bakpath$i ]]; then
+			if [[ $i < $month ]]; then
+				echo 'delete out 2 month '$i >> $logfile
+				rm -rf ${bakpath}$i
+			fi
+		fi
+	done
 
 	if [[ -d $themonth ]]; then
 		echo $themonth 'is exist;' >> $logfile
