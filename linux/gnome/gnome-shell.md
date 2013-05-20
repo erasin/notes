@@ -1,4 +1,7 @@
-# gnome-shell window 最大化隐藏标题栏
+# gnome-shell
+
+
+## gnome-shell window 最大化隐藏标题栏
 > gnome-shell window max hidden title bar
 
 修改： `/usr/share/themes/Adwaita/metacity-1/metacity-theme-3.xml`

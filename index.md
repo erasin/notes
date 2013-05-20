@@ -8,6 +8,7 @@
 	* [golang web应用的开发](books/go-web-bulid 'Bulid web application with golang')
 	* [Getting Real](books/getting-real)
 	* [PyQt4](pythonpyqt4 'pyqt4 中文教程')
+    * [git 魔法](books/gitmagic)
 * [Markdown 中文教程](markdown-basics 'markdown中文文档')
 * [Markdown 扩展文档](markdown-extra 'markdown中文文档')
 * [ascii](wikiascii)

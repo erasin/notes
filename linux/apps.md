@@ -1,5 +1,6 @@
 # CLI
 
+
 ## dict 辞典
 
 w3m                # 浏览器
@@ -11,6 +12,7 @@ screen
 tmux
 ydcv               # 友道web cli
 ranger             # 文件浏览器 band vim key
+
 
 
 cryptkeeper        # encfs 托盘工具
@@ -68,4 +70,17 @@ iftop              # 网卡路由监控
 
 palimpsest         # gnome disk
 uprecords          # uptimed 登录时间记录 uptime
+
+# GUI
+
+Parcellite          # 剪贴板图标
+mypint              # 绘图工具
+
+stardict            # 字典
+
+gvim                # vim gui
+
+
+
+
 
