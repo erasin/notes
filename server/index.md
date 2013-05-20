@@ -4,4 +4,5 @@
 * [站点和资源文件的同步](rsync)
 * [站点压力测试AB版本](stress-web-test-ab)
 * [负载均衡](nlb.md)
-
+* [DNS 双线](dns-doublet.md)
+* [apache htaccess](htaccess.md)
