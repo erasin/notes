@@ -81,6 +81,11 @@ stardict            # 字典
 gvim                # vim gui
 
 
+## 抓包
 
+tcpdump
+ethereal
+
+http://fanqiang.chinaunix.net/a5/b6/20010911/1500001274.html
 
 
