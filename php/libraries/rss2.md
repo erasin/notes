@@ -131,6 +131,9 @@ And finally, output the feed:
 	echo $this->rss2->render();
 	exit();
 
+
+<https://zh.wikipedia.org/wiki/Atom_(%E6%A8%99%E6%BA%96)>
+
 ### 实例
 
 ~~~{.php}
