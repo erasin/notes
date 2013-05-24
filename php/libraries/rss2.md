@@ -156,15 +156,16 @@ And finally, output the feed:
 		$channel->set_attribute('generator','rss 2.0');
 
 		# list item
-		$item = $channel->new_item();
 
 		foreach ($data as $v){
+			$item = $channel->new_item();
 			$item->set_title($v['title']);
 			$item->set_link(ADMINER_URL."/".$v['id']);
 			$item->set_guid($v['id']);
 			$item->set_description($v['text']);
 			$item->set_author("author.name@example.com (Author Name)");
 			$channel->add_item($item);
+			unset($item);
 		}
 
 		$this->rss2->pack($channel);
