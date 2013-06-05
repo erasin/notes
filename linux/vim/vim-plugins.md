@@ -1,6 +1,6 @@
+# plugins
 
-
-#文件查找跳转
+##文件查找跳转
 [ctrlp][ctrlp] 使用 ctrlP 多级别查找，功能能比较丰富
 详细介绍：<http://kien.github.com/ctrlp.vim/>
 

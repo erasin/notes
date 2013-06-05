@@ -1,6 +1,6 @@
-# RSS
+# Feed 订阅
 
-
+采用 Rss 2.0 协议
 
 ## 规范
 
@@ -27,155 +27,131 @@
 　　</rss>
 ~~~
 
-# RSS Library for CodeIgniter
-
-***
-
-## About
-
-I needed to make an RSS feed on one of my projects but couldn't find a solution that I really liked so I built this.  Hopefully someone else can find it handy too.
-
-## Installation
-
-Copy **libraries/rss2.php** to libraries/ in your application folder.
-
-## Initialization
-
-Load the library in whatever controllers you want to use it using:
-
-`$this->load->library('rss2');`
-
-## Usage
-
-RSS feeds are made up of *channels* and *items*.  In this library, each of those are objects and each has their own properties.
-
-### Channels
-
-Create a new channel with:
-
-`$channel = $this->rss2->new_channel();`
-
-You can set properties of the channel using functions like:
-
-	$channel->atom_link(current_url());
-	$channel->set_title("Channel Title");
-	$channel->set_link(current_url());
-	$channel->set_description("Channel Description");
-
-You can set any attribute of the channel using:
-
-`$channel->set_attribute($key, $value, $additional_attributes=false);`
-
-The *$additional_attributes* param allows you to set an additional string within the rendered XML tag.  For instance, the *set_attribute* function would roughly produce the following:
-
-`<key $additional_attributes>value</key>`
-
-### Items
-
-We get a new item by calling
-
-`$item = $channel->new_item();`
-
-You can set item properties by using functions such as
-
-	$item->set_title("Item Title");
-	$item->set_link("http://www.example.com/id");
-	$item->set_guid("item_guid");
-	$item->set_description("Item Description");
-	$item->set_author("author.name@example.com (Author Name)");
-
-You can also set any attribute of the item using:
-
-`$item->set_attribute($key, $value, $additional_attributes=false);`
-
-This will be rendered similarly to the equivilent channel function.
-
-We add the item to the channel using
-
-`$channel->add_item($item);`
-
-### Channel Images
-
-You can add images to an entire channel as well.  
-
-**Note:** To generate valid feeds, you should define your channel image before your items.
-
-To start, do
-
-`$image = $channel->new_image();`
-
-You can set various properties of the imag using functions such as
-
-	$image->set_url("http://path-to-image");
-	$image->set_title("Image Title");
-	$image->set_link("http://www.example.com");
-	$image->set_width("100");
-	$image->set_width("100");
-
-You add the image to the channel in the same way that you added items.
-
-`$channel->add_item($image);`
-
-### Rendering the Feed
-
-After you've created your channel, channel image, and items you pack them pack into the rss2 object.
-
-`$this->rss2->pack($channel);`
-
-You can specify the response headers using the following
-
-`header($this->rss2->headers());`
-
-And finally, output the feed:
-
-	echo $this->rss2->render();
-	exit();
 
 
-<https://zh.wikipedia.org/wiki/Atom_(%E6%A8%99%E6%BA%96)>
+## 文件结构
 
-### 实例
+	libraries/Rss2.php          // 输出处理类
+	static/css/feed.css         // 样式
+	App/controllers/feed.php    // 控制器
+	App/views/feed_xsl.php      // xsl 文件
+
+> 其中 `feed_xsl.php` 可以分离为独立的 xsl 文件，注意要和 feed 地址保持同一域名。
+
+## Rss2.php
+
+	$this->load->library('Rss2');
+
+### set_xsl
+
+设定xsl模板地址
+
+	set_xsl($xsl);
+
+### set_cannel
+
+设定订阅信息
+
+	set_channel($title,$link,$description,$copyright,$pubDate,$lastBulidDate,$language='zh-cn')
+
+参数为：
+
+* 标题
+* feed URL
+* 简介
+* CopyRight 
+* 更新日期
+* 最后生成日期
+* 语言 (默认 'zh-cn')
+
+
+### item_add
+
+添加信息
+
+	item_add($title,$link,$pubDate,$author,$description)
+
+参数为
+
+* 标题
+* 文章链接
+* 跟新日期时间
+* 作者
+* 内容简介
+
+### headers
+
+	headers()
+
+输出文件头
+
+	Content-Type: application/xml
+
+### render
+
+生成并返回xml文件字符串流。
+
+	render();
+
+### timestamp2pubDate
+
+将时间戳转化为	`pubDate` 格式。
+
+	timestamp2pubDate($timestamp)
+
+## XSL 
+
+如果使用模板文件 ,则输出时
+
+	header('Content-Type: application/xslt');
+
+注意修改 `views/feed_xsl.php` 中的 css 路径
+
+## 实例
 
 ~~~{.php}
-	public function index()
+	/**
+	 * Class Feed extends CI_Controller 
+	 * @author 
+	 */
+	class Feed extends CI_Controller
 	{
-		$this->load->model('demo_model','demo');
-		$data = $this->demo->getlimit(10);
+		public function index()
+		{
+			$this->load->library('Rss2');
+			$this->rss2->set_xsl(site_url('demo/xsl'));
+			$this->rss2->set_channel(
+				'信息测试',               // title
+				current_url(),            // url
+				'简介',                   // description
+				'所属权',                 // copyright
+				date('D, d M Y H:i:s O'), // pubDate
+				date('D, d M Y H:i:s O'), // lastBulidDate
+				'zh-cn'                   // 可忽略
+			);
 
-		$this->load->library('rss2');
-		# 头部
-		$channel = $this->rss2->new_channel();
-		$channel->atom_link(current_url());
-		$channel->set_title("Channel Title");
-		$channel->set_link(current_url());
-		$channel->set_description("Channel Description");
-		$channel->set_attribute('copyright','归属');
-		$channel->set_attribute('language','zh-cn');
-		$channel->set_attribute('pubDate',date('Y-m-d'));
-		$channel->set_attribute('lastBuildDate',date('Y-m-d H:i:s'));
-		$channel->set_attribute('generator','rss 2.0');
+			$this->load->model('demo_model','demo');
+			$data = $this->demo->getlimit(10);
 
-		# list item
-
-		foreach ($data as $v){
-			$item = $channel->new_item();
-			$item->set_title($v['title']);
-			$item->set_link(ADMINER_URL."/".$v['id']);
-			$item->set_guid($v['id']);
-			$item->set_description($v['text']);
-			$item->set_author("author.name@example.com (Author Name)");
-			$channel->add_item($item);
-			unset($item);
+			foreach ($data as $v){
+				$this->rss2->item_add(
+					$v['title'],              // title
+					ADMINER_URL.$v['id'],     // link
+					date('D, d M Y H:i:s O'), // pubDate
+					'adminer',                // author
+					$v['text']             // description
+				);
+			}
+			header( $this->rss2->headers());
+			echo $this->rss2->render();
 		}
 
-		$this->rss2->pack($channel);
-		header($this->rss2->headers());
-		echo $this->rss2->render();
-		exit();
-
-		#http://www.google.com/intl/zh-cn/webmasters/add.html
-	}
+		public function xsl()
+		{
+			header('Content-Type: application/xslt');
+			$data['feed_url'] = site_url('demo/feed');
+			$this->load->view('feed_xsl',$data);
+		}
 ~~~
-
 
 

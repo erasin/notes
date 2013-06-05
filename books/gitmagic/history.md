@@ -98,41 +98,39 @@ Git分布式本性使得历史可以轻易编辑。但你若篡改过去，需�
 
 作为一个例子，粘贴以下所列到临时文件，比如/tmp/history：
 
-----------------------------------
-commit refs/heads/master
-committer Alice <alice@example.com> Thu, 01 Jan 1970 00:00:00 +0000
-data <<EOT
-Initial commit.
-EOT
+    commit refs/heads/master
+    committer Alice <alice@example.com> Thu, 01 Jan 1970 00:00:00 +0000
+    data <<EOT
+    Initial commit.
+    EOT
 
-M 100644 inline hello.c
-data <<EOT
-#include <stdio.h>
+    M 100644 inline hello.c
+    data <<EOT
+    #include <stdio.h>
 
-int main() {
-  printf("Hello, world!\n");
-  return 0;
-}
-EOT
+    int main() {
+      printf("Hello, world!\n");
+      return 0;
+    }
+    EOT
 
 
-commit refs/heads/master
-committer Bob <bob@example.com> Tue, 14 Mar 2000 01:59:26 -0800
-data <<EOT
-Replace printf() with write().
-EOT
+    commit refs/heads/master
+    committer Bob <bob@example.com> Tue, 14 Mar 2000 01:59:26 -0800
+    data <<EOT
+    Replace printf() with write().
+    EOT
 
-M 100644 inline hello.c
-data <<EOT
-#include <unistd.h>
+    M 100644 inline hello.c
+    data <<EOT
+    #include <unistd.h>
 
-int main() {
-  write(1, "Hello, world!\n", 14);
-  return 0;
-}
-EOT
+    int main() {
+      write(1, "Hello, world!\n", 14);
+      return 0;
+    }
+    EOT
 
-----------------------------------
 
 之后从这个临时文件创建一个Git仓库，键入：
 
