@@ -92,7 +92,11 @@
 
 你可以选择只恢复特定文件和目录，通过将其加在命令之后：
 
- $ git checkout 82f5 some.file another.file
+	$ git checkout 82f5 some.file another.file
+
+如果是回复当前的某个文件,则
+
+	$ git checkout -- some.file
 
 小心，这种形式的 *checkout* 会不声不响地覆盖文件。为阻止意外发生，在运行任何
 checkout命令之前做提交，尤其在初学Git的时候。通常，任何时候你觉得对运行某个命
