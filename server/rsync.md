@@ -46,7 +46,7 @@
 
 流程：
 
-![tamper](/upload/server/git-tamper.png)
+![tamper](imgs/git-tamper.png)
 
 
 脚本功能实现

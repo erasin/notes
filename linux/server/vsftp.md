@@ -196,7 +196,7 @@ GUN/Linux Debian / ubuntu 使用牛力安装
 给予改用户的文件组权限,以`http:http`为例
 
 	chown -R http:http /pwd/dir
-	chown -R 775 /pwd/dir
+	chmod -R 775 /pwd/dir
 
 文件权限为 `664` .
 
