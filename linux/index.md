@@ -2,7 +2,7 @@
 **title:** linux bash脚本命令，vim，树莓派
 **tags:** linux,bash,shell,vim,raspberry,树莓派
 
-[linux applications](app.md)
+[linux applications](apps.md)
 ## [bash bash](bash.md)
 * [shell base](bash/shell-base.md)
 * [cut](bash/cut.md)

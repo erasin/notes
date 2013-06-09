@@ -11,8 +11,7 @@ ncmpc              # mpc
 screen
 tmux
 ydcv               # 友道web cli
-ranger             # 文件浏览器 band vim key
-
+ranger             # 文件浏览器 band vim key 
 
 
 cryptkeeper        # encfs 托盘工具
@@ -67,6 +66,7 @@ ncdu               # 磁盘分析
 xdiskusage         # 磁盘分析 gui
 nload              # 带宽监控
 iftop              # 网卡路由监控
+glances            # 服务器监控 可输出
 
 palimpsest         # gnome disk
 uprecords          # uptimed 登录时间记录 uptime
