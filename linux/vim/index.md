@@ -1,4 +1,4 @@
-## VIM 专题 
+# VIM 专题 
 **title:** vim专题,配置以及资料  
 **tags:** vim,linux,编辑器  
 

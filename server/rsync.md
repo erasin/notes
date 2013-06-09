@@ -46,7 +46,7 @@
 
 流程：
 
-![tamper](/upload/server/git-tamper.png)
+![tamper](imgs/git-tamper.png)
 
 
 脚本功能实现
@@ -72,7 +72,7 @@
     if [[ $gitstatus == *"working directory clean"* ]];then 
         echo '无任何改变'
         echo '拉取'
-        git pull
+        git pull >> $gitlog
     else 
         echo '有文件变动'
         echo '将改变提交到分支 '$today
@@ -94,7 +94,7 @@
         echo '删除分支'
         git branch -D $today
         echo '拉取'
-        git pull
+        git pull >> $gitlog
     fi
 
 添加执行
