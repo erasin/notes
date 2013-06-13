@@ -23,40 +23,30 @@ Raspbian 是 Debian的派生 ，所以默认的 user 为 www-data,这里的配�
 
 例子使用了 `path_info`
 
-    location ~ \.php/?.*$ {
-        root           /var/www
-        #fastcgi_pass  127.0.0.1:9000;
-        fastcgi_pass   unix:/var/run/php5-fpm.sock;
-        fastcgi_index  index.php;
-        set $path_info "";
-        set $real_script_name $fastcgi_script_name;
-        if ($fastcgi_script_name ~ "^(.+?\.php)(/.+)$") {
-            set $real_script_name $1;
-            set $path_info $2;
-        }
-        fastcgi_param  SCRIPT_FILENAME /home/http/$fastcgi_script_name;
-        fastcgi_param  SCRIPT_NAME $real_script_name;
-        fastcgi_param  PATH_INFO $path_info;
-        include        fastcgi_params;
-    }
+	location ~ ^.+\.php{
+		root           /var/www
+		#fastcgi_pass  127.0.0.1:9000;
+		fastcgi_pass   unix:/var/run/php5-fpm.sock;
+		fastcgi_index  index.php;
+		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+		include        fastcgi_params;
+	}
 
 其中的 `root /var/www;` 这里一定要使用绝对的路径，否则在访问php文件的时候有可能出现文件未找到错误(File not found)。
 
 ### fast-cgi php
 
-    location ~ \.php/?.*$
+	location ~ ^.+\.php{
     {
         fastcgi_pass   127.0.0.1:9000;
-        set $path_info "";
-        set $real_script_name $fastcgi_script_name;
-        if ($fastcgi_script_name ~ "^(.+?\.php)(/.+)$") {
-            set $real_script_name $1;
-            set $path_info $2;
-        }
-        fastcgi_param  SCRIPT_FILENAME /home/http/$fastcgi_script_name;
-        fastcgi_param SCRIPT_NAME $real_script_name;
-        fastcgi_param PATH_INFO $path_info;
-        fastcgi_index  index.php;
+		fastcgi_index  index.php;
+		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
         include        fastcgi_params;
     }
 
