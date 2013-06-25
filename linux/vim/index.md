@@ -4,6 +4,7 @@
 
 
 * [vim](vim.md)
+* [vimIDE](vimide.md)
 * [vimrc 较为详尽的vim配置](vimrc.md)
 * [vim 图片详解](vim-sheet.md)
 * [vim 折叠](vim-floding.md)
