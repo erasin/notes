@@ -14,7 +14,7 @@
 
 >lftp user@site:port
 
-系统会提示输入password，密码就回显为******了
+系统会提示输入password，密码就回显为` ****** ` 了
 
 另外lftp 自带了 __[bookmark][1]__ （书签）功能，可以储存常用ftp列表。
 
@@ -137,6 +137,23 @@ set file:charset UTF-8
 `#`alias utf8 " set ftp:charset UTF-8"  
 `#`alias gbk " set ftp:charset GBK"  
 
+## 利用 lftp 同步
+
+利用`mirror` 来同步文件夹 ,参数 `--reverse`来上传 ， `--ignore-time` 来用作只比较文件大小
+
+设置打开 `xfer:clobber` , 它是lftp中用来设置是否允许自动覆盖本地文件的开卷.否则可能会出现 ` file already exists and xfer:clobber is unset `。
+
+	#!/bin/bash
+	
+	lftp -c "set ftp:list-options -a;
+	set xfer:clobber on;
+	open ftp://username:password@hostname; 
+	mirror --reverse --ignore-time --verbose /wwwroot/site/upload /upload 
+
+	lcd /pwd/
+	cd /pwd/
+	get file.txt
+	"
 
 ##其它客户端
 * __kftpgrabber__ KDE下ftp客户端，支持编码选择。对中文支持较好
