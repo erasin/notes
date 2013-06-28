@@ -31,3 +31,15 @@ sudo nano /etc/network/interfaces
 	iface default inet dhcp
 
 笔者把IP设在了静态的了，你总不想每次SSH登陆还要换IP吧！建议设成静态的
+
+	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+	update_config=1
+
+	network={
+		ssid="wr700"
+		psk="password"
+		proto=RSN
+		key_mgmt=WPA-PSK
+		pairwise=CCMP
+		auth_alg=OPEN
+	}
