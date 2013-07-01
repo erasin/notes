@@ -256,6 +256,12 @@ openssh的ssh-keygen命令用来产生这样的私钥和公钥。
 
     ssh-keygen -i -f Identity.pub >> /root/.ssh/authorized_keys2
 
+当服务器端公钥改变的时候认证的IP，要将本地的 `know_hosts` 相关的节点删除
+
+	ssh-keygen -R 服务器IP或者网址 
+
+否则会出现 `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!`
+
 ## scp 拷贝
 
 参见 ·[scp 命令](<./sftp>)
