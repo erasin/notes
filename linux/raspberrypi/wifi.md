@@ -20,14 +20,15 @@ sudo nano /etc/network/interfaces
 	iface eth0 inet dhcp
 	 
 	allow-hotplug wlan0
+	#iface wlan0 inet manual
 	iface wlan0 inet static
-		wpa-ssid 你要连接的wifi ssid
-		wpa-psk 你的wpa连接密码
+	#	wpa-ssid 你要连接的wifi ssid
+	#	wpa-psk 你的wpa连接密码
 	address 192.168.1.106   # 设定的静态IP地址
 	netmask 255.255.255.0   # 网络掩码
 	gateway 192.168.1.1     # 网关
 	network 192.168.1.1     # 网络地址
-    #wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+    wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 	iface default inet dhcp
 
 笔者把IP设在了静态的了，你总不想每次SSH登陆还要换IP吧！建议设成静态的
