@@ -9,6 +9,7 @@
 *.txt
 source
 wenku/
+gopkg
 
 *.bak
 /docs
