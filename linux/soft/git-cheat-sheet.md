@@ -1,15 +1,16 @@
 # Git 常用命令速查表
 
-\\\ Git Cheat Sheet < CN > (#Version 0.1)
-
-> [PDF 版本下载](https://gitcafe.com/GitCafe/Help/raw/master/Git/PDF_Docs/Git_Cheat_Sheet.pdf) / [PNG图片下载](https://gitcafe.com/GitCafe/Help/raw/master/Git/PDF_Docs/Git_Cheat_Sheet.png)
-
----
-
 ### 创建版本库
 
 * `$ git clone <url>` #克隆远程版本库
 * `$ git init` #初始化本地版本库
+
+### 安装配置
+
+	$ git config --global user.name "Your Name"
+	$ git config --global user.email your.email@example.com
+
+添加 `.gitignore` 文件，输入过滤文件以及文件夹
 
 ### 修改和提交
 
@@ -26,9 +27,7 @@
 ### 查看提交历史
 
 * `$ git log` #查看提交历史
-
 * `$ git log -p <file>` #查看指定文件的提交历史
-
 * `$ git blame <file>` #以列表方式查看指定文件的提交历史
 
 ### 撤消
