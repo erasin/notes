@@ -35,3 +35,7 @@
 	Prefixr，CSS3 私有前缀自动补全插件，显然也很有用哇
 
 * [GoSublime] golang 
+
+
+Bracket Highligter:
+	突出了括号，引号和HTML标签
