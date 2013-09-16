@@ -8,9 +8,9 @@
 *.bak
 *.txt
 source
-wenku/
 gopkg
 
 *.bak
 /docs
 work/
+wenku/
