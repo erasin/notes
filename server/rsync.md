@@ -25,8 +25,9 @@
     *.html
     upload/
     log/
+    cache/
 
-则在检测变动的时候，可以过滤 所有 log，html后缀和 upload,log文件夹。
+则在检测变动的时候，可以过滤 所有 log，html后缀和 upload,log,cache等变动的文件夹。
 
 如果没有库索引则建立git库
 

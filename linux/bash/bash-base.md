@@ -22,14 +22,18 @@ BASH 中的基本流程控制语法
 
 这样最简单的一个 BASH 程序就编写完了。这里有几个问题需要说明一下：
 
-一，第一行的 #! 是什么意思
-二，第一行的 /bin/bash 又是什么意思
-三，第二行是注释吗
-四，echo 语句
-五，如何执行该程序
+1. 第一行的 #! 是什么意思
+2. 第一行的 /bin/bash 又是什么意思
+3. 第二行是注释吗
+4. echo 语句
+5. 如何执行该程序
 
 **`#!`** 是说明 hello 这个文件的类型的，有点类似于 Windows 系统下用不同文件后缀来表示不同文件类型的意思（但不相同）。  
-Linux 系统根据 "#!" 及该字串后面的信息确定该文件的类型，关于这一问题同学们回去以后可以通过 "man magic"命令 及 /usr/share/magic 文件来了解这方面的更多内容。在 BASH 中 第一行的 `#!` 及后面的 `/bin/bash` 就表明该文件是一个 BASH 程序，需要由`/bin`目录下的 bash 程序来解释执行。BASH 这个程序一般是存放在`/bin`目录下，如果你的 Linux 系统比较特别，bash 也有可能被存放在`/sbin`,`/usr/local/bin` 、`/usr/bin` 、`/usr/sbin` 或 `/usr/local/sbin` 这样的目录下；如果还找不到，你可以用 "locate bash" "find / -name bash 2> /dev/null" 或 "whereis bash" 这三个命令找出 bash 所在的位置；如果仍然找不到，那你可能需要自己动手安装一个 BASH 软件包了。
+
+Linux 系统根据 "#!" 及该字串后面的信息确定该文件的类型，关于这一问题同学们回去以后可以通过 "man magic"命令 及 /usr/share/magic 文件来了解这方面的更多内容。
+
+在 BASH 中 第一行的 `#!` 及后面的 `/bin/bash` 就表明该文件是一个 BASH 程序，需要由`/bin`目录下的 bash 程序来解释执行。BASH 这个程序一般是存放在`/bin`目录下，如果你的 Linux 系统比较特别，bash 也有可能被存放在`/sbin`,`/usr/local/bin` 、`/usr/bin` 、`/usr/sbin` 或 `/usr/local/sbin` 这样的目录下；如果还找不到，你可以用 "locate bash" "find / -name bash 2> /dev/null" 或 "whereis bash" 这三个命令找出 bash 所在的位置；如果仍然找不到，那你可能需要自己动手安装一个 BASH 软件包了。
+
 
 第二行的 `# This is a ...` 就是 BASH 程序的注释，在 BASH 程序中从“#”号（注意：后面紧接着是`!`号的除外）开始到行尾的多有部分均被看作是程序的注释。的三行的 echo 语句的功能是把 echo 后面的字符串输出到标准输出中去。由于 echo 后跟的是 "Hello World" 这个字符串，因此 "Hello World"这个字串就被显示在控制台终端的屏幕上了。需要注意的是 BASH 中的绝大多数语句结尾处都没有分号。
 
