@@ -46,9 +46,14 @@ IP: 192.168.0.199
 
 测试单向Client向Server传输，若是双向传输，则将下面的语句复制之后转换路径顺序即可。创建 do.bat 文件，编辑文件。
 
+	set curdir=%~dp0
+	cd /d %curdir%
+
 	rsync -avzP --progress --password-file=bin/pwd.conf  --delete  /cygdrive/d/cwRsync/a/ rsync://username@192.168.0.199:8888/test
 
-创建 `bin/pwd.conf`(这个文件随着你的do.bat文件位置改变，最好为绝对位置)。放置密码（对应服务器中对应用户密码）
+创建 `pwd.conf`(这个文件随着你的do.bat文件位置改变)。放置密码（对应服务器中对应用户密码）
+
+修改pwd.conf文件权限其他用户不可读写
 
 	passwd
 
