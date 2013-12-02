@@ -1,5 +1,6 @@
 # gnome-shell
 
+icon : [Moka](http://snwh.org/moka-icon-theme/#download)
 
 ## gnome-shell window 最大化隐藏标题栏
 > gnome-shell window max hidden title bar
@@ -31,3 +32,16 @@
 ## totem 
 
 totem 的x264 问题， 请安装`gst-libav`
+
+## extensions
+
+<https://extensions.gnome.org/>
+
+
+* [AlternateTab](https://extensions.gnome.org/extension/15/alternatetab/)  by gcampax
+* [Applications Menu ](https://extensions.gnome.org/extension/6/applications-menu/) by gcampax
+* [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)  by michele_g
+* [kimpanel](https://extensions.gnome.org/extension/261/kimpanel/)  by csslayer
+* [Media player indicator](https://extensions.gnome.org/extension/55/media-player-indicator/)  by eon
+* [TopIcons ](https://extensions.gnome.org/extension/495/topicons/) by ag
+* [User Themes](https://extensions.gnome.org/extension/19/user-themes/)  by gcampax
