@@ -45,3 +45,4 @@ totem 的x264 问题， 请安装`gst-libav`
 * [Media player indicator](https://extensions.gnome.org/extension/55/media-player-indicator/)  by eon
 * [TopIcons ](https://extensions.gnome.org/extension/495/topicons/) by ag
 * [User Themes](https://extensions.gnome.org/extension/19/user-themes/)  by gcampax
+* [Weather](https://extensions.gnome.org/extension/613/weather/)  by Neroth
