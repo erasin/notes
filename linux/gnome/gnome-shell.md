@@ -52,3 +52,10 @@ totem 的x264 问题， 请安装`gst-libav`
     yaourt -S gnome-shell-extension-kimpanel-git 
 
     $ gsettings set org.gnome.settings-daemon.plugins.keyboard active false
+
+# user-dirs
+
+回复默认的 dirs
+
+	xdg-user-dirs-update
+	xdg-user-dirs-gtk-update
