@@ -16,19 +16,25 @@ IP: 192.168.0.199
     port = 8888   					# 端口
 
 修改 `[test]`
-	
-	[test] 							# 映射文件
-	path = /cygdrive/d/rsyncdir   	# 对应test的 d:\rsyncdir 文件夹
-	read only = false 				# 权限
-	transfer logging = yes 			
-	auth users = username 			# 创建用户
-	secrets file = pwd.conf 		# 密钥也就是密码
+
+	# 映射路径
+	[test]
+	# 对应test的 d:\rsyncdir 文件夹
+	path = /cygdrive/d/rsyncdir
+	# 权限	
+	read only = false 				
+	transfer logging = yes
+	# 授予用户
+	auth users = username
+	# 密钥文件也就是密码
+	secrets file = pwd.conf
 
 创建`pwd.conf`存储用户和密码
 
 	username:password
 
 修改`pwd.conf`文件权限其他用户不可读写
+
 
 在安装服务端时候，已经创建了用户`SvcCWRSYNC`和服务`RsyncServer`在OS中，
 
@@ -44,19 +50,28 @@ IP: 192.168.0.199
 
 若安装客户端到`D:\Program Files\cwRsync`后，修改OS环境变量**PATH**,添加`D:\Program Files\cwRsync\bin`
 
-测试单向Client向Server传输，若是双向传输，则将下面的语句复制之后转换路径顺序即可。创建 do.bat 文件，编辑文件。
+拷贝服务端的 `chown.exe` 到安装目录的 `bin`目录中去。
 
-	set curdir=%~dp0
-	cd /d %curdir%
 
-	rsync -avzP --progress --password-file=bin/pwd.conf  --delete  /cygdrive/d/cwRsync/a/ rsync://username@192.168.0.199:8888/test
+创建 脚本文件夹 `d:/bat` ，其中创建 脚本文件 `do.bat` 和 `pwd.conf`
 
-创建 `pwd.conf`(这个文件随着你的do.bat文件位置改变)。放置密码（对应服务器中对应用户密码）
+`pwd.conf`文件用于存储用户的密码
 
-修改pwd.conf文件权限其他用户不可读写
+	password
 
-	passwd
+对`pwd.conf` 文件权限修改,打开CMD
 
-执行 cmd ，执行do.bat 即可同步。
+	d:
+	cd bat
+	chmod -c 600 pwd.conf
+	chown administrator pwd.conf
+
+测试单向Client向Server传输，若是双向传输，则将下面的语句复制之后转换路径顺序即可。编辑`do.bat`文件。
+
+	rsync -avzP --progress --password-file=/cygdrive/d/bat/pwd.conf  --delete  /cygdrive/d/clientdir rsync://username@192.168.0.199:8888/test
+
+执行do.bat 即可同步。
+
+查看效果！
 
 设定OS定时任务，进行同步
