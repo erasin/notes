@@ -29,6 +29,7 @@ CentOS:
 php 模块 支持 PATHINFO
 
 	location ~ ^.+\.php{
+		#fastcgi_pass  127.0.0.1:9000;
 		fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
 		fastcgi_index index.php;
 		fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
@@ -37,6 +38,26 @@ php 模块 支持 PATHINFO
 		fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
 		include       fastcgi_params;
 	}
+
+另外：
+
+	location ~ \.php/?.*$ {
+		#fastcgi_pass  127.0.0.1:9000;
+		fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+		fastcgi_index  index.php;
+		set $path_info "";
+		set $real_script_name $fastcgi_script_name;
+		if ($fastcgi_script_name ~ "^(.+?\.php)(/.+)$") {
+			set $real_script_name $1;
+			set $path_info $2;
+		}
+		fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_param  SCRIPT_NAME $real_script_name;
+		fastcgi_param  PATH_INFO $path_info;
+		include        fastcgi_params;
+	}
+
+
 
 建议：创建 `/wwwroot` 文件夹
 
