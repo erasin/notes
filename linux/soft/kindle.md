@@ -32,3 +32,11 @@
 5. use FBReader to preview mobi file.
 
 6. copy mobi file to Kindle Documents
+
+[官方教程和示例](http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000234621)
+
+## 使用 ebook-convert
+
+calibre 组件 ebook-convert
+
+    ebook-convert progit.zh.html progit.cn.mobi --cover ebooks/cover.png --authors 'pro' --comments 'progit 中文' --level1-toc '//h:h1' --level2-toc '//h:h2' --level3-toc '//h:h3' --language 'zh_CN'
