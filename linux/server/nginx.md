@@ -33,6 +33,13 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
 
 ### server
 
+#### 404 
+
+为php节点添加
+
+    try_files $uri =404;
+
+
 
 ## htpasswd HTTP验证
 
