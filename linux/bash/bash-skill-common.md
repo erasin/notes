@@ -3,7 +3,8 @@
 
 ## 一.    特殊文件: /dev/null和/dev/tty
 
-    Linux系统提供了两个对Shell编程非常有用的特殊文件，/dev/null和/dev/tty。其中/dev/null将会丢掉所有写入它的数据，换句换说，当程序将数据写入到此文件时，会认为它已经成功完成写入数据的操作，但实际上什么事都没有做。如果你需要的是命令的退出状态，而非它的输出，此功能会非常有用，见如下Shell代码：
+Linux系统提供了两个对Shell编程非常有用的特殊文件，/dev/null和/dev/tty。其中/dev/null将会丢掉所有写入它的数据，换句换说，当程序将数据写入到此文件时，会认为它已经成功完成写入数据的操作，但实际上什么事都没有做。如果你需要的是命令的退出状态，而非它的输出，此功能会非常有用，见如下Shell代码：
+
     /> vi test_dev_null.sh
     
     #!/bin/bash
@@ -13,14 +14,18 @@
     else
         echo "NOT Found"
     fi
-    在vi中保存并退出后执行以下命令：
+
+在vi中保存并退出后执行以下命令：
+
     /> chmod +x test_dev_null.sh  #使该文件成为可执行文件
     /> cat > TestFile
     hello my friend
     CTRL + D                             #退出命令行文件编辑状态
     /> ./test_dev_null.sh
     Found                                 #这里并没有输出grep命令的执行结果。
-    将以上Shell脚本做如下修改：
+
+将以上Shell脚本做如下修改：
+
     /> vi test_dev_null.sh
     
     #!/bin/bash
@@ -30,12 +35,15 @@
     else
         echo "NOT Found"
     fi
-    在vi中保存退出后，再次执行该脚本：
+
+在vi中保存退出后，再次执行该脚本：
+
     /> ./test_dev_null.sh
     hello my friend                      #grep命令的执行结果被输出了。
     Found
     
-    下面我们再来看/dev/tty的用途。当程序打开此文件是，Linux会自动将它重定向到一个终端窗口，因此该文件对于读取人工输入时特别有用。见如下Shell代码：
+下面我们再来看/dev/tty的用途。当程序打开此文件是，Linux会自动将它重定向到一个终端窗口，因此该文件对于读取人工输入时特别有用。见如下Shell代码：
+
     /> vi test_dev_tty.sh
     
     #!/bin/bash
@@ -50,7 +58,8 @@
     echo "Password2 = " $password2
     echo "All Done"
 
-    在vi中保存并退出后执行以下命令：
+在vi中保存并退出后执行以下命令：
+
     /> chmod +x test_dev_tty.sh #使该文件成为可执行文件
     /> ./test_dev_tty
     Enter new password:             #这里密码的输入被读入到脚本中的password变量
@@ -61,7 +70,8 @@
 
 ## 二.    简单的命令跟踪:
 
-    Linux Shell提供了两种方式来跟踪Shell脚本中的命令，以帮助我们准确的定位程序中存在的问题。下面的代码为第一种方式，该方式会将Shell脚本中所有被执行的命令打印到终端，并在命令前加"+"：加号的后面还跟着一个空格。
+Linux Shell提供了两种方式来跟踪Shell脚本中的命令，以帮助我们准确的定位程序中存在的问题。下面的代码为第一种方式，该方式会将Shell脚本中所有被执行的命令打印到终端，并在命令前加"+"：加号的后面还跟着一个空格。
+
     /> cat > trace_all_command.sh
     who | wc -l                          #这两条Shell命令将输出当前Linux服务器登录的用户数量
     CTRL + D                            #退出命令行文件编辑状态
@@ -70,7 +80,9 @@
     + wc -l                               #被跟踪的两条Shell命令
     + who
     2                                       #实际输出结果。
-    Linux Shell提供的另一种方式可以只打印部分被执行的Shell命令，该方法在调试较为复杂的脚本时，显得尤为有用。
+
+Linux Shell提供的另一种方式可以只打印部分被执行的Shell命令，该方法在调试较为复杂的脚本时，显得尤为有用。
+
     /> cat > trace_patial_command.sh
     #! /bin/bash
     set -x                                #从该命令之后打开跟踪功能
@@ -87,8 +99,9 @@
    
 ## 三.    正则表达式基本语法描述:
 
-    Linux Shell环境下提供了两种正则表达式规则，一个是基本正则表达式(BRE)，另一个是扩展正则表达式(ERE)。
-    下面是这两种表达式的语法列表，需要注意的是，如果没有明确指出的Meta字符，其将可同时用于BRE和ERE，否则将尽适用于指定的模式。
+Linux Shell环境下提供了两种正则表达式规则，一个是基本正则表达式(BRE)，另一个是扩展正则表达式(ERE)。
+
+下面是这两种表达式的语法列表，需要注意的是，如果没有明确指出的Meta字符，其将可同时用于BRE和ERE，否则将尽适用于指定的模式。
 
 正则元字符	模式含义	用例
 \	通常用于关闭其后续字符的特殊意义，恢复其原意。	\(...\)，这里的括号仅仅表示括号。
@@ -118,15 +131,16 @@ $	匹配紧接着的正则表达式，在行的结尾处。	ab$，将匹配ab、
 \W	匹配任何非字母和数字组成的字符，等同于[^[:alnum:]_]	 
 \<\>	匹配单词的起始和结尾。	\<read匹配readme，me\>匹配readme。
 
-    下面的列表给出了Linux Shell中常用的工具或命令分别支持的正则表达式的类型。
+下面的列表给出了Linux Shell中常用的工具或命令分别支持的正则表达式的类型。
 
  	grep	sed	vi	egrep	awk
 BRE	*	*	*	 	 
 ERE	 	 	 	*	*
 
-四.    使用cut命令选定字段:
+## 四.使用cut命令选定字段:
 
-    cut命令是用来剪下文本文件里的数据，文本文件可以是字段类型或是字符类型。下面给出应用实例：
+ cut命令是用来剪下文本文件里的数据，文本文件可以是字段类型或是字符类型。下面给出应用实例：
+
     /> cat /etc/passwd
     root:x:0:0:root:/root:/bin/bash
     bin:x:1:1:bin:/bin:/sbin/nologin
@@ -146,7 +160,9 @@ ERE	 	 	 	*	*
     3:4:adm:/var/adm:/sbin/nologin
     4:7:lp:/var/spool/lpd:/sbin/nologin
     ... ...    
-    这里需要进一步说明的是，使用cut命令还可以剪切以字符数量为标量的部分字符，该功能通过-c选项实现，其不能与-d选项共存。
+
+这里需要进一步说明的是，使用cut命令还可以剪切以字符数量为标量的部分字符，该功能通过-c选项实现，其不能与-d选项共存。
+
     /> cut -c 1-4 /etc/passwd          #取每行的前1-4个字符。
     /> cut -c-4 /etc/passwd            #取每行的前4个字符。 
     root
@@ -174,7 +190,8 @@ ERE	 	 	 	*	*
 
 ## 五.    计算行数、字数以及字符数:
 
-    Linux提供了一个简单的工具wc用于完成该功能，见如下用例：
+Linux提供了一个简单的工具wc用于完成该功能，见如下用例：
+
     /> echo This is a test of the emergency broadcast system | wc
     1    9    49                              #1行，9个单词，49个字符
     /> echo Testing one two three | wc -c
@@ -190,7 +207,8 @@ ERE	 	 	 	*	*
 
 ## 六.    提取开头或结尾数行:
 
-    有时，你会需要从文本文件里把几行字，多半是靠近开头或结尾的几行提取出来。如查看工作日志等操作。Linux Shell提供head和tail两个命令来完成此项工作。见如下用例：
+有时，你会需要从文本文件里把几行字，多半是靠近开头或结尾的几行提取出来。如查看工作日志等操作。Linux Shell提供head和tail两个命令来完成此项工作。见如下用例：
+
     /> head -n 5 /etc/passwd           #显示输入文件的前五行。
     root:x:0:0:root:/root:/bin/bash
     bin:x:1:1:bin:/bin:/sbin/nologin
@@ -204,7 +222,9 @@ ERE	 	 	 	*	*
     pulse:x:496:494:PulseAudio System Daemon:/var/run/pulse:/sbin/nologin
     gdm:x:42:42::/var/lib/gdm:/sbin/nologin
     stephen:x:500:500:stephen:/home/stephen:/bin/bash
-    如果使用者想查看不间断增长的日志(如服务程序输出的)，可以使用tail的-f选项，这样可以让tail命令不会自动退出，必须通过CTRL+C命令强制退出，因此该选项不适合用于Shell脚本中，见如下用例：
+
+如果使用者想查看不间断增长的日志(如服务程序输出的)，可以使用tail的-f选项，这样可以让tail命令不会自动退出，必须通过CTRL+C命令强制退出，因此该选项不适合用于Shell脚本中，见如下用例：
+
     /> tail -f -n 5 my_server_log
     ... ...
     ^C                                         #CTRL+C退出到命令行提示符状态。
@@ -212,11 +232,14 @@ ERE	 	 	 	*	*
 
 ## 七.　grep家族:
     
-   1.  grep退出状态：
+1、  grep退出状态：
+
     0: 表示成功；
     1: 表示在所提供的文件无法找到匹配的pattern；
     2: 表示参数中提供的文件不存在。
-    见如下示例：
+
+见如下示例：
+
     /> grep 'root' /etc/passwd
     root:x:0:0:root:/root:/bin/bash
     operator:x:11:0:operator:/root:/sbin/nologin
@@ -232,8 +255,10 @@ ERE	 	 	 	*	*
     /> echo $?
     2
     
-   2.  grep中应用正则表达式的实例：
-    需要说明的是下面所涉及的正则表达式在上一篇中已经给出了详细的说明，因此在看下面例子的时候，可以与前一篇的正则说明部分结合着看。
+2、  grep中应用正则表达式的实例：
+
+需要说明的是下面所涉及的正则表达式在上一篇中已经给出了详细的说明，因此在看下面例子的时候，可以与前一篇的正则说明部分结合着看。
+
     /> cat testfile
     northwest        NW      Charles Main           3.0     .98     3       34
     western           WE       Sharon Gray          5.3     .97     5       23
@@ -284,7 +309,9 @@ ERE	 	 	 	*	*
     /> grep '[A-Z][A-Z] [A-Z]' testfile #打印出所有包含前两个字符是大写字符，后面紧跟一个空格及一个大写字母的行。
     eastern          EA      TB Savage       4.4     .84     5       20
     northeast       NE      AM Main Jr.      5.1     .94     3       13
-    注：在执行以上命令时，如果不能得到预期的结果，即grep忽略了大小写，导致这一问题的原因很可能是当前环境的本地化的设置问题。对于以上命令，如果我将当前语言设置为en_US的时候，它会打印出所有的行，当我将其修改为中文环境时，就能得到我现在的输出了。
+
+> 注：在执行以上命令时，如果不能得到预期的结果，即grep忽略了大小写，导致这一问题的原因很可能是当前环境的本地化的设置问题。对于以上命令，如果我将当前语言设置为en_US的时候，它会打印出所有的行，当我将其修改为中文环境时，就能得到我现在的输出了。
+
     /> export LANG=zh_CN  #设置当前的语言环境为中文。
     /> export LANG=en_US  #设置当前的语言环境为美国。
     /> export LANG=en_Br  #设置当前的语言环境为英国。
@@ -295,7 +322,8 @@ ERE	 	 	 	*	*
     southeast        SE      Patricia Hemenway   4.0     .7       4       17
     northeast        NE      AM Main Jr.              5.1     .94     3       13
     
-    #第一个字符是3，紧跟着一个句点，然后是任意一个数字，然后是任意个任意字符，然后又是一个3，然后是制表符，然后又是一个3，需要说明的是，下面正则中的\1表示\(3\)。
+> 第一个字符是3，紧跟着一个句点，然后是任意一个数字，然后是任意个任意字符，然后又是一个3，然后是制表符，然后又是一个3，需要说明的是，下面正则中的\1表示\(3\)。
+
     /> grep '\(3\)\.[0-9].*\1    *\1' testfile 
     northwest       NW      Charles Main        3.0     .98     3       34
     
@@ -312,8 +340,10 @@ ERE	 	 	 	*	*
     northeast        NE      AM Main Jr.            5.1     .94     3       13
     north             NO      Margot Weber        4.5     .89     5       9
     
-    3.  扩展grep(grep -E 或者 egrep)：
-    使用扩展grep的主要好处是增加了额外的正则表达式元字符集。下面我们还是继续使用实例来演示扩展grep。
+ 3、  扩展grep(grep -E 或者 egrep)：
+
+使用扩展grep的主要好处是增加了额外的正则表达式元字符集。下面我们还是继续使用实例来演示扩展grep。
+
     /> egrep 'NW|EA' testfile     #打印所有包含NW或EA的行。如果不是使用egrep，而是grep，将不会有结果查出。
     northwest       NW      Charles Main        3.0     .98     3       34
     eastern         EA      TB Savage           4.4     .84     5       20
@@ -360,8 +390,9 @@ ERE	 	 	 	*	*
     northwest       NW      Charles Main        3.0     .98     3       34
    
 
-    4.  grep选项：
-    这里先列出grep常用的命令行选项：
+4、  grep选项：
+
+ 这里先列出grep常用的命令行选项：
 
 选项	说明
 -c	只显示有多少行匹配，而不具体显示匹配的行。
@@ -374,6 +405,7 @@ ERE	 	 	 	*	*
 -w	只显示完整单词的匹配。
 -x	只显示完整行的匹配。
 -r/-R	如果文件参数是目录，该选项将递归搜索该目录下的所有子目录和文件。
+
     /> grep -n '^south' testfile  #-n选项在每一个匹配行的前面打印行号。
     3:southwest     SW      Lewis Dalsass         2.7     .8      2       18
     4:southern       SO      Suan Chin               5.1     .95     4       15
@@ -420,9 +452,9 @@ ERE	 	 	 	*	*
 
 ## 八.　流编辑器sed:
 
-    sed一次处理一行文件并把输出送往屏幕。sed把当前处理的行存储在临时缓冲区中，称为模式空间(pattern space)。一旦sed完成对模式空间中的行的处理，模式空间中的行就被送往屏幕。行被处理完成之后，就被移出模式空间，程序接着读入下一行，处理，显示，移出......文件输入的最后一行被处理完以后sed结束。通过存储每一行在临时缓冲区，然后在缓冲区中操作该行，保证了原始文件不会被破坏。
+sed一次处理一行文件并把输出送往屏幕。sed把当前处理的行存储在临时缓冲区中，称为模式空间(pattern space)。一旦sed完成对模式空间中的行的处理，模式空间中的行就被送往屏幕。行被处理完成之后，就被移出模式空间，程序接着读入下一行，处理，显示，移出......文件输入的最后一行被处理完以后sed结束。通过存储每一行在临时缓冲区，然后在缓冲区中操作该行，保证了原始文件不会被破坏。
     
-    1.  sed的命令和选项：
+1、  sed的命令和选项：
 
 命令	功能描述
 a\	 在当前行的后面加入一行或者文本。
@@ -451,7 +483,8 @@ y	 把一个字符翻译为另一个字符(但是不能用于正则表达式)。
 -n	 取消默认输出。
      需要说明的是，sed中的正则和grep的基本相同，完全可以参照本系列的第一篇中的详细说明。
 
-   2.  sed实例：
+2.  sed实例：
+
     /> cat testfile
     northwest       NW     Charles Main           3.0      .98      3       34
     western          WE      Sharon Gray           5.3      .97     5       23
@@ -605,7 +638,8 @@ y	 把一个字符翻译为另一个字符(但是不能用于正则表达式)。
     /> sed -n '/eastern/{n;s/AM/Archie/;p}' testfile
     northeast       NE      Archie Main Jr. 5.1     .94     3       13
 
-    #-e表示多点编辑，第一个编辑命令y将前三行中的所有小写字母替换为大写字母，-n表示不显示替换后的输出，第二个编辑命令将只是打印输出转换后的前三行。注意y不能用于正则。
+-e表示多点编辑，第一个编辑命令y将前三行中的所有小写字母替换为大写字母，-n表示不显示替换后的输出，第二个编辑命令将只是打印输出转换后的前三行。注意y不能用于正则。
+
     /> sed -n -e '1,3y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/' -e '1,3p' testfile
     NORTHWEST       NW      CHARLES MAIN     3.0     .98     3       34
     WESTERN           WE      SHARON GRAY      5.3     .97     5       23
@@ -615,13 +649,15 @@ y	 把一个字符翻译为另一个字符(但是不能用于正则表达式)。
     northwest       NW      Charles Main    3.0     .98     3       34
     western          WE      Sharon Gray     5.3     .97     5       23
 
-    #当模板Lewis在某一行被匹配，替换命令首先将Lewis替换为Joseph，然后再用q退出sed。
+当模板Lewis在某一行被匹配，替换命令首先将Lewis替换为Joseph，然后再用q退出sed。
+
      /> sed '/Lewis/{s/Lewis/Joseph/;q;}' testfile
     northwest       NW      Charles Main      3.0     .98     3       34
     western          WE      Sharon Gray      5.3     .97     5       23
     southwest       SW      Joseph Dalsass  2.7     .8      2       18
 
-    #在sed处理文件的时候，每一行都被保存在pattern space的临时缓冲区中。除非行被删除或者输出被取消，否则所有被处理过的行都将打印在屏幕上。接着pattern space被清空，并存入新的一行等待处理。在下面的例子中，包含模板的northeast行被找到，并被放入pattern space中，h命令将其复制并存入一个称为holding buffer的特殊缓冲区内。在第二个sed编辑命令中，当达到最后一行后，G命令告诉sed从holding buffer中取得该行，然后把它放回到pattern space中，且追加到现在已经存在于模式空间的行的末尾。
+在sed处理文件的时候，每一行都被保存在pattern space的临时缓冲区中。除非行被删除或者输出被取消，否则所有被处理过的行都将打印在屏幕上。接着pattern space被清空，并存入新的一行等待处理。在下面的例子中，包含模板的northeast行被找到，并被放入pattern space中，h命令将其复制并存入一个称为holding buffer的特殊缓冲区内。在第二个sed编辑命令中，当达到最后一行后，G命令告诉sed从holding buffer中取得该行，然后把它放回到pattern space中，且追加到现在已经存在于模式空间的行的末尾。
+
      /> sed -e '/northeast/h' -e '$G' testfile
     northwest       NW     Charles Main            3.0    .98     3       34
     western          WE     Sharon Gray            5.3    .97     5       23
