@@ -5,12 +5,17 @@
     user  : ngxin 
     group : nginx
 
-普通用户根据项目来定： 
+普通用户根据项目来定： (举例用户 `jibun`)
 
     user  : jibun
     group : nginx,users
 
 ## 安装配置
+
+### 关于源
+
+* [centos or redhat yum 添加 163 源](yum163)
+* [yum 命令](yum.md)
 
 ### PHP
 
@@ -26,7 +31,7 @@
 
     # service php-fpm start|restart|stop
 
-开启启动：
+**开启启动：**
 
     chkconfig php-fpm on
 
@@ -44,12 +49,12 @@
     ; 时间区域
     date.timezone = "Asia/Shanghai"
 
-必要的库，有事在对应的 `/etc/php.d/` 文件夹中
+必要的库，有的在对应的 `/etc/php.d/` 文件夹中
 
-    extension=iconv.so
+    ;extension=iconv.so
     ;extension=mcrypt.so    
     ;extension=sockets.so
-    extension=soap.so
+    ;extension=soap.so
 
 `/etc/php-fpm.conf`
 
@@ -68,10 +73,9 @@
     user = nginx
     group = nginx
 
-执行时限
+执行时限**
 
     request_terminate_timeout = 180s
-
 
 ### Mysql
 
@@ -83,15 +87,16 @@
 
     mysql --version
 
-开启启动：
+**开启启动：**
 
     chkconfig mysqld on
 
-**设定：**
+**设定初始密码：**
+    
+    # service mysqld start
+    # mysqladmin -u root password '123456'
 
-    # mysqladmin -uroot password '123456'
-
-重新设定密码：
+**重新设定密码：**
 
 开启安全模式：
 
@@ -127,15 +132,15 @@
     gpgcheck=0
     enabled=1
 
-安装： 
+**安装：** 
 
     yum install nginx
 
-开启启动：
+**开启启动：**
 
     chkconfig nginxd on
 
-查看：
+**查看：**
 
     nginx -v 
 
@@ -227,19 +232,20 @@ SSL HTTPS 配置模板
         }
     }
 
-
-
+> 参看 [SSL CA证书](/linux/server/nlb.md)
 
 ## 安全
 
 自动检测服务并重启脚本：
 
     #!/bin/bash
-    service_log=/pwd/server.log
+    # file path /home/jibun/shell/checkservice.sh
+
+    service_log=/home/jibun/logs/server.log
 
     ng=`service nginx status|awk '{print $5}'`
     php=`service php-fpm status|awk '{print $5}'`
-    mysql=`service mysql status|awk '{print $4}'`
+    mysql=`service mysqld status|awk '{print $5}'`
 
     if [[ $ng != *"running"* ]]; then
         echo "---------------------------------" >> $service_log
@@ -253,19 +259,21 @@ SSL HTTPS 配置模板
         service php-fpm start >> $service_log
     fi
 
-    if [[ $mysql == *"not run"* ]]; then
+    if [[ $mysql != *"running"* ]]; then
         echo "---------------------------------" >> $service_log
         date '+%Y-%m-%d %H:%M' >> $service_log
-        service mysql start >> $service_log
+        service mysqld start >> $service_log
     fi
+
+> 注意 mysql的服务默认为 mysqld ,有部分为mysql，自行斟酌
+
 
 ## 创建普通用户
 
 创建用户`jibun`并创建密码
 
-    useradd -G user -g nginx jibun 
+    useradd -G nginx -g users jibun 
     passwd jibun 
-
 
 ## 服务器路径
 
@@ -286,7 +294,7 @@ SSL HTTPS 配置模板
     # su jibun
     $ mkdir www.domain.com
 
-上传对应的 www.domain.com 文件夹即可。  
+上传对应的 `www.domain.com` 文件夹即可。  
 
 用户`jibun`文件夹：
 
@@ -295,11 +303,9 @@ SSL HTTPS 配置模板
     /home/jibun/backdir    # 备份位置
     /home/jibun/gitsource  # git源库（防篡改之用）
 
-## 部署git，简单的防篡改
+## 参看服务器方案
 
-参看 [linux 下同步方案以及站点文件的防篡改](/linux/server/rsync)
-
-## mysql的同步
-
-参看 [mysql master slave 主从同步](/linux/server/mysql-master-slave)
-
+* 参看 [linux 下同步方案以及站点文件的防篡改](/linux/server/rsync)
+* 参看 [mysql master slave 主从同步](/linux/server/mysql-master-slave)
+* 参看 [负载均衡技术](/linux/server/nlb.md)
+* 参看 [压力测试 和 网速测试](/linux/server/stress-web-test-ab.md)

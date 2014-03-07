@@ -1,11 +1,6 @@
 # linux下nginx 优化
 
 
-
-
-
-
-
 # linux下php-fpm 优化
 
 
