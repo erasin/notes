@@ -77,6 +77,12 @@
 
     request_terminate_timeout = 180s
 
+**权限：**
+
+对session.savepath 的组用户写权限
+
+    # chown root:nginx -R /var/lib/php/
+
 ### Mysql
 
 **安装：** 
