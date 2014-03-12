@@ -33,6 +33,14 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
 
 ### server
 
+
+    if ($http_host !~ "^www\.xingtouzi\.com$") {
+        rewrite ^(.*) http://www.xingtouzi.com$1 permanent;
+    }
+    if (!-e $request_filename){
+        rewrite ^/(.*)$ /index.php/$1 last;
+    }
+
 #### 404 
 
 为php节点添加

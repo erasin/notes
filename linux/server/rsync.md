@@ -106,6 +106,8 @@
 
 > 会产生5m的时间差。
 
+参见[crontab 定时任务](/linux/bash/crontab.md)
+
 ## mysql 文件备份
 
 > 非均衡负载，可查阅[mysql 主从同步](mysql-master-slave.md)
