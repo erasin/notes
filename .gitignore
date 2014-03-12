@@ -9,6 +9,7 @@
 *.txt
 source
 gopkg
+*.html
 
 *.bak
 /docs
