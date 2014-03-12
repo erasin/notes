@@ -151,17 +151,19 @@
 ![git-gui](img/git-gui.png)
 
 
-添加文件和修改文件使用 `stage changed` 将修改的文件添加的缓存区中。
+添加文件和修改文件使用 `stage changed` 将修改的文件添加的缓存区中。`git add`
 
 ![git-add](img/git-add.png)
 
-> 当显示的内容为乱码时候，到 `edit` > `config` 中修改编码配置。
+> 当显示的内容为乱码时候，到 `edit` > `config` 中修改编码配置。`git commit -m 'xxx'`
 
 提交修改 `Commit` 按钮
 
 ![git-commit](img/git-commit.png)
 
-查看历史 Repository > viua...history ，可以查看当前分支，和全部分支。
+可以菜单`branch` 中执行分支的操作。
+
+查看历史 Repository > viua...history ，可以查看当前分支，和全部分支。也可以直接打开 `gitk`。
     
 ![git-gitk](img/gitk.png)
 
