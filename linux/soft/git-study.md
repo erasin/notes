@@ -108,7 +108,7 @@
 
 ### 库操作
 
-创建纯仓库，如果不使用第三方而使用自己的服务器可以考虑建立纯仓库，可以参考[git服务器](/books/progit/04-git-server) **架设服务器**小结。
+创建纯仓库，如果不使用第三方而使用自己的服务器可以考虑建立纯仓库，可以参考[git服务器](/books/progit/04-git-server.md) **架设服务器**小结。
 
     mkdir sitesource.git
     cd sitesource.git 
@@ -231,3 +231,6 @@ SSH key 可以让你在你的电脑和服务器端之间建立安全的加密连
     git push                     # 上传
 
 
+## 其他
+
+* 使用git的 [防篡改](/linux/server/rsync)
