@@ -11,6 +11,7 @@
 ## 下载
 
     http://git-scm.com/downloads
+    http://msysgit.github.io/
 
 ## 配置
 
@@ -234,3 +235,38 @@ SSH key 可以让你在你的电脑和服务器端之间建立安全的加密连
 ## 其他
 
 * 使用git的 [防篡改](/linux/server/rsync)
+
+
+## 练习
+
+服务器： 192.168.0.78  
+用户 ：  user1 - user6  
+密码： 123
+
+操作： 
+
+1. 把git的密钥拷贝到 `~/.ssh/authorized_keys`
+
+    cd
+    mkdir .ssh
+    touch authorized_keys
+    vim authorized_keys
+
+然后将key粘帖进入即可。
+
+2. 建立一个空的纯仓库
+
+    cd
+    mkdir demo.git
+    cd demo.git
+    git init --bare
+
+3. 回到本地使用git推送代码到服务器 ，操作上和对 git.oschina.net 无二,
+
+   地址： user1@192.168.0.78:demo.git
+
+通过shell登陆器登录 192.168.0.78, 这里以 user1 操作。
+
+
+
+
