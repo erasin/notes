@@ -312,6 +312,7 @@ for 循环结构与 C 语言中有所不同，在 BASH 中 for 循环的基本�
     exit 0
 
 上面这个程序将列出所有命令行参数。for 循环结构的循环体被包含在 do/done 对中，这也是后面的 while、until 循环所具有的特点。
+
 ### while
 
 while 循环的基本结构是：
