@@ -52,27 +52,27 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
     <script type="text/javascript" charset="utf-8">
     var BoxCtrl = function($scope, $element){
 
-     //$element 就是一个 jQuery 对象
-     var e = $element.children().eq(0);
-     $scope.w = e.width();
-     $scope.h = e.height();
+    //$element 就是一个 jQuery 对象
+    var e = $element.children().eq(0);
+    $scope.w = e.width();
+    $scope.h = e.height();
 
-     $scope.click = function(){
+    $scope.click = function(){
        $scope.w = parseInt($scope.w) + 10;
        $scope.h = parseInt($scope.h) + 10;
-     }
+    }
 
-     $scope.$watch('w',
+    $scope.$watch('w',
        function(to, from){
          e.width(to);
        }
-     );
+    );
 
-     $scope.$watch('h',
+    $scope.$watch('h',
        function(to, from){
          e.height(to);
        }
-     );
+    );
     }
 
     angular.bootstrap(document.documentElement);
@@ -250,28 +250,32 @@ ng 的一大特点，就是数据双向绑定。双向绑定是一体，为了�
 		  }
 		)
 	}
+
 这里的 $scope.$apply() 中做的一件事：
 
-  $rootScope.$digest();
+    $rootScope.$digest();
 
 ## 6.2. 模板->数据
 
 模板到数据的绑定，主要是通过 ng-model 来完成的：
 
-  <input type="text" id="test" ng-controller="TestCtrl" ng-model="a" />
-  
-  <script type="text/javascript" charset="utf-8">
-  var TestCtrl = function($scope){
-    $scope.a = '123';
-  }
+    <input type="text" id="test" ng-controller="TestCtrl" ng-model="a" />
+
+    <script type="text/javascript" charset="utf-8">
+
+    var TestCtrl = function($scope){
+        $scope.a = '123';
+    }
+
 这时修改 input 中的值，然后再在控制终端中使用：
 
-  $('#test').scope().a
+    i$('#test').scope().a
+
 查看，发现变量 a 的值已经更改了。
 
 实际上， ng-model 是把两个方向的绑定都做了。它不光显示出变量的值，也把显示上的数值变化反映给了变量。这个在实现上就简单多了，只是绑定 change 事件，然后做一些赋值操作即可。不过 ng 里，还要区分对待不同的控件。
 
-6.3. 数据->模板->数据->模板
+## 6.3. 数据->模板->数据->模板
 
 现在要考虑的是一种在现实中很普遍的一个需求。比如就是我们可以输入数值，来控制一个矩形的长度。在这里，数据与表现的关系是：
 
@@ -295,209 +299,235 @@ input 中的值变化时，矩形的长度也要变化
     }
     angular.bootstrap(document.documentElement);
     </script>
+
 我们从响应数据变化，但又不使用 change 事件的角度来看，可以这样处理宽度变化：
 
-  var TestCtrl = function($scope, $element){
-    $scope.width = 100;
-    $scope.$watch('width',
-      function(to, from){
-        $element.children(':first').width(to);
-      }
-    );
-  }
+    var TestCtrl = function($scope, $element){
+        $scope.width = 100;
+        $scope.$watch('width',
+          function(to, from){
+            $element.children(':first').width(to);
+          }
+        );
+    }
+
 使用 $watch() 来绑定数据变化。
 
 当然，这种样式的问题，有更直接有效的手段， ng 的数据绑定总是让人惊异：
 
-  <div ng-controller="TestCtrl">
+    <div ng-controller="TestCtrl">
     <div style="width: 10px; height: 10px; background-color: red" ng-style="style">
     </div>
     <input type="text" name="width" ng-model="style.width" />
-  </div>
-  
-  
-  <script type="text/javascript" charset="utf-8">
-  var TestCtrl = function($scope){
-    $scope.style = {width: 100};
-  }
-  angular.bootstrap(document.documentElement);
-  </script>
-7. 模板
+    </div>
+
+
+    <script type="text/javascript" charset="utf-8">
+    var TestCtrl = function($scope){
+        $scope.style = {width: 100};
+    }
+    angular.bootstrap(document.documentElement);
+    </script>
+
+# 7. 模板
 
 前面讲了数据绑定之后，现在可以单独讲讲模板了。
 
 作为一套能称之谓“模板”的系统，除了能干一些模板的常规的事之外（好吧，即使是常规的逻辑判断现在它也做不了的），配合作用域 $scope 和 ng 的数据双向绑定机制， ng 的模板系统就变得比较神奇了。
 
-7.1. 定义模板内容
+## 7.1. 定义模板内容
 
 定义模板的内容现在有三种方式：
 
-在需要的地方直接写字符串
-外部文件
-使用 script 标签定义的“内部文件”
+* 在需要的地方直接写字符串
+* 外部文件
+* 使用 script 标签定义的“内部文件”
+
 第一种不需要多说。第二种和第三种都可以和 ng-include 一起工作，来引入一段模板。
 
 直接引入同域的外部文件作为模板的一部分：
 
-  <div ng-include src="'tpl.html'">
-  </div>
-  
-  <div ng-include="'tpl.html'">
-  </div>
+      <div ng-include src="'tpl.html'">
+      </div>
+      
+      <div ng-include="'tpl.html'">
+      </div>
+
 注意， src 中的字符串会作为表达式处理（可以是 $scope 中的变量），所以，直接写名字的话需要使用引号。
 
 引入 script 定义的“内部文件”：
 
-  <script type="text/ng-template" id="tpl">
-  here, {{ 1 + 1 }}
-  </script>
-  
-  <div ng-include src="'tpl'"></div>
+      <script type="text/ng-template" id="tpl">
+      here, {{ 1 + 1 }}
+      </script>
+      
+      <div ng-include src="'tpl'"></div>
   
 配合变量使用：
 
-  <script type="text/ng-template" id="tpl">
-  here, {{ 1 + 1 }}
-  </script>
-  
-  <a ng-click="v='tpl'">Load</a>
-  <div ng-include src="v"></div>
-7.2. 内容渲染控制
+      <script type="text/ng-template" id="tpl">
+      here, {{ 1 + 1 }}
+      </script>
+      
+      <a ng-click="v='tpl'">Load</a>
+      <div ng-include src="v"></div>
 
-7.2.1. 重复 ng-repeat
+## 7.2. 内容渲染控制
+
+### 7.2.1. 重复 ng-repeat
 这算是唯一的一个控制标签么……，它的使用方法类型于：
 
-  <div ng-controller="TestCtrl">
-    <ul ng-repeat="member in obj_list">
-      <li>{{ member }}</li>
-    </ul>
-  </div>
-  
-  
-  var TestCtrl = function($scope){
-    $scope.obj_list = [1,2,3,4];
-  }
+      <div ng-controller="TestCtrl">
+        <ul ng-repeat="member in obj_list">
+          <li>{{ member }}</li>
+        </ul>
+      </div>
+      
+      
+      var TestCtrl = function($scope){
+        $scope.obj_list = [1,2,3,4];
+      }
+
 除此之外，它还提供了几个变量可供使用：
 
-$index 当前索引
-$first 是否为头元素
-$middle 是否为非头非尾元素
-$last 是否为尾元素
-  <div ng-controller="TestCtrl">
-    <ul ng-repeat="member in obj_list">
-      <li>{{ $index }}, {{ member.name }}</li>
-    </ul>
-  </div>
-  
-  var TestCtrl = function($scope){
-    $scope.obj_list = [{name: 'A'}, {name: 'B'}, {name: 'C'}];
-  }
-7.2.2. 赋值 ng-init
+* $index 当前索引
+* $first 是否为头元素
+* $middle 是否为非头非尾元素
+* $last 是否为尾元素
+
+
+      <div ng-controller="TestCtrl">
+        <ul ng-repeat="member in obj_list">
+          <li>{{ $index }}, {{ member.name }}</li>
+        </ul>
+      </div>
+      
+      var TestCtrl = function($scope){
+        $scope.obj_list = [{name: 'A'}, {name: 'B'}, {name: 'C'}];
+      }
+
+### 7.2.2. 赋值 ng-init
+
 这个指令可以在模板中直接赋值，它作用于 angular.bootstrap 之前，并且，定义的变量与 $scope 作用域无关。
 
-  <div ng-controller="TestCtrl" ng-init="a=[1,2,3,4];">
-    <ul ng-repeat="member in a">
-      <li>{{ member }}</li>
-    </ul>
-  </div>
-7.3. 节点控制
+      <div ng-controller="TestCtrl" ng-init="a=[1,2,3,4];">
+        <ul ng-repeat="member in a">
+          <li>{{ member }}</li>
+        </ul>
+      </div>
 
-7.3.1. 样式 ng-style
+## 7.3. 节点控制
+
+### 7.3.1. 样式 ng-style
+
 可以使用一个结构直接表示当前节点的样式：
 
-  <div ng-style="{width: 100, height: 100, backgroundColor: 'red'}">
-  </div>
+      <div ng-style="{width: 100, height: 100, backgroundColor: 'red'}">
+      </div>
+
 同样地，绑定一个变量的话，威力大了。
 
-7.3.2. 类 ng-class
+### 7.3.2. 类 ng-class
+
 就是直接地设置当前节点的类，同样，配合数据绑定作用就大了：
 
-  <div ng-controller="TestCtrl" ng-class="cls">
-  </div>
-ng-class-even 和 ng-class-odd 是和 ng-repeat 配合使用的：
+      <div ng-controller="TestCtrl" ng-class="cls">
+      </div>
+    ng-class-even 和 ng-class-odd 是和 ng-repeat 配合使用的：
 
-  <ul ng-init="l=[1,2,3,4]">
-    <li ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="m in l">{{ m }}</li>
-  </ul>
+      <ul ng-init="l=[1,2,3,4]">
+        <li ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="m in l">{{ m }}</li>
+      </ul>
+
 注意里面给的还是表示式，别少了引号。
 
-7.3.3. 显示和隐藏 ng-show ng-hide ng-switch
+### 7.3.3. 显示和隐藏 ng-show ng-hide ng-switch
 前两个是控制 display 的指令：
 
-  <div ng-show="true">1</div>
-  <div ng-show="false">2</div>
-  <div ng-hide="true">3</div>
-  <div ng-hide="false">4</div>
+      <div ng-show="true">1</div>
+      <div ng-show="false">2</div>
+      <div ng-hide="true">3</div>
+      <div ng-hide="false">4</div>
+
 后一个 ng-switch 是根据一个值来决定哪个节点显示，其它节点移除：
 
-  <div ng-init="a=2">
-    <ul ng-switch on="a">
-      <li ng-switch-when="1">1</li>
-      <li ng-switch-when="2">2</li>
-      <li ng-switch-default>other</li>
-    </ul>
-  </div>
-7.3.4. 其它属性控制
+      <div ng-init="a=2">
+        <ul ng-switch on="a">
+          <li ng-switch-when="1">1</li>
+          <li ng-switch-when="2">2</li>
+          <li ng-switch-default>other</li>
+        </ul>
+      </div>
+
+### 7.3.4. 其它属性控制
+
 ng-src 控制 src 属性：
 
-  <img ng-src="{{ 'h' + 'ead.png' }}" />
-ng-href 控制 href 属性：
+      <img ng-src="{{ 'h' + 'ead.png' }}" />
+    ng-href 控制 href 属性：
 
-  <a ng-href="{{ '#' + '123' }}">here</a>
+      <a ng-href="{{ '#' + '123' }}">here</a>
+
 总的来说：
 
-ng-src src属性
-ng-href href属性
-ng-checked 选中状态
-ng-selected 被选择状态
-ng-disabled 禁用状态
-ng-multiple 多选状态
-ng-readonly 只读状态
+* ng-src src属性
+* ng-href href属性
+* ng-checked 选中状态
+* ng-selected 被选择状态
+* ng-disabled 禁用状态
+* ng-multiple 多选状态
+* ng-readonly 只读状态
+
 注意： 上面的这些只是单向绑定，即只是从数据到展示，不能反作用于数据。要双向绑定，还是要使用 ng-model 。
 
-7.4. 事件绑定
+## 7.4. 事件绑定
 
 事件绑定是模板指令中很好用的一部分。我们可以把相关事件的处理函数直接写在 DOM 中，这样做的最大好处就是可以从 DOM 结构上看出业务处理的形式，你知道当你点击这个节点时哪个函数被执行了。
 
-ng-change
-ng-click
-ng-dblclick
-ng-mousedown
-ng-mouseenter
-ng-mouseleave
-ng-mousemove
-ng-mouseover
-ng-mouseup
-ng-submit
+* ng-change
+* ng-click
+* ng-dblclick
+* ng-mousedown
+* ng-mouseenter
+* ng-mouseleave
+* ng-mousemove
+* ng-mouseover
+* ng-mouseup
+* ng-submit
+
 对于事件对象本身，在函数调用时可以直接使用 $event 进行传递：
 
-  <p ng-click="click($event)">点击</p>
-  <p ng-click="click($event.target)">点击</p>
-7.5. 表单控件
+      <p ng-click="click($event)">点击</p>
+      <p ng-click="click($event.target)">点击</p>
+
+## 7.5. 表单控件
 
 表单控件类的模板指令，最大的作用是它预定义了需要绑定的数据的格式。这样，就可以对于既定的数据进行既定的处理。
 
-7.5.1. form
+### 7.5.1. form
+
 form 是核心的一个控件。 ng 对 form 这个标签作了包装。事实上， ng 自己的指令是叫 ng-form 的，区别在于， form 标签不能嵌套，而使用 ng-form 指令就可以做嵌套的表单了。
 
 form 的行为中依赖它里面的各个输入控制的状态的，在这里，我们主要关心的是 form 自己的一些方法和属性。从 ng 的角度来说， form 标签，是一个模板指令，也创建了一个 FormController 的实例。这个实例就提供了相应的属性和方法。同时，它里面的控件也是一个 NgModelController 实例。
 
 很重要的一点， form 的相关方法要生效，必须为 form 标签指定 name 和 ng-controller ，并且每个控件都要绑定一个变量。 form 和控件的名字，即是 $scope 中的相关实例的引用变量名。
 
-  <form name="test_form" ng-controller="TestCtrl">
-    <input type="text" name="a" required ng-model="a"  />
-    <span ng-click="see()">{{ test_form.$valid }}</span>
-  </form>
-  
-  var TestCtrl = function($scope){
-  
-    $scope.see = function(){
-      console.log($scope.test_form);
-      console.log($scope.test_form.a);
-    }
-  
-  }
+      <form name="test_form" ng-controller="TestCtrl">
+        <input type="text" name="a" required ng-model="a"  />
+        <span ng-click="see()">{{ test_form.$valid }}</span>
+      </form>
+      
+      var TestCtrl = function($scope){
+      
+        $scope.see = function(){
+          console.log($scope.test_form);
+          console.log($scope.test_form.a);
+        }
+      
+      }
+      
 除去对象的方法与属性， form 这个标签本身有一些动态类可以使用：
+
 
 ng-valid 当表单验证通过时的设置
 ng-invalid 当表单验证失败时的设置
@@ -928,37 +958,40 @@ ng 中的锚点路由功能是由几部分 API 共同完成的一整套方案。
   );
 回到锚点定义的业务处理中来。我们可以以字符串形式写模板，也可以直接引用外部文件作为模板：
 
-  angular.module('ngView', [],
-    function($routeProvider){
-      $routeProvider.when('/test',
-        {
-          templateUrl: 'tpl.html',
-          controller: function($scope){
-            $scope.title = 'a';
-          }
+    angular.module('ngView', [],
+        function($routeProvider){
+          $routeProvider.when('/test',
+            {
+              templateUrl: 'tpl.html',
+              controller: function($scope){
+                $scope.title = 'a';
+              }
+            }
+          );
         }
-      );
-    }
-  );
+    );
+
 tpl.html 中的内容是：
 
-  {{ title }}
+    {{ title }}
+
 这样的话，模板可以预定义，也可以很复杂了。
 
 现在暂时忘了模板吧，因为前面提到的，当前 ng-view 不能有多个的限制，模板的渲染机制局限性还是很大的。不过，反正会触发一个 controller ，那么在函数当中我们可以尽量地干自己喜欢的事：
 
-  angular.module('ngView', [],
-    function($routeProvider){
-      $routeProvider.when('/test',
-        {
-          template: '{{}}',
-          controller: function(){
-            $('div').first().html('<b>OK</b>');
-          }
+    angular.module('ngView', [],
+        function($routeProvider){
+          $routeProvider.when('/test',
+            {
+              template: '{{}}',
+              controller: function(){
+                $('div').first().html('<b>OK</b>');
+              }
+            }
+          );
         }
-      );
-    }
-  );
+    );
+
 那个空的 template 不能省，否则 controller 不会被触发。
 
 10. 定义模板变量标识标签
