@@ -7,6 +7,8 @@
 	cd Packages
 	git clone https://github.com/wbond/sublime_package_control.git "Package Control"
 
+	import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+
 **subl2**
 
 按Ctrl+`调出console执行
@@ -34,6 +36,7 @@ Soda themes
 :	可以直接用 Package install来安装.   
 	主题介绍: <https://github.com/buymeasoda/soda-theme/>  
 	对应的高亮方案: <http://buymeasoda.github.com/soda-theme/extras/colour-schemes.zip> ,内部文件到 Packages->User 中即可.
+上图的扁平化 Theme： Flatland
 
 CTags
 : 	ctags 还要说么
