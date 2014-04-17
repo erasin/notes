@@ -50,10 +50,14 @@ DocBlockr
 BracketHighlighter
 : 	标签高亮，括号双引号等
 
+Sublime Alignment
+:   对齐
+
 
 javascript Patterns  
 CodeIgniter Utilities  
 gist  
+
 
 
 
@@ -71,3 +75,4 @@ gist
 	LD_PRELOAD=/pwd/libsublime-imfix.so sublime_text
 
 可以为其定义 `alias` ,另外快捷方式也可以加上该前缀.
+
