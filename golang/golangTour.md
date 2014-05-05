@@ -1,5 +1,7 @@
 # golang-Tour
 
+by: **golang.org**
+
 ## 01 Hello, 世界
 
 欢迎来到Go 编程语言指南。
@@ -1999,6 +2001,8 @@ demo:
 	}
 
 # golang编码规范
+
+by **golang.org**
 
 ## gofmt
 
