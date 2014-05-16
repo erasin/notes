@@ -3,6 +3,7 @@
 icon : [Moka](http://snwh.org/moka-icon-theme/#download)
 
 ## gnome-shell window 最大化隐藏标题栏
+
 > gnome-shell window max hidden title bar
 
 修改： `/usr/share/themes/Adwaita/metacity-1/metacity-theme-3.xml`
@@ -35,8 +36,9 @@ totem 的x264 问题， 请安装`gst-libav`
 
 ## extensions
 
-<https://extensions.gnome.org/>
+> 使用扩展
 
+<https://extensions.gnome.org/>
 
 * [AlternateTab](https://extensions.gnome.org/extension/15/alternatetab/)  by gcampax
 * [Applications Menu ](https://extensions.gnome.org/extension/6/applications-menu/) by gcampax
@@ -46,6 +48,7 @@ totem 的x264 问题， 请安装`gst-libav`
 * [TopIcons ](https://extensions.gnome.org/extension/495/topicons/) by ag
 * [User Themes](https://extensions.gnome.org/extension/19/user-themes/)  by gcampax
 * [Weather](https://extensions.gnome.org/extension/613/weather/)  by Neroth
+* [drop-down-terminal](https://extensions.gnome.org/extension/442/drop-down-terminal/)
 
 # fcitx
 

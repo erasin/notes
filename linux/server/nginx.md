@@ -91,3 +91,20 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
 
 
 
+##盗链
+
+常见的防盗链设置如下:
+
+    location ~* \.(gif|jpg|png|swf|flv)$ {
+        valid_referers none blocked www.demo1.com www.demo2.net;
+        if ($invalid_referer) {
+            rewrite ^/ http://www.demo1.com/403.html;
+            #return 404;
+        }
+    }
+
+第一行表示对gif、jpg、png、swf、flv后缀的文件实行防盗链
+
+第二行表示对两个域名这两个来路进行判断
+
+if{}里面内容意思是：如果来入不是指定判断的来路时跳转到错误页面。
