@@ -1,5 +1,7 @@
 #subl3
 
+<https://sublime.wbond.net/installation#st3>
+
 ## Package control 安装
 
 **subl3** 
@@ -8,6 +10,8 @@
 	git clone https://github.com/wbond/sublime_package_control.git "Package Control"
 
 	import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+
+	import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 
 **subl2**
 
@@ -43,6 +47,16 @@ CTags
 
 Git
 :	git cmd
+
+GitGutter
+:	显示修改部分
+	cd ./config/sublime\ text\ 3/Packages/
+	git clone git://github.com/jisaacks/GitGutter.git
+
+
+Sublime CodeIntel
+:	 为部分语言增强自动完成功能，包括了Python。这个插件同时也可以让你跳转到符号定义的地方，通过按住alt并点击符号。非常方便。
+
 
 DocBlockr
 : 	提供类PHP的注释 以 `/** tab` 开始
