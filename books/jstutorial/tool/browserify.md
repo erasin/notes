@@ -14,13 +14,13 @@ Browserify是一个node.js模块，主要用于改写现有的CommonJS模块，�
 
 npm install -g browserify
 
-{% endhighlight %}
+```
 
 ## 实例：简单应用
 
 先看一个例子。假定有一个很简单的CommonJS模块文件foo.js。
 
-{% highlight javascript %}
+```javascript
 
 // foo.js
 
@@ -28,18 +28,18 @@ module.exports = function(x) {
     console.log(x);
 };
 
-{% endhighlight %}
+```
 
 然后，还有一个main.js文件，用来加载foo模块。
 
-{% highlight javascript %}
+```javascript
 
 // main.js
 
 var foo = require("./foo");
 foo("Hi");
 
-{% endhighlight %}
+```
 
 使用Browserify，将main.js转化为浏览器可以加载的脚本compiled.js。
 
@@ -55,15 +55,15 @@ browserify main > compiled.js
 
 browserify main.js -o compiled.js
 
-{% endhighlight %}
+```
 
 之所以转化后的文件叫做compiled.js，是因为该文件不仅包括了main.js，还包括了它所依赖的foo.js。两者打包在一起，保证浏览器加载时的依赖关系。
 
-{% highlight html %}
+```html
 
 <script src="compiled.js"></script>
 
-{% endhighlight %}
+```
 
 使用上面的命令，在浏览器中运行compiled.js，控制台会显示Hi。
 
@@ -77,11 +77,11 @@ browserify main.js -o compiled.js
 
 npm install backbone jquery
 
-{% endhighlight %}
+```
 
 然后，新建一个main.js文件。
 
-{% highlight javascript %}
+```javascript
 
 // main.js
 
@@ -97,7 +97,7 @@ var AppView = Backbone.View.extend({
 var appView = new AppView();
 appView.render();
 
-{% endhighlight %}
+```
 
 接着，使用browserify将main.js转为app.js。
 
@@ -105,15 +105,15 @@ appView.render();
 
 browserify main.js -o app.js
 
-{% endhighlight %}
+```
 
 app.js就可以直接插入HTML网页了。
 
-{% highlight html %}
+```html
 
 <script src="app.js"></script>
 
-{% endhighlight %}
+```
 
 注意，只要插入app.js一个文件就可以了，完全不需要再加载backbone.js和jQuery了。
 
@@ -125,11 +125,11 @@ app.js就可以直接插入HTML网页了。
 
 browserify -r through -r ./my-file.js:my-module > bundle.js
 
-{% endhighlight %}
+```
 
 上面代码将through和my-file.js（后面的冒号表示指定模块名为my-module）都做成了模块，可以在其他script标签中调用。
 
-{% highlight html %}
+```html
 
 <script src="bundle.js"></script>
 <script>
@@ -138,7 +138,7 @@ browserify -r through -r ./my-file.js:my-module > bundle.js
   /* ... */
 </script>
 
-{% endhighlight %}
+```
 
 可以看到，-r参数的另一个作用，就是为浏览器端提供require方法。
 
@@ -148,17 +148,17 @@ browserify -r through -r ./my-file.js:my-module > bundle.js
 
 比如，网页中需要加载app.js，它是从main.js转化过来的。
 
-{% highlight html %}
+```html
 
 <!-- index.html -->
 
 <script src="app.js"></script>
 
-{% endhighlight %}
+```
 
 你可以在服务器端静态生成一个app.js文件，也可以让它动态生成。这就需要用browserify-middleware模块，服务器端脚本要像下面这样写。
 
-{% highlight javascript %}
+```javascript
 
 var browserify = require('browserify-middleware');
 var express = require('express');
@@ -170,7 +170,7 @@ app.get('/', function(req, res){
   res.render('index.html');
 });
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

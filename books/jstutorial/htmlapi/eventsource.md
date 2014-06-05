@@ -25,7 +25,7 @@ data: 1394572348463
 
 ^C
 
-{% endhighlight %}
+```
 
 SSE与WebSocket有相似功能，都是用来建立浏览器与服务器之间的通信渠道。两者的区别在于：
 
@@ -47,17 +47,17 @@ SSE与WebSocket有相似功能，都是用来建立浏览器与服务器之间�
 
 首先，使用下面的代码，检测浏览器是否支持SSE。
 
-{% highlight javascript %}
+```javascript
 
 if (!!window.EventSource) {
   // ...
 }
 
-{% endhighlight %}
+```
 
 然后，部署SSE大概如下。
 
-{% highlight javascript %}
+```javascript
 
 var source = new EventSource('/dates');
 
@@ -69,37 +69,37 @@ source.onmessage = function(e){
 
 source.addEventListener('message', function(e){})
 
-{% endhighlight %}
+```
 
 ### 建立连接
 
 首先，浏览器向服务器发起连接，生成一个EventSource的实例对象。
 
-{% highlight javascript %}
+```javascript
 
 var source = new EventSource(url);
 
-{% endhighlight %}
+```
 
 参数url就是服务器网址，必须与当前网页的网址在同一个网域（domain），而且协议和端口都必须相同。
 
 下面是一个建立连接的实例。
 
-{% highlight javascript %}
+```javascript
 
 if (!!window.EventSource) {
   var source = new EventSource('http://127.0.0.1/sses/');
 }
 
-{% endhighlight %}
+```
 
 新生成的EventSource实例对象，有一个readyState属性，表明连接所处的状态。
 
-{% highlight javascript %}
+```javascript
 
 source.readyState
 
-{% endhighlight %}
+```
 
 它可以取以下值：
 
@@ -113,7 +113,7 @@ source.readyState
 
 连接一旦建立，就会触发open事件，可以定义相应的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 source.onopen = function(event) {
   // handle open event
@@ -125,13 +125,13 @@ source.addEventListener("open", function(event) {
   // handle open event
 }, false);
 
-{% endhighlight %}
+```
 
 ### message事件
 
 收到数据就会触发message事件。
 
-{% highlight javascript %}
+```javascript
 
 source.onmessage = function(event) {
   var data = event.data;
@@ -149,7 +149,7 @@ source.addEventListener("message", function(event) {
   // handle message
 }, false);
 
-{% endhighlight %}
+```
 
 参数对象event有如下属性：
 
@@ -163,7 +163,7 @@ source.addEventListener("message", function(event) {
 
 如果发生通信错误（比如连接中断），就会触发error事件。
 
-{% highlight javascript %}
+```javascript
 
 source.onerror = function(event) {
   // handle error event
@@ -175,13 +175,13 @@ source.addEventListener("error", function(event) {
   // handle error event
 }, false);
 
-{% endhighlight %}
+```
 
 ### 自定义事件
 
 服务器可以与浏览器约定自定义事件。这种情况下，发送回来的数据不会触发message事件。
 
-{% highlight javascript %}
+```javascript
 
 source.addEventListener("foo", function(event) {
   var data = event.data;
@@ -190,7 +190,7 @@ source.addEventListener("foo", function(event) {
   // handle message
 }, false);
 
-{% endhighlight %}
+```
 
 上面代码表示，浏览器对foo事件进行监听。
 
@@ -198,11 +198,11 @@ source.addEventListener("foo", function(event) {
 
 close方法用于关闭连接。
 
-{% highlight javascript %}
+```javascript
 
 source.close();
 
-{% endhighlight %}
+```
 
 ## 数据格式
 
@@ -210,35 +210,35 @@ source.close();
 
 服务器端发送的数据的HTTP头信息如下：
 
-{% highlight html %}
+```html
 
 Content-Type: text/event-stream
 Cache-Control: no-cache
 Connection: keep-alive
 
-{% endhighlight %}
+```
 
 后面的行都是如下格式：
 
-{% highlight html %}
+```html
 
 field: value\n
 
-{% endhighlight %}
+```
 
 field可以取四个值：“data”, “event”, “id”, or “retry”，也就是说有四类头信息。每次HTTP通信可以包含这四类头信息中的一类或多类。\n代表换行符。
 
 以冒号开头的行，表示注释。通常，服务器每隔一段时间就会向浏览器发送一个注释，保持连接不中断。
 
-{% highlight html %}
+```html
 
 : This is a comment
 
-{% endhighlight %}
+```
 
 下面是一些例子。
 
-{% highlight html %}
+```html
 
 : this is a test stream\n\n
 
@@ -247,50 +247,50 @@ data: some text\n\n
 data: another message\n
 data: with two lines \n\n
 
-{% endhighlight %}
+```
 
 ### data：数据栏
 
 数据内容用data表示，可以占用一行或多行。如果数据只有一行，则像下面这样，以“\n\n”结尾。
 
-{% highlight html %}
+```html
 
 data:  message\n\n
 
-{% endhighlight %}
+```
 
 如果数据有多行，则最后一行用“\n\n”结尾，前面行都用“\n”结尾。
 
-{% highlight html %}
+```html
 
 data: begin message\n
 data: continue message\n\n
 
-{% endhighlight %}
+```
 
 总之，最后一行的data，结尾要用两个换行符号，表示数据结束。
 
 以发送JSON格式的数据为例。
 
-{% highlight html %}
+```html
 
 data: {\n
 data: "foo": "bar",\n
 data: "baz", 555\n
 data: }\n\n
 
-{% endhighlight %}
+```
 
 ### id：数据标识符
 
 数据标识符用id表示，相当于每一条数据的编号。
 
-{% highlight html %}
+```html
 
 id: msg1\n
 data: message\n\n
 
-{% endhighlight %}
+```
 
 浏览器用lastEventId属性读取这个值。一旦连接断线，浏览器会发送一个HTTP头，里面包含一个特殊的“Last-Event-ID”头信息，将这个值发送回来，用来帮助服务器端重建连接。因此，这个头信息可以被视为一种同步机制。
 
@@ -298,7 +298,7 @@ data: message\n\n
 
 event头信息表示自定义的数据类型，或者说数据的名字。
 
-{% highlight html %}
+```html
 
 event: foo\n
 data: a foo event\n\n
@@ -308,7 +308,7 @@ data: an unnamed event\n\n
 event: bar\n
 data: a bar event\n\n
 
-{% endhighlight %}
+```
 
 上面的代码创造了三条信息。第一条是foo，触发浏览器端的foo事件；第二条未取名，表示默认类型，触发浏览器端的message事件；第三条是bar，触发浏览器端的bar事件。
 
@@ -316,11 +316,11 @@ data: a bar event\n\n
 
 浏览器默认的是，如果服务器端三秒内没有发送任何信息，则开始重连。服务器端可以用retry头信息，指定通信的最大间隔时间。
 
-{% highlight html %}
+```html
 
 retry: 10000\n
 
-{% endhighlight %}
+```
 
 ## 服务器代码
 
@@ -328,7 +328,7 @@ retry: 10000\n
 
 下面是Node.js的服务器发送事件的[代码实例](http://cjihrig.com/blog/server-sent-events-in-node-js/)。
 
-{% highlight javascript %}
+```javascript
 
 var http = require("http");
 
@@ -355,7 +355,7 @@ http.createServer(function (req, res) {
   }
 }).listen(80, "127.0.0.1");
 
-{% endhighlight %}
+```
 
 PHP代码实例。
 
@@ -383,7 +383,7 @@ $serverTime = time();
 
 sendMsg($serverTime, 'server time: ' . date("h:i:s", time()));
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

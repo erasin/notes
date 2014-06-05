@@ -12,15 +12,15 @@ Datejs是一个用来操作日期的库，官方网站为[datejs.com](http://www
 
 下载后插入网页，就可以使用。
 
-{% highlight html %}
+```html
 
 <script type="text/javascript" src="date.js"></script>
 
-{% endhighlight %}
+```
 
 官方还提供多种语言的版本，可以选择使用。
 
-{% highlight html %}
+```html
 
 // 美国版
 <script type="text/javascript" src="date-en-US.js"></script>
@@ -28,7 +28,7 @@ Datejs是一个用来操作日期的库，官方网站为[datejs.com](http://www
 // 中国版
 <script type="text/javascript" src="date-zh-CN.js"></script>
 
-{% endhighlight %}
+```
 
 ## 方法
 
@@ -36,7 +36,7 @@ Datejs在原生的Date对象上面，定义了许多语义化的方法，可以�
 
 ### 日期信息
 
-{% highlight javascript %}
+```javascript
 
 Date.today() // 返回当天日期，时间定在这一天开始的00:00 
 
@@ -50,11 +50,11 @@ Date.today().is().nov()         // 等同于上一行
 
 Date.today().isWeekday() // 今天是否为工作日（周一到周五）
 
-{% endhighlight %}
+```
 
 ### 日期的变更
 
-{% highlight javascript %}
+```javascript
 
 Date.today().next().friday()    // 下一个星期五
 Date.today().last().monday()    // 上一个星期一
@@ -83,11 +83,11 @@ Date.today().set({ day: 15, hour: 16, minute: 30 }).add({ days: 90 })
 
 (30).days().after(Date.today()) // 30天后
 
-{% endhighlight %}
+```
 
 ### 日期的解析
 
-{% highlight javascript %}
+```javascript
 
 Date.parse('today')
  
@@ -101,7 +101,7 @@ Date.parse('July 8th, 2007, 10:30 PM')
 
 Date.parse('07.15.2007')
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

@@ -12,7 +12,7 @@ Ajax指的是不刷新页面，发出异步请求，向服务器端要求数据�
 
 XMLHttpRequest对象用于从JavaScript发出HTTP请求，下面是典型用法。
 
-{% highlight javascript %}
+```javascript
 
 // 新建一个XMLHttpRequest实例对象
 var xhr = new XMLHttpRequest();
@@ -37,7 +37,7 @@ xhr.open('GET', '/endpoint', true);
 // 发送HTTP请求
 xhr.send(null);
 
-{% endhighlight %}
+```
 
 ### Open方法
 
@@ -58,7 +58,7 @@ send方法用于实际发出HTTP请求。如果不带参数，就表示HTTP请�
 
 在XHR 2之中，send方法可以发送许多类型的数据。
 
-{% highlight javascript %}
+```javascript
 
 void send();
 void send(ArrayBuffer data);
@@ -67,13 +67,13 @@ void send(Document data);
 void send(DOMString data);
 void send(FormData data);
 
-{% endhighlight %}
+```
 
 Blob类型可以用来发送二进制数据，这使得通过Ajax上传文件成为可能。
 
 FormData类型可以用于构造表单数据。
 
-{% highlight javascript %}
+```javascript
 
 var formData = new FormData();
 
@@ -83,11 +83,11 @@ formData.append('birthDate', 1940);
 
 xhr.send(formData);
 
-{% endhighlight %}
+```
 
 上面的代码构造了一个formData对象，然后使用send方法发送。它的效果与点击下面表单的submit按钮是一样的。
 
-{% highlight html %}
+```html
 
 <form id='registration' name='registration' action='/register'>
     <input type='text' name='username' value='张三'>
@@ -96,11 +96,11 @@ xhr.send(formData);
     <input type='submit' onclick='return sendForm(this.form);'>
 </form>
 
-{% endhighlight %}
+```
 
 FormData对象还可以对现有表单添加数据，这为我们操作表单提供了极大的灵活性。
 
-{% highlight javascript %}
+```javascript
 
 function sendForm(form) {
     var formData = new FormData(form);
@@ -119,11 +119,11 @@ function sendForm(form) {
 var form = document.querySelector('#registration');
 sendForm(form);
 
-{% endhighlight %}
+```
 
 FormData对象也能用来模拟File控件，进行文件上传。
 
-{% highlight javascript %}
+```javascript
 
 function uploadFiles(url, files) {
   var formData = new FormData();
@@ -143,7 +143,7 @@ document.querySelector('input[type="file"]').addEventListener('change', function
   uploadFiles('/server', this.files);
 }, false);
 
-{% endhighlight %}
+```
 
 ### progress事件
 
@@ -151,15 +151,15 @@ document.querySelector('input[type="file"]').addEventListener('change', function
 
 假定网页上有一个progress元素。
 
-{% highlight javascript %}
+```javascript
 
 <progress min="0" max="100" value="0">0% complete</progress>
 
-{% endhighlight %}
+```
 
 文件上传时，对upload属性指定progress事件回调函数，即可获得上传的进度。
 
-{% highlight javascript %}
+```javascript
 
 function upload(blobOrFile) {
   var xhr = new XMLHttpRequest();
@@ -180,11 +180,11 @@ function upload(blobOrFile) {
 
 upload(new Blob(['hello world'], {type: 'text/plain'}));
 
-{% endhighlight %}
+```
 
 下面是一个上传ArrayBuffer对象的例子。
 
-{% highlight javascript %}
+```javascript
 
 function sendArrayBuffer() {
   var xhr = new XMLHttpRequest();
@@ -196,7 +196,7 @@ function sendArrayBuffer() {
   xhr.send(uInt8Array.buffer);
 }
 
-{% endhighlight %}
+```
 
 ### 服务器返回的信息
 
@@ -212,7 +212,7 @@ responseText属性表示服务器返回的文本数据。
 
 setRequestHeader方法用于设置HTTP头信息。
 
-{% highlight javascript %}
+```javascript
 
 xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -220,7 +220,7 @@ xhr.setRequestHeader('Content-Length', JSON.stringify(data).length);
 
 xhr.send(JSON.stringify(data));
 
-{% endhighlight %}
+```
 
 上面代码首先设置头信息Content-Type，表示发送JSON格式的数据；然后设置Content-Length，表示数据长度；最后发送JSON数据。
 
@@ -230,7 +230,7 @@ xhr.send(JSON.stringify(data));
 
 传统上，如果希望从服务器取回二进制数据，就要使用这个方法，人为将数据类型伪装成文本数据。
 
-{% highlight javascript %}
+```javascript
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', '/path/to/image.png', true);
@@ -250,7 +250,7 @@ xhr.onreadystatechange = function(e) {
 
 xhr.send();
 
-{% endhighlight %}
+```
 
 上面代码中，因为传回来的是二进制数据，首先用xhr.overrideMimeType方法强制改变它的MIME类型，伪装成文本数据。字符集必需指定为“x-user-defined”，如果是其他字符集，浏览器内部会强制转码，将其保存成UTF-16的形式。字符集“x-user-defined”其实也会发生转码，浏览器会在每个字节前面再加上一个字节（0xF700-0xF7ff），因此后面要对每个字符进行一次与运算（&），将高位的8个位去除，只留下低位的8个位，由此逐一读出原文件二进制数据的每个字节。
 
@@ -270,7 +270,7 @@ XHR 2允许用户自行设置这个属性，也就是指定返回数据的类型
 
 text类型适合大多数情况，而且直接处理文本也比较方便，document类型适合返回XML文档的情况，blob类型适合读取二进制数据，比如图片文件。
 
-{% highlight javascript %}
+```javascript
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', '/path/to/image.png', true);
@@ -285,11 +285,11 @@ xhr.onload = function(e) {
 
 xhr.send();
 
-{% endhighlight %}
+```
 
 如果将这个属性设为ArrayBuffer，就可以按照数组的方式处理二进制数据。
 
-{% highlight javascript %}
+```javascript
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', '/path/to/image.png', true);
@@ -304,7 +304,7 @@ xhr.onload = function(e) {
 
 xhr.send();
 
-{% endhighlight %}
+```
 
 如果将这个属性设为“json”，支持JSON的浏览器（Firefox>9，chrome>30），就会自动对返回数据调用JSON.parse() 方法。也就是说，你从xhr.response属性（注意，不是xhr.responseText属性）得到的不是文本，而是一个JSON对象。
 
@@ -312,29 +312,29 @@ xhr.send();
 
 通常，我们使用file控件实现文件上传。
 
-{% highlight html %}
+```html
 
 <form id="file-form" action="handler.php" method="POST">
   <input type="file" id="file-select" name="photos[]" multiple/>
   <button type="submit" id="upload-button">上传</button>
 </form>
 
-{% endhighlight %}
+```
 
 上面HTML代码中，file控件的multiple属性，指定可以一次选择多个文件；如果没有这个属性，则一次只能选择一个文件。
 
 file对象的files属性，返回一个FileList对象，包含了用户选中的文件。
 
-{% highlight javascript %}
+```javascript
 
 var fileSelect = document.getElementById('file-select');
 var files = fileSelect.files;
 
-{% endhighlight %}
+```
 
 然后，新建一个FormData对象的实例，用来模拟发送到服务器的表单数据，把选中的文件添加到这个对象上面。
 
-{% highlight javascript %}
+```javascript
 
 var formData = new FormData();
 
@@ -348,11 +348,11 @@ for (var i = 0; i < files.length; i++) {
   formData.append('photos[]', file, file.name);
 }
 
-{% endhighlight %}
+```
 
 上面代码中的FormData对象的append方法，除了可以添加文件，还可以添加二进制对象（Blob）或者字符串。
 
-{% highlight javascript %}
+```javascript
 
 // Files
 formData.append(name, file, filename);
@@ -363,13 +363,13 @@ formData.append(name, blob, filename);
 // Strings
 formData.append(name, value);    
 
-{% endhighlight %}
+```
 
 append方法的第一个参数是表单的控件名，第二个参数是实际的值，第三个参数是可选的，通常是文件名。
 
 最后，使用Ajax方法向服务器上传文件。
 
-{% highlight javascript %}
+```javascript
 
 var xhr = new XMLHttpRequest();
 
@@ -383,7 +383,7 @@ xhr.onload = function () {
 
 xhr.send(formData);
 
-{% endhighlight %}
+```
 
 目前，各大浏览器（包括IE 10）都支持Ajax上传文件。
 
@@ -391,7 +391,7 @@ xhr.send(formData);
 
 JSONP是一种常见做法，用于服务器与客户端之间的数据传输，主要为了规避浏览器的同域限制。因为Ajax只能向当前网页所在的域名发出HTTP请求（除非使用下文要提到的CORS，但并不是所有服务器都支持CORS），所以JSONP就采用在网页中动态插入script元素的做法，向服务器请求脚本文件。
 
-{% highlight javascript %}
+```javascript
 
 function addScriptTag(src){
 	var script = document.createElement('script');
@@ -408,7 +408,7 @@ function foo(data) {
     console.log('Your public IP address is: ' + data.ip);
 };
 
-{% endhighlight %}
+```
 
 上面代码使用了JSONP，运行以后当前网页就可以直接处理example.com返回的数据了。
 
@@ -416,29 +416,29 @@ function foo(data) {
 
 请看下面的例子，假定访问 http://example.com/ip ，返回如下JSON数据：
 
-{% highlight javascript %}
+```javascript
 
 {"ip":"8.8.8.8"}
 
-{% endhighlight %}
+```
 
 现在服务器允许客户端请求时使用callback参数指定回调函数。访问 http://example.com/ip?callback=foo ，返回的数据变成：
 
-{% highlight javascript %}
+```javascript
 
 foo({"ip":"8.8.8.8"})
 
-{% endhighlight %}
+```
 
 这时，如果客户端定义了foo函数，该函数就会被立即调用，而作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用JSON.parse的步骤。
 
-{% highlight javascript %}
+```javascript
 
 function foo(data) {
     console.log('Your public IP address is: ' + data.ip);
 };
 
-{% endhighlight %}
+```
 
 jQuery的getJSON方法就是JSONP的一个应用。
 
@@ -456,7 +456,7 @@ CORS的全称是“跨域资源共享”（Cross-origin resource sharing），�
 
 所有主流浏览器都支持该方法，不过IE8和IE9的该方法不是部署在XMLHttpRequest对象，而是部署在XDomainRequest对象。检查浏览器是否支持的代码如下：
 
-{% highlight javascript %}
+```javascript
 
 var request = new XMLHttpRequest();
 
@@ -464,7 +464,7 @@ if("withCredentials" in request) {
   // 发出跨域请求
 }
 
-{% endhighlight %}
+```
 
 CORS的原理其实很简单，就是增加一条HTTP头信息的查询，询问服务器端，当前请求的域名是否在许可名单之中，以及可以使用哪些HTTP动词。如果得到肯定的答复，就发出XMLHttpRequest请求。这种机制叫做“预检”（preflight）。
 
@@ -474,7 +474,7 @@ CORS的原理其实很简单，就是增加一条HTTP头信息的查询，询问
 
 Origin: http://www.example.com
 
-{% endhighlight %}
+```
 
 这行HTTP头信息表示，请求来自www.example.com。服务端如果同意，就返回一个Access-Control-Allow-Origin头信息。
 
@@ -482,7 +482,7 @@ Origin: http://www.example.com
 
 Access-Control-Allow-Origin: http://www.example.com
 
-{% endhighlight %}
+```
 
 如果不同意，服务器端会返回一个错误。
 
@@ -492,17 +492,17 @@ Access-Control-Allow-Origin: http://www.example.com
 
 Access-Control-Allow-Origin: *
 
-{% endhighlight %}
+```
 
 由于整个过程都是浏览器自动后台完成，不用用户参与，所以对于开发者来说，使用Ajax跨域请求与同域请求没有区别，代码完全一样。但是，这需要服务器的支持，所以在使用CORS之前，要查看一下所请求的网站是否支持。
 
 CORS机制默认不发送cookie和HTTP认证信息，除非打开withCredentials属性。
 
-{% highlight javascript %}
+```javascript
 
 request.withCredentials = "true";
 
-{% endhighlight %}
+```
 
 同时，服务器返回HTTP头信息，也必须打开Access-Control-Allow-Credentials选项。
 
@@ -510,7 +510,7 @@ request.withCredentials = "true";
 
 Access-Control-Allow-Credentials: true
 
-{% endhighlight %}
+```
 
 需要注意的是，此时cookie依然遵循同源政策，只有该远程域名设置的cookie才会上传，其他域名下的cookie并不会上传，且网页代码中的document.cookie也无法读取远程域名下的cookie。
 

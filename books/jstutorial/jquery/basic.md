@@ -14,14 +14,14 @@ jQuery的最大优势有两个。首先，它基本是一个DOM操作工具，�
 
 一般采用下面的写法，在网页中加载jQuery。
 
-{% highlight html %}
+```html
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
 window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js" type="text/javascript"><\/script>')
 </script>
 
-{% endhighlight %}
+```
 
 上面代码有两点需要注意。一是采用[CDN](http://jquery.com/download/#using-jquery-with-a-cdn)加载。如果CDN加载失败，则退回到本地加载。二是采用协议无关的加载网址，同时支持http协议和https协议。
 
@@ -35,13 +35,13 @@ jQuery最重要的概念，就是jQuery对象。它是一个全局对象，可�
 
 在网页中加载jQuery函数库以后，就可以使用jQuery对象了。jQuery的全部方法，都定义在这个对象上面。
 
-{% highlight javascript %}
+```javascript
 
 var listItems = jQuery('li');
 // or
 var listItems = $('li');
 
-{% endhighlight %}
+```
 
 上面两行代码是等价的，表示选中网页中所有的li元素。
 
@@ -49,7 +49,7 @@ var listItems = $('li');
 
 jQuery对象本质上是一个构造函数，主要作用是返回jQuery对象的实例。比如，上面代码表面上是选中li元素，实际上是返回对应于li元素的jQuery实例。因为只有这样，才能在DOM对象上使用jQuery提供的各种方法。
 
-{% highlight javascript %}
+```javascript
 
 $('body').nodeType
 // undefined
@@ -57,7 +57,7 @@ $('body').nodeType
 $('body') instanceof jQuery
 // true
 
-{% endhighlight %}
+```
 
 上面代码表示，由于jQuery返回的不是DOM对象，所以没有DOM属性nodeType。它返回的是jQuery对象的实例。 
 
@@ -65,7 +65,7 @@ $('body') instanceof jQuery
 
 jQuery构造函数的参数，主要是CSS选择器，就像上面的那个例子。下面是另外一些CSS选择器的例子。
 
-{% highlight javascript %}
+```javascript
 
 $("*")
 $("#lastname")
@@ -80,7 +80,7 @@ $("div:has(p)")
 $(":empty")
 $("[title^='Tom']")
 
-{% endhighlight %}
+```
 
 本书不讲解CSS选择器，请读者参考有关书籍和jQuery文档。
 
@@ -88,45 +88,45 @@ $("[title^='Tom']")
 
 jQuery构造函数的参数，还可以是DOM对象。它也会被转为jQuery对象的实例。
 
-{% highlight javascript %}
+```javascript
 
 $(document.body) instanceof jQuery
 // true
 
-{% endhighlight %}
+```
 
 上面代码中，jQuery的参数不是CSS选择器，而是一个DOM对象，返回的依然是jQuery对象的实例。
 
 如果有多个DOM元素要转为jQuery对象的实例，可以把DOM元素放在一个数组里，输入jQuery构造函数。
 
-{% highlight javascript %}
+```javascript
 
 $([document.body, document.head]) 
 
-{% endhighlight %}
+```
 
 **（3）HTML代码作为参数**
 
 如果直接在jQuery构造函数中输入HTML代码，返回的也是jQuery实例。
 
-{% highlight javascript %}
+```javascript
 
 $('<li class="greet">test</lt>')
 
-{% endhighlight %}
+```
 
 上面代码从HTML代码生成了一个jQuery实例，它与从CSS选择器生成的jQuery实例完全一样。唯一的区别就是，它对应的DOM结构不属于当前文档。
 
 上面代码也可以写成下面这样。
 
-{% highlight javascript %}
+```javascript
 
 $( '<li>', {
   html: 'test',
   'class': 'greet'
 });
 
-{% endhighlight %}
+```
 
 上面代码中，由于class是javaScript的保留字，所以只能放在引号中。
 
@@ -134,11 +134,11 @@ $( '<li>', {
 
 默认情况下，jQuery将文档的根元素（html）作为寻找匹配对象的起点。如果要指定某个网页元素（比如某个div元素）作为寻找的起点，可以将它放在jQuery函数的第二个参数。
 
-{% highlight javascript %}
+```javascript
 
 $('li', someElement);
 
-{% endhighlight %}
+```
 
 上面代码表示，只寻找属于someElement对象下属的li元素。someElement可以是jQuery对象的实例，也可以是DOM对象。
 
@@ -150,42 +150,42 @@ jQuery的核心思想是“先选中某些网页元素，然后对其进行某�
 
 jQuery对象返回的结果集是一个类似数组的对象，包含了所有被选中的网页元素。查看该对象的length属性，可以知道到底选中了多少个结果。
 
-{% highlight javascript %}
+```javascript
 
 if ( $('li').length === 0 ) {
 	console.log('不含li元素');
 }
 
-{% endhighlight %}
+```
 
 上面代码表示，如果网页没有li元素，则返回对象的length属性等于0。这就是测试有没有选中的标准方法。
 
 所以，如果想知道jQuery有没有选中相应的元素，不能写成下面这样。
 
-{% highlight javascript %}
+```javascript
 
 if ($('div.foo')) { ... }
 
-{% endhighlight %}
+```
 
 因为不管有没有选中，jQuery构造函数总是返回一个实例对象，而对象的布尔值永远是true。使用length属性才是判断有没有选中的正确方法。
 
-{% highlight javascript %}
+```javascript
 
 if ($('div.foo').length) { ... }
 
-{% endhighlight %}
+```
 
 **（2）下标运算符**
 
 jQuery选择器返回的是一个类似数组的对象。但是，使用下标运算符取出的单个对象，并不是jQuery对象的实例，而是一个DOM对象。
 
-{% highlight javascript %}
+```javascript
 
 $('li')[0] instanceof jQuery // false
 $('li')[0] instanceof Element // true
 
-{% endhighlight %}
+```
 
 上面代码表示，下标运算符取出的是Element节点的实例。所以，通常使用下标运算符将jQuery实例转回DOM对象。
 
@@ -193,7 +193,7 @@ $('li')[0] instanceof Element // true
 
 is方法返回一个布尔值，表示选中的结果是否符合某个条件。这个用来验证的条件，可以是CSS选择器，也可以是一个函数，或者DOM元素和jQuery实例。
 
-{% highlight javascript %}
+```javascript
 
 $('li').is('li') // true
 
@@ -205,27 +205,27 @@ $('li').is(function() {
       return $("strong", this).length === 0;
 });
 
-{% endhighlight %}
+```
 
 **（4）get方法**
 
 jQuery实例的get方法是下标运算符的另一种写法。
 
-{% highlight javascript %}
+```javascript
 
 $('li').get(0) instanceof Element // true
 
-{% endhighlight %}
+```
 
 **（5）eq方法**
 
 如果想要在结果集取出一个jQuery对象的实例，不需要取出DOM对象，则使用eq方法，它的参数是实例在结果集中的位置（从0开始）。
 
-{% highlight javascript %}
+```javascript
 
 $('li').eq(0) instanceof jQuery // true
 
-{% endhighlight %}
+```
 
 由于eq方法返回的是jQuery的实例，所以可以在返回结果上使用jQuery实例对象的方法。
 
@@ -235,7 +235,7 @@ $('li').eq(0) instanceof jQuery // true
 
 each方法接受一个函数作为参数，依次处理集合中的每一个元素。
 
-{% highlight javascript %}
+```javascript
 
 $('li').each(function( index, element) {
   $(element).prepend( '<em>' + index + ': </em>' );
@@ -247,13 +247,13 @@ $('li').each(function( index, element) {
 // <li><em>0: </em>Hello</li>
 // <li><em>1: </em>World</li>
 
-{% endhighlight %}
+```
 
 从上面代码可以看出，作为each方法参数的函数，本身有两个参数，第一个是当前元素在集合中的位置，第二个是当前元素对应的DOM对象。
 
 map方法的用法与each方法完全一样，区别在于each方法没有返回值，只是对每一个元素执行某种操作，而map方法返回一个新的jQuery对象。
 
-{% highlight javascript %}
+```javascript
 
 $("input").map(function (index, element){
     return $(this).val();
@@ -261,7 +261,7 @@ $("input").map(function (index, element){
 .get()
 .join(", ")
 
-{% endhighlight %}
+```
 
 上面代码表示，将所有input元素依次取出值，然后通过get方法得到一个包含这些值的数组，最后通过数组的join方法返回一个逗号分割的字符串。
 
@@ -269,15 +269,15 @@ $("input").map(function (index, element){
 
 jQuery默认对当前结果集进行循环处理，所以如果直接使用jQuery内置的某种方法，each和map方法是不必要的。
 
-{% highlight javascript %}
+```javascript
 
 $(".class").addClass("highlight");
 
-{% endhighlight %}
+```
 
 上面代码会执行一个内部循环，对每一个选中的元素进行addClass操作。由于这个原因，对上面操作加上each方法是不必要的。
 
-{% highlight javascript %}
+```javascript
 
 $(".class").each(function(index,element){
 	 $(element).addClass("highlight");
@@ -289,13 +289,13 @@ $(".class").each(function(){
 	$(this).addClass("highlight");
 });
 
-{% endhighlight %}
+```
 
 上面代码的each方法，都是没必要使用的。
 
 由于内置循环的存在，从性能考虑，应该尽量减少不必要的操作步骤。
 
-{% highlight javascript %}
+```javascript
 
 $(".class").css("color", "green").css("font-size", "16px");
 
@@ -306,13 +306,13 @@ $(".class").css({
   "font-size": "16px"
 });
 
-{% endhighlight %}
+```
 
 ### 链式操作
 
 jQuery最方便的一点就是，它的大部分方法返回的都是jQuery对象，因此可以链式操作。也就是说，后一个方法可以紧跟着写在前一个方法后面。
 
-{% highlight javascript %}
+```javascript
 
 $('li').click(function (){
     $(this).addClass('clicked');
@@ -320,31 +320,31 @@ $('li').click(function (){
 .find('span')
 .attr( 'title', 'Hover over me' );
 
-{% endhighlight %}
+```
 
 ### $(document).ready()
 
 $(document).ready方法接受一个函数作为参数，将该参数作为document对象的DOMContentLoaded事件的回调函数。也就是说，当页面解析完成（即下载完&lt;/html&gt;标签）以后，在所有外部资源（图片、脚本等）完成加载之前，该函数就会立刻运行。
 
-{% highlight javascript %}
+```javascript
 
 $( document ).ready(function() {
   console.log( 'ready!' );
 });
 
-{% endhighlight %}
+```
 
 上面代码表示，一旦页面完成解析，就会运行ready方法指定的函数，在控制台显示“ready!”。
 
 该方法通常作为网页初始化手段使用，jQuery提供了一种简写法，就是直接把回调函数放在jQuery对象中。
 
-{% highlight javascript %}
+```javascript
 
 $(function() {
   console.log( 'ready!' );
 });
 
-{% endhighlight %}
+```
 
 上面代码与前一段代码是等价的。
 
@@ -352,13 +352,13 @@ $(function() {
 
 jQuery使用美元符号（$）指代jQuery对象。某些情况下，其他函数库也会用到美元符号，为了避免冲突，$.noConflict方法允许将美元符号与jQuery脱钩。
 
-{% highlight html %}
+```html
 
 <script src="other_lib.js"></script>
 <script src="jquery.js"></script>
 <script>$.noConflict();</script>
 
-{% endhighlight %}
+```
 
 上面代码就是$.noConflict方法的一般用法。在加载jQuery之后，立即调用该方法，会使得美元符号还给前面一个函数库。这意味着，其后再调用jQuery，只能写成jQuery.methond的形式，而不能用$.method了。
 
@@ -376,19 +376,19 @@ jQuery使用美元符号（$）指代jQuery对象。某些情况下，其他函�
 
 first方法返回结果集的第一个成员，last方法返回结果集的最后一个成员。
 
-{% highlight javascript %}
+```javascript
 
 $("li").first()
 
 $("li").last()
 
-{% endhighlight %}
+```
 
 **（2）next方法，prev方法**
 
 next方法返回紧邻的下一个同级元素，prev方法返回紧邻的上一个同级元素。
 
-{% highlight javascript %}
+```javascript
 
 $("li").first().next()
 $("li").last().prev()
@@ -396,7 +396,7 @@ $("li").last().prev()
 $("li").first().next('.item')
 $("li").last().prev('.item')
 
-{% endhighlight %}
+```
 
 如果next方法和prev方法带有参数，表示选择符合该参数的同级元素。
 
@@ -404,7 +404,7 @@ $("li").last().prev('.item')
 
 parent方法返回当前元素的父元素，parents方法返回当前元素的所有上级元素（直到html元素）。
 
-{% highlight javascript %}
+```javascript
 
 $("p").parent()
 $("p").parent(".selected")
@@ -412,11 +412,11 @@ $("p").parent(".selected")
 $("p").parents()
 $("p").parents("div")
 
-{% endhighlight %}
+```
 
 children方法返回选中元素的所有子元素。
 
-{% highlight javascript %}
+```javascript
 
 $("div").children()
 $("div").children(".selected")
@@ -426,7 +426,7 @@ $("div").children(".selected")
 $('div > *')
 $('div > .selected')
 
-{% endhighlight %}
+```
 
 上面这三个方法都接受一个选择器作为参数。
 
@@ -434,21 +434,21 @@ $('div > .selected')
 
 siblings方法返回当前元素的所有同级元素。
 
-{% highlight javascript %}
+```javascript
 
 $('li').first().siblings()
 $('li').first().siblings('.item')
 
-{% endhighlight %}
+```
 
 nextAll方法返回当前元素其后的所有同级元素，prevAll方法返回当前元素前面的所有同级元素。
 
-{% highlight javascript %}
+```javascript
 
 $('li').first().nextAll()
 $('li').last().prevAll()
 
-{% endhighlight %}
+```
 
 **（5）closest方法，find方法**
 
@@ -467,33 +467,33 @@ $('div').find('li')
 
 add方法用于为结果集添加元素。
 
-{% highlight javascript %}
+```javascript
 
 $('li').add('p')
 
-{% endhighlight %}
+```
 
 addBack方法将当前元素加回原始的结果集。
 
-{% highlight javascript %}
+```javascript
 
 $('li').parent().addBack()
 
-{% endhighlight %}
+```
 
 end方法用于返回原始的结果集。
 
-{% highlight javascript %}
+```javascript
 
 $('li').first().end()
 
-{% endhighlight %}
+```
 
 **（7）filter方法，not方法，has方法**
 
 filter方法用于过滤结果集，它可以接受多种类型的参数，只返回与参数一致的结果。
 
-{% highlight javascript %}
+```javascript
 
 // 返回符合CSS选择器的结果
 $('li').filter('.item')
@@ -509,23 +509,23 @@ $("li").filter(document.getElementById("unique"))
 // 返回符合特定jQuery实例的结果
 $("li").filter($("#unique"))
 
-{% endhighlight %}
+```
 
 not方法的用法与filter方法完全一致，但是返回相反的结果，即过滤掉匹配项。
 
-{% highlight javascript %}
+```javascript
 
 $('li').not('.item')
 
-{% endhighlight %}
+```
 
 has方法与filter方法作用相同，但是只过滤出子元素符合条件的元素。
 
-{% highlight javascript %}
+```javascript
 
 $("li").has("ul")
 
-{% endhighlight %}
+```
 
 上面代码返回具有ul子元素的li元素。
 
@@ -539,15 +539,15 @@ html方法返回该元素包含的HTML代码，text方法返回该元素包含�
 
 假定网页只含有一个p元素。
 
-{% highlight html %}
+```html
 
 <p><em>Hello World!</em></p>
 
-{% endhighlight %}
+```
 
 html方法和text方法的返回结果分别如下。
 
-{% highlight javascript %}
+```javascript
 
 $('p').html()
 // <em>Hello World!</em> 
@@ -555,13 +555,13 @@ $('p').html()
 $('p').text()
 // Hello World! 
 
-{% endhighlight %}
+```
 
 jQuery的许多方法都是取值器（getter）与赋值器（setter）的合一，即取值和赋值都是同一个方法，不使用参数的时候为取值器，使用参数的时候为赋值器。
 
 上面代码的html方法和text方法都没有参数，就会当作取值器使用，取回结果集的第一个元素所包含的内容。如果对这两个方法提供参数，就是当作赋值器使用，修改结果集所有成员的内容，并返回原来的结果集，以便进行链式操作。
 
-{% highlight javascript %}
+```javascript
 
 $('p').html('<strong>你好</strong>')
 // 网页代码变为<p><strong>你好</strong></p> 
@@ -569,13 +569,13 @@ $('p').html('<strong>你好</strong>')
 $('p').text('你好')
 // 网页代码变为<p>你好</p> 
 
-{% endhighlight %}
+```
 
 下面要讲到的jQuery其他许多方法，都采用这种同一个方法既是取值器又是赋值器的模式。
 
 html方法和text方法还可以接受一个函数作为参数，函数的返回值就是网页元素所要包含的新的代码和文本。这个函数接受两个参数，第一个是网页元素在集合中的位置，第二个参数是网页元素原来的代码或文本。
 
-{% highlight javascript %}
+```javascript
 
 $('li').html(function (i, v){
 	return (i + ': ' + v);		
@@ -587,19 +587,19 @@ $('li').html(function (i, v){
 // <li>0: Hello</li>
 // <li>1: World</li>
 
-{% endhighlight %}
+```
 
 **（2）addClass方法，removeClass方法，toggleClass方法**
 
 addClass方法用于添加一个类，removeClass方法用于移除一个类，toggleClass方法用于折叠一个类（如果无就添加，如果有就移除）。
 
-{% highlight javascript %}
+```javascript
 
 $('li').addClass('special')
 $('li').removeClass('special')
 $('li').toggleClass('special')
 
-{% endhighlight %}
+```
 
 **（3）css方法**
 
@@ -607,17 +607,17 @@ css方法用于改变CSS设置。
 
 该方法可以作为取值器使用。
 
-{% highlight javascript %}
+```javascript
 
 $('h1').css('fontSize');
 
-{% endhighlight %}
+```
 
 css方法的参数是css属性名。这里需要注意，CSS属性名的CSS写法和DOM写法，两者都可以接受，比如font-size和fontSize都行。
 
 css方法也可以作为赋值器使用。
 
-{% highlight javascript %}
+```javascript
 
 $('li').css('padding-left', '20px')
 // 或者
@@ -625,7 +625,7 @@ $('li').css({
   'padding-left': '20px'
 });
 
-{% endhighlight %}
+```
 
 上面两种形式都可以用于赋值，jQuery赋值器基本上都是如此。
 
@@ -633,13 +633,13 @@ $('li').css({
 
 val方法返回结果集第一个元素的值，或者设置当前结果集所有元素的值。
 
-{% highlight javascript %}
+```javascript
 
 $('input[type="text"]').val()
 
 $('input[type="text"]').val('new value')
 
-{% endhighlight %}
+```
 
 **（5）prop方法，attr方法**
 
@@ -647,7 +647,7 @@ $('input[type="text"]').val('new value')
 
 一种是网页元素的属性，比如a元素的href属性、img元素的src属性。这要使用attr方法读写。
 
-{% highlight javascript %}
+```javascript
 
 // 读取属性值
 $('textarea').attr(name)
@@ -655,11 +655,11 @@ $('textarea').attr(name)
 //写入属性值
 $('textarea').attr(name, val)
 
-{% endhighlight %}
+```
 
 另一种是DOM元素的属性，比如tagName、nodeName、nodeType等等。这要使用prop方法读写。
 
-{% highlight javascript %}
+```javascript
 
 // 读取属性值
 $('textarea').prop(name)
@@ -667,29 +667,29 @@ $('textarea').prop(name)
 // 写入属性值
 $('textarea').prop(name, val)
 
-{% endhighlight %}
+```
 
 所以，attr方法和prop方法针对的是不同的属性。在英语中，attr是attribute的缩写，prop是property的缩写，中文很难表达出这种差异。有时，attr方法和prop方法对同一个属性会读到不一样的值。比如，网页上有一个单选框。
 
-{% highlight html %}
+```html
 
 <input type="checkbox" checked="checked" />
 
-{% endhighlight %}
+```
 
 对于checked属性，attr方法读到的是checked，prop方法读到的是true。
 
-{% highlight javascript %}
+```javascript
 
 $(input[type=checkbox]).attr("checked") // "checked"
 
 $(input[type=checkbox]).prop("checked") // true
 
-{% endhighlight %}
+```
 
 可以看到，attr方法读取的是网页上该属性的值，而prop方法读取的是DOM元素的该属性的值，根据规范，element.checked应该返回一个布尔值。所以，判断单选框是否选中，要使用prop方法。事实上，不管这个单选框是否选中，attr("checked")的返回值都是checked。
 
-{% highlight javascript %}
+```javascript
 
 if ($(elem).prop("checked")) { /*... */ };
 
@@ -698,24 +698,24 @@ if ($(elem).prop("checked")) { /*... */ };
 if ( elem.checked ) { /*...*/ };
 if ( $(elem).is(":checked") ) { /*...*/ };
 
-{% endhighlight %}
+```
 
 **（6）removeProp方法，removeAttr方法**
 
 removeProp方法移除某个DOM属性，removeAttr方法移除某个HTML属性。
 
-{% highlight javascript %}
+```javascript
 
 $("a").prop("oldValue",1234).removeProp('oldValue')
 $('a').removeAttr("title")
 
-{% endhighlight %}
+```
 
 **（7）data方法**
 
 data方法用于在一个DOM对象上储存数据。
 
-{% highlight javascript %}
+```javascript
 
 // 储存数据
 $("body").data("foo", 52);
@@ -723,7 +723,7 @@ $("body").data("foo", 52);
 // 读取数据
 $("body").data("foo");
 
-{% endhighlight %}
+```
 
 该方法可以在DOM节点上储存各种类型的数据。
 
@@ -735,7 +735,7 @@ jQuery方法提供一系列方法，可以改变元素在文档中的位置。
 
 append方法将参数中的元素插入当前元素的尾部。
 
-{% highlight javascript %}
+```javascript
 
 $("div").append("<p>World</p>")
 
@@ -743,15 +743,15 @@ $("div").append("<p>World</p>")
 // 变为
 // <div>Hello <p>World</p></div>
 
-{% endhighlight %}
+```
 
 appendTo方法将当前元素插入参数中的元素尾部。
 
-{% highlight javascript %}
+```javascript
 
 $("<p>World</p>").appendTo("div")
 
-{% endhighlight %}
+```
 
 上面代码返回与前一个例子一样的结果。
 
@@ -759,7 +759,7 @@ $("<p>World</p>").appendTo("div")
 
 prepend方法将参数中的元素，变为当前元素的第一个子元素。
 
-{% highlight javascript %}
+```javascript
 
 $("p").prepend("Hello ")
 
@@ -767,11 +767,11 @@ $("p").prepend("Hello ")
 // 变为
 // <p>Hello World</p>
 
-{% endhighlight %}
+```
 
 如果prepend方法的参数不是新生成的元素，而是当前页面已存在的元素，则会产生移动元素的效果。
 
-{% highlight javascript %}
+```javascript
 
 $("p").prepend("strong")
 
@@ -779,13 +779,13 @@ $("p").prepend("strong")
 // 变为
 // <p><strong>Hello </strong>World</p>
 
-{% endhighlight %}
+```
 
 上面代码运行后，strong元素的位置将发生移动，而不是克隆一个新的strong元素。不过，如果当前结果集包含多个元素，则除了第一个以后，后面的p元素都将插入一个克隆的strong子元素。
 
 prependTo方法将当前元素变为参数中的元素的第一个子元素。
 
-{% highlight javascript %}
+```javascript
 
 $("<p></p>").prependTo("div")
 
@@ -793,13 +793,13 @@ $("<p></p>").prependTo("div")
 // 变为
 // <div><p></p></div>
 
-{% endhighlight %}
+```
 
 **（3）after方法，insertAfter方法**
 
 after方法将参数中的元素插在当前元素后面。
 
-{% highlight javascript %}
+```javascript
 
 $("div").after("<p></p>")
 
@@ -807,15 +807,15 @@ $("div").after("<p></p>")
 // 变为
 // <div></div><p></p>
 
-{% endhighlight %}
+```
 
 insertAfter方法将当前元素插在参数中的元素后面。
 
-{% highlight javascript %}
+```javascript
 
 $("<p></p>").insertAfter("div")
 
-{% endhighlight %}
+```
 
 上面代码返回与前一个例子一样的结果。
 
@@ -823,7 +823,7 @@ $("<p></p>").insertAfter("div")
 
 before方法将参数中的元素插在当前元素的前面。
 
-{% highlight javascript %}
+```javascript
 
 $("div").before("<p></p>")
 
@@ -831,15 +831,15 @@ $("div").before("<p></p>")
 // 变为
 // <p></p><div></div>
 
-{% endhighlight %}
+```
 
 insertBefore方法将当前元素插在参数中的元素的前面。
 
-{% highlight javascript %}
+```javascript
 
 $("<p></p>").insertBefore("div")
 
-{% endhighlight %}
+```
 
 上面代码返回与前一个例子一样的结果。
 
@@ -847,7 +847,7 @@ $("<p></p>").insertBefore("div")
 
 wrap方法将参数中的元素变成当前元素的父元素。
 
-{% highlight javascript %}
+```javascript
 
 $("p").wrap("<div></div>")
 
@@ -855,23 +855,23 @@ $("p").wrap("<div></div>")
 // 变为
 // <div><p></p></div>
 
-{% endhighlight %}
+```
 
 wrap方法的参数还可以是一个函数。
 
-{% highlight javascript %}
+```javascript
 
 $("p").wrap(function() {
   return "<div></div>";
 })
 
-{% endhighlight %}
+```
 
 上面代码返回与前一个例子一样的结果。
 
 wrapAll方法为结果集的所有元素，添加一个共同的父元素。
 
-{% highlight javascript %}
+```javascript
 
 $("p").wrapAll("<div></div>")
 
@@ -879,11 +879,11 @@ $("p").wrapAll("<div></div>")
 // 变为
 // <div><p></p><p></p></div>
 
-{% endhighlight %}
+```
 
 unwrap方法移除当前元素的父元素。
 
-{% highlight javascript %}
+```javascript
 
 $("p").unwrap()
 
@@ -891,11 +891,11 @@ $("p").unwrap()
 // 变为
 // <p></p>
 
-{% endhighlight %}
+```
 
 wrapInner方法为当前元素的所有子元素，添加一个父元素。
 
-{% highlight javascript %}
+```javascript
 
 $("p").wrapInner('<strong></strong>')
 
@@ -903,17 +903,17 @@ $("p").wrapInner('<strong></strong>')
 // 变为
 // <p><strong>Hello</strong></p>
 
-{% endhighlight %}
+```
 
 **（6）clone方法**
 
 clone方法克隆当前元素。
 
-{% highlight javascript %}
+```javascript
 
 var clones = $('li').clone();
 
-{% endhighlight %}
+```
 
 对于那些有id属性的节点，clone方法会连id属性一起克隆。所以，要把克隆的节点插入文档的时候，务必要修改或移除id属性。
 
@@ -921,20 +921,20 @@ var clones = $('li').clone();
 
 remove方法移除并返回一个元素，取消该元素上所有事件的绑定。detach方法也是移除并返回一个元素，但是不取消该元素上所有事件的绑定。
 
-{% highlight javascript %}
+```javascript
 
 $('p').remove()
 $('p').detach()
 
-{% endhighlight %}
+```
 
 replaceWith方法用参数中的元素，替换并返回当前元素，取消当前元素的所有事件的绑定。
 
-{% highlight javascript %}
+```javascript
 
 $('p').replaceWith('<div></div>')
 
-{% endhighlight %}
+```
 
 ### 动画效果方法
 
@@ -957,48 +957,48 @@ jQuery提供以下一些动画效果方法。
 
 上面这些方法可以不带参数调用，也可以接受毫秒或预定义的关键字作为参数。
 
-{% highlight javascript %}
+```javascript
 
 $('.hidden').show();
 $('.hidden').show(300);
 $('.hidden').show('slow');
 
-{% endhighlight %}
+```
 
 上面三行代码分别表示，以默认速度、300毫秒、较慢的速度隐藏一个元素。
 
 jQuery预定义的关键字是在jQuery.fx.speeds对象上面，可以自行改动这些值，或者创造新的值。
 
-{% highlight javascript %}
+```javascript
 
 jQuery.fx.speeds.fast = 50;
 jQuery.fx.speeds.slow = 3000;
 jQuery.fx.speeds.normal = 1000;
 
-{% endhighlight %}
+```
 
 上面三行代码重新定义fast和slow关键字对应的毫秒数，并且自定义了normal关键字，表示动画持续时间为1500毫秒。
 
 你可以定义自己的关键字。
 
-{% highlight javascript %}
+```javascript
 
 jQuery.fx.speeds.blazing = 30;
 
 // 调用
 $('.hidden').show('blazing');
 
-{% endhighlight %}
+```
 
 这些方法还可以接受一个函数，作为第二个参数，表示动画结束后的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('p').fadeOut(300, function() {
   $(this).remove();
 });
 
-{% endhighlight %}
+```
 
 上面代码表示，p元素以300毫秒的速度淡出，然后调用回调函数，将其从DOM中移除。
 
@@ -1008,7 +1008,7 @@ $('p').fadeOut(300, function() {
 
 animate方法接受三个参数。
 
-{% highlight javascript %}
+```javascript
 
 $('div').animate({
     left: '+=50', // 增加50
@@ -1021,7 +1021,7 @@ $('div').animate({
   }
 );
 
-{% endhighlight %}
+```
 
 上面代码表示，animate方法的第一个参数是一个对象，表示动画结束时相关CSS属性的值，第二个参数是动画持续的毫秒数，第三个参数是动画结束时的回调函数。需要注意的是，第一个参数对象的成员名称，必须与CSS属性名称一致，如果CSS属性名称带有连字号，则需要用“骆驼拼写法”改写。
 
@@ -1029,23 +1029,23 @@ $('div').animate({
 
 stop方法表示立即停止执行当前的动画。
 
-{% highlight javascript %}
+```javascript
 
 $("#stop").click(function() {
   $(".block").stop();
 });
 
-{% endhighlight %}
+```
 
 上面代码表示，点击按钮后，block元素的动画效果停止。
 
 delay方法接受一个时间参数，表示暂停多少毫秒后继续执行。
 
-{% highlight javascript %}
+```javascript
 
 $("#foo").slideUp(300).delay(800).fadeIn(400)
 
-{% endhighlight %}
+```
 
 上面代码表示，slideUp动画之后，暂停800毫秒，然后继续执行fadeIn动画。
 
@@ -1055,7 +1055,7 @@ jQuery还提供一些供特定元素使用的方法。
 
 serialize方法用于将表单元素的值，转为url使用的查询字符串。
 
-{% highlight javascript %}
+```javascript
 
 $( "form" ).on( "submit", function( event ) {
   event.preventDefault();
@@ -1063,11 +1063,11 @@ $( "form" ).on( "submit", function( event ) {
 });
 // single=Single&multiple=Multiple&check=check2&radio=radio1
 
-{% endhighlight %}
+```
 
 serializeArray方法用于将表单元素的值转为数组。
 
-{% highlight javascript %}
+```javascript
 
 $("form").submit(function (event){
   console.log($(this).serializeArray());
@@ -1078,7 +1078,7 @@ $("form").submit(function (event){
 //		{name : 'field2', value : 'hello world'}
 //	]
 
-{% endhighlight %}
+```
 
 ## 事件处理
 
@@ -1086,13 +1086,13 @@ $("form").submit(function (event){
 
 jQuery提供一系列方法，允许直接为常见事件绑定回调函数。比如，click方法可以为一个元素绑定click事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('li').click(function (e){
   console.log($(this).text());
 });
 
-{% endhighlight %}
+```
 
 上面代码为li元素绑定click事件的回调函数，点击后在控制台显示li元素包含的文本。
 
@@ -1114,11 +1114,11 @@ $('li').click(function (e){
 
 如果不带参数调用这些方法，就是触发相应的事件，从而引发回调函数的运行。
 
-{% highlight javascript %}
+```javascript
 
 $('li').click()
 
-{% endhighlight %}
+```
 
 上面代码将触发click事件的回调函数。
 
@@ -1126,7 +1126,7 @@ $('li').click()
 
 上面列表的最后一个hover方法需要特别说明。它接受两个回调函数作为参数，分别代表mouseenter和mouseleave事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $(selector).hover(handlerIn, handlerOut)
 
@@ -1134,7 +1134,7 @@ $(selector).hover(handlerIn, handlerOut)
 
 $(selector).mouseenter(handlerIn).mouseleave(handlerOut)
 
-{% endhighlight %}
+```
 
 ### on方法，trigger方法，off方法
 
@@ -1146,13 +1146,13 @@ on方法是jQuery事件绑定的统一接口。事件绑定的那些简便方法
 
 on方法接受两个参数，第一个是事件名称，第二个是回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('li').on('click', function (e){
   console.log($(this).text());
 });
 
-{% endhighlight %}
+```
 
 上面代码为li元素绑定click事件的回调函数。
 
@@ -1160,25 +1160,25 @@ $('li').on('click', function (e){
 
 on方法允许一次为多个事件指定同样的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('input[type="text"]').on('focus blur', function (){
   console.log('focus or blur');
 });
 
-{% endhighlight %}
+```
 
 上面代码为文本框的focus和blur事件绑定同一个回调函数。
 
 on方法还可以为当前元素的某一个子元素，添加回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('ul').on('click', 'li', function (e){
   console.log(this);
 });
 
-{% endhighlight %}
+```
 
 上面代码为ul的子元素li绑定click事件的回调函数。采用这种写法时，on方法接受三个参数，子元素选择器作为第二个参数，夹在事件名称和回调函数之间。
 
@@ -1186,13 +1186,13 @@ $('ul').on('click', 'li', function (e){
 
 on方法还允许向回调函数传入数据。
 
-{% highlight javascript %}
+```javascript
 
 $("ul" ).on("click", {name: "张三"}, function (event){
 	console.log(event.data.name);
 });
 
-{% endhighlight %}
+```
 
 上面代码在发生click事件之后，会通过event对象的data属性，在控制台打印出所传入的数据（即“张三”）。
 
@@ -1200,11 +1200,11 @@ $("ul" ).on("click", {name: "张三"}, function (event){
 
 trigger方法用于触发回调函数，它的参数就是事件的名称。
 
-{% highlight javascript %}
+```javascript
 
 $('li').trigger('click')
 
-{% endhighlight %}
+```
 
 上面代码触发li元素的click事件回调函数。与那些简便方法一样，trigger方法只触发回调函数，而不会引发浏览器的默认行为。
 
@@ -1212,11 +1212,11 @@ $('li').trigger('click')
 
 off方法用于移除事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('li').off('click')
 
-{% endhighlight %}
+```
 
 上面代码移除li元素所有的click事件回调函数。
 
@@ -1224,7 +1224,7 @@ $('li').off('click')
 
 同一个事件有时绑定了多个回调函数，这时如果想移除其中的一个回调函数，可以采用“名称空间”的方式，即为每一个回调函数指定一个二级事件名，然后再用off方法移除这个二级事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('li').on('click.logging', function (){
   console.log('click.logging callback removed');
@@ -1232,29 +1232,29 @@ $('li').on('click.logging', function (){
 
 $('li').off('click.logging');
 
-{% endhighlight %}
+```
 
 上面代码为li元素定义了二级事件click.logging的回调函数，click.logging属于click名称空间，当发生click事件时会触发该回调函数。将click.logging作为off方法的参数，就会移除这个回调函数，但是对其他click事件的回调函数没有影响。
 
 trigger方法也适用带名称空间的事件。
 
-{% highlight javascript %}
+```javascript
 
 $('li').trigger('click.logging')
 
-{% endhighlight %}
+```
 
 ### event对象
 
 当回调函数被触发后，它们的参数通常是一个事件对象event。
 
-{% highlight javascript %}
+```javascript
 
 $(document).on('click', function (e){
 	// ...
 });
 
-{% endhighlight %}
+```
 
 上面代码的回调函数的参数e，就代表事件对象event。
 
@@ -1276,15 +1276,15 @@ event对象有以下方法：
 
 one方法指定一次性的回调函数，即这个函数只能运行一次。这对提交表单很有用。
 
-{% highlight javascript %}
+```javascript
 
 $("#button").one( "click", function() { return false; } );
 
-{% endhighlight %}
+```
 
 one方法本质上是回调函数运行一次，即解除对事件的监听。
 
-{% highlight javascript %}
+```javascript
 
 document.getElementById("#button").addEventListener("click", handler);
 
@@ -1293,7 +1293,7 @@ function handler(e) {
 	return false;
 }
 
-{% endhighlight %}
+```
 
 上面的代码在点击一次以后，取消了对click事件的监听。如果有特殊需要，可以设定点击2次或3次之后取消监听，这都是可以的。
 

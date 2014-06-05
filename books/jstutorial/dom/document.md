@@ -88,12 +88,12 @@ document.implementation.hasFeature('MutationEvents','2.0')
 
 这两个方法用于获取一个网页的元素节点。它们的不同之处是，querySelector方法的参数使用CSS选择器语法，getElementById方法的参数是HTML标签元素的id属性。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('li')
 document.getElementById('last')
 
-{% endhighlight %}
+```
 
 如果有多个节点满足querySelector方法的条件，则返回第一个匹配的节点。
 
@@ -101,13 +101,13 @@ document.getElementById('last')
 
 这三个方法都返回一组符合条件的网页元素节点（即NodeList对象）。它们的不同之处在于参数，querySelectorAll方法的参数是CSS选择器，getElementsByTagName方法的参数是HTML元素名，getElementsByClassName方法的参数是HTML元素的class属性。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelectorAll('li')
 document.getElementsByTagName('li')
 document.getElementsByClassName('liClass')
 
-{% endhighlight %}
+```
 
 getElementsByTagName方法和getElementsByClassName方法返回的是对象的指针，当对象发生变化时，返回的结果集会跟着变化，querySelectorAll方法返回的结果集没有这种特性。
 

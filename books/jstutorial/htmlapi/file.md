@@ -23,17 +23,17 @@ Blob（Binary Large Object）对象代表了一段二进制数据，提供了一
 
 （1）Blob构造函数，接受两个参数。第一个参数是一个包含实际数据的数组，第二个参数是数据的类型，这两个参数都不是必需的。
 
-{% highlight javascript %}
+```javascript
 
 var htmlParts = ["<a id=\"a\"><b id=\"b\">hey!<\/b><\/a>"];
 
 var myBlob = new Blob(htmlParts, { "type" : "text\/xml" });
 
-{% endhighlight %}
+```
 
 下面是一个利用Blob对象，生成可下载文件的例子。
 
-{% highlight javascript %}
+```javascript
 
 var blob = new Blob(["Hello World"]);
 
@@ -44,21 +44,21 @@ a.textContent = "Download Hello World!";
 
 body.appendChild(a);
 
-{% endhighlight %}
+```
 
 上面的代码生成了一个超级链接，点击后提示下载文本文件hello-world.txt，文件内容为“Hello World”。
 
 （2）Blob对象的slice方法，将二进制数据按照字节分块，返回一个新的Blob对象。
 
-{% highlight javascript %}
+```javascript
 
 var newBlob = oldBlob.slice(startingByte, endindByte);
 
-{% endhighlight %}
+```
 
 下面是一个使用XMLHttpRequest对象，将大文件分割上传的例子。
 
-{% highlight javascript %}
+```javascript
 
 function upload(blobOrFile) {
   var xhr = new XMLHttpRequest();
@@ -86,7 +86,7 @@ document.querySelector('input[type="file"]').addEventListener('change', function
 
 })();
 
-{% endhighlight %}
+```
 
 （3）Blob对象有两个只读属性：
 
@@ -99,23 +99,23 @@ document.querySelector('input[type="file"]').addEventListener('change', function
 
 FileList对象针对表单的file控件。当用户通过file控件选取文件后，这个控件的files属性值就是FileList对象。它在结构上类似于数组，包含用户选取的多个文件。
 
-{% highlight html %}
+```html
 
 <input type="file" id="input" onchange="console.log(this.files.length)" multiple />
 
-{% endhighlight %}
+```
 
 当用户选取文件后，就可以读取该文件。
 
-{% highlight javascript %}
+```javascript
 
 var selected_file = document.getElementById('input').files[0];
 
-{% endhighlight %}
+```
 
 采用拖放方式，也可以得到FileList对象。
 
-{% highlight javascript %}
+```javascript
 
 var dropZone = document.getElementById('drop_zone');
 dropZone.addEventListener('drop', handleFileSelect, false);
@@ -129,7 +129,7 @@ function handleFileSelect(evt) {
     // ...
 }
 
-{% endhighlight %}
+```
 
 上面代码的 handleFileSelect 是拖放事件的回调函数，它的参数evt是一个事件对象，该参数的dataTransfer.files属性就是一个FileList对象，里面包含了拖放的文件。
 
@@ -142,7 +142,7 @@ File对象是FileList对象的成员，包含了文件的一些元信息，比�
 - type：文件的MIME类型，如果分辨不出类型，则为空字符串，该属性只读。
 - lastModifiedDate：文件的上次修改时间。
 
-{% highlight javascript %}
+```javascript
 
 var selected_file = document.getElementById('input').files[0];
 
@@ -150,7 +150,7 @@ var fileName = selected_file.name;
 var fileSize = selected_file.size;
 var fileType = selected_file.type;
 
-{% endhighlight %}
+```
 
 ## FileReader对象
 
@@ -168,13 +168,13 @@ FileReader对象用于读取文件，即把文件内容读入内存。它接收F
 
 除了以上四种不同的读取文件方法，FileReader对象还有一个abort方法，用于中止文件上传。
 
-{% highlight javascript %}
+```javascript
 
 var reader = new FileReader();
 
 reader.abort();
 
-{% endhighlight %}
+```
 
 FileReader对象采用异步方式读取文件，可以为一系列事件指定回调函数。
 
@@ -187,7 +187,7 @@ FileReader对象采用异步方式读取文件，可以为一系列事件指定�
 
 下面的代码是如何展示文本文件的内容。
 
-{% highlight javascript %}
+```javascript
 
 var reader = new FileReader();
 
@@ -197,13 +197,13 @@ reader.onload = function(e){
 
 reader.readAsText(blob);
 
-{% endhighlight %}
+```
 
 onload事件的回调函数接受一个事件对象，该对象的target.result就是文件的内容。
 
 下面是一个使用readAsDataURL方法，为img元素添加src属性的例子。
 
-{% highlight javascript %}
+```javascript
 
 var reader = new FileReader();
 
@@ -214,11 +214,11 @@ reader.onload = function(e) {
 
 reader.readAsDataURL(f);
 
-{% endhighlight %}
+```
 
 下面是一个onerror事件回调函数的例子。
 
-{% highlight javascript %}
+```javascript
 
 var reader = new FileReader();
 reader.onerror = errorHandler;
@@ -238,11 +238,11 @@ function errorHandler(evt) {
     };
 }
 
-{% endhighlight %}
+```
 
 下面是一个onprogress事件回调函数的例子，主要用来显示读取进度。
 
-{% highlight javascript %}
+```javascript
 
 var reader = new FileReader();
 reader.onprogress = updateProgress;
@@ -259,7 +259,7 @@ function updateProgress(evt) {
     }
 }
 
-{% endhighlight %}
+```
 
 读取大文件的时候，可以利用Blob对象的slice方法，将大文件分成小段，逐一读取，这样可以加快处理速度。
 
@@ -267,15 +267,15 @@ function updateProgress(evt) {
 
 假设有一个表单，用于用户选取图片。
 
-{% highlight html %}
+```html
 
 <input type="file" name="picture" accept="image/png, image/jpeg"/>
 
-{% endhighlight %}
+```
 
 一旦用户选中图片，将其显示在canvas的函数可以这样写：
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('input[name=picture]').onchange = function(e){
      readFile(e.target.files[0]);
@@ -292,11 +292,11 @@ function readFile(file){
   reader.reaAsDataURL(file);
 }
 
-{% endhighlight %}
+```
 
 还可以在canvas上面定义拖放事件，允许用户直接拖放图片到上面。
 
-{% highlight javascript %}
+```javascript
 
 // stop FireFox from replacing the whole page with the file.
 canvas.ondragover = function () { return false; };
@@ -312,13 +312,13 @@ canvas.ondrop = function (e) {
   }
 };
 
-{% endhighlight %}
+```
 
 所有的拖放事件都有一个dataTransfer属性，它包含拖放过程涉及的二进制数据。
 
 还可以让canvas显示剪贴板中的图片。
 
-{% highlight javascript %}
+```javascript
 
 document.onpaste = function(e){
   e.preventDefault();
@@ -334,31 +334,31 @@ document.onpaste = function(e){
   return false;
 };
 
-{% endhighlight %}
+```
 
 ## URL对象
 
 URL对象用于生成指向File对象或Blob对象的URL。
 
-{% highlight javascript %}
+```javascript
 
 var objecturl =  window.URL.createObjectURL(blob);
 
-{% endhighlight %}
+```
 
 上面的代码会对二进制数据生成一个URL，类似于“blob:http%3A//test.com/666e6730-f45c-47c1-8012-ccc706f17191”。这个URL可以放置于任何通常可以放置URL的地方，比如img标签的src属性。需要注意的是，即使是同样的二进制数据，每调用一次URL.createObjectURL方法，就会得到一个不一样的URL。
 
 这个URL的存在时间，等同于网页的存在时间，一旦网页刷新或卸载，这个URL就失效。除此之外，也可以手动调用URL.revokeObjectURL方法，使URL失效。
 
-{% highlight javascript %}
+```javascript
 
 window.URL.revokeObjectURL(objectURL);
 
-{% endhighlight %}
+```
 
 下面是一个利用URL对象，在网页插入图片的例子。
 
-{% highlight javascript %}
+```javascript
 
 var img = document.createElement("img");
 
@@ -378,11 +378,11 @@ info.innerHTML = files[i].name + ": " + files[i].size + " bytes";
 
 body.appendChild(info);
 
-{% endhighlight %}
+```
 
 还有一个本机视频预览的例子。
 
-{% highlight javascript %}
+```javascript
 
 var video = document.getElementById('video');
 var obj_url = window.URL.createObjectURL(blob);
@@ -390,7 +390,7 @@ video.src = obj_url;
 video.play()
 window.URL.revokeObjectURL(obj_url);
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

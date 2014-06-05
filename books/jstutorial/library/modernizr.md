@@ -12,7 +12,7 @@ modifiedOn: 2013-03-02
 
 首先，从modernizr.com下载这个库。下载的时候，可以选择所需要的模块。然后，将它插入HTML页面的头部，放在head标签之中。
 
-{% highlight html %}
+```html
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -24,29 +24,29 @@ modifiedOn: 2013-03-02
 
 </html>
 
-{% endhighlight %}
+```
 
 ## CSS的新增class
 
 使用Modernizr以后，首先会把html元素的class替换掉。以chrome浏览器为例，新增的class大概是下面的样子。
 
-{% highlight html %}
+```html
 
 <html class="js no-touch postmessage history multiplebgs boxshadow opacity cssanimations csscolumns cssgradients csstransforms csstransitions fontface localstorage sessionstorage svg inlinesvg blobbuilder blob bloburls download formdata">
 
-{% endhighlight %}
+```
 
 IE 7则是这样：
 
-{% highlight html %}
+```html
 
 <html class="js no-touch postmessage no-history no-multiplebgs no-boxshadow no-opacity no-cssanimations no-csscolumns no-cssgradients no-csstransforms no-csstransitions fontface localstorage sessionstorage no-svg no-inlinesvg wf-loading no-blobbuilder no-blob no-bloburls no-download no-formdata">
 
-{% endhighlight %}
+```
 
 然后，就可以针对不同的CSS class，指定不同的样式。
 
-{% highlight css %}
+```css
 
 .button {
    background: #000;
@@ -57,13 +57,13 @@ IE 7则是这样：
    background: #444;
 }
 
-{% endhighlight %}
+```
 
 ## JavaScript侦测
 
 除了提供新增的CSS class，Modernizr还提供JavaScript方法，用来侦测浏览器是否支持某个功能。
 
-{% highlight javascript %}
+```javascript
 
 Modernizr.cssgradients; //True in Chrome, False in IE7
 
@@ -83,13 +83,13 @@ if (Modernizr.touch){
    // 不支持触摸屏
 }
 
-{% endhighlight %}
+```
 
 ## 加载器
 
 Modernizr允许根据Javascript侦测的不同结果，加载不同的脚本文件。
 
-{% highlight javascript %}
+```javascript
 
 Modernizr.load({
   test :        Modernizr.localstorage,
@@ -98,7 +98,7 @@ Modernizr.load({
   complete :    function () { enableStorgeSaveUI();}
 });
 
-{% endhighlight %}
+```
 
 Modernizr.load方法用来加载脚本。它的属性如下：
 
@@ -109,14 +109,14 @@ Modernizr.load方法用来加载脚本。它的属性如下：
 
 可以指定在支持某个功能的情况，所要加载的JavaScript脚本和CSS样式。
 
-{% highlight javascript %}
+```javascript
 
 Modernizr.load({
   test : Modernizr.touch,
   yep :  ['js/touch.js', 'css/touchStyles.css']
 });
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

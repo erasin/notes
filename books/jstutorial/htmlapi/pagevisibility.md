@@ -20,7 +20,7 @@ PageVisibility API用于判断页面是否处于浏览器的当前窗口，即�
 
 这两个属性都带有浏览器前缀。使用的时候，必须进行前缀识别。
 
-{% highlight javascript %}
+```javascript
 
 function getHiddenProp(){
     var prefixes = ['webkit','moz','ms','o'];
@@ -38,19 +38,19 @@ function getHiddenProp(){
     return null;
 }
 
-{% endhighlight %}
+```
 
 ## VisibilityChange事件
 
 当页面的可见状态发生变化时，会触发VisibilityChange事件（带有浏览器前缀）。
 
-{% highlight javascript %}
+```javascript
 
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
 });
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

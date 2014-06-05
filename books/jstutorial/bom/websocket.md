@@ -26,7 +26,7 @@ Origin: null
 Sec-WebSocket-Key: sN9cRrP/n9NdMgdcy2VJFQ==
 Sec-WebSocket-Version: 13
 
-{% endhighlight %}
+```
 
 上面的头信息显示，有一个HTTP头是Upgrade。HTTP1.1协议规定，Upgrade头信息表示将通信协议从HTTP/1.1转向该项所指定的协议。“Connection: Upgrade”就表示浏览器通知服务器，如果可以，就升级到webSocket协议。Origin用于验证浏览器域名是否在服务器许可的范围内。Sec-WebSocket-Key则是用于握手协议的密钥，是base64编码的16字节随机字符串。
 
@@ -41,7 +41,7 @@ Sec-WebSocket-Accept: fFBooB7FAkLlXgRSz0BT3v4hq5s=
 Sec-WebSocket-Origin: null
 Sec-WebSocket-Location: ws://example.com/
 
-{% endhighlight %}
+```
 
 服务器端同样用“Connection: Upgrade”通知浏览器，需要改变协议。Sec-WebSocket-Accept是服务器在浏览器提供的Sec-WebSocket-Key字符串后面，添加“258EAFA5-E914-47DA-95CA-C5AB0DC85B11” 字符串，然后再取sha-1的hash值。浏览器将对这个值进行验证，以证明确实是目标服务器回应了webSocket请求。Sec-WebSocket-Location表示进行通信的WebSocket网址。
 
@@ -69,7 +69,7 @@ if(window.WebSocket != undefined) {
 	// WebSocket代码
 }
 
-{% endhighlight %}
+```
 
 然后，开始与服务器建立连接（这里假定服务器就是本机的1740端口，需要使用ws协议）。
 
@@ -79,7 +79,7 @@ if(window.WebSocket != undefined) {
 	var connection = new WebSocket('ws://localhost:1740');
 }
 
-{% endhighlight %}
+```
 
 建立连接以后的WebSocket实例对象（即上面代码中的connection），有一个readyState属性，表示目前的状态，可以取4个值：
 
@@ -98,7 +98,7 @@ function wsOpen (event) {
 	console.log("Connected");
 }
 
-{% endhighlight %}
+```
 
 关闭WebSocket连接，会触发close事件。
 
@@ -112,7 +112,7 @@ function onClose () {
 
 connection.close();
 
-{% endhighlight %}
+```
 
 ### 发送数据和接收数据
 
@@ -122,7 +122,7 @@ connection.close();
 
 connection.send(message);
 
-{% endhighlight %}
+```
 
 除了发送字符串，也可以使用 Blob 或 ArrayBuffer 对象发送二进制数据。
 
@@ -140,7 +140,7 @@ connection.send(binary.buffer);
 var file = document.querySelector('input[type="file"]').files[0];
 connection.send(file);
 
-{% endhighlight %}
+```
 
 客户端收到服务器发送的数据，会触发message事件。可以通过定义message事件的回调函数，来处理服务端返回的数据。
 
@@ -152,7 +152,7 @@ function wsMessage (event) {
 	console.log(event.data);
 }
 
-{% endhighlight %}
+```
 
 上面代码的回调函数wsMessage的参数为事件对象event，该对象的data属性包含了服务器返回的数据。
 
@@ -168,7 +168,7 @@ function wsError(event) {
 	console.log("Error: " + event.data);
 }
 
-{% endhighlight %}
+```
 
 ## 服务器端
 
@@ -179,7 +179,7 @@ function wsError(event) {
 var http = require('http');
 var server = http.createServer(function(request, response) {});
 
-{% endhighlight %}
+```
 
 假设监听1740端口。
 
@@ -189,7 +189,7 @@ server.listen(1740, function() {
     console.log((new Date()) + ' Server is listening on port 1740');
 });
 
-{% endhighlight %}
+```
 
 接着启动WebSocket服务器。这需要加载websocket库，如果没有安装，可以先使用npm命令安装。
 
@@ -200,7 +200,7 @@ var wsServer = new WebSocketServer({
     httpServer: server
 });
 
-{% endhighlight %}
+```
 
 WebSocket服务器建立request事件的回调函数。
 
@@ -212,7 +212,7 @@ wsServer.on('request', function(req){
     connection = req.accept('echo-protocol', req.origin);
 });
 
-{% endhighlight %}
+```
 
 上面代码的回调函数接受一个参数req，表示request请求对象。然后，在回调函数内部，建立WebSocket连接connection。接着，就要对connection的message事件指定回调函数。
 
@@ -227,7 +227,7 @@ wsServer.on('request', function(r){
 	});
 });
 
-{% endhighlight %}
+```
 
 最后，监听用户的disconnect事件。
 
@@ -237,7 +237,7 @@ connection.on('close', function(reasonCode, description) {
     console.log(connection.remoteAddress + ' disconnected.');
 });
 
-{% endhighlight %}
+```
 
 ## Socket.io简介
 
@@ -249,7 +249,7 @@ connection.on('close', function(reasonCode, description) {
 
 npm install socket.io
 
-{% endhighlight %}
+```
 
 第二步，在根目录下建立app.js，并写入以下代码（假定使用了Express框架）。
 
@@ -265,17 +265,17 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-{% endhighlight %}
+```
 
 上面代码表示，先建立并运行HTTP服务器。Socket.io的运行建立在HTTP服务器之上。
 
 第三步，将Socket.io插入客户端网页。
 
-{% highlight html %}
+```html
 
 <script src="/socket.io/socket.io.js"></script>
 
-{% endhighlight %}
+```
 
 然后，在客户端脚本中，建立WebSocket连接。
 
@@ -283,7 +283,7 @@ app.get('/', function (req, res) {
 
 var socket = io.connect('http://localhost');
 
-{% endhighlight %}
+```
 
 由于本例假定WebSocket主机与客户端是同一台机器，所以connect方法的参数是http://localhost。接着，指定news事件（即服务器端发送news）的回调函数。
 
@@ -293,7 +293,7 @@ socket.on('news', function (data){
    console.log(data);
 });
 
-{% endhighlight %}
+```
 
 最后，用emit方法向服务器端发送信号，触发服务器端的anotherNews事件。
 
@@ -301,7 +301,7 @@ socket.on('news', function (data){
 
 socket.emit('anotherNews');
 
-{% endhighlight %}
+```
 
 > 请注意，emit方法可以取代Ajax请求，而on方法指定的回调函数，也等同于Ajax的回调函数。
 
@@ -316,7 +316,7 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-{% endhighlight %}
+```
 
 上面代码的io.sockets.on方法指定connection事件（WebSocket连接建立）的回调函数。在回调函数中，用emit方法向客户端发送数据，触发客户端的news事件。然后，再用on方法指定服务器端anotherNews事件的回调函数。
 

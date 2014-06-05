@@ -28,7 +28,7 @@ node.js 0.11版的一种比较方便的使用方法，是使用版本管理工�
 
 source nvm.sh
 
-{% endhighlight %}
+```
 
 然后，指定node运行版本。
 
@@ -36,7 +36,7 @@ source nvm.sh
 
 nvm use 0.11
 
-{% endhighlight %}
+```
 
 最后，用--harmony参数进入node运行环境，就可以在命令行下体验ECMAScript 6了。
 
@@ -44,7 +44,7 @@ nvm use 0.11
 
 node --harmony
 
-{% endhighlight %}
+```
 
 另外，可以使用Google的[Traceur](https://github.com/google/traceur-compiler)（[在线转换工具](http://google.github.io/traceur-compiler/demo/repl.html)），将ES6代码编译为ES5。
 
@@ -59,7 +59,7 @@ traceur /path/to/es6
 # 将ES6文件转为ES5文件
 traceur --script /path/to/es6 --out /path/to/es5
 
-{% endhighlight %}
+```
 
 ## 数据类型
 
@@ -69,7 +69,7 @@ traceur --script /path/to/es6 --out /path/to/es5
 
 ECMAScript 6新增了let命令，用来声明变量。它的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。
 
-{% highlight javascript %}
+```javascript
 
 {
     let a = 10;
@@ -79,13 +79,13 @@ ECMAScript 6新增了let命令，用来声明变量。它的用法类似于var�
 a // ReferenceError: a is not defined. 
 b //1
 
-{% endhighlight %}
+```
 
 上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块有效。
 
 下面的代码如果使用var，最后输出的是9。
 
-{% highlight javascript %}
+```javascript
 
 var a = [];
 for (var i = 0; i < 10; i++) {
@@ -96,11 +96,11 @@ for (var i = 0; i < 10; i++) {
 }
 a[6](); // 9
 
-{% endhighlight %}
+```
 
 如果使用let，声明的变量仅在块级作用域内有效，最后输出的是6。
 
-{% highlight javascript %}
+```javascript
 
 var a = [];
 for (var i = 0; i < 10; i++) {
@@ -111,11 +111,11 @@ for (var i = 0; i < 10; i++) {
 }
 a[6](); // 6
 
-{% endhighlight %}
+```
 
 注意，let不允许在相同作用域内，重复声明同一个变量。
 
-{% highlight javascript %}
+```javascript
 
 // 报错
 {
@@ -129,13 +129,13 @@ a[6](); // 6
     let a = 1;
 }
 
-{% endhighlight %}
+```
 
 **（2）块级作用域**
 
 let实际上为JavaScript新增了块级作用域。
 
-{% highlight javascript %}
+```javascript
 
 function f1() {
   let n = 5;
@@ -145,13 +145,13 @@ function f1() {
   console.log(n); // 5
 }
 
-{% endhighlight %}
+```
 
 上面的函数有两个代码块，都声明了变量n，运行后输出5。这表示外层代码块不受内层代码块的影响。如果使用var定义变量n，最后输出的值就是10。
 
 块级作用域的出现，实际上使得获得广泛应用的立即执行函数（IIFE）不再必要了。
 
-{% highlight javascript %}
+```javascript
 
 // IIFE写法
 (function () { 
@@ -165,18 +165,18 @@ function f1() {
 	...
 }
 
-{% endhighlight %}
+```
 
 **（3）不存在变量提升**
 
 需要注意的是，let声明的变量不存在“变量提升”现象。
 
-{% highlight javascript %}
+```javascript
 
 console.log(x);
 let x = 10;
 
-{% endhighlight %}
+```
 
 上面代码运行后会报错，表示x没有定义。如果用var声明x，就不会报错，输出结果为undefined。
 
@@ -184,7 +184,7 @@ let x = 10;
 
 const也用来声明变量，但是声明的是常量。一旦声明，常量的值就不能改变。
 
-{% highlight javascript %}
+```javascript
 
 const PI = 3.1415;
 
@@ -201,7 +201,7 @@ const PI = 3.1;
 PI
 // 3.1415
 
-{% endhighlight %}
+```
 
 上面代码表明改变常量的值是不起作用的。需要注意的是，对常量重新赋值不会报错，只会默默地失败。
 
@@ -213,7 +213,7 @@ ES6提供了新的数据结构Set。它类似于数组，但是成员的值都�
 
 Set本身是一个构造函数，用来生成Set数据结构。
 
-{% highlight javascript %}
+```javascript
 
 var s = new Set();
 
@@ -221,7 +221,7 @@ var s = new Set();
 for (i of s) {console.log(i)}
 // 2 3 4 5
 
-{% endhighlight %}
+```
 
 上面代码表示，set数据结构不会添加重复的值。
 
@@ -233,7 +233,7 @@ set数据结构有以下属性和方法：
 - has(value)：返回一个布尔值，表示该值是否为set的成员。
 - clear()：清除所有成员。
 
-{% highlight javascript %}
+```javascript
 
 s.add("1").add("2").add("2"); 
 // 注意“2”被加入了两次
@@ -247,13 +247,13 @@ s.has("3")   // false
 s.delete("2");
 s.has("2")    // false
 
-{% endhighlight %}
+```
 
 ### Map数据结构
 
 ES6还提供了map数据结构。它类似于对象，就是一个键值对的集合，但是“键”的范围不限于字符串，甚至对象也可以当作键。
 
-{% highlight javascript %}
+```javascript
 
 var m = new Map();
 
@@ -262,7 +262,7 @@ m.set(o, "content")
 console.log(m.get(o))
 // "content"
 
-{% endhighlight %}
+```
 
 上面代码将一个对象当作m的一个键。
 
@@ -275,7 +275,7 @@ Map数据结构有以下属性和方法。
 - delete(key)：删除某个键。
 - clear()：清除所有成员。
 
-{% highlight javascript %}
+```javascript
 
 var m = new Map(); 
 
@@ -298,7 +298,7 @@ m.has(undefined)       // false
 m.get(hello)  // Hello ES6!
 m.get("edition")  // 6
 
-{% endhighlight %}
+```
 
 ### rest（...）运算符
 
@@ -306,7 +306,7 @@ m.get("edition")  // 6
 
 ES6引入rest运算符（...），用于获取函数的多余参数，这样就不需要使用arguments.length了。rest运算符后面是一个数组变量，该变量将多余的参数放入数组中。
 
-{% highlight javascript %}
+```javascript
 
 function add(...values) {
    let sum = 0;
@@ -320,13 +320,13 @@ function add(...values) {
 
 add(2, 5, 3) // 10
 
-{% endhighlight %}
+```
 
 上面代码的add函数是一个求和函数，利用rest运算符，可以向该函数传入任意数目的参数。
 
 下面是一个利用rest运算符改写数组push方法的例子。
 
-{% highlight javascript %}
+```javascript
 
 function push(array, ...items) { 
   items.forEach(function(item) {
@@ -338,13 +338,13 @@ function push(array, ...items) {
 var a = [];
 push(a, "a1", "a2", "a3", "a4"); 
 
-{% endhighlight %}
+```
 
 **（2）将数组转为参数序列**
 
 rest运算符不仅可以用于函数定义，还可以用于函数调用。
 
-{% highlight javascript %}
+```javascript
 
 function f(s1, s2, s3, s4, s5) {
  	console.log(s1 + s2 + s3 + s4 +s5);
@@ -355,11 +355,11 @@ var a = ["a2", "a3", "a4", "a5"];
 f("a1", ...a)
 // a1a2a3a4a5
 
-{% endhighlight %}
+```
 
 从上面的例子可以看出，rest运算符的另一个重要作用是，可以将数组转变成正常的参数序列。利用这一点，可以简化求出一个数组最大元素的写法。
 
-{% highlight javascript %}
+```javascript
 
 // ES5
 Math.max.apply(null, [14, 3, 77])
@@ -370,7 +370,7 @@ Math.max(...[14, 3, 77])
 // 等同于
 Math.max(14, 3, 77);
 
-{% endhighlight %}
+```
 
 上面代码表示，由于JavaScript不提供求数组最大元素的函数，所以只能套用Math.max函数，将数组转为一个参数序列，然后求最大值。有了rest运算符以后，就可以直接用Math.max了。
 
@@ -380,7 +380,7 @@ Math.max(14, 3, 77);
 
 遍历器协议规定，任意对象只要部署了next方法，就可以作为遍历器，但是next方法必须返回一个包含value和done两个属性的对象。其中，value属性当前遍历位置的值，done属性是一个布尔值，表示遍历是否结束。
 
-{% highlight javascript %}
+```javascript
 
 function makeIterator(array){
     var nextIndex = 0;
@@ -400,11 +400,11 @@ it.next().value // 'a'
 it.next().value // 'b'
 it.next().done  // true
 
-{% endhighlight %}
+```
 
 下面是一个无限运行的遍历器的例子。
 
-{% highlight javascript %}
+```javascript
 
 function idMaker(){
     var index = 0;
@@ -423,7 +423,7 @@ it.next().value // '1'
 it.next().value // '2'
 // ...
 
-{% endhighlight %}
+```
 
 ### generator 函数
 
@@ -433,28 +433,28 @@ it.next().value // '2'
 
 ECMAScript 6草案定义的generator函数，需要在function关键字后面，加一个星号。然后，函数内部使用yield语句，定义遍历器的每个成员。
 
-{% highlight javascript %}
+```javascript
 
 function* helloWorldGenerator() {
     yield 'hello';
     yield 'world';
 }
 
-{% endhighlight %}
+```
 
 yield有点类似于return语句，都能返回一个值。区别在于每次遇到yield，函数返回紧跟在yield后面的那个表达式的值，然后暂停执行，下一次从该位置继续向后执行，而return语句不具备位置记忆的功能。
 
 上面代码定义了一个generator函数helloWorldGenerator，它的遍历器有两个成员“hello”和“world”。调用这个函数，就会得到遍历器。
 
-{% highlight javascript %}
+```javascript
 
 var hw = helloWorldGenerator();
 
-{% endhighlight %}
+```
 
 执行遍历器的next方法，则会依次遍历每个成员。
 
-{% highlight javascript %}
+```javascript
 
 hw.next() 
 // { value: 'hello', done: false }
@@ -472,7 +472,7 @@ hw.next()
 //  at REPLServer.defaultEval (repl.js:129:27)
 //  ... 
 
-{% endhighlight %}
+```
 
 上面代码一共调用了四次next方法。
 
@@ -488,7 +488,7 @@ hw.next()
 
 如果next方法带一个参数，该参数就会被当作上一个yield语句的返回值。
 
-{% highlight javascript %}
+```javascript
 
 function* f() {
   for(var i=0; true; i++) {
@@ -503,13 +503,13 @@ g.next() // { value: 0, done: false }
 g.next() // { value: 1, done: false }
 g.next(true) // { value: 0, done: false }
 
-{% endhighlight %}
+```
 
 上面代码先定义了一个可以无限运行的generator函数f，如果next方法没有参数，正常情况下返回一个递增的i；如果next方法有参数，则上一次yield语句的返回值将会等于该参数。如果该参数为true，则会重置i的值。
 
 generator函数的这种暂停执行的效果，意味着可以把异步操作写在yield语句里面，等到调用next方法时再往后执行。这实际上等同于不需要写回调函数了，因为异步操作的后续操作可以放在yield语句下面，反正要等到调用next方法时再执行。所以，generator函数的一个重要实际意义就是用来处理异步操作，改写回调函数。
 
-{% highlight javascript %}
+```javascript
 
 function* loadUI() { 
 	showLoadingScreen(); 
@@ -517,13 +517,13 @@ function* loadUI() {
 	hideLoadingScreen(); 
 } 
 
-{% endhighlight %}
+```
 
 上面代码表示，第一次调用loadUI函数时，该函数不会执行，仅返回一个遍历器。下一次对该遍历器调用next方法，则会显示登录窗口，并且异步加载数据。再一次使用next方法，则会隐藏登录窗口。可以看到，这种写法的好处是所有登录窗口的逻辑，都被封装在一个函数，按部就班非常清晰。
 
 下面是一个利用generator函数，实现斐波那契数列的例子。
 
-{% highlight javascript %}
+```javascript
 
 function* fibonacci() {
 	var previous = 0, current = 1; 
@@ -540,11 +540,11 @@ for (var i of fibonacci()) {
 } 
 // 1, 2, 3, 5, 8, 13, ..., 
 
-{% endhighlight %}
+```
 
 下面是利用for...of语句，对斐波那契数列的另一种实现。
 
-{% highlight javascript %}
+```javascript
 
 function* fibonacci() {
     let [prev, curr] = [0, 1];
@@ -559,13 +559,13 @@ for (n of fibonacci()) {
     console.log(n);
 }
 
-{% endhighlight %}
+```
 
 从上面代码可见，使用for...of语句时不需要使用next方法。
 
 这里需要注意的是，yield语句运行的时候是同步运行，而不是异步运行（否则就失去了取代回调函数的设计目的了）。实际操作中，一般让yield语句返回Promises对象。
 
-{% highlight javascript %}
+```javascript
 
 var Q = require('q');
  
@@ -579,13 +579,13 @@ function *f(){
     yield delay(100);
 };
 
-{% endhighlight %}
+```
 
 上面代码yield语句返回的就是一个Promises对象。
 
 如果有一系列任务需要全部完成后，才能进行下一步操作，yield语句后面可以跟一个数组。下面就是一个例子。
 
-{% highlight javascript %}
+```javascript
 
 function *f() {
     var urls = [
@@ -604,13 +604,13 @@ function *f() {
     }
 };
 
-{% endhighlight %}
+```
 
 ### 原生对象的扩展
 
 ES6对JavaScript的原生对象，进行了扩展，提供了一系列新的属性和方法。
 
-{% highlight javascript %}
+```javascript
 
 Number.EPSILON
 Number.isInteger(Infinity) // false
@@ -633,7 +633,7 @@ Array.of(1, 2, 3) // Similar to new Array(...), but without special one-arg beha
 
 Object.assign(Point, { origin: new Point(0,0) })
 
-{% endhighlight %}
+```
 
 ## 语法糖
 
@@ -643,18 +643,18 @@ ECMAScript 6提供了很多JavaScript语法的便捷写法。
 
 ES6提供了二进制和八进制数值的新的写法，分别用前缀0b和0o表示。
 
-{% highlight javascript %}
+```javascript
 
 0b111110111 === 503 // true
 0o767 === 503 // true
 
-{% endhighlight %}
+```
 
 ### 增强的对象写法
 
 ES6允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。
 
-{% highlight javascript %}
+```javascript
 
 var Person = {
   name: '张三',
@@ -664,7 +664,7 @@ var Person = {
   hello() { console.log('我的名字是', this.name); }
 };
 
-{% endhighlight %}
+```
 
 ### 箭头函数（arrow）
 
@@ -672,25 +672,25 @@ var Person = {
 
 ES6允许使用“箭头”（=>）定义函数。
 
-{% highlight javascript %}
+```javascript
 
 var f = v => v;
 
-{% endhighlight %}
+```
 
 上面的箭头函数等同于：
 
-{% highlight javascript %}
+```javascript
 
 var f = function(v) {
     return v;
 };
 
-{% endhighlight %}
+```
 
 如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。
 
-{% highlight javascript %}
+```javascript
 
 var f = () => 5; 
 // 等同于
@@ -702,29 +702,29 @@ var sum = function(num1, num2) {
     return num1 + num2;
 };
 
-{% endhighlight %}
+```
 
 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
 
-{% highlight javascript %}
+```javascript
 
 var sum = (num1, num2) => { return num1 + num2; }
 
-{% endhighlight %}
+```
 
 由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。
 
-{% highlight javascript %}
+```javascript
 
 var getTempItem = id => ({ id: id, name: "Temp" });
 
-{% endhighlight %}
+```
 
 **（2）实例：回调函数的简化**
 
 箭头函数的一个用处是简化回调函数。
 
-{% highlight javascript %}
+```javascript
 
 // 正常函数写法
 [1,2,3].map(function (x) {
@@ -734,11 +734,11 @@ var getTempItem = id => ({ id: id, name: "Temp" });
 // 箭头函数写法
 [1,2,3].map(x => x * x);
 
-{% endhighlight %}
+```
 
 另一个例子是
 
-{% highlight javascript %}
+```javascript
 
 // 正常函数写法
 var result = values.sort(function(a, b) {
@@ -748,7 +748,7 @@ var result = values.sort(function(a, b) {
 // 箭头函数写法
 var result = values.sort((a, b) => a - b);
 
-{% endhighlight %}
+```
 
 **（3）注意点**
 
@@ -760,7 +760,7 @@ var result = values.sort((a, b) => a - b);
 
 关于this对象，下面的代码将它绑定定义时的对象。
 
-{% highlight javascript %}
+```javascript
 
 var handler = {
 
@@ -776,7 +776,7 @@ var handler = {
     }
 };
 
-{% endhighlight %}
+```
 
 上面代码的init和doSomething方法中，都使用了箭头函数，它们中的this都绑定handler对象。否则，doSomething方法内部的this对象就指向全局对象，运行时会报错。
 
@@ -784,7 +784,7 @@ var handler = {
 
 ECMAScript 6 允许为函数的参数设置默认值。
 
-{% highlight javascript %}
+```javascript
 
 function Point(x = 0, y = 0) {
    this.x = x;
@@ -794,13 +794,13 @@ function Point(x = 0, y = 0) {
 var p = new Point(); 
 // p = { x:0, y:0 }
 
-{% endhighlight %}
+```
 
 ### 模板字符串
 
 模板字符串（template string）是增强版的字符串，即可以当作普通字符串使用，也可以在字符串中嵌入变量。它用反引号（`）标识。
 
-{% highlight javascript %}
+```javascript
 
 // 普通字符串
 `In JavaScript '\n' is a line-feed.`
@@ -818,13 +818,13 @@ var y = 2;
 console.log(`${ x } + ${ y } = ${ x + y}`) 
 // "1 + 2 = 3"
 
-{% endhighlight %}
+```
 
 ### for...of循环
 
 JavaScript原有的for...in循环，只能获得对象的键名，不能直接获取键值。ES6提供for...of循环，允许遍历获得键值。
 
-{% highlight javascript %}
+```javascript
 
 var arr = ["a", "b", "c", "d"];
 for (a in arr) {
@@ -843,13 +843,13 @@ for (a of arr) {
 // c
 // d
 
-{% endhighlight %}
+```
 
 上面代码表明，for...in循环读取键名，for...of循环读取键值。
 
 for...of循环还可以遍历对象。
 
-{% highlight javascript %}
+```javascript
 
 var es6 = {
   edition: 6,
@@ -883,7 +883,7 @@ for (var [name, value] of es6) {
 // committee: TC39
 // standard: ECMA-262
 
-{% endhighlight %}
+```
 
 上面代码一共包含三个例子，第一个是for...in循环的例子，后两个是for...of循环的例子。最后一个例子是同时遍历对象的键名和键值。
 
@@ -893,20 +893,20 @@ for (var [name, value] of es6) {
 
 ES6提供简洁写法，允许直接通过现有数组生成新数组，这被称为数组推导（array comprehension）。
 
-{% highlight javascript %}
+```javascript
 
 var a1 = [1, 2, 3, 4];
 var a2 = [i * 2 for (i of a1)];
 
 a2 // [2, 4, 6, 8]
 
-{% endhighlight %}
+```
 
 上面代码表示，通过for...of结构，数组a2直接在a1的基础上生成。
 
 数组推导可以替代map和filter方法。
 
-{% highlight javascript %}
+```javascript
 
 [for (i of [1, 2, 3]) i * i];
 // 等价于
@@ -916,7 +916,7 @@ a2 // [2, 4, 6, 8]
 // 等价于
 [1,4,2,3,-8].filter(function(i) { return i < 3 });
 
-{% endhighlight %}
+```
 
 上面代码说明，模拟map功能只要单纯的for...of循环就行了，模拟filter功能除了for...of循环，还必须加上if语句。
 
@@ -924,7 +924,7 @@ a2 // [2, 4, 6, 8]
 
 新引入的for...of结构，可以直接跟在表达式的前面或后面，甚至可以在一个数组推导中，使用多个for...of结构。
 
-{% highlight javascript %}
+```javascript
 
 var a1 = ["x1", "y1"];
 var a2 = ["x2", "y2"];
@@ -940,7 +940,7 @@ var a3 = ["x3", "y3"];
 // y1y2x3
 // y1y2y3
 
-{% endhighlight %}
+```
 
 上面代码在一个数组推导之中，使用了三个for...of结构。
 
@@ -950,13 +950,13 @@ var a3 = ["x3", "y3"];
 
 由于字符串可以视为数组，因此字符串也可以直接用于数组推导。
 
-{% highlight javascript %}
+```javascript
 
 [c for (c of 'abcde') if (/[aeiou]/.test(c))].join('') // 'ae'
 
 [c+'0' for (c of 'abcde')].join('') // 'a0b0c0d0e0'
 
-{% endhighlight %}
+```
 
 上面代码使用了数组推导，对字符串进行处理。
 
@@ -966,25 +966,25 @@ var a3 = ["x3", "y3"];
 
 ES6允许简洁地对多变量赋值。正常情况下，将数组元素赋值给多个变量，只能一次次分开赋值。
 
-{% highlight javascript %}
+```javascript
 
 var a = 1;
 var b = 2;
 var c = 3;
 
-{% endhighlight %}
+```
 
 ES6允许写成下面这样。
 
-{% highlight javascript %}
+```javascript
 
 var [a, b, c] = [1, 2, 3];
 
-{% endhighlight %}
+```
 
 本质上，这种写法属于模式匹配，只要等号两边的模式相同，左边的变量就会被赋予对应的值。下面是一些嵌套数组的例子。
 
-{% highlight javascript %}
+```javascript
 
 var [foo, [[bar], baz]] = [1, [[2], 3]]
 
@@ -992,11 +992,11 @@ var [,,third] = ["foo", "bar", "baz"]
 
 var [head, ...tail] = [1, 2, 3, 4]
 
-{% endhighlight %}
+```
 
 它还可以接受默认值。
 
-{% highlight javascript %}
+```javascript
 
 var [missing = true] = [];
 console.log(missing)
@@ -1006,11 +1006,11 @@ var { x = 3 } = {};
 console.log(x)
 // 3
 
-{% endhighlight %}
+```
 
 它不仅可以用于数组，还可以用于对象。
 
-{% highlight javascript %}
+```javascript
 
 var { foo, bar } = { foo: "lorem", bar: "ipsum" };
 
@@ -1032,21 +1032,21 @@ console.log(p1)
 console.log(p2)
 // "World"
 
-{% endhighlight %}
+```
 
 这种写法的用途很多。
 
 **（1）交换变量的值。**
 
-{% highlight javascript %}
+```javascript
 
 [x, y] = [y, x]; 
 
-{% endhighlight %}
+```
 
 **（2）从函数返回多个值。**
 
-{% highlight javascript %}
+```javascript
 
 function example() {
     return [1, 2, 3];
@@ -1054,21 +1054,21 @@ function example() {
 
 var [a, b, c] = example();
 
-{% endhighlight %}
+```
 
 **（3）函数参数的定义。**
 
-{% highlight javascript %}
+```javascript
 
 function f({p1, p2, p3}) {
   // ...
 }
 
-{% endhighlight %}
+```
 
 **（4）函数参数的默认值。**
 
-{% highlight javascript %}
+```javascript
 
 jQuery.ajax = function (url, {
   async = true,
@@ -1082,7 +1082,7 @@ jQuery.ajax = function (url, {
   // ... do stuff
 };
 
-{% endhighlight %}
+```
 
 ## 数据结构
 
@@ -1092,7 +1092,7 @@ jQuery.ajax = function (url, {
 
 ES6提供了“类”（class）。此前，一般用构造函数模拟“类”。
 
-{% highlight javascript %}
+```javascript
 
 // ES5
 var Language = function(config) {
@@ -1118,7 +1118,7 @@ class Language {
   }
 }
 
-{% endhighlight %}
+```
 
 在上面代码中，ES6用constructor方法，代替ES5的构造函数。
 
@@ -1126,7 +1126,7 @@ class Language {
 
 ES6的class结构还允许使用extends关键字，表示继承。
 
-{% highlight javascript %}
+```javascript
 
 class MetaLanguage extends Language {
   constructor(x, y, z, version) {
@@ -1139,7 +1139,7 @@ class MetaLanguage extends Language {
   }
 }
 
-{% endhighlight %}
+```
 
 上面代码的super方法，表示调用父类的构造函数。
 
@@ -1151,7 +1151,7 @@ ES6允许定义模块。也就是说，允许一个JavaScript脚本文件调用�
 
 假设有一个circle.js，它是一个单独模块。
 
-{% highlight javascript %}
+```javascript
 
 // circle.js
 
@@ -1163,11 +1163,11 @@ export function circumference(radius) {
   return 2 * Math.PI * radius;
 }
 
-{% endhighlight %}
+```
 
 然后，main.js引用这个模块。
 
-{% highlight javascript %}
+```javascript
 
 // main.js
 
@@ -1176,11 +1176,11 @@ import { area, circumference } from 'circle';
 console.log("圆面积：" + area(4));
 console.log("圆周长：" + circumference(14));
 
-{% endhighlight %}
+```
 
 另一种写法是整体加载circle.js。
 
-{% highlight javascript %}
+```javascript
 
 // main.js
 
@@ -1189,13 +1189,13 @@ module circle from 'circle';
 console.log("圆面积：" + circle.area(4));
 console.log("圆周长：" + circle.circumference(14));
 
-{% endhighlight %}
+```
 
 **（2）模块的继承**
 
 一个模块也可以继承另一个模块。
 
-{% highlight javascript %}
+```javascript
 
 // circleplus.js
 
@@ -1205,11 +1205,11 @@ export default function(x) {
     return Math.exp(x);
 }
 
-{% endhighlight %}
+```
 
 加载上面的模块。
 
-{% highlight javascript %}
+```javascript
 
 // main.js
 
@@ -1217,13 +1217,13 @@ module math from "circleplus";
 import exp from "circleplus";
 console.log(exp(math.pi);
 
-{% endhighlight %}
+```
 
 **（3）模块的默认方法**
 
 还可以为模块定义默认方法。
 
-{% highlight javascript %}
+```javascript
 
 // circleplus.js
 
@@ -1231,7 +1231,7 @@ export default function(x) {
     return Math.exp(x);
 }
 
-{% endhighlight %}
+```
 
 ## ECMAScript 7
 

@@ -28,7 +28,7 @@ Controller表示控制层，用来对原始数据（Model）进行加工，传�
 
 ## Backbone的加载
 
-{% highlight html %}
+```html
 
 <script src="/javascripts/lib/jquery.js"></script>
 <script src="/javascripts/lib/underscore.js"></script>
@@ -38,7 +38,7 @@ Controller表示控制层，用来对原始数据（Model）进行加工，传�
 <script src="/javascripts/router.js"></script>
 <script src="/javascripts/init.js"></script>
 
-{% endhighlight %}
+```
 
 ## Backbone.View
 
@@ -46,7 +46,7 @@ Controller表示控制层，用来对原始数据（Model）进行加工，传�
 
 Backbone.View用于定义视图类。
 
-{% highlight javascript %}
+```javascript
 
 var AppView = Backbone.View.extend({
   render: function(){
@@ -54,28 +54,28 @@ var AppView = Backbone.View.extend({
   }
 });
 
-{% endhighlight %}
+```
 
 上面代码通过Backbone.View的extend方法，定义了一个视图类AppView。该类内部有一个render方法，用于将视图放置在网页上。
 
 render方法的其他常用写法。
 
-{% highlight javascript %}
+```javascript
 
 render: function () {
         this.$el.html(template('template_string'));
 }
 
-{% endhighlight %}
+```
 
 使用的时候，需要先新建视图类的实例，然后通过实例，调用render方法，从而让视图在网页上显示。
 
-{% highlight javascript %}
+```javascript
 
 var appView = new AppView();
 appView.render();
 
-{% endhighlight %}
+```
 
 上面代码新建视图类AppView的实例appView，然后调用appView.render，网页上就会显示指定的内容。
 
@@ -83,7 +83,7 @@ appView.render();
 
 在父视图中可以调用子视图。下面就是一种写法。
 
-{% highlight javascript %}
+```javascript
 
 render : function () {
 
@@ -94,23 +94,23 @@ render : function () {
     this.child.appendTo($.('.container-placeholder').render();
 }
 
-{% endhighlight %}
+```
 
 ## 模板
 
 模板用来按照变量生成网页内容。一般将模板放在script标签中，为了防止浏览器按照JavaScript代码解析，type属性设为text/template。
 
-{% highlight html %}
+```html
 
 <script type="text/template" data-name="templateName">
     <!-- template contents goes here -->
 </script>
 
-{% endhighlight %}
+```
 
 可以使用下面的代码编译模板。
 
-{% highlight javascript %}
+```javascript
 
 window.templates = {};
   var $sources = $('script[type="text/template"]');
@@ -119,7 +119,7 @@ window.templates = {};
     templates[$el.data('name')] = _.template($el.html());
   });
 
-{% endhighlight %}
+```
 
 ## Backbone.Router
 
@@ -127,7 +127,7 @@ Router是Backbone提供的路由对象，用来将用户请求的网址与后端
 
 首先，新定义一个Router类。
 
-{% highlight javascript %}
+```javascript
 
 Router = Backbone.Router.extend({
  
@@ -135,11 +135,11 @@ Router = Backbone.Router.extend({
     }
 });
 
-{% endhighlight %}
+```
 
 设置根路径。
 
-{% highlight javascript %}
+```javascript
 
 routes: {
         '': 'phonesIndex',
@@ -149,11 +149,11 @@ phonesIndex: function () {
         new PhonesIndexView({ el: 'section#main' });
 }
 
-{% endhighlight %}
+```
 
 ## 启动代码
 
-{% highlight javascript %}
+```javascript
 
 App = new Router();
 
@@ -161,5 +161,5 @@ $(document).ready(function () {
     Backbone.history.start({ pushState: true });
 });
 
-{% endhighlight %}
+```
 

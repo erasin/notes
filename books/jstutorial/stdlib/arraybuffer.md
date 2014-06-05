@@ -18,27 +18,27 @@ modifiedOn: 2013-09-28
 
 类型化数组是建立在ArrayBuffer对象的基础上的。它的作用是，分配一段可以存放数据的连续内存区域。
 
-{% highlight javascript %}
+```javascript
 
 var buf = new ArrayBuffer(32);
 
-{% endhighlight %}
+```
 
 上面代码生成了一段32字节的内存区域。
 
 ArrayBuffer对象的**byteLength属性**，返回所分配的内存区域的字节长度。
 
-{% highlight javascript %}
+```javascript
 
 var buffer = new ArrayBuffer(32);
 buffer.byteLength
 // 32
 
-{% endhighlight %}
+```
 
 如果要分配的内存区域很大，有可能分配失败（因为没有那么多的连续空余内存），所以有必要检查是否分配成功。
 
-{% highlight javascript %}
+```javascript
 
 if (buffer.byteLength === n) {
   // 成功
@@ -46,16 +46,16 @@ if (buffer.byteLength === n) {
   // 失败
 }
 
-{% endhighlight %}
+```
 
 ArrayBuffer对象有一个**slice方法**，允许将内存区域的一部分，拷贝生成一个新的ArrayBuffer对象。
 
-{% highlight javascript %}
+```javascript
 
 var buffer = new ArrayBuffer(8);
 var newBuffer = buffer.slice(0,3);
 
-{% endhighlight %}
+```
 
 上面代码拷贝buffer对象的前3个字节，生成一个新的ArrayBuffer对象。slice方法其实包含两步，第一步是先分配一段新内存，第二步是将原来那个ArrayBuffer对象拷贝过去。
 
@@ -80,7 +80,7 @@ ArrayBuffer作为内存区域，可以存放多种类型的数据。不同数据
 
 每一种视图都有一个BYTES_PER_ELEMENT常数，表示这种数据类型占据的字节数。
 
-{% highlight javascript %}
+```javascript
 
 Int8Array.BYTES_PER_ELEMENT // 1
 Uint8Array.BYTES_PER_ELEMENT // 1
@@ -91,7 +91,7 @@ Uint32Array.BYTES_PER_ELEMENT // 4
 Float32Array.BYTES_PER_ELEMENT // 4
 Float64Array.BYTES_PER_ELEMENT // 8
 
-{% endhighlight %}
+```
 
 每一种视图都是一个构造函数，有多种方法可以生成：
 
@@ -99,7 +99,7 @@ Float64Array.BYTES_PER_ELEMENT // 8
 
 同一个ArrayBuffer对象之上，可以根据不同的数据类型，建立多个视图。
 
-{% highlight javascript %}
+```javascript
 
 // 创建一个8字节的ArrayBuffer
 var b = new ArrayBuffer(8);
@@ -113,7 +113,7 @@ var v2 = new Uint8Array(b, 2);
 // 创建一个指向b的Int16视图，开始于字节2，长度为2
 var v3 = new Int16Array(b, 2, 2);
 
-{% endhighlight %}
+```
 
 上面代码在一段长度为8个字节的内存（b）之上，生成了三个视图：v1、v2和v3。视图的构造函数可以接受三个参数：
 
@@ -127,14 +127,14 @@ var v3 = new Int16Array(b, 2, 2);
 
 视图还可以不通过ArrayBuffer对象，直接分配内存而生成。
 
-{% highlight javascript %}
+```javascript
 
 var f64a = new Float64Array(8);
 f64a[0] = 10;
 f64a[1] = 20;
 f64a[2] = f64a[0] + f64a[1];
 
-{% endhighlight %}
+```
 
 上面代码生成一个8个成员的Float64Array数组（共64字节），然后依次对每个成员赋值。这时，视图构造函数的参数就是成员的个数。可以看到，视图数组的赋值操作与普通数组的操作毫无两样。
 
@@ -142,21 +142,21 @@ f64a[2] = f64a[0] + f64a[1];
 
 将一个数据类型符合要求的普通数组，传入构造函数，也能直接生成视图。
 
-{% highlight javascript %}
+```javascript
 
 var typedArray = new Uint8Array( [ 1, 2, 3, 4 ] );
 
-{% endhighlight %}
+```
 
 上面代码将一个普通的数组，赋值给一个新生成的8位无符号整数的视图数组。
 
 视图数组也可以转换回普通数组。
 
-{% highlight javascript %}
+```javascript
 
 var normalArray = Array.apply( [], typedArray );
 
-{% endhighlight %}
+```
 
 ###  视图的操作
 
@@ -166,7 +166,7 @@ var normalArray = Array.apply( [], typedArray );
 
 普通数组的操作方法和属性，对类型化数组完全适用。
 
-{% highlight javascript %}
+```javascript
 
 var buffer = new ArrayBuffer(16);
 
@@ -176,13 +176,13 @@ for (var i=0; i<int32View.length; i++) {
   int32View[i] = i*2;
 }
 
-{% endhighlight %}
+```
 
 上面代码生成一个16字节的ArrayBuffer对象，然后在它的基础上，建立了一个32位整数的视图。由于每个32位整数占据4个字节，所以一共可以写入4个整数，依次为0，2，4，6。
 
 如果在这段数据上接着建立一个16位整数的视图，则可以读出完全不一样的结果。
 
-{% highlight javascript %}
+```javascript
 
 var int16View = new Int16Array(buffer);
 
@@ -198,7 +198,7 @@ for (var i=0; i<int16View.length; i++) {
 // Entry 6: 6
 // Entry 7: 0
 
-{% endhighlight %}
+```
 
 由于每个16位整数占据2个字节，所以整个ArrayBuffer对象现在分成8段。然后，由于x86体系的计算机都采用小端字节序（little endian），相对重要的字节排在后面的内存地址，相对不重要字节排在前面的内存地址，所以就得到了上面的结果。
 
@@ -212,12 +212,12 @@ for (var i=0; i<int16View.length; i++) {
 
 类型化数组的buffer属性，返回整段内存区域对应的ArrayBuffer对象。该属性为只读属性。
 
-{% highlight javascript %}
+```javascript
 
 var a = new Float32Array(64);
 var b = new Uint8Array(a.buffer);
 
-{% endhighlight %}
+```
 
 上面代码的a对象和b对象，对应同一个ArrayBuffer对象，即同一段内存。
 
@@ -225,7 +225,7 @@ var b = new Uint8Array(a.buffer);
 
 byteLength属性返回类型化数组占据的内存长度，单位为字节。byteOffset属性返回类型化数组从底层ArrayBuffer对象的哪个字节开始。这两个属性都是只读属性。
 
-{% highlight javascript %}
+```javascript
 
 var b = new ArrayBuffer(8);
 
@@ -241,42 +241,42 @@ v1.byteOffset // 0
 v2.byteOffset // 2
 v3.byteOffset // 2
 
-{% endhighlight %}
+```
 
 注意将byteLength属性和length属性区分，前者是字节长度，后者是成员长度。
 
-{% highlight javascript %}
+```javascript
 
 var a = new Int16Array(8);
 
 a.length // 8
 a.byteLength // 16
 
-{% endhighlight %}
+```
 
 **（4）set方法**
 
 类型化数组的set方法用于复制数组，也就是将一段内容完全复制到另一段内存。
 
-{% highlight javascript %}
+```javascript
 
 var a = new Uint8Array(8);
 var b = new Uint8Array(8);
 
 b.set(a);
 
-{% endhighlight %}
+```
 
 上面代码复制a数组的内容到b数组，它是整段内存的复制，比一个个拷贝成员的那种复制快得多。set方法还可以接受第二个参数，表示从b对象哪一个成员开始复制a对象。
 
-{% highlight javascript %}
+```javascript
 
 var a = new Uint16Array(8);
 var b = new Uint16Array(10);
 
 b.set(a,2)
 
-{% endhighlight %}
+```
 
 上面代码的b数组比a数组多两个成员，所以从b[2]开始复制。
 
@@ -284,7 +284,7 @@ b.set(a,2)
 
 subarray方法是对于类型化数组的一部分，再建立一个新的视图。
 
-{% highlight javascript %}
+```javascript
 
 var a = new Uint16Array(8);
 var b = a.subarray(2,3);
@@ -292,7 +292,7 @@ var b = a.subarray(2,3);
 a.byteLength // 16
 b.byteLength // 2
 
-{% endhighlight %}
+```
 
 subarray方法的第一个参数是起始的成员序号，第二个参数是结束的成员序号（不含该成员），如果省略则包含剩余的全部成员。所以，上面代码的a.subarray(2,3)，意味着b只包含a[2]一个成员，字节长度为2。
 
@@ -300,7 +300,7 @@ subarray方法的第一个参数是起始的成员序号，第二个参数是结
 
 由于视图的构造函数可以指定起始位置和长度，所以在同一段内存之中，可以依次存放不同类型的数据，这叫做“复合视图”。
 
-{% highlight javascript %}
+```javascript
 
 var buffer = new ArrayBuffer(24);
 
@@ -308,7 +308,7 @@ var idView = new Uint32Array(buffer, 0, 1);
 var usernameView = new Uint8Array(buffer, 4, 16);
 var amountDueView = new Float32Array(buffer, 20, 1);
 
-{% endhighlight %}
+```
 
 上面代码将一个24字节长度的ArrayBuffer对象，分成三个部分：
 
@@ -326,7 +326,7 @@ struct someStruct {
   float amountDue;
 };
 
-{% endhighlight %}
+```
 
 ## DataView视图
 
@@ -336,21 +336,21 @@ DataView视图提供更多操作选项，而且支持设定字节序。本来，
 
 DataView本身也是构造函数，接受一个ArrayBuffer对象作为参数，生成视图。
 
-{% highlight javascript %}
+```javascript
 
 DataView(ArrayBuffer buffer [, 字节起始位置 [, 长度]]);
 
-{% endhighlight %}
+```
 
 下面是一个实例。
 
-{% highlight javascript %}
+```javascript
 
 var buffer = new ArrayBuffer(24);
 
 var dv = new DataView(buffer);
 
-{% endhighlight %}
+```
 
 DataView视图提供以下方法读取内存：
 
@@ -365,7 +365,7 @@ DataView视图提供以下方法读取内存：
 
 这一系列get方法的参数都是一个字节序号，表示从哪个字节开始读取。
 
-{% highlight javascript %}
+```javascript
 
 var buffer = new ArrayBuffer(24);
 var dv = new DataView(buffer);
@@ -379,13 +379,13 @@ var v2 = dv.getUint16(1);
 // 从第4个字节读取一个16位无符号整数
 var v3 = dv.getUint16(3);
 
-{% endhighlight %}
+```
 
 上面代码读取了ArrayBuffer对象的前5个字节，其中有一个8位整数和两个十六位整数。
 
 如果一次读取两个或两个以上字节，就必须明确数据的存储方式，到底是小端字节序还是大端字节序。默认情况下，DataView的get方法使用大端字节序解读数据，如果需要使用小端字节序解读，必须在get方法的第二个参数指定true。
 
-{% highlight javascript %}
+```javascript
 
 // 小端字节序
 var v1 = dv.getUint16(1, true);
@@ -396,7 +396,7 @@ var v2 = dv.getUint16(3, false);
 // 大端字节序
 var v3 = dv.getUint16(3);
 
-{% endhighlight %}
+```
 
 DataView视图提供以下方法写入内存：
 
@@ -411,7 +411,7 @@ DataView视图提供以下方法写入内存：
 
 这一系列set方法，接受两个参数，第一个参数是字节序号，表示从哪个字节开始写入，第二个参数为写入的数据。对于那些写入两个或两个以上字节的方法，需要指定第三个参数，false或者undefined表示使用大端字节序写入，true表示使用小端字节序写入。
 
-{% highlight javascript %}
+```javascript
 
 // 在第1个字节，以大端字节序写入值为25的32位整数
 dv.setInt32(0, 25, false); 
@@ -422,11 +422,11 @@ dv.setInt32(4, 25);
 // 在第9个字节，以小端字节序写入值为2.5的32位浮点数
 dv.setFloat32(8, 2.5, true); 
 
-{% endhighlight %}
+```
 
 如果不确定正在使用的计算机的字节序，可以采用下面的判断方式。
 
-{% highlight javascript %}
+```javascript
 
 var littleEndian = (function() {
   var buffer = new ArrayBuffer(2);
@@ -434,7 +434,7 @@ var littleEndian = (function() {
   return new Int16Array(buffer)[0] === 256;
 })();
 
-{% endhighlight %}
+```
 
 如果返回true，就是小端字节序；如果返回false，就是大端字节序。
 
@@ -444,15 +444,15 @@ var littleEndian = (function() {
 
 传统上，服务器通过Ajax操作只能返回文本数据。XMLHttpRequest 第二版允许服务器返回二进制数据，这时分成两种情况。如果明确知道返回的二进制数据类型，可以把返回类型（responseType）设为arraybuffer；如果不知道，就设为blob。
 
-{% highlight javascript %}
+```javascript
 
 xhr.responseType = 'arraybuffer';
 
-{% endhighlight %}
+```
 
 如果知道传回来的是32位整数，可以像下面这样处理。
 
-{% highlight javascript %}
+```javascript
 
 xhr.onreadystatechange = function () {
 if (req.readyState === 4 ) {
@@ -465,13 +465,13 @@ if (req.readyState === 4 ) {
     }
 }
 
-{% endhighlight %}
+```
 
 ### Canvas
 
 网页Canvas元素输出的二进制像素数据，就是类型化数组。
 
-{% highlight javascript %}
+```javascript
 
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
@@ -479,25 +479,25 @@ var ctx = canvas.getContext('2d');
 var imageData = ctx.getImageData(0,0, 200, 100);
 var typedArray = imageData.data;
 
-{% endhighlight %}
+```
 
 需要注意的是，上面代码的typedArray虽然是一个类型化数组，但是它的视图类型是一种针对Canvas元素的专有类型Uint8ClampedArray。这个视图类型的特点，就是专门针对颜色，把每个字节解读为无符号的8位整数，即只能取值0～255，而且发生运算的时候自动过滤高位溢出。这为图像处理带来了巨大的方便。
 
 举例来说，如果把像素的颜色值设为Uint8Array类型，那么乘以一个gamma值的时候，就必须这样计算：
 
-{% highlight javascript %}
+```javascript
 
 u8[i] = Math.min(255, Math.max(0, u8[i] * gamma));
 
-{% endhighlight %}
+```
 
 因为Uint8Array类型对于大于255的运算结果（比如0xFF+1），会自动变为0x00，所以图像处理必须要像上面这样算。这样做很麻烦，而且影响性能。如果将颜色值设为Uint8ClampedArray类型，计算就简化许多。
 
-{% highlight javascript %}
+```javascript
 
 pixels[i] *= gamma;
 
-{% endhighlight %}
+```
 
 Uint8ClampedArray类型确保将小于0的值设为0，将大于255的值设为255。注意，IE 10不支持该类型。
 
@@ -505,25 +505,25 @@ Uint8ClampedArray类型确保将小于0的值设为0，将大于255的值设为2
 
 如果知道一个文件的二进制数据类型，也可以将这个文件读取为类型化数组。
 
-{% highlight javascript %}
+```javascript
 
 reader.readAsArrayBuffer(file);
 
-{% endhighlight %}
+```
 
 下面以处理bmp文件为例。假定file变量是一个指向bmp文件的文件对象，首先读取文件。
 
-{% highlight javascript %}
+```javascript
 
 var reader = new FileReader();
 reader.addEventListener("load", processimage, false); 
 reader.readAsArrayBuffer(file); 
 
-{% endhighlight %}
+```
 
 然后，定义处理图像的回调函数：先在二进制数据之上建立一个DataView视图，再建立一个bitmap对象，用于存放处理后的数据，最后将图像展示在canvas元素之中。
 
-{% highlight javascript %}
+```javascript
 
 function processimage(e) { 
  var buffer = e.target.result; 
@@ -532,11 +532,11 @@ function processimage(e) {
  // 具体的处理步骤
 }
 
-{% endhighlight %}
+```
 
 具体处理图像数据时，先处理bmp的文件头。具体每个文件头的格式和定义，请参阅有关资料。
 
-{% highlight javascript %}
+```javascript
 
 bitmap.fileheader = {}; 
 bitmap.fileheader.bfType = datav.getUint16(0, true); 
@@ -545,11 +545,11 @@ bitmap.fileheader.bfReserved1 = datav.getUint16(6, true);
 bitmap.fileheader.bfReserved2 = datav.getUint16(8, true); 
 bitmap.fileheader.bfOffBits = datav.getUint32(10, true);
 
-{% endhighlight %}
+```
 
 接着处理图像元信息部分。
 
-{% highlight javascript %}
+```javascript
 
 bitmap.infoheader = {};
 bitmap.infoheader.biSize = datav.getUint32(14, true);
@@ -564,16 +564,16 @@ bitmap.infoheader.biYPelsPerMeter = datav.getUint32(42, true);
 bitmap.infoheader.biClrUsed = datav.getUint32(46, true); 
 bitmap.infoheader.biClrImportant = datav.getUint32(50, true);
 
-{% endhighlight %}
+```
 
 最后处理图像本身的像素信息。
 
-{% highlight javascript %}
+```javascript
 
 var start = bitmap.fileheader.bfOffBits;
 bitmap.pixels = new Uint8Array(buffer, start); 
 
-{% endhighlight %}
+```
 
 至此，图像文件的数据全部处理完成。下一步，可以根据需要，进行图像变形，或者转换格式，或者展示在Canvas网页元素之中。
 

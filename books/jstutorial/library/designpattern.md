@@ -12,7 +12,7 @@ modifiedOn: 2013-02-04
 
 Singleton模式指的是一个“类”只能创造一个实例。由于JavaScript语言没有类，单个对象可以直接生成，所以实际上，没有必要部署Singleton模式。但是，还是可以做到的。
 
-{% highlight javascript %}
+```javascript
 
 var someClass = {
 
@@ -32,18 +32,18 @@ var someClass = {
 
 var instance = someClass.getSingleton();
 
-{% endhighlight %}
+```
 
 生成实例的时候，调用getSingleton方法。该方法首先检查_singleton属性是否有值，如果有值就返回这个属性，如果为空则生成新的实例，并赋值给_singleton属性，然后返回这个实例。这样就保证了生成的实例都是同一个对象。
 
 为了保证实例不被改写，可以关闭它的写入开关。
 
-{% highlight javascript %}
+```javascript
 
 Object.defineProperty(namespace, "singleton",
         { writable: false, configurable: false, value: { ... } });
 
-{% endhighlight %}
+```
 
 也可以考虑使用Object.preventExtensions()、Object.seal()、Object.freeze()等方法，限制对实例进行写操作。
 

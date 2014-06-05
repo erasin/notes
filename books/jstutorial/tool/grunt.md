@@ -18,7 +18,7 @@ Grunt基于Node.js，安装之前要先安装Node.js，然后运行下面的命�
 
 sudo npm install grunt-cli -g
 
-{% endhighlight %}
+```
 
 grunt-cli表示安装的是grunt的命令行界面，参数g表示全局安装。
 
@@ -26,7 +26,7 @@ Grunt使用模块结构，除了安装命令行界面以外，还要根据需要
 
 首先，在项目的根目录下，创建一个文本文件package.json，指定当前项目所需的模块。下面就是一个例子。
 
-{% highlight javascript %}
+```javascript
 
 {
   "name": "my-project-name",
@@ -41,7 +41,7 @@ Grunt使用模块结构，除了安装命令行界面以外，还要根据需要
   }
 }
 
-{% endhighlight %}
+```
 
 上面这个package.json文件中，除了注明项目的名称和版本以外，还在devDependencies属性中指定了项目依赖的grunt模块和版本：grunt核心模块为最新的0.x.x版，jshint插件为最新版本，concat插件不低于0.1.1版，uglify插件不低于0.1.0版，watch插件不低于0.1.4版。
 
@@ -51,7 +51,7 @@ Grunt使用模块结构，除了安装命令行界面以外，还要根据需要
 
 npm install
 
-{% endhighlight %}
+```
 
 上面这种方法是针对已有package.json的情况。如果想要自动生成package.json文件，可以使用npm init命令，按照屏幕提示回答所需模块的名称和版本即可。
 
@@ -59,7 +59,7 @@ npm install
 
 npm init
 
-{% endhighlight %}
+```
 
 如果已有的package.json文件不包括Grunt模块，可以在直接安装Grunt模块的时候，加上--save-dev参数，该模块就会自动被加入package.json文件。
 
@@ -67,7 +67,7 @@ npm init
 
 npm install <module> --save-dev
 
-{% endhighlight %}
+```
 
 比如，对应上面package.json文件指定的模块，需要运行以下npm命令。
 
@@ -79,13 +79,13 @@ npm install grunt-contrib-concat --save-dev
 npm install grunt-contrib-uglify --save-dev
 npm install grunt-contrib-watch --save-dev
 
-{% endhighlight %}
+```
 
 ## 命令脚本文件Gruntfile.js 
 
 模块安装完以后，下一步在项目的根目录下，新建脚本文件Gruntfile.js。它是grunt的配置文件，就好像package.json是npm的配置文件一样。Gruntfile.js就是一般的Node.js模块的写法。
 
-{% highlight javascript %}
+```javascript
 
 module.exports = function(grunt) {
 
@@ -109,7 +109,7 @@ module.exports = function(grunt) {
 
 };
 
-{% endhighlight %}
+```
 
 上面的代码用到了grunt代码的三个方法：
 
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
 
 grunt jshint
 
-{% endhighlight %}
+```
 
 上面代码表示运行jshint模块。
 
@@ -137,7 +137,7 @@ grunt jshint
 
 grunt check
 
-{% endhighlight %}
+```
 
 上面代码表示运行check任务。如果运行成功，就会显示“Done, without errors.”。
 
@@ -153,11 +153,11 @@ grunt check
 
 npm install grunt-contrib-cssmin --save-dev
 
-{% endhighlight %}
+```
 
 然后，新建文件Gruntfile.js。
 
-{% highlight javascript %}
+```javascript
 
 module.exports = function(grunt) {
 
@@ -184,7 +184,7 @@ module.exports = function(grunt) {
 
 };
 
-{% endhighlight %}
+```
 
 下面详细解释上面代码中的三个方法，下面一个个来看。
 
@@ -192,21 +192,21 @@ module.exports = function(grunt) {
 
 grunt.loadNpmTasks方法载入模块文件。
 
-{% highlight javascript %}
+```javascript
 
   grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-{% endhighlight %}
+```
 
 你需要使用几个模块，这里就要写几条grunt.loadNpmTasks语句，将各个模块一一加载。
 
 如果加载模块很多，这部分会非常冗长。而且，还存在一个问题，就是凡是在这里加载的模块，也同时出现在package.json文件中。如果使用npm命令卸载模块以后，模块会自动从package.json文件中消失，但是必须手动从Gruntfile.js文件中清除，这样很不方便，一旦忘记，还会出现运行错误。这里有一个解决办法，就是安装load-grunt-tasks模块，然后在Gruntfile.js文件中，用下面的语句替代所有的grunt.loadNpmTasks语句。
 
-{% highlight javascript %}
+```javascript
 
 require('load-grunt-tasks')(grunt);
 
-{% endhighlight %}
+```
 
 这条语句的作用是自动分析package.json文件，自动加载所找到的grunt模块。
 
@@ -248,7 +248,7 @@ cssmin（属性）指向一个对象，该对象又包含多个成员。除了�
 
 使用通配符设置src属性的更多例子：
 
-{% highlight javascript %}
+```javascript
 
 {src: 'foo/th*.js'}grunt-contrib-uglify
 
@@ -256,13 +256,13 @@ cssmin（属性）指向一个对象，该对象又包含多个成员。除了�
 
 {src: ['foo/a*.js', 'foo/b*.js']}
 
-{% endhighlight %}
+```
 
 至于combine目标，就只有一个files参数，表示输出文件是css子目录下的out.min.css，输入文件则是css子目录下的part1.min.css和part2.min.css。
 
 files参数的格式可以是一个对象，也可以是一个数组。
 
-{% highlight javascript %}
+```javascript
 
 files: {
         'dest/b.js': ['src/bb.js', 'src/bbb.js'],
@@ -276,11 +276,11 @@ files: [
         {src: ['src/aa1.js', 'src/aaa1.js'], dest: 'dest/a1.js'},
 ],
 
-{% endhighlight %}
+```
 
 如果minify目标和combine目标的属性设置有重合的部分，可以另行定义一个与minify和combine平行的options属性。
 
-{% highlight javascript %}
+```javascript
 
  grunt.initConfig({
     cssmin: {
@@ -290,7 +290,7 @@ files: [
     }
   });
 
-{% endhighlight %}
+```
 
 **（3）grunt.registerTask**
 
@@ -304,7 +304,7 @@ grunt cssmin:minify # 只压缩不合并
 
 grunt css:combine # 只合并不压缩
 
-{% endhighlight %}
+```
 
 如果不指明目标，只是指明模块，就表示将所有目标依次运行一遍。
 
@@ -312,7 +312,7 @@ grunt css:combine # 只合并不压缩
 
 grunt cssmin
 
-{% endhighlight %}
+```
 
 ## 常用模块设置
 
@@ -336,7 +336,7 @@ grunt的[模块](http://gruntjs.com/plugins)已经超过了2000个，且还在�
 
 jshint用来检查语法错误，比如分号的使用是否正确、有没有忘记写括号等等。它在grunt.initConfig方法里面的配置代码如下。
 
-{% highlight javascript %}
+```javascript
 
 jshint: {
 	options: {
@@ -346,7 +346,7 @@ jshint: {
 	files: ['Gruntfile.js', 'lib/**/*.js']
 },
 
-{% endhighlight %}
+```
 
 上面代码先指定jshint的[检查项目](http://www.jshint.com/docs/options/)，eqeqeq表示要用严格相等运算符取代相等运算符，trailing表示行尾不得有多余的空格。然后，指定files属性，表示检查目标是Gruntfile.js文件，以及lib目录的所有子目录下面的JavaScript文件。
 
@@ -354,7 +354,7 @@ jshint: {
 
 concat用来合并同类文件，它不仅可以合并JavaScript文件，还可以合并CSS文件。
 
-{% highlight javascript %}
+```javascript
 
 concat: {
   js: {
@@ -367,7 +367,7 @@ concat: {
   }
 },
 
-{% endhighlight %}
+```
 
 js目标用于合并JavaScript文件，css目标用语合并CSS文件。两者的src属性指定需要合并的文件（input），dest属性指定输出的目标文件（output）。
 
@@ -375,7 +375,7 @@ js目标用于合并JavaScript文件，css目标用语合并CSS文件。两者�
 
 uglify模块用来压缩代码，减小文件体积。
 
-{% highlight javascript %}
+```javascript
 
 uglify: {
   options: {
@@ -392,7 +392,7 @@ uglify: {
   }
 },
 
-{% endhighlight %}
+```
 
 上面代码中的options属性指定压缩后文件的文件头，以及sourceMap设置；target目标指定输入和输出文件。
 
@@ -400,7 +400,7 @@ uglify: {
 
 [copy模块](https://github.com/gruntjs/grunt-contrib-copy)用于复制文件与目录。
 
-{% highlight javascript %}
+```javascript
 
 copy: {
   main: {
@@ -409,11 +409,11 @@ copy: {
   },
 },
 
-{% endhighlight %}
+```
 
 上面代码将src子目录（只包含它下面的第一层文件和子目录），拷贝到dest子目录下面（即dest/src目录）。如果要更准确控制拷贝行为，比如只拷贝文件、不拷贝目录、不保持目录结构，可以写成下面这样：
 
-{% highlight javascript %}
+```javascript
 
 copy: {
   main: {
@@ -426,13 +426,13 @@ copy: {
   },
 },
 
-{% endhighlight %}
+```
 
 ### grunt-contrib-watch
 
 [watch模块](https://github.com/gruntjs/grunt-contrib-watch)用来在后台运行，监听指定事件，然后自动运行指定的任务。
 
-{% highlight javascript %}
+```javascript
 
 watch: {
    scripts: {
@@ -451,7 +451,7 @@ watch: {
    },
 },
 
-{% endhighlight %}
+```
 
 设置好上面的代码，打开另一个进程，运行grunt watch。此后，任何的js代码变动，文件保存后就会自动运行jshint任务；任何sass文件变动，文件保存后就会自动运行sass任务。
 
@@ -465,7 +465,7 @@ watch: {
 
 该模块用于删除文件或目录。
 
-{% highlight javascript %}
+```javascript
 
 clean: {
   build: {
@@ -473,13 +473,13 @@ clean: {
   }
 }
 
-{% endhighlight %}
+```
 
 **（2）grunt-autoprefixer**
 
 该模块用于为CSS语句加上浏览器前缀。
 
-{% highlight javascript %}
+```javascript
 
 autoprefixer: {
   build: {
@@ -490,13 +490,13 @@ autoprefixer: {
   }
 },
 
-{% endhighlight %}
+```
 
 **（3）grunt-contrib-connect**
 
 该模块用于在本机运行一个Web Server。
 
-{% highlight javascript %}
+```javascript
 
 connect: {
   server: {
@@ -508,7 +508,7 @@ connect: {
   }
 }
 
-{% endhighlight %}
+```
 
 connect模块会随着grunt运行结束而结束，为了使它一直处于运行状态，可以把它放在watch模块之前运行。因为watch模块需要手动中止，所以connect模块也就会一直运行。
 
@@ -516,7 +516,7 @@ connect模块会随着grunt运行结束而结束，为了使它一直处于运�
 
 该模块用于检查HTML语法。
 
-{% highlight javascript %}
+```javascript
 
 htmlhint: {
     build: {
@@ -533,7 +533,7 @@ htmlhint: {
     }
 }
 
-{% endhighlight %}
+```
 
 上面代码用于检查index.html文件：HTML标记是否配对、标记名和属性名是否小写、属性值是否包括在双引号之中、特殊字符是否转义、HTML元素的id属性是否为唯一值、head部分是否没有script标记。
 
@@ -541,7 +541,7 @@ htmlhint: {
 
 该模块用于将SASS文件转为CSS文件。
 
-{% highlight javascript %}
+```javascript
 
 sass: {
     build: {
@@ -554,7 +554,7 @@ sass: {
     }
 }
 
-{% endhighlight %}
+```
 
 上面代码指定输出文件为build/css/master.css，输入文件为assets/sass/master.scss。
 
@@ -562,7 +562,7 @@ sass: {
 
 该模块用于将markdown文档转为HTML文档。
 
-{% highlight javascript %}
+```javascript
 
 markdown: {
     all: {
@@ -580,11 +580,11 @@ markdown: {
     }
 },
 
-{% endhighlight %}
+```
 
 上面代码指定将md后缀名的文件，转为docs/html/目录下的html文件。template属性指定转换时采用的模板，模板样式如下。
 
-{% highlight html %}
+```html
 
 <!DOCTYPE html>
 <html>
@@ -600,7 +600,7 @@ markdown: {
 </body>
 </html>
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

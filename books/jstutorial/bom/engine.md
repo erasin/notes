@@ -18,53 +18,53 @@ modifiedOn: 2013-12-22
 
 通过script标签，可以直接将JavaScript代码嵌入网页。
 
-{% highlight html %}
+```html
 
 <script>
 // some JavaScript code
 </script>
 
-{% endhighlight %}
+```
 
 （2）加载外部脚本
 
 script标签也可以指定加载外部的脚本文件。
 
-{% highlight html %}
+```html
 
 <script src="example.js"></script>
 
-{% endhighlight %}
+```
 
 如果脚本文件使用了非英语字符，还应该注明编码。
 
-{% highlight html %}
+```html
 
 <script charset="utf-8" src="example.js"></script>
 
-{% endhighlight %}
+```
 
 加载外部脚本和直接添加代码块，这两种方法不能混用。下面代码的console.log语句直接被忽略。
 
-{% highlight html %}
+```html
 
 <script charset="utf-8" src="example.js">
 	console.log('Hello World!');
 </script>
 
-{% endhighlight %}
+```
 
 （3）行内代码
 
 除了上面两种方法，HTML语言允许在某些元素的事件属性和a元素的href属性中，直接写入JavaScript。
 
-{% highlight html %}
+```html
 
 <div onclick="alert('Hello')"></div>
 
 <a href="javascript:alert('Hello')"></a>
 
-{% endhighlight %}
+```
 
 这种写法将HTML代码与JavaScript代码混写在一起，非常不利于代码管理，不建议使用。
 
@@ -74,47 +74,47 @@ script标签也可以指定加载外部的脚本文件。
 
 将脚本文件都放在网页尾部加载，还有一个好处。在DOM结构生成之前就调用DOM，JavaScript会报错，如果脚本都在网页尾部加载，就不存在这个问题，因为这时DOM肯定已经生成了。另一方面，这样也不必指定网页ready事件的回调函数了。
 
-{% highlight html %}
+```html
 
 <head>
 <script>
 console.log(document.body.innerHTML); 
 </head>
 
-{% endhighlight %}
+```
 
 上面代码执行时会报错，因为此时body元素还未生成。
 
 如果有多个script标签，比如下面这样：
 
-{% highlight html %}
+```html
 
 <script src="1.js"></script>
 <script src="2.js"></script>
 
-{% endhighlight %}
+```
 
 浏览器会同时平行下载1.js和2.js，但是执行时会保证先执行1.js，然后再执行2.js，即使后者先下载完成，也是如此。也就是说，脚本的执行顺序由它们在页面中的出现顺序决定，这是为了保证脚本之间的依赖关系不受到破坏。
 
 为了解决脚本文件下载阻塞网页渲染的问题，一个方法是加入defer属性。
 
-{% highlight html %}
+```html
 
 <script src="1.js" defer></script>
 <script src="2.js" defer></script>
 
-{% endhighlight %}
+```
 
 有了defer属性，浏览器下载脚本文件的时候，不会阻塞页面渲染。下载的脚本文件在DOMContentLoaded事件触发前执行（即刚刚读取完&lt;/html&gt;标签），而且可以保证执行顺序就是它们在页面上出现的顺序。但是，浏览器对这个属性的支持不够理想，IE（<=9）还有一个bug，无法保证2.js一定在1.js之后执行。此外，对于内置代码、而不是连接外部脚本的script标签，以及动态生成的script标签，defer属性不起作用。
 
 另一个解决方法是加入async属性。
 
-{% highlight html %}
+```html
 
 <script src="1.js" async></script>
 <script src="2.js" async></script>
 
-{% endhighlight %}
+```
 
 async属性可以保证脚本下载的同时，浏览器继续渲染。一旦渲染完成，再执行脚本文件，这就是“非同步执行”的意思。需要注意的是，一旦采用这个属性，就无法保证脚本的执行顺序。哪个脚本先下载结束，就先执行那个脚本。IE 10支持async属性，低于这个版本的IE都不支持。
 
@@ -124,33 +124,33 @@ async属性可以保证脚本下载的同时，浏览器继续渲染。一旦渲
 
 另外，如果不指定协议，浏览器默认采用HTTP协议下载。
 
-{% highlight html %}
+```html
 
 <script src="example.js"></script>
 
-{% endhighlight %}
+```
 
 上面的example.js默认就是采用http协议下载，如果要采用HTTPs协议下载，必需写明（假定服务器支持）。
 
-{% highlight html %}
+```html
 
 <script src="https://example.js"></script>
 
-{% endhighlight %}
+```
 
 但是有时我们会希望，根据页面本身的协议来决定加载协议，这时可以采用下面的写法。
 
-{% highlight html %}
+```html
 
 <script src="//example.js"></script>
 
-{% endhighlight %}
+```
 
 ### 动态嵌入
 
 除了用静态的script标签，将JavaScript代码插入网页，还可以动态生成script标签。
 
-{% highlight javascript %}
+```javascript
 
 ['1.js', '2.js'].forEach(function(src) {
   var script = document.createElement('script');
@@ -158,13 +158,13 @@ async属性可以保证脚本下载的同时，浏览器继续渲染。一旦渲
   document.head.appendChild(script);
 });
 
-{% endhighlight %}
+```
 
 这种方法的好处是，动态生成的script标签不会阻塞页面渲染，也就不会造成浏览器假死。但是问题在于，这种方法无法保证脚本的执行顺序，哪个脚本文件先下载完成，就先执行哪个。
 
 如果想避免这个问题，可以设置async属性为false。
 
-{% highlight javascript %}
+```javascript
 
 ['1.js', '2.js'].forEach(function(src) {
   var script = document.createElement('script');
@@ -173,17 +173,17 @@ async属性可以保证脚本下载的同时，浏览器继续渲染。一旦渲
   document.head.appendChild(script);
 });
 
-{% endhighlight %}
+```
 
 上面的代码依然不会阻塞页面渲染，而且可以保证2.js在1.js后面执行。不过需要注意的是，在这段代码后面加载的脚本文件，会因此都等待2.js执行完成后再执行。
 
 当script标签指定的外部脚本文件下载和解析完成，会触发一个load事件，可以为这个事件指定回调函数。
 
-{% highlight html %}
+```html
 
 <script async src="jquery.min.js" onload="console.log('jQuery已加载！')"></script>
 
-{% endhighlight %}
+```
 
 ## JavaScript虚拟机
 
@@ -260,33 +260,33 @@ Event Loop就是为了解决这个问题而提出的。[Wikipedia](http://en.wik
 
 先来看setTimeout方法，它的作用是推迟某个任务的运行时间，从而改变JavaScript的正常执行顺序。
 
-{% highlight javascript %}
+```javascript
 
 console.log(1);
 console.log(2);
 console.log(3);
 
-{% endhighlight %}
+```
 
 正常情况下，上面三行语句按照顺序执行，输出1--2--3。现在，用setTimeout改变执行顺序。
 
-{% highlight javascript %}
+```javascript
 
 console.log(1);
 setTimeout(function(){console.log(2);},1000);
 console.log(3);
 
-{% endhighlight %}
+```
 
 上面代码的输出结果就是1--3--2，因为setTimeout方法指定第二行语句，在所有任务结束后，等待1000毫秒再执行。
 
 setTimeout方法的前两个参数是必需的。第一个参数是回调函数，第二个参数是推迟执行的时间，单位为毫秒。除了这两个参数以外，其他参数都是可选的，将在回调函数运行时传入回调函数。
 
-{% highlight javascript %}
+```javascript
 
 setTimeout(function(a,b){console.log(a+b);},1000,1,1);
 
-{% endhighlight %}
+```
 
 上面代码表示，将在1000毫秒之后执行回调函数，输出1加1的和。
 
@@ -294,7 +294,7 @@ IE小于9.0的版本，只允许setTimeout有两个参数，不支持更多的�
 
 除了参数问题，setTimeout还有一个需要注意的地方：被setTimeout推迟执行的回调函数是在全局环境执行，这有可能不同于函数定义时的上下文环境。
 
-{% highlight javascript %}
+```javascript
 
 var n = 1;
 
@@ -305,7 +305,7 @@ var o = {
 
 var timeoutID = setTimeout(o.m,1000);
 
-{% endhighlight %}
+```
 
 上面代码输出的是1，而不是2，这表示回调函数的运行环境已经变成了全局环境。
 
@@ -313,17 +313,17 @@ var timeoutID = setTimeout(o.m,1000);
 
 setInterval方法的使用格式和需要注意的地方，与setTimeout完全一致，两者的区别仅仅在于setInterval指定某个任务每隔一段时间就执行一次。
 
-{% highlight javascript %}
+```javascript
 
 setInterval(function(){console.log(2);},1000);
 
-{% endhighlight %}
+```
 
 上面代码表示每隔1000毫秒就输出一个2。
 
 除了前两个参数，setInterval 方法还可以接受更多的参数，它们会传入回调函数。
 
-{% highlight javascript %}
+```javascript
 
 function f(){
 	for (var i=0;i<arguments.length;i++){
@@ -333,7 +333,7 @@ function f(){
 
 setInterval(f, 1000, "Hello World");
 
-{% endhighlight %}
+```
 
 上面代码的运行结果如下：
 
@@ -344,7 +344,7 @@ Hello World
 Hello World
 ...
 
-{% endhighlight %}
+```
 
 如果网页不在浏览器的当前窗口（或tab），许多浏览器限制setInteral指定的反复运行的任务最多每秒执行一次。
 
@@ -352,7 +352,7 @@ Hello World
 
 setTimeout 和 setInterval 方法都返回一个表示计数器编号的整数值，将该整数传入clearTimeout 和 clearInterval 方法，就可以取消指定的操作。
 
-{% highlight javascript %}
+```javascript
 
 var id1 = setTimeout(f,1000);
 var id2 = setInterval(f,1000);
@@ -360,29 +360,29 @@ var id2 = setInterval(f,1000);
 clearTimeout(id1);
 clearInterval(id2);
 
-{% endhighlight %}
+```
 
 下面是一个clearTimeout实际应用的例子。有些网站会实时将用户在文本框的输入，通过Ajax方法传回服务器，用jQuery表示就是下面的写法。
 
-{% highlight javascript %}
+```javascript
 
 $('textarea').on('keydown', ajaxAction);
 
-{% endhighlight %}
+```
 
 这样写有一个很大的缺点，就是如果用户连续击键，就会连续触发keydown事件，造成大量的Ajax通信。这是不必要的，而且很可能会发生性能问题。正确的做法应该是，设置一个门槛值，表示两次Ajax通信的最小间隔时间。如果在设定的时间内，发生新的keydown事件，则不触发Ajax通信，并且重新开始计时。如果过了指定时间，没有发生新的keydown事件，将进行Ajax通信将数据发送出去。
 
 这种做法叫做debounce（防抖动）方法，用来返回一个新函数。只有当两次触发之间的时间间隔大于事先设定的值，这个新函数才会运行实际的任务。假定两次Ajax通信的间隔不小于2500毫秒，上面的代码可以改写成下面这样。
 
-{% highlight javascript %}
+```javascript
 
 $('textarea').on('keydown', debounce(ajaxAction, 2500))
 
-{% endhighlight %}
+```
 
 利用setTimeout和clearTimeout，可以实现debounce方法。
 
-{% highlight javascript %}
+```javascript
 
 function debounce(fn, delay){
 	var timer = null; // 声明计时器
@@ -395,30 +395,30 @@ function debounce(fn, delay){
 	};
 }
 
-{% endhighlight %}
+```
 
 ### 运行队列
 
 本质上，setTimeout和setInterval都是把任务添加到“运行队列”的尾部，等到前面的任务都执行完，再开始执行。由于前面的任务到底需要多少时间执行完，是不确定的，所以没有办法保证，被推迟的任务一定会按照预定时间执行。
 
-{% highlight javascript %}
+```javascript
 
 setTimeout(someTask,100);
 veryLongTask();
 
-{% endhighlight %}
+```
 
 上面代码的setTimeout，指定100毫秒以后运行一个任务。但是，如果后面立即运行的任务非常耗时，过了100毫秒还无法结束，那么被推迟运行的someTask就只有等着，等到前面的veryLongTask运行结束，才轮到它执行。
 
 这一点对于setInterval影响尤其大。
 
-{% highlight javascript %}
+```javascript
 
 setInterval(function(){console.log(2);},1000);
 
 (function (){ sleeping(3000);})();
 
-{% endhighlight %}
+```
 
 上面的第一行语句要求每隔1000毫秒，就输出一个2。但是，第二行语句需要3000毫秒才能完成，请问会发生什么结果？
 
@@ -426,7 +426,7 @@ setInterval(function(){console.log(2);},1000);
 
 为了进一步理解JavaScript的单线程模型，请看下面这段伪代码。
 
-{% highlight javascript %}
+```javascript
 
 function init(){
         { 耗时5ms的某个操作 } 
@@ -444,7 +444,7 @@ function timerTask(){
           耗时2ms的某个操作 
 }
 
-{% endhighlight %}
+```
 
 请问调用init函数后，这段代码的运行顺序是怎样的？
 
@@ -460,7 +460,7 @@ function timerTask(){
 
 由于setInterval无法保证每次操作之间的间隔，存在累积效应，为了避免这个问题，可以反复调用setTimeout，替代setInterval。
 
-{% highlight javascript %}
+```javascript
 
 var recursive = function () {
     console.log("It has been one second!");
@@ -469,13 +469,13 @@ var recursive = function () {
 
 recursive();
 
-{% endhighlight %}
+```
 
 上面这样的写法，就能保证两次recursive之间的运行间隔，一定是1000毫秒。
 
 另一种方法是自己部署一个函数，模拟setInterval的效果。
 
-{% highlight javascript %}
+```javascript
 
 function interval(func, wait){
     var interv = function(w){
@@ -490,7 +490,7 @@ function interval(func, wait){
 
 interval(function(){console.log(2);},1000);
 
-{% endhighlight %}
+```
 
 上面代码部署了一个interval函数，用循环调用setTimeout模拟了setInterval。
 
@@ -498,15 +498,15 @@ interval(function(){console.log(2);},1000);
 
 跟据[HTML 5标准](http://www.whatwg.org/specs/web-apps/current-work/multipage/timers.html#timers)，setTimeOut推迟执行的时间，最少是4毫秒。但是，实际应用中，可以看到有推迟0秒的。
 
-{% highlight javascript %}
+```javascript
 
 setTimeout(function (){console.log("你好！"), 0);
 
-{% endhighlight %}
+```
 
 这种写法的含义是，当前任务队列一结束就运行setTimeout指定的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 console.log("任务队列开始");
 
@@ -528,7 +528,7 @@ console.log("当前任务开始");
 a(42);
 console.log("任务队列结束");
 
-{% endhighlight %}
+```
 
 上面代码的运行结果如下：
 
@@ -544,7 +544,7 @@ a() 结束运行
 任务队列结束
 任务队列结束后运行
 
-{% endhighlight %}
+```
 
 可以看到，setTimeout(function, 0)将任务移到当前任务队列结束后运行。
 
