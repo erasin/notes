@@ -24,19 +24,19 @@ jQuery如此受欢迎，以至于有被滥用的趋势。许多开发者不管�
 
 jQuery的核心是通过各种选择器，选中DOM元素，可以用querySelectorAll方法模拟这个功能。
 
-{% highlight javascript %}
+```javascript
 
 var $ = document.querySelectorAll.bind(document);
 
-{% endhighlight %}
+```
 
 这里需要注意的是，querySelectorAll方法返回的是NodeList对象，它很像数组（有数字索引和length属性），但不是数组，不能使用pop、push等数组特有方法。如果有需要，可以考虑将Nodelist对象转为数组。
 
-{% highlight javascript %}
+```javascript
 
 myList = Array.prototype.slice.call(myNodeList);
 
-{% endhighlight %}
+```
 
 ## DOM操作
 
@@ -44,7 +44,7 @@ DOM本身就具有很丰富的操作方法，可以取代jQuery提供的操作�
 
 获取父元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $("#elementID").parent()
@@ -52,11 +52,11 @@ $("#elementID").parent()
 // DOM写法
 document.getElementById("elementID").parentNode
 
-{% endhighlight %}
+```
 
 获取下一个同级元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $("#elementID").next()
@@ -64,11 +64,11 @@ $("#elementID").next()
 // DOM写法
 document.getElementById("elementID").nextSibling
 
-{% endhighlight %}
+```
 
 尾部追加DOM元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $(parent).append($(child));
@@ -76,11 +76,11 @@ $(parent).append($(child));
 // DOM写法
 parent.appendChild(child)
 
-{% endhighlight %}
+```
 
 头部插入DOM元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $(parent).prepend($(child));
@@ -88,11 +88,11 @@ $(parent).prepend($(child));
 // DOM写法
 parent.insertBefore(child, parent.childNodes[0])
 
-{% endhighlight %}
+```
 
 生成DOM元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $("<p>")
@@ -100,11 +100,11 @@ $("<p>")
 // DOM写法
 document.createElement("p")
 
-{% endhighlight %}
+```
 
 删除DOM元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $(child).remove()
@@ -112,11 +112,11 @@ $(child).remove()
 // DOM写法
 child.parentNode.removeChild(child)
 
-{% endhighlight %}
+```
 
 清空子元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $("#elementID").empty()
@@ -125,11 +125,11 @@ $("#elementID").empty()
 var element = document.getElementById("elementID");
 while(element.firstChild) element.removeChild(element.firstChild);
 
-{% endhighlight %}
+```
 
 检查是否有子元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 if (!$("#elementID").is(":empty")){}
@@ -137,11 +137,11 @@ if (!$("#elementID").is(":empty")){}
 // DOM写法
 if (document.getElementById("elementID").hasChildNodes()){}
 
-{% endhighlight %}
+```
 
 克隆元素。
 
-{% highlight javascript %}
+```javascript
 
 // jQuery写法
 $("#elementID").clone()
@@ -149,31 +149,31 @@ $("#elementID").clone()
 // DOM写法
 document.getElementById("elementID").cloned(true)
 
-{% endhighlight %}
+```
 
 ## 事件的监听
 
 jQuery使用on方法，监听事件和绑定回调函数。
 
-{% highlight javascript %}
+```javascript
 
 $('button').on('click', function(){
     ajax( ... );
 });
 
-{% endhighlight %}
+```
 
 完全可以自己定义on方法，将它指向addEventListener方法。
 
-{% highlight javascript %}
+```javascript
 
 Element.prototype.on = Element.prototype.addEventListener;
 
-{% endhighlight %}
+```
 
 为了使用方便，可以在NodeList对象上也部署这个方法。
 
-{% highlight javascript %}
+```javascript
 
 NodeList.prototype.on = function (event, fn) {
 
@@ -185,21 +185,21 @@ NodeList.prototype.on = function (event, fn) {
 
 };
 
-{% endhighlight %}
+```
 
 取消事件绑定的off方法，也可以自己定义。
 
-{% highlight javascript %}
+```javascript
 
 Element.prototype.off = Element.prototype.removeEventListener;
 
-{% endhighlight %}
+```
 
 ## 事件的触发
 
 jQuery的trigger方法则需要单独部署，相对复杂一些。
 
-{% highlight javascript %}
+```javascript
 
 Element.prototype.trigger = function (type, data) {
     var event = document.createEvent('HTMLEvents');
@@ -211,11 +211,11 @@ Element.prototype.trigger = function (type, data) {
     return this;
 };
 
-{% endhighlight %}
+```
 
 在NodeList对象上也部署这个方法。
 
-{% highlight javascript %}
+```javascript
 
 NodeList.prototype.trigger = function (event) {
 
@@ -228,19 +228,19 @@ NodeList.prototype.trigger = function (event) {
     return this;
 };
 
-{% endhighlight %}
+```
 
 ## $(document).ready
 
 DOM加载完成，会触发DOMContentLoaded事件，等同于jQuery的$(document).ready方法。
 
-{% highlight javascript %}
+```javascript
 
 document.addEventListener("DOMContentLoaded", function() {
 	// ...
 });
 
-{% endhighlight %}
+```
 
 不过，目前的最佳实践，是将JavaScript脚本文件都放在页面底部加载。这样的话，其实$(document).ready方法（可以简写为$(function)）已经不必要了，因为等到运行的时候，DOM对象已经生成了。
 
@@ -248,27 +248,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
 jQuery使用attr方法，读写网页元素的属性。
 
-{% highlight javascript %}
+```javascript
 
 $("#picture").attr("src", "http://url/to/image")
 
-{% endhighlight %}
+```
 
 DOM提供getAttribute和setAttribute方法读写元素属性。
 
-{% highlight javascript %}
+```javascript
 
 imgElement.setAttribute("src", "http://url/to/image")
 
-{% endhighlight %}
+```
 
 DOM还允许直接读取属性值，写法要简洁许多。
 
-{% highlight javascript %}
+```javascript
 
 imgElement.src = "http://url/to/image";
 
-{% endhighlight %}
+```
 
 > 需要注意的是，文本框元素（input）的this.value返回的是输入框中的值，链接元素（a标签）的this.href返回的是绝对URL。如果需要用到这两个网页元素的属性准确值，可以用this.getAttribute('value')和this.getAttibute('href')。
 
@@ -276,15 +276,15 @@ imgElement.src = "http://url/to/image";
 
 jQuery的addClass方法，用于为DOM元素添加一个class。
 
-{% highlight javascript %}
+```javascript
 
 $('body').addClass('hasJS');
 
-{% endhighlight %}
+```
 
 DOM元素本身有一个可读写的className属性，可以用来操作class。
 
-{% highlight javascript %}
+```javascript
 
 document.body.className = 'hasJS';
 
@@ -292,11 +292,11 @@ document.body.className = 'hasJS';
 
 document.body.className += ' hasJS';
 
-{% endhighlight %}
+```
 
 HTML 5还提供一个classList对象，功能更强大（IE 9不支持）。
 
-{% highlight javascript %}
+```javascript
 
 document.body.classList.add('hasJS');
 
@@ -306,21 +306,21 @@ document.body.classList.toggle('hasJS');
 
 document.body.classList.contains('hasJS');
 
-{% endhighlight %}
+```
 
 ## CSS
 
 jQuery的css方法，用来设置网页元素的样式。
 
-{% highlight javascript %}
+```javascript
 
 $(node).css( "color", "red" );
 
-{% endhighlight %}
+```
 
 DOM元素有一个style属性，可以直接操作。
 
-{% highlight javascript %}
+```javascript
 
 element.style.color = "red”;;
 
@@ -328,33 +328,33 @@ element.style.color = "red”;;
 
 element.style.cssText += 'color:red';
 
-{% endhighlight %}
+```
 
 ## 数据储存
 
 jQuery对象可以储存数据。
 
-{% highlight javascript %}
+```javascript
 
 $("body").data("foo", 52);
 
-{% endhighlight %}
+```
 
 HTML 5有一个dataset对象，也有类似的功能（IE 10不支持），不过只能保存字符串。
 
-{% highlight javascript %}
+```javascript
 
 element.dataset.user = JSON.stringify(user);
 
 element.dataset.score = score;
 
-{% endhighlight %}
+```
 
 ## Ajax
 
 jQuery的ajax方法，用于异步操作。
 
-{% highlight javascript %}
+```javascript
 
 $.ajax({
 	type: "POST",
@@ -364,11 +364,11 @@ $.ajax({
 	alert( "Data Saved: " + msg );
 });
 
-{% endhighlight %}
+```
 
 我们自定义一个ajax函数，简单模拟jQuery的ajax方法。
 
-{% highlight javascript %}
+```javascript
 
 function ajax(url, opts){
     var xhr = new XMLHttpRequest();
@@ -386,11 +386,11 @@ function ajax(url, opts){
     xhr.send(opts.data);
 }
 
-{% endhighlight %}
+```
 
 使用的时候，除了网址，还需要传入一个自己构造的option对象。
 
-{% highlight javascript %}
+```javascript
 
 ajax('/foo', { 
     method: 'GET',
@@ -402,35 +402,35 @@ ajax('/foo', {
     }
 });
 
-{% endhighlight %}
+```
 
 ## 动画
 
 jQuery的animate方法，用于生成动画效果。
 
-{% highlight javascript %}
+```javascript
 
 $foo.animate('slow', { x: '+=10px' })
 
-{% endhighlight %}
+```
 
 jQuery的动画效果，很大部分基于DOM。但是目前，CSS 3的动画远比DOM强大，所以可以把动画效果写进CSS，然后通过操作DOM元素的class，来展示动画。
 
-{% highlight javascript %}
+```javascript
 
 foo.classList.add('animate')
 
-{% endhighlight %}
+```
 
 如果需要对动画使用回调函数，CSS 3也定义了相应的事件。
 
-{% highlight javascript %}
+```javascript
 
 el.addEventListener("webkitTransitionEnd", transitionEnded);
 
 el.addEventListener("transitionend", transitionEnded);
 
-{% endhighlight %}
+```
 
 ## 替代方案
 

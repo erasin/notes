@@ -32,7 +32,7 @@ IndexedDB具有以下特点。
 
 下面的代码用来检查浏览器是否支持这个API。
 
-{% highlight javascript %}
+```javascript
 
 if("indexedDB" in window) {
     // 支持
@@ -40,17 +40,17 @@ if("indexedDB" in window) {
     // 不支持
 }
 
-{% endhighlight %}
+```
 
 ## indexedDB.open方法
 
 浏览器原生提供indexedDB对象，作为开发者的操作接口。indexedDB.open方法用于打开数据库。
 
-{% highlight javascript %}
+```javascript
 
 var openRequest = indexedDB.open("test",1);
 
-{% endhighlight %}
+```
 
 open方法的第一个参数是数据库名称，格式为字符串，不可省略；第二个参数是数据库版本，是一个大于0的正整数（0将报错）。上面代码表示，打开一个名为test、版本为1的数据库。如果该数据库不存在，则会新建该数据库。如果省略第二个参数，则会自动创建版本为1的该数据库。
 
@@ -65,7 +65,7 @@ open方法的第一个参数是数据库名称，格式为字符串，不可省�
 
 根据不同的需要，对上面4种事件设立回调函数。
 
-{% highlight javascript %}
+```javascript
 
 var openRequest = indexedDB.open("test",1);
 var db;
@@ -84,7 +84,7 @@ openRequest.onerror = function(e) {
     console.dir(e);
 }
 
-{% endhighlight %}
+```
 
 上面代码有两个地方需要注意。首先，open方法返回的是一个对象（IDBOpenDBRequest），回调函数定义在这个对象上面。其次，回调函数接受一个事件对象event作为参数，它的target.result属性就指向打开的IndexedDB数据库。
 
@@ -96,22 +96,22 @@ openRequest.onerror = function(e) {
 
 createObjectStore方法用于创建存放数据的“对象仓库”（object store），类似于传统关系型数据库的表格。
 
-{% highlight javascript %}
+```javascript
 
 db.createObjectStore("firstOS");
 
-{% endhighlight %}
+```
 
 上面代码创建了一个名为firstOS的对象仓库，如果该对象仓库已经存在，就会抛出一个错误。为了避免出错，需要用到下文的objectStoreNames属性，检查已有哪些对象仓库。
 
 createObjectStore方法还可以接受第二个对象参数，用来设置“对象仓库”的属性。
 
-{% highlight javascript %}
+```javascript
 
 db.createObjectStore("test", { keyPath: "email" }); 
 db.createObjectStore("test2", { autoIncrement: true });
 
-{% endhighlight %}
+```
 
 上面代码中的keyPath属性表示，所存入对象的email属性用作每条记录的键名（由于键名不能重复，所以存入之前必须保证数据的email属性值都是不一样的），默认值为null；autoIncrement属性表示，是否使用自动递增的整数作为键名（第一个数据为1，第二个数据为2，以此类推），默认为false。一般来说，keyPath和autoIncrement属性只要使用一个就够了，如果两个同时使用，表示键名为递增的整数，且对象不得缺少指定属性。
 
@@ -119,13 +119,13 @@ db.createObjectStore("test2", { autoIncrement: true });
 
 objectStoreNames属性返回一个DOMStringList对象，里面包含了当前数据库所有“对象仓库”的名称。可以使用DOMStringList对象的contains方法，检查数据库是否包含某个“对象仓库”。
 
-{% highlight javascript %}
+```javascript
 
 if(!db.objectStoreNames.contains("firstOS")) {
      db.createObjectStore("firstOS");
 }
 
-{% endhighlight %}
+```
 
 上面代码先判断某个“对象仓库”是否存在，如果不存在就创建该对象仓库。
 
@@ -133,23 +133,23 @@ if(!db.objectStoreNames.contains("firstOS")) {
 
 transaction方法用于创建一个数据库事务。向数据库添加数据之前，必须先创建数据库事务。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["firstOS"],"readwrite");
 
-{% endhighlight %}
+```
 
 transaction方法接受两个参数：第一个参数是一个数组，里面是所涉及的对象仓库，通常是只有一个；第二个参数是一个表示操作类型的字符串。目前，操作类型只有两种：readonly（只读）和readwrite（读写）。添加数据使用readwrite，读取数据使用readonly。
 
 transaction方法返回一个事务对象，该对象的objectStore方法用于获取指定的对象仓库。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["firstOS"],"readwrite");
 
 var store = t.objectStore("firstOS");
 
-{% endhighlight %}
+```
 
 transaction方法有三个事件，可以用来定义回调函数。
 
@@ -157,7 +157,7 @@ transaction方法有三个事件，可以用来定义回调函数。
 - **complete**：事务完成。
 - **error**：事务出错。
 
-{% highlight javascript %}
+```javascript
 
 var transaction = db.transaction(["note"], "readonly");  
 
@@ -165,7 +165,7 @@ transaction.oncomplete = function(event) {
       // some code
 };
 
-{% endhighlight %}
+```
 
 事务对象有以下方法，用于操作数据。
 
@@ -173,7 +173,7 @@ transaction.oncomplete = function(event) {
 
 获取对象仓库以后，就可以用add方法往里面添加数据了。
 
-{% highlight javascript %}
+```javascript
 
 var store = t.objectStore("firstOS");
 
@@ -181,13 +181,13 @@ var o = {p: 123};
 
 var request = store.add(o,1);
 
-{% endhighlight %}
+```
 
 add方法的第一个参数是所要添加的数据，第二个参数是这条数据对应的键名（key），上面代码将对象o的键名设为1。如果在创建数据仓库时，对键名做了设置，这里也可以不指定键名。
 
 add方法是异步的，有自己的success和error事件，可以对这两个事件指定回调函数。
 
-{% highlight javascript %}
+```javascript
 
 var request = store.add(o,1);
 
@@ -200,24 +200,24 @@ request.onsuccess = function(e) {
     console.log("数据添加成功！");
 }
 
-{% endhighlight %}
+```
 
 **（2）读取数据：get方法**
 
 读取数据使用get方法，它的参数是数据的键名。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["test"], "readonly");
 var store = t.objectStore("test");
 
 var ob = store.get(x);
 
-{% endhighlight %}
+```
 
 get方法也是异步的，会触发自己的success和error事件，可以对它们指定回调函数。
 
-{% highlight javascript %}
+```javascript
 
 var ob = store.get(x);
  
@@ -225,37 +225,37 @@ ob.onsuccess = function(e) {
 	// ...
 }
 
-{% endhighlight %}
+```
 
 从创建事务到读取数据，所有操作方法也可以写成下面这样链式形式。
 
-{% highlight javascript %}
+```javascript
 
 db.transaction(["test"], "readonly").objectStore("test").get(X).onsuccess = function(e) {}
 
-{% endhighlight %}
+```
 
 **（3）更新记录：put方法**
 
 put方法的用法与add方法相近。
 
-{% highlight javascript %}
+```javascript
 
 var o = { p:456 };
 var request = store.put(o, 1);
 
-{% endhighlight %}
+```
 
 **（4）删除记录：delete方法**
 
 删除记录使用delete方法。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["people"], "readwrite");
 var request = t.objectStore("people").delete(thisId);
 
-{% endhighlight %}
+```
 
 delete方法的参数是数据的键名。另外，delete也是一个异步操作，可以为它指定回调函数。
 
@@ -263,18 +263,18 @@ delete方法的参数是数据的键名。另外，delete也是一个异步操�
 
 如果想要遍历数据，就要openCursor方法，它在当前对象仓库里面建立一个读取光标（cursor）。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["test"], "readonly");
 var store = t.objectStore("test");
 
 var cursor = store.openCursor();
 
-{% endhighlight %}
+```
 
 openCursor方法也是异步的，有自己的success和error事件，可以对它们指定回调函数。
 
-{% highlight javascript %}
+```javascript
 
 cursor.onsuccess = function(e) {
     var res = e.target.result;
@@ -285,7 +285,7 @@ cursor.onsuccess = function(e) {
     }
 }
 
-{% endhighlight %}
+```
 
 回调函数接受一个事件对象作为参数，该对象的target.result属性指向当前数据对象。当前数据对象的key和value分别返回键名和键值（即实际存入的数据）。continue方法将光标移到下一个数据对象，如果当前数据对象已经是最后一个数据了，则光标指向null。
 
@@ -297,7 +297,7 @@ createIndex方法用于创建索引。
 
 假定对象仓库中的数据对象都是下面person类型的。
 
-{% highlight javascript %}
+```javascript
 
 var person = {
     name:name,
@@ -305,24 +305,24 @@ var person = {
     created:new Date()
 }
 
-{% endhighlight %}
+```
 
 可以指定这个数据对象的某个属性来建立索引。
 
-{% highlight javascript %}
+```javascript
 
 var store = db.createObjectStore("people", { autoIncrement:true });
 
 store.createIndex("name","name", {unique:false});
 store.createIndex("email","email", {unique:true});
 
-{% endhighlight %}
+```
 
 createIndex方法接受三个参数，第一个是索引名称，第二个是建立索引的属性名，第三个是参数对象，用来设置索引特性。unique表示索引所在的属性是否有唯一值，上面代码表示name属性不是唯一值，email属性是唯一值。
 
 有了索引以后，就可以针对索引所在的属性读取数据。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["people"],"readonly");
 var store = t.objectStore("people");
@@ -330,7 +330,7 @@ var index = store.index("name");
 
 var request = index.get(name);
 
-{% endhighlight %}
+```
 
 上面代码打开对象仓库以后，先用index方法指定索引在name属性上面，然后用get方法读取某个name属性所在的数据。如果没有指定索引的那一行代码，get方法只能按照键名读取数据，而不能按照name属性读取数据。需要注意的是，这时get方法有可能取回多个数据对象，因为name属性没有唯一值。
 
@@ -349,7 +349,7 @@ IDBKeyRange对象的作用是生成一个表示范围的Range对象。生成方�
 
 下面是一些代码实例：
 
-{% highlight javascript %}
+```javascript
 
 // All keys ≤ x	
 var r1 = IDBKeyRange.upperBound(x);
@@ -378,13 +378,13 @@ var r8 = IDBKeyRange.bound(x, y, false, true);
 // The key = z	
 var r9 = IDBKeyRange.only(z);
 
-{% endhighlight %}
+```
 
 前三个方法（lowerBound、upperBound和bound）默认包括端点值，可以传入一个布尔值，修改这个属性。
 
 生成Range对象以后，将它作为参数输入openCursor方法，就可以在所设定的范围内读取数据。
 
-{% highlight javascript %}
+```javascript
 
 var t = db.transaction(["people"],"readonly");
 var store = t.objectStore("people");
@@ -403,7 +403,7 @@ index.openCursor(range).onsuccess = function(e) {
         }
 }
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

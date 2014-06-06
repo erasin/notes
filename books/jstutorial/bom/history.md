@@ -10,11 +10,11 @@ modifiedOn: 2014-05-06
 
 浏览器窗口有一个history对象，用来保存浏览历史。比如，该窗口先后访问了三个地址，那么history对象就包括三项，length属性等于3。
 
-{% highlight javascript %}
+```javascript
 
 history.length // 3
 
-{% endhighlight %}
+```
 
 history对象提供了一系列方法，允许在浏览历史之间移动。
 
@@ -22,13 +22,13 @@ history对象提供了一系列方法，允许在浏览历史之间移动。
 - forward()：移动到下一个访问页面，等同于浏览器的前进键。
 - go()：接受一个整数作为参数，移动到该整数指定的页面，比如go(1)相当于forward()，go(-1)相当于back()。
 
-{% highlight javascript %}
+```javascript
 
 history.back();
 history.forward();
 history.go(-2);
 
-{% endhighlight %}
+```
 
 如果移动的位置超出了访问历史的边界，以上三个方法并不报错，而是默默的失败。
 
@@ -52,13 +52,13 @@ pushState方法接受三个参数，依次为：
 
 假定当前网址是1.html，我们使用pushState方法在浏览记录中添加一个新记录。
 
-{% highlight javascript %}
+```javascript
 
 var stateObj = { foo: "bar" };
 
 history.pushState(stateObj, "page 2", "2.html");
 
-{% endhighlight %}
+```
 
 添加上面这个新记录后，浏览器并不会跳转到2.html，甚至也不会检查2.html是否存在，它只是成为浏览历史中的最新记录。假定这时你访问了google.com，然后点击了倒退按钮，页面的url将显示2.html，但是内容还是原来的1.html。你再点击一次倒退按钮，url将显示1.html，内容不变。
 
@@ -68,7 +68,7 @@ history.pushState(stateObj, "page 2", "2.html");
 
 replaceState 的参数与 pushState 一模一样，它修改浏览历史中当前页面的值。假定当前网页是http://example.com/example.html。
 
-{% highlight javascript %}
+```javascript
 
 history.pushState({page: 1}, "title 1", "?page=1");
 history.pushState({page: 2}, "title 2", "?page=2");
@@ -77,7 +77,7 @@ history.back(); // url显示为http://example.com/example.html?page=1
 history.back(); // url显示为http://example.com/example.html
 history.go(2);  // url显示为http://example.com/example.html?page=3
 
-{% endhighlight %}
+```
 
 ## popstate事件
 
@@ -85,7 +85,7 @@ history.go(2);  // url显示为http://example.com/example.html?page=3
 
 可以为popstate事件指定回调函数。这个回调函数的参数是一个event事件对象，它的state属性指向pushState和replaceState方法为当前url所提供的state对象（也就是这两个方法的第一个参数）。
 
-{% highlight javascript %}
+```javascript
 
 window.onpopstate = function(event) {
   console.log("location: " + document.location);
@@ -99,17 +99,17 @@ window.addEventListener('popstate', function(event) {
   console.log("state: " + JSON.stringify(event.state));  
 }); 
 
-{% endhighlight %}
+```
 
 上面代码中的event.state，就是通过pushState和replaceState方法，为当前url绑定的state对象。
 
 这个state对象也可以直接通过history对象读取。
 
-{% highlight javascript %}
+```javascript
 
 var currentState = history.state;
 
-{% endhighlight %}
+```
 
 当页面第一次加载的时候，Chrome和Safari浏览器会触发该事件，而Firefox浏览器不会。 
 

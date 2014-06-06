@@ -69,11 +69,11 @@ Text节点的nodeValue属性返回文本内容，而其他五类节点都返回n
 
 childNodes属性返回一个NodeList对象，该对象的成员是父节点的所有子节点，注意返回的不仅包括元素节点，还包括文本节点以及其他各种类型的子节点。如果父对象不包括任何子对象，则返回一个空对象。
 
-{% highlight javascript %}
+```javascript
 
 var ulElementChildNodes = document.querySelector('ul').childNodes;
 
-{% endhighlight %}
+```
 
 children属性返回一个类似数组的对象，该对象的成员为HTML元素类型的子节点。如果没有HTML元素类型的子节点，则返回一个空数组。
 
@@ -109,7 +109,7 @@ Node对象有以下方法：
 
 appendChild()方法用于在父节点的最后一个子节点后，再插入一个子节点。
 
-{% highlight javascript %}
+```javascript
 
 var elementNode = document.createElement('strong');
 var textNode = document.createTextNode(' Dude');
@@ -117,11 +117,11 @@ var textNode = document.createTextNode(' Dude');
 document.querySelector('p').appendChild(elementNode);
 document.querySelector('strong').appendChild(textNode);
 
-{% endhighlight %}
+```
 
 insertBefore()用于将子节点插入父节点的指定位置。它接受两个参数，第一个参数是所要插入的子节点，第二个参数是父节点下方的另一个子节点，新插入的子节点将插在这个节点的前面。
 
-{% highlight javascript %}
+```javascript
 
 var text1 = document.createTextNode('1');
 var li = document.createElement('li');
@@ -130,55 +130,55 @@ li.appendChild(text1);
 var ul = document.querySelector('ul');
 ul.insertBefore(li,ul.firstChild);
 
-{% endhighlight %}
+```
 
 removeChild() 方法用于从父节点移除一个子节点。
 
-{% highlight javascript %}
+```javascript
 
 var divA = document.getElementById('A');
 divA.parentNode.removeChild(divA);
 
-{% endhighlight %}
+```
 
 replaceChild()方法用于将一个新的节点，替换父节点的某一个子节点。它接受两个参数，第一个参数是用来替换的新节点，第二个参数将要被替换走的子节点。
 
-{% highlight javascript %}
+```javascript
 
 var divA = document.getElementById('A');
 var newSpan = document.createElement('span');
 newSpan.textContent = 'Hello World!';
 divA.parentNode.replaceChild(newSpan,divA);
 
-{% endhighlight %}
+```
 
 cloneNode()方法用于克隆一个节点。它接受一个布尔值作为参数，表示是否同时克隆子节点，默认是false，即不克隆子节点。
 
-{% highlight javascript %}
+```javascript
 
 var cloneUL = document.querySelector('ul').cloneNode(true);
 
-{% endhighlight %}
+```
 
 需要注意的是，克隆一个节点，会丧失定义在这个节点上的事件回调函数，但是会拷贝该节点的所有属性。因此，有可能克隆一个节点之后，DOM中出现两个有相同ID属性的HTML元素。
 
 contains方法检查一个节点是否为另一个节点的子节点。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('html').contains(document.querySelector('body'))
 // true
 
-{% endhighlight %}
+```
 
 isEqualNode()方法用来检查两个节点是否相等。所谓相等的节点，指的是两个节点的类型相同、属性相同、子节点相同。
 
-{% highlight javascript %}
+```javascript
 
 var input = document.querySelectorAll('input');
 input[0].isEqualNode(input[1])
 
-{% endhighlight %}
+```
 
 ### NodeList对象
 
@@ -220,13 +220,13 @@ innerText属性和outerText属性在读取元素节点的文本内容时，得�
 
 tagName属性返回该节点的HTML标签名，与nodeName属性相同。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('a').tagName // A
 
 document.querySelector('a').nodeName // A
 
-{% endhighlight %}
+```
 
 从上面代码可以看出，这两个属性返回的都是标签名的大写形式。
 
@@ -234,7 +234,7 @@ document.querySelector('a').nodeName // A
 
 该属性返回一个数组，数组成员就是Element元素包含的每一个属性节点对象。
 
-{% highlight javascript %}
+```javascript
 
 var atts = document.querySelector('a').attributes;
 
@@ -242,17 +242,17 @@ for(var i=0; i< atts.length; i++){
 	console.log(atts[i].nodeName +'='+ atts[i].nodeValue);
 }
 
-{% endhighlight %}
+```
 
 **（4）textcontent属性**
 
 该属性返回Element节点包含的所有文本内容。它通常用于剥离HTML标签，还用于返回&lt;script&gt;and&lt;style&gt;标签所包含的代码。
 
-{% highlight javascript %}
+```javascript
 
 document.body.textContent
 
-{% endhighlight %}
+```
 
 如果对document或者doctype节点使用该属性，会返回null。
 
@@ -270,15 +270,15 @@ textcontent属性的作用与innerText属性很相近，但是有以下几点区
 
 className属性和classList属性都返回HTML元素的class属性。不同之处是，className属性返回一个字符串，每个class之间用空格分割，classList属性则返回一个类似数组的对象，每个class就是这个对象的一个成员。
 
-{% highlight html %}
+```html
 
 <div class="one two three" id="myDiv"></div>
 
-{% endhighlight %}
+```
 
 上面这个div节点对象的className属性和classList属性，分别如下：
 
-{% highlight javascript %}
+```javascript
 
 document.getElementById('myDiv').className
 // "one two three"
@@ -291,7 +291,7 @@ document.getElementById('myDiv').classList
 //	length: 3
 //	}
 
-{% endhighlight %}
+```
 
 从上面代码可以看出，classList属性指向一个类似数组的对象，该对象的length属性（只读）返回该节点的calss数量。
 
@@ -304,7 +304,7 @@ classList对象有一系列方法。
 - item()：返回列表中某个特定位置的class。
 - toString()：将class的列表转为字符串。
 
-{% highlight javascript %}
+```javascript
 
 myDiv.classList.add('myCssClass');
 
@@ -320,7 +320,7 @@ myDiv.classList.item(0);
 
 myDiv.classList.toString();
 
-{% endhighlight %}
+```
 
 各大浏览器（包括IE 10）都支持classList属性。
 
@@ -344,35 +344,35 @@ dataset属性用于操作HTML标签元素的data-*属性。目前，Firefox、Ch
 
 假设有如下的网页代码。
 
-{% highlight html %}
+```html
 
 <div id="myDiv" data-id="myId"></div>
 
-{% endhighlight %}
+```
 
 以data-id属性为例，要读取这个值，可以用dataset.id。
 
-{% highlight javascript %}
+```javascript
 
 var id = document.getElementById("myDiv").dataset.id;
 
-{% endhighlight %}
+```
 
 要设置data-id属性，可以直接对dataset.id赋值。这时，如果data-id属性不存在，将会被创造出来。
 
-{% highlight javascript %}
+```javascript
 
 document.getElementById("myDiv").dataset.id = "hello";
 
-{% endhighlight %}
+```
 
 删除一个data-*属性，可以直接使用delete命令。
 
-{% highlight javascript %}
+```javascript
 
 delete document.getElementById("myDiv").dataset.id
 
-{% endhighlight %}
+```
 
 IE 9不支持dataset属性，可以用 getAttribute('data-foo')、removeAttribute('data-foo')、setAttribute('data-foo')、hasAttribute('data-foo') 代替。
 
@@ -394,12 +394,12 @@ IE 9不支持dataset属性，可以用 getAttribute('data-foo')、removeAttribut
 
 这两个属性返回HTML元素的宽度和高度，在数值上等于内容本身+padding，不包括边框（border）。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('div').clientWidth
 document.querySelector('div').clientHeight
 
-{% endhighlight %}
+```
 
 如果一个元素是可以滚动的，则clientWidth和clientHeight只计算它的可见部分的宽度和高度。
 
@@ -407,7 +407,7 @@ document.querySelector('div').clientHeight
 
 这两个只读属性提供可滚动的HTML元素的总高度和总宽度。
 
-{% highlight javascript %}
+```javascript
 
 // <html>元素的总高度
 document.documentElement.scrollHeight
@@ -415,27 +415,27 @@ document.documentElement.scrollHeight
 // <body>元素的总高度
 document.body.scrollHeight
 
-{% endhighlight %}
+```
 
 **（4）scrollTop属性和scrollLeft属性**
 
 这两个属性提供可滚动元素的可以滚动的高度和宽度。这两个属性是读写的。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('div').scrollTop = 750;
 
-{% endhighlight %}
+```
 
 上面代码将div元素的向下滚动750像素。
 
 可滚动对象的高度和宽度，满足下面的公式。
 
-{% highlight javascript %}
+```javascript
 
 element.scrollHeight - element.scrollTop === element.clientHeight
 
-{% endhighlight %}
+```
 
 ### style属性
 
@@ -454,11 +454,11 @@ Element对象也部署了document对象的4个选择子元素的方法，而且�
 
 上面四个方法只用于选择Element对象的子节点。因此，可以采用链式写法来选择子节点。
 
-{% highlight javascript %}
+```javascript
 
 document.getElementById('header').getElementsByClassName('a')
 
-{% endhighlight %}
+```
 
 各大浏览器对这四个方法都支持良好，IE的情况如下：IE 6开始支持getElementsByTagName，IE 8开始支持querySelector和querySelectorAll，IE 9开始支持getElementsByClassName。
 
@@ -466,11 +466,11 @@ document.getElementById('header').getElementsByClassName('a')
 
 该方法用于选择在指定坐标的最上层的Element对象。
 
-{% highlight javascript %}
+```javascript
 
 document.elementFromPoint(50,50)
 
-{% endhighlight %}
+```
 
 上面代码了选中在(50,50)这个坐标的最上层的那个HTML元素。
 
@@ -485,11 +485,11 @@ document.elementFromPoint(50,50)
 
 该方法返回一个布尔值，表示Element对象是否符合某个CSS选择器。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('li').matchesSelector('li:first-child')
 
-{% endhighlight %}
+```
 
 这个方法需要加上浏览器前缀，需要写成mozMatchesSelector()、webkitMatchesSelector()、oMatchesSelector()、msMatchesSelector()。
 
@@ -497,11 +497,11 @@ document.querySelector('li').matchesSelector('li:first-child')
 
 该方法用于将一个可滚动元素滚动到可见区域。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('content').children[4].scrollIntoView();
 
-{% endhighlight %}
+```
 
 scrollIntoView方法接受一个布尔值作为参数，默认值为true，表示滚动到HTML元素的上方边缘，如果该值为false，表示滚动到下方边缘。
 
@@ -511,7 +511,7 @@ insertAdjacentHTML方法可以将一段字符串，作为HTML或XML对象，插�
 
 比如，原来的DOM结构如下：
 
-{% highlight html %}
+```html
 
 <div id="box1">
     <p>Some example text</p>
@@ -520,21 +520,21 @@ insertAdjacentHTML方法可以将一段字符串，作为HTML或XML对象，插�
     <p>Some example text</p>
 </div>
 
-{% endhighlight %}
+```
 
 insertAdjacentHTML方法可以轻而易举地在上面两个div节点之间，再插入一个div节点。
 
-{% highlight javascript %}
+```javascript
 
 var box2 = document.getElementById("box2");
 
 box2.insertAdjacentHTML('beforebegin', '<div><p>This gets inserted.</p></div>');
 
-{% endhighlight %}
+```
 
 插入以后的DOM结构变成下面这样：
 
-{% highlight html %}
+```html
 
 <div id="box1">
     <p>Some example text</p>
@@ -544,7 +544,7 @@ box2.insertAdjacentHTML('beforebegin', '<div><p>This gets inserted.</p></div>');
     <p>Some example text</p>
 </div>
 
-{% endhighlight %}
+```
 
 insertAdjacentHTML方法接受两个参数，第一个是插入的位置，第二个是插入的节点字符串。关于插入的位置，可以取下面四个值。
 
@@ -561,7 +561,7 @@ insertAdjacentHTML方法比innerHTML方法效率高，因为它不是彻底置�
 
 getBoundingClientRect方法返回一个记录了位置信息的对象，用于获取HTML元素相对于视口（viewport）左上角的位置以及本身的长度和宽度。
 
-{% highlight javascript %}
+```javascript
 
 var box = document.getElementById('box');
 
@@ -572,7 +572,7 @@ var y2 = box.getBoundingClientRect().bottom;
 var w = box.getBoundingClientRect().width;
 var h = box.getBoundingClientRect().height;
 
-{% endhighlight %}
+```
 
 上面代码获取DOM元素之后，使用getBoundingClientRect方法的相应属性，先后得到左上角和右下角的四个坐标（相对于视口），以及元素的宽和高。所有这些值都是只读的。
 
@@ -595,7 +595,7 @@ var h = box.getBoundingClientRect().height;
 
 下面是使用JavaScript生成表格的一个例子。
 
-{% highlight javascript %}
+```javascript
 
 var table = document.createElement('table');
 var tbody = document.createElement('tbody');
@@ -617,7 +617,7 @@ table.caption.appendChild(document.createTextNode('A DOM-Generated Table'));
 
 document.body.appendChild(table);
 
-{% endhighlight %}
+```
 
 这些代码相当易读，其中需要注意的就是insertRow和insertCell方法，接受一个表示位置的参数（从0开始的整数）。
 
@@ -634,7 +634,7 @@ table元素有以下属性：
 
 文档中的文本对应Text节点，通常使用Element对象的firstChild、nextSibling等属性获取文本节点，或者使用document对象的createTextNode方法创造一个文本节点。
 
-{% highlight javascript %}
+```javascript
 
 // 获取文本节点
 var textNode = document.querySelector('p').firstChild;
@@ -643,7 +643,7 @@ var textNode = document.querySelector('p').firstChild;
 var textNode = document.createTextNode('Hi');
 document.querySelector('div').appendChild(textNode);
 
-{% endhighlight %}
+```
 
 注意，由于空格也是一个字符，所以哪怕只有一个空格，也会形成文本节点。
 
@@ -651,13 +651,13 @@ document.querySelector('div').appendChild(textNode);
 
 除了继承的属性，文本节点自身主要的属性是data，它等同于nodeValue属性，用来返回文本节点的内容。
 
-{% highlight javascript %}
+```javascript
 
 document.querySelector('p').firstChild.data
 
 document.querySelector('p').firstChild.nodeValue
 
-{% endhighlight %}
+```
 
 ### 文本节点的方法
 
@@ -669,7 +669,7 @@ document.querySelector('p').firstChild.nodeValue
 - replaceData()：替换文本，第一个参数为替换开始位置，第二个参数为需要被替换掉的长度，第三个参数为新加入的字符串。
 - subStringData()：获取子字符串，第一个参数为子字符串在文本中的开始位置，第二个参数为子字符串长度。
 
-{% highlight javascript %}
+```javascript
 
 var pElementText = document.querySelector('p').firstChild;
 
@@ -679,14 +679,14 @@ pElementText.insertData(7,'Hello ');
 pElementText.replaceData(7,5,'World');
 pElementText.substringData(7,10));
 
-{% endhighlight %}
+```
 
 （2）文本的分割与合并
 
 - splitText()：将文本节点一分为二。
 - normalize()：将毗邻的两个文本节点合并。
 
-{% highlight javascript %}
+```javascript
 
 // 将文本节点从第4个位置开始一分为二
 document.querySelector('p').firstChild.splitText(4)
@@ -700,7 +700,7 @@ document.querySelector('div').normalize()
 document.querySelector('p').childNodes.length
 // 1
 
-{% endhighlight %}
+```
 
 ## DocumentFragment节点
 
@@ -708,7 +708,7 @@ DocumentFragment节点代表一个完整的DOM树形结构，但是不属于当�
 
 document对象的createDocumentFragment方法可以创建DocumentFragment节点，然后再可以使用其他DOM方法，添加子节点。
 
-{% highlight javascript %}
+```javascript
 
 var docFrag = document.createDocumentFragment();
 var li = document.createElement("li");
@@ -717,17 +717,17 @@ docFrag.appendChild(li);
 
 document.queryselector('ul').appendChild(docFrag);
 
-{% endhighlight %}
+```
 
 上面代码创建了一个DocumentFragment节点，然后将一个li节点添加在它里面，最后将DocumentFragment节点移动到原文档。
 
 一旦DocumentFragment节点被添加进原文档，它自身就变成了空节点（textContent属性为空字符串）。如果想要保存DocumentFragment节点的内容，可以使用cloneNode方法。
 
-{% highlight javascript %}
+```javascript
 
 document.queryselector('ul').(docFrag.cloneNode(true));
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

@@ -56,7 +56,7 @@ log方法用于在console窗口显示信息。
 
 如果参数是普通字符串，log方法将字符串内容显示在console窗口。
 
-{% highlight javascript %}
+```javascript
 
 console.log("Hello World")
 // Hello World
@@ -64,16 +64,16 @@ console.log("Hello World")
 console.log("a","b","c")
 // a b c
 
-{% endhighlight %}
+```
 
 如果参数是格式字符串（使用了格式占位符），log方法将占位符替换以后的内容，显示在console窗口。
 
-{% highlight javascript %}
+```javascript
 
 console.log(" %s + %s = %s", 1, 1, 2)
 //  1 + 1 = 2
 
-{% endhighlight %}
+```
 
 上面代码的%s表示字符串的占位符，其他占位符还有
 
@@ -84,12 +84,12 @@ console.log(" %s + %s = %s", 1, 1, 2)
 
 log方法的两种参数格式，可以结合在一起使用。
 
-{% highlight javascript %}
+```javascript
 
 console.log(" %s + %s ", 1, 1, "= 2")
 // 1 + 1  = 2
 
-{% endhighlight %}
+```
 
 ### 其他输出方法：debug，info，warn，error方法
 
@@ -105,7 +105,7 @@ console.log(" %s + %s ", 1, 1, "= 2")
 
 这四个方法的用法与log完全一样。
 
-{% highlight javascript %}
+```javascript
 
 console.error("Error: %s (%i)", "Server is not responding",500)
 // Error: Server is not responding (500)
@@ -113,13 +113,13 @@ console.error("Error: %s (%i)", "Server is not responding",500)
 console.warn('Warning! Too few nodes (%d)', document.childNodes.length)
 // Warning! Too few nodes (1)
 
-{% endhighlight %}
+```
 
 ### console.table方法
 
 对于某些复合类型的数据，console.table方法可以将其转为表格显示。
 
-{% highlight javascript %}
+```javascript
 
 var languages = [
     { name: "JavaScript", fileExtension: ".js" },
@@ -129,7 +129,7 @@ var languages = [
 
 console.table(languages);
 
-{% endhighlight %}
+```
 
 上面代码的language，转为表格显示如下。
 
@@ -146,7 +146,7 @@ console.table(languages);
 
 复合型数据转为表格显示的条件是，必须拥有主键。对于上面的数组来说，主键就是数字键。对于对象来说，主键就是它的最外层键。
 
-{% highlight javascript %}
+```javascript
 
 var languages = {
     csharp: { name: "C#", paradigm: "object-oriented" },
@@ -155,7 +155,7 @@ var languages = {
 
 console.table(languages);
 
-{% endhighlight %}
+```
 
 上面代码的language，转为表格显示如下。
 
@@ -173,34 +173,34 @@ console.table(languages);
 
 assert方法用来验证某个条件是否为真。如果为假，则显示一条事先指定的错误信息。它的格式如下。
 
-{% highlight javascript %}
+```javascript
 
 console.assert(条件判断，输出信息)
 
-{% endhighlight %}
+```
 
 使用方法如下。
 
-{% highlight javascript %}
+```javascript
 
 console.assert(true === false,"判断条件不成立")
 // Assertion failed: 判断条件不成立
 
-{% endhighlight %}
+```
 
 下面是另一个例子，判断子节点的个数是否大于等于500。
 
-{% highlight javascript %}
+```javascript
 
 console.assert(list.childNodes.length < 500, "节点个数大于等于500")
 
-{% endhighlight %}
+```
 
 ### time和timeEnd方法
 
 这两个方法用于计时，可以算出一个操作所花费的准确时间。
 
-{% highlight javascript %}
+```javascript
 
 console.time("Array initialize");
 
@@ -213,7 +213,7 @@ console.timeEnd("Array initialize");
 
 // Array initialize: 1914.481ms
 
-{% endhighlight %}
+```
 
 time方法表示计时开始，timeEnd方法表示计时结束。它们的参数是计时器的名称。调用timeEnd方法之后，console窗口会显示“计时器名称: 所耗费的时间”。
 
@@ -237,14 +237,14 @@ time方法表示计时开始，timeEnd方法表示计时结束。它们的参数
 
 $_属性返回上一个表达式的值。
 
-{% highlight javascript %}
+```javascript
 
 2+2
 // 4
 $_
 // 4
 
-{% endhighlight %}
+```
 
 **（2）$0 - $4 **
 
@@ -254,14 +254,14 @@ $_
 
 $(selector)返回一个数组，包括特定的CSS选择器匹配的所有DOM元素。该方法实际上是document.querySelectorAll方法的别名。
 
-{% highlight javascript %}
+```javascript
 
 var images = $('img');
 for (each in images) {
     console.log(images[each].src);
 }
 
-{% endhighlight %}
+```
 
 上面代码打印出网页中所有img元素的src属性。
 
@@ -269,11 +269,11 @@ for (each in images) {
 
 $x(path)方法返回一个数组，包含匹配特定XPath表达式的所有DOM元素。
 
-{% highlight javascript %}
+```javascript
 
 $x("//p[a]")
 
-{% endhighlight %}
+```
 
 上面代码返回所有包含a元素的p元素。
 
@@ -291,7 +291,7 @@ keys(object)方法返回一个数组，包含特定对象的所有键名。
 
 values(object)方法返回一个数组，包含特定对象的所有键值。
 
-{% highlight javascript %}
+```javascript
 
 var o = {'p1':'a', 'p2':'b'};
 
@@ -300,28 +300,28 @@ keys(o)
 values(o)
 // ["a", "b"]
 
-{% endhighlight %}
+```
 
 **（8）monitorEvents(object[, events]) ，unmonitorEvents(object[, events])**
 
 monitorEvents(object[, events])方法监听特定对象上发生的特定事件。当这种情况发生时，会返回一个Event对象，包含该事件的相关信息。unmonitorEvents方法用于停止监听。
 
-{% highlight javascript %}
+```javascript
 
 monitorEvents(window, "resize");
 
 monitorEvents(window, ["resize", "scroll"])
 
-{% endhighlight %}
+```
 
 上面代码分别表示单个事件和多个事件的监听方法。
 
-{% highlight javascript %}
+```javascript
 
 monitorEvents($0, "mouse");
 unmonitorEvents($0, "mousemove");
 
-{% endhighlight %}
+```
 
 上面代码表示如何停止监听。
 
@@ -332,11 +332,11 @@ monitorEvents允许监听同一大类的事件。所有事件可以分成四个�
 - touch："touchstart", "touchmove", "touchend", "touchcancel"
 - control："resize", "scroll", "zoom", "focus", "blur", "select", "change", "submit", "reset"
 
-{% highlight javascript %}
+```javascript
 
 monitorEvents($("#msg"), "key");
 
-{% endhighlight %}
+```
 
 上面代码表示监听所有key大类的事件。
 
@@ -344,13 +344,13 @@ monitorEvents($("#msg"), "key");
 
 profile方法用于启动一个特定名称的CPU性能测试，profileEnd方法用于结束该性能测试。
 
-{% highlight javascript %}
+```javascript
 
 profile("My profile")
 
 profileEnd("My profile")
 
-{% endhighlight %}
+```
 
 **（10）其他方法 **
 
@@ -367,14 +367,14 @@ debugger语句必须与除错工具配合使用，如果没有除错工具，deb
 
 在chrome浏览器中，当代码运行到debugger指定的行时，就会暂停运行，自动打开console界面。它的作用类似于设置断点。
 
-{% highlight javascript %}
+```javascript
 
 for(var i = 0;i<5;i++){
 	console.log(i);
 	if (i===2) debugger;
 }
 
-{% endhighlight %}
+```
 
 上面代码打印出0，1，2以后，就会暂停，自动打开console窗口，等待进一步处理。
 
@@ -442,7 +442,7 @@ Google Closure使用Java语言开发，使用之前必须先安装Java。然后�
 
 java -jar /path/to/closure/compiler.jar --help
 
-{% endhighlight %}
+```
 
 直接在脚本命令后面跟上要合并的脚本，就能完成合并。
 
@@ -450,7 +450,7 @@ java -jar /path/to/closure/compiler.jar --help
 
 java -jar /path/to/closure/compiler.jar *.js
 
-{% endhighlight %}
+```
 
 使用--js参数，可以确保按照参数的先后次序合并文件。
 
@@ -458,7 +458,7 @@ java -jar /path/to/closure/compiler.jar *.js
 
 java -jar /path/to/closure/compiler.jar --js script1.js --js script2.js --js script3.js
 
-{% endhighlight %}
+```
 
 但是，这样的运行结果是将合并后的文件全部输出到屏幕（标准输出），因此需要使用--js_output_file参数，指定合并后的文件名。
 
@@ -466,7 +466,7 @@ java -jar /path/to/closure/compiler.jar --js script1.js --js script2.js --js scr
 
 java -jar /path/to/closure/compiler.jar --js script1.js --js script2.js --js script3.js --js_output_file scripts-compiled.js
 
-{% endhighlight %}
+```
 
 ## Javascript 性能测试
 
@@ -476,7 +476,7 @@ java -jar /path/to/closure/compiler.jar --js script1.js --js script2.js --js scr
 
 最常见的测试性能的做法，就是同一操作重复n次，然后计算每次操作的平均时间。
 
-{% highlight javascript %}
+```javascript
 
 var totalTime,
     start = new Date,
@@ -490,7 +490,7 @@ while (iterations--) {
 // the code snippet 6 times
 totalTime = new Date - start;
 
-{% endhighlight %}
+```
 
 上面代码的问题在于，由于计算机的性能不断提高，如果只重复6次，很可能得到0毫秒的结果，即不到1毫秒，Javascript引擎无法测量。
 
@@ -498,7 +498,7 @@ totalTime = new Date - start;
 
 另一种思路是，测试单位时间内完成了多少次操作。
 
-{% highlight javascript %}
+```javascript
 
 var hz,
     period,
@@ -523,7 +523,7 @@ hz = 1 / period;
 // can be shortened to
 // hz = (runs * 1000) / totalTime;
 
-{% endhighlight %}
+```
 
 这种做法的注意之处在于，测试结构受外界环境影响很大，为了得到正确结构，必须重复多次。
 

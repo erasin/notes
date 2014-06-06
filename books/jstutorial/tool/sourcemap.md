@@ -42,7 +42,7 @@ java -jar compiler.jar \
 　　--source_map_format=V3 \
 　　--js_output_file script-min.js
 
-{% endhighlight %}
+```
 
 各个参数的意义如下：
 
@@ -55,19 +55,19 @@ java -jar compiler.jar \
 
 启用Source map的方法很简单，只要在转换后的代码头部或尾部，加上一行就可以了。
 
-{% highlight javascript %}
+```javascript
 
 //# sourceMappingURL=/path/to/file.js.map
 
-{% endhighlight %}
+```
 
 或者
 
-{% highlight javascript %}
+```javascript
 
 /*# sourceMappingURL=/path/to/file.js.map */
 
-{% endhighlight %}
+```
 
 map文件可以放在网络上，也可以放在本地文件系统。
 
@@ -75,7 +75,7 @@ map文件可以放在网络上，也可以放在本地文件系统。
 
 打开Source map文件，它大概是这个样子：
 
-{% highlight javascript %}
+```javascript
 
 　　{
 　　　　version : 3,
@@ -86,7 +86,7 @@ map文件可以放在网络上，也可以放在本地文件系统。
 　　　　mappings: "AAgBC,SAAQ,CAAEA"
 　　}
 
-{% endhighlight %}
+```
 
 整个文件就是一个JavaScript对象，可以被解释器读取。它主要有以下几个属性：
 
@@ -109,11 +109,11 @@ map文件可以放在网络上，也可以放在本地文件系统。
 
 举例来说，假定mappings属性的内容如下：
 
-{% highlight javascript %}
+```javascript
 
 mappings:"AAAAA,BBBBB;CCCCC"
 
-{% endhighlight %}
+```
 
 它表示，转换后的源码分成两行，第一行有两个位置，第二行有一个位置。
 
@@ -147,7 +147,7 @@ Continuation
 V　　　　　V
 １０１０１１
 
-{% endhighlight %}
+```
 
 下面举例如何对数值16进行VLQ编码。
 

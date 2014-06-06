@@ -24,7 +24,7 @@ getUserMedia主要用于获取视频和音频信息，后两个API用于浏览�
 
 首先，检查浏览器是否支持getUserMedia方法。
 
-{% highlight javascript %}
+```javascript
 
 navigator.getUserMedia ||
   (navigator.getUserMedia = navigator.mozGetUserMedia ||
@@ -36,17 +36,17 @@ if (navigator.getUserMedia) {
     alert('您的浏览器不支持getUserMedia');
 }
 
-{% endhighlight %}
+```
 
 Chrome 21, Opera 18和Firefox 17，支持该方法。目前，IE还不支持，上面代码中的msGetUserMedia，只是为了确保将来的兼容。
 
 getUserMedia方法接受三个参数。
 
-{% highlight javascript %}
+```javascript
 
 getUserMedia(streams, success, error);
 
-{% endhighlight %}
+```
 
 含义如下：
 
@@ -56,14 +56,14 @@ getUserMedia(streams, success, error);
 
 用法如下：
 
-{% highlight javascript %}
+```javascript
 
 navigator.getUserMedia({
     video: true, 
     audio: true
 }, onSuccess, onError);
 
-{% endhighlight %}
+```
 
 上面的代码用来获取摄像头和麦克风的实时信息。
 
@@ -79,15 +79,15 @@ navigator.getUserMedia({
 
 将用户的摄像头拍摄的图像展示在网页上，需要先在网页上放置一个video元素。图像就展示在这个元素中。
 
-{% highlight html %}
+```html
 
 <video id="webcam"></video>
 
-{% endhighlight %}
+```
 
 然后，用代码获取这个元素。
 
-{% highlight javascript %}
+```javascript
 
 function onSuccess(stream) {
 
@@ -96,11 +96,11 @@ function onSuccess(stream) {
     // more code 
 }
 
-{% endhighlight %}
+```
 
 最后，将这个元素的src属性绑定数据流，摄影头拍摄的图像就可以显示了。
 
-{% highlight javascript %}
+```javascript
 
 function onSuccess(stream) {
 
@@ -117,7 +117,7 @@ function onSuccess(stream) {
 
 }
 
-{% endhighlight %}
+```
 
 它的主要用途是让用户使用摄影头为自己拍照。
 
@@ -125,7 +125,7 @@ function onSuccess(stream) {
 
 通过浏览器捕获声音，相对复杂，需要借助Web Audio API。
 
-{% highlight javascript %}
+```javascript
 
 function onSuccess(stream) {
 
@@ -169,7 +169,7 @@ function onSuccess(stream) {
 
 }
 
-{% endhighlight %}
+```
 
 ## 实时数据交换
 
@@ -177,7 +177,7 @@ WebRTC的另外两个API，RTCPeerConnection用于浏览器之间点对点的连
 
 RTCPeerConnection带有浏览器前缀，Chrome浏览器中为webkitRTCPeerConnection，Firefox浏览器中为mozRTCPeerConnection。Google维护一个函数库[adapter.js](https://apprtc.appspot.com/js/adapter.js)，用来抽象掉浏览器之间的差异。
 
-{% highlight javascript %}
+```javascript
 
 var dataChannelOptions = {
   ordered: false, // do not guarantee order
@@ -206,7 +206,7 @@ dataChannel.onclose = function () {
   console.log("The Data Channel is Closed");
 };
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

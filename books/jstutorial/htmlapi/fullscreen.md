@@ -16,7 +16,7 @@ modifiedOn: 2014-01-29
 
 requestFullscreen方法使得浏览器全屏。
 
-{% highlight javascript %}
+```javascript
 
 function launchFullscreen(element) {
   if(element.requestFullscreen) {
@@ -30,23 +30,23 @@ function launchFullscreen(element) {
   }
 }
 
-{% endhighlight %}
+```
 
 使用的时候，可以针对整个网页，也可以针对某个网页元素。
 
-{% highlight javascript %}
+```javascript
 
 launchFullscreen(document.documentElement); 
 
 launchFullscreen(document.getElementById("videoElement")); 
 
-{% endhighlight %}
+```
 
 ### exitFullscreen()
 
 exitFullscreen方法用于取消全屏（带有浏览器前缀）。
 
-{% highlight javascript %}
+```javascript
 
 function exitFullscreen() {
 	if (document.exitFullscreen) {
@@ -62,7 +62,7 @@ function exitFullscreen() {
 
 exitFullscreen();
 
-{% endhighlight %}
+```
 
 ## 属性
 
@@ -70,20 +70,20 @@ exitFullscreen();
 
 该属性返回正处于全屏状态的网页元素。
 
-{% highlight javascript %}
+```javascript
 
 var fullscreenElement =
 	document.fullscreenElement ||
 	document.mozFullScreenElement ||
 	document.webkitFullscreenElement;
 
-{% endhighlight %}
+```
 
 ### document.fullscreenEnabled
 
 该属性返回一个布尔值，表示当前是否处于全屏状态。
 
-{% highlight javascript %}
+```javascript
 
 var fullscreenEnabled =
 	document.fullscreenEnabled ||
@@ -91,13 +91,13 @@ var fullscreenEnabled =
 	document.webkitFullscreenEnabled ||
 	document.msFullscreenEnabled;
 
-{% endhighlight %}
+```
 
 ## 全屏状态的CSS
 
 全屏状态下，大多数浏览器的CSS支持:full-screen伪类，只有IE11支持:fullscreen伪类。使用这个伪类，可以对全屏状态设置单独的CSS属性。
 
-{% highlight css %}
+```css
 
 :-webkit-full-screen {
   /* properties */
@@ -125,7 +125,7 @@ var fullscreenEnabled =
   height: 100%;
 }
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

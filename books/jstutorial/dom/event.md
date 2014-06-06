@@ -16,35 +16,35 @@ DOM定义了一些事件，允许开发者指定它们的回调函数。
 
 HTML语言允许在元素的属性中，直接定义某些事件的回调代码。
 
-{% highlight html %}
+```html
 
 <body onclick="console.log('触发事件')">
 
-{% endhighlight %}
+```
 
 **（2）Element对象的事件属性**
 
 Element对象有事件属性，可以定义回调函数。
 
-{% highlight javascript %}
+```javascript
 
 div.onclick = function(event){
 	console.log('触发事件');
 };
 
-{% endhighlight %}
+```
 
 **（3）addEventListener方法，removeEventListener方法**
 
 通过Element对象的addEventListener方法，也可以定义事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 button.addEventListener('click', 
 		function(){console.log('Hello world');}, 
 		false);
 
-{% endhighlight %}
+```
 
 addEventListener方法有三个参数，依次为
 
@@ -56,11 +56,11 @@ IE 8及以下版本不支持该方法。
 
 与addEventListener配套的，还有一个removeEventListener方法，用来移除某一类事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 element.removeEventListener(event, callback, use-capture);
 
-{% endhighlight %}
+```
 
 注意，removeEventListener的回调函数与addEventListener的回调函数，必须是同一个函数，否则无效。
 
@@ -80,17 +80,17 @@ element.removeEventListener(event, callback, use-capture);
 
 这种三阶段的传播模型，会使得一个事件在多个元素上触发。比如，假设div元素之中嵌套一个p元素。
 
-{% highlight html %}
+```html
 
 <div>
     <p>Click Me</p>
 </div> 
 
-{% endhighlight %}
+```
 
 如果对这两个元素的click事件都设定回调函数，则click事件会被触发四次。
 
-{% highlight javascript %}
+```javascript
 
 var phases = {
   1: 'capture',
@@ -118,7 +118,7 @@ function callback(event) {
 // Tag: 'P'. EventPhase: 'target'
 // Tag: 'DIV'. EventPhase: 'bubble' 
 
-{% endhighlight %}
+```
 
 上面代码表示，click事件被触发了四次。
 
@@ -133,7 +133,7 @@ function callback(event) {
 
 由于事件会在冒泡阶段向上传播到父元素，因此可以把子元素的回调函数定义在父元素上，由父元素的回调函数统一处理多个子元素的事件。这种方法叫做事件的代表（delegation）。
 
-{% highlight javascript %}
+```javascript
 
 var ul = document.querySelector('ul');
 
@@ -145,25 +145,25 @@ ul.addEventListener('click', function(event) {
 
 });
 
-{% endhighlight %}
+```
 
 上面代码的click事件的回调函数是定义在ul元素上的，但是实际上，它处理的是子元素li的click事件。这样做的好处是，只要定义一个回调函数，就能处理多个子元素的事件，而且以后再添加子元素，回调函数依然有效。
 
 如果希望事件到某个节点为止，不再传播，可以使用事件对象的stopPropagation方法。
 
-{% highlight javascript %}
+```javascript
 
 p.addEventListener('click', function(event) {
  event.stopPropagation();
 });
 
-{% endhighlight %}
+```
 
 使用上面的代码以后，click事件在冒泡阶段到达p元素以后，就不再向上（父元素的方向）传播了。
 
 但是，stopPropagation方法不会阻止p元素上的其他click事件的回调函数。如果想要不再触发那些回调函数，可以使用stopImmediatePropagation方法。
 
-{% highlight javascript %}
+```javascript
 
 p.addEventListener('click', function(event) {
  event.stopImmediatePropagation();
@@ -173,7 +173,7 @@ p.addEventListener('click', function(event) {
  // 不会被触发
 });
 
-{% endhighlight %}
+```
 
 ## 事件的类型
 
@@ -187,7 +187,7 @@ DOM支持多种事件。
 
 如果加载成功就触发load事件，如果加载失败就触发error事件。这两个事件发生的对象，除了上面列出的各种资源，还包括文档（document）、窗口（window）、Ajax文件上传（XMLHttpRequestUpload）。
 
-{% highlight javascript %}
+```javascript
 
 image.addEventListener('load', function(event) {
   image.classList.add('finished');
@@ -197,13 +197,13 @@ image.addEventListener('error', function(event) {
   image.style.display = 'none';
 });
 
-{% endhighlight %}
+```
 
 上面代码在图片元素加载完成后，为图片元素的class属性添加一个值“finished”。如果加载失败，就把图片元素的样式设置为不显示。
 
 有时候，图片加载会在脚本运行之前就完成，尤其是当脚本放置在网页底部的时候，因此有可能使得load和error事件的回调函数根本不会被执行。所以，比较可靠的方式，是用complete属性先判断一下是否加载完成。
 
-{% highlight javascript %}
+```javascript
 
 function loaded() {
   // code after image loaded
@@ -215,15 +215,15 @@ if (image.complete) {
   image.addEventListener('load', loaded);
 }
 
-{% endhighlight %}
+```
 
 由于DOM没有机制判断是否发生加载错误，所以上面的方法不适用error事件的回调函数，它最好放在img元素的HTML属性中。
 
-{% highlight javascript %}
+```javascript
 
 <img src="/wrong/url" onerror="this.style.display='none';" />
 
-{% endhighlight %}
+```
 
 error事件有一个特殊的性质，就是不会冒泡。这样的设计是正确的，防止引发父元素的error事件回调函数。
 
@@ -239,7 +239,7 @@ error事件有一个特殊的性质，就是不会冒泡。这样的设计是正
 
 该事件的特别之处在于，它会自动跳出一个确认对话框，让用户确认是否关闭网页。如果用户点击“取消”按钮，网页就不会关闭。beforeunload事件的回调函数所返回的字符串，会显示在确认对话框之中。
 
-{% highlight javascript %}
+```javascript
 
 window.onbeforeunload = function() {
   if (textarea.value != textarea.defaultValue) {
@@ -247,7 +247,7 @@ window.onbeforeunload = function() {
   }
 };
 
-{% endhighlight %}
+```
 
 上面代码表示，当用户关闭网页，会跳出一个确认对话框，上面显示“你确认要离开吗？”。
 
@@ -257,7 +257,7 @@ window.onbeforeunload = function() {
 
 改变浏览器窗口大小时会触发resize事件。能够触发它的元素包括window、body、frameset。
 
-{% highlight javascript %}
+```javascript
 
 var resizeMethod = function(){
     if (document.body.clientWidth < 768) {
@@ -267,7 +267,7 @@ var resizeMethod = function(){
 
 window.addEventListener("resize", resizeMethod, true);
 
-{% endhighlight %}
+```
 
 **（5）abort事件**
 
@@ -343,7 +343,7 @@ window.addEventListener("resize", resizeMethod, true);
 
 下面的代码是利用click事件进行CSRF攻击（Cross-site request forgery）的一个例子。
 
-{% highlight html %}
+```html
 
 <a href="http://www.harmless.com/" onclick="
   var f = document.createElement('form');
@@ -354,7 +354,7 @@ window.addEventListener("resize", resizeMethod, true);
   f.submit();
   return false;">伪装的链接</a>
 
-{% endhighlight %}
+```
 
 **（2）dblclick事件**
 
@@ -460,11 +460,11 @@ offline事件在浏览器离线时触发，online事件在浏览器重新连线�
 
 如果网页是第一次加载（即不在缓存中），那么首先会触发load事件，然后再触发pageshow事件。也就是说，pageshow事件是每次网页加载都会运行的。pageshow事件的event对象有一个persisted属性，返回一个布尔值。如果是第一次加载，这个值为false；如果是从缓存中加载，这个值为true。
 
-{% highlight html %}
+```html
 
 <body onload="onLoad();" onpageshow="if (event.persisted) onPageShow();"> 
 
-{% endhighlight %}
+```
 
 上面代码表示，通过判断persisted属性，做到网页第一次加载时，不运行onPageShow函数，其后如果是从缓存中加载，就运行onPageShow函数。
 
@@ -508,7 +508,7 @@ dragover事件在源对象拖拉过另一个对象上方时，在后者上触发
 
 CSS变动的过渡（transition）结束后，触发该事件。
 
-{% highlight javascript %}
+```javascript
 
 div.addEventListener('webkitTransitionEnd', onTransitionEnd);
 div.addEventListener('mozTransitionEnd', onTransitionEnd);
@@ -519,7 +519,7 @@ function onTransitionEnd() {
   console.log('Transition end');
 }
 
-{% endhighlight %}
+```
 
 目前，该事件需要添加浏览器前缀。另外，它与其他CSS事件一样，也存在向上传播的冒泡阶段。
 
@@ -527,22 +527,22 @@ function onTransitionEnd() {
 
 animation动画开始时，触发animationstart事件；结束时，触发animationend事件。
 
-{% highlight javascript %}
+```javascript
 
 var anim = document.getElementById("anim");
 anim.addEventListener("animationstart", AnimationListener, false);
 
-{% endhighlight %}
+```
 
 当CSS动画开始新一轮循环时，就会触发animationiteration事件。也就是说，除了CSS动画的第一轮播放，其他每轮的开始时，都会触发该事件。
 
-{% highlight javascript %}
+```javascript
 
 div.addEventListener('animationiteration', function() {
   console.log('完成一次动画');
 });
 
-{% endhighlight %}
+```
 
 这三个事件，除了Firefox浏览器不需要前缀，Chrome、Opera和IE都需要浏览器前缀，且大小写不一致。
 
@@ -552,7 +552,7 @@ div.addEventListener('animationiteration', function() {
 
 下面是一个解决浏览器前缀的函数。
 
-{% highlight javascript %}
+```javascript
 
 var pfx = ["webkit", "moz", "MS", "o", ""];
 
@@ -569,7 +569,7 @@ PrefixedEvent(anim, "AnimationStart", AnimationListener);
 PrefixedEvent(anim, "AnimationIteration", AnimationListener);
 PrefixedEvent(anim, "AnimationEnd", AnimationListener);
 
-{% endhighlight %}
+```
 
 这三个事件的回调函数，接受一个事件对象作为参数。该事件对象除了标准属性以外，还有两个与动画相关的属性。
 
@@ -613,14 +613,14 @@ PrefixedEvent(anim, "AnimationEnd", AnimationListener);
 
 该方法阻止事件所对应的浏览器默认行为。比如点击a元素后，浏览器跳转到指定页面，或者按一下空格键，页面向下滚动一段距离。
 
-{% highlight javascript %}
+```javascript
 
 anchor.addEventListener('click', function(event) {
   event.preventDefault();
   // some code
 });
 
-{% endhighlight %}
+```
 
 如果事件回调函数最后返回布尔值false，即使用return false语言，则浏览器也不会触发默认行为，与preventDefault有等同效果。
 
@@ -636,7 +636,7 @@ anchor.addEventListener('click', function(event) {
 
 浏览器允许用户通过CustomEvent构造函数，定义自己的事件对象。
 
-{% highlight javascript %}
+```javascript
 
 var myEvent = new CustomEvent("myevent", {
   detail: {
@@ -646,25 +646,25 @@ var myEvent = new CustomEvent("myevent", {
   cancelable: false
 });
 
-{% endhighlight %}
+```
 
 构造函数CustomEvent接受两个参数，第一个是事件名称，第二个是事件的属性对象。
 
 还可以使用document.createEvent方法来生成事件对象。
 
-{% highlight javascript %}
+```javascript
 
 var myEvent = document.createEvent('CustomEvent');
 
 myEvent.initCustomEvent('myevent',true,false,{name:'张三'});
 
-{% endhighlight %}
+```
 
 上面两种自定义事件的写法是等价的。但是，IE 9只支持第二种写法，不支持第一种写法。
 
 定义事件对象以后，就可以用addEventListener方法为该事件指定回调函数，用dispatchEvent方法触发该事件。
 
-{% highlight javascript %}
+```javascript
 
 element.addEventListener('myevent', function(event) {
   console.log('Hello ' + event.detail.name);
@@ -672,11 +672,11 @@ element.addEventListener('myevent', function(event) {
 
 element.dispatchEvent(myEvent);
 
-{% endhighlight %}
+```
 
 document.createEvent方法除了自定义事件以外，还能触发浏览器的默认事件。比如，模仿并触发click事件的写法如下。
 
-{% highlight javascript %}
+```javascript
 
 var simulateDivClick = document.createEvent('MouseEvents');
 
@@ -685,7 +685,7 @@ simulateDivClick.initMouseEvent('click',true,true,document.defaultView,0,0,0,0,0
 
 divElement.dispatchEvent(simulateDivClick);
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

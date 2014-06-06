@@ -12,17 +12,17 @@ modifiedOn: 2013-12-12
 
 本质上，jQuery插件是定义在jQuery构造函数的prototype对象上面的一个方法，这样做就能使得所有jQuery对象的实例都能共享这个方法。因为jQuery构造函数的prototype对象被简写成jQuery.fn对象，所以插件采用下面的方法定义。
 
-{% highlight javascript %}
+```javascript
 
 jQuery.fn.myPlugin = function() {
   // Do your awesome plugin stuff here
 };
 
-{% endhighlight %}
+```
 
 更好的做法是采用下面的写法，这样就能在函数体内自由使用美元符号（$）。
 
-{% highlight javascript %}
+```javascript
 
 ;(function ($){
   $.fn.myPlugin = function (){
@@ -30,13 +30,13 @@ jQuery.fn.myPlugin = function() {
   };
 })(jQuery);
 
-{% endhighlight %}
+```
 
 上面代码的最前面有一个分号，这是为了防止多个脚本文件合并时，其他脚本的结尾语句没有添加分号，造成运行时错误。
 
 有时，还可以把顶层对象（window）作为参数输入，这样可以加快代码的执行速度和执行更有效的最小化操作。
 
-{% highlight javascript %}
+```javascript
 
 ;(function ($, window) {
   $.fn.myPlugin = function() {
@@ -44,11 +44,11 @@ jQuery.fn.myPlugin = function() {
   };
 }(jQuery, window));
 
-{% endhighlight %}
+```
 
 需要注意的是，在插件内部，this关键字指的是jQuery对象的实例。而在一般的jQuery回调函数之中，this关键字指的是DOM对象。
 
-{% highlight javascript %}
+```javascript
 
 (function ($){
   $.fn.maxHeight = function (){
@@ -62,13 +62,13 @@ jQuery.fn.myPlugin = function() {
   };
 })(jQuery);
 
-{% endhighlight %}
+```
 
 上面这个maxHeight插件的作用是，返回一系列DOM对象中高度最高的那个对象的高度。
 
 大多数情况下，插件应该返回jQuery对象，这样可以保持链式操作。
 
-{% highlight javascript %}
+```javascript
 
 (function ($){
   $.fn.greenify = function (){
@@ -79,13 +79,13 @@ jQuery.fn.myPlugin = function() {
 
 $("a").greenify().addClass("greenified");
 
-{% endhighlight %}
+```
 
 上面代码返回this对象，即jQuery对象实例，所以接下来可以采用链式操作。
 
 对于包含多个jQuery对象的结果集，可以采用each方法，进行处理。
 
-{% highlight javascript %}
+```javascript
 
 $.fn.myNewPlugin = function() {
     return this.each(function() {
@@ -93,11 +93,11 @@ $.fn.myNewPlugin = function() {
     });
 };
 
-{% endhighlight %}
+```
 
 插件可以接受一个属性对象参数。
 
-{% highlight javascript %}
+```javascript
 
 (function ($){
   $.fn.tooltip = function (options){
@@ -111,7 +111,7 @@ $.fn.myNewPlugin = function() {
   };
 })(jQuery);
 
-{% endhighlight %}
+```
 
 上面代码使用extend方法，为参数对象设置属性的默认值。
 
@@ -119,7 +119,7 @@ $.fn.myNewPlugin = function() {
 
 下面是一个将a元素的href属性添加到网页的插件。
 
-{% highlight javascript %}
+```javascript
 
 (function($){
 	$.fn.showLinkLocation = function() {
@@ -132,7 +132,7 @@ $.fn.myNewPlugin = function() {
 // 用法
 $('a').showLinkLocation();
 
-{% endhighlight %}
+```
 
 从上面的代码可以看到，插件的开发和使用都非常简单。
 
@@ -142,7 +142,7 @@ $('a').showLinkLocation();
 
 首先，编写一个插件的信息文件yourPluginName.jquery.json。文件名中的yourPluginName表示你的插件名。
 
-{% highlight javascript %}
+```javascript
 
 {
   "name": "plugin_name",
@@ -175,7 +175,7 @@ $('a').showLinkLocation();
   }
 }
 
-{% endhighlight %}
+```
 
 上面是一个插件信息文件的实例。
 
@@ -183,12 +183,12 @@ $('a').showLinkLocation();
 
 最后，为代码加上版本，push到github，你的插件就会加入jQuery官方插件库。
 
-{% highlight javascript %}
+```javascript
 
 git tag 0.1.0
 git push origin --tags
 
-{% endhighlight %}
+```
 
 以后，你要发布新版本，就做一个新的tag。
 

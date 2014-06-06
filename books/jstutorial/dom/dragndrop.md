@@ -12,11 +12,11 @@ modifiedOn: 2013-09-17
 
 如果网页元素的draggable属性为true，这个元素就是可以拖动的。
 
-{% highlight html %}
+```html
 
 <div draggable="true">Draggable Div</div>
 
-{% endhighlight %}
+```
 
 在大多数浏览器中，a元素和img元素默认就是可以拖放的，但是为了保险起见，最好还是加上draggable属性。
 
@@ -34,13 +34,13 @@ modifiedOn: 2013-09-17
 
 以上这些事件都可以指定回调函数。下面就是一个回调函数的例子。
 
-{% highlight javascript %}
+```javascript
 
 draggableElement.addEventListener('dragstart', function(e) {
   console.log('拖动开始！');
 });
 
-{% endhighlight %}
+```
 
 上面代码在网页元素被拖动时，在控制台显示“拖动开始！”。
 
@@ -50,13 +50,13 @@ draggableElement.addEventListener('dragstart', function(e) {
 
 拖动过程中，回调函数接受的事件参数，有一个dataTransfer属性。它指向一个对象，包含了与拖动相关的各种信息。
 
-{% highlight javascript %}
+```javascript
 
 draggableElement.addEventListener('dragstart', function(event) {
   event.dataTransfer.setData('text', 'Hello World!');
 });
 
-{% endhighlight %}
+```
 
 上面代码在拖动开始时，在dataTransfer对象上储存一条文本信息，内容为“Hello World”。当拖放结束时，可以用getData方法取出这条信息。
 
@@ -86,7 +86,7 @@ dataTransfer对象允许在其上储存数据，这使得在被拖动元素与�
 
 首先，获取网页元素。
 
-{% highlight javascript %}
+```javascript
 
 var target = document.querySelector('#drop-target');
 var dragElements = document.querySelectorAll('#drag-elements li');
@@ -94,13 +94,13 @@ var dragElements = document.querySelectorAll('#drag-elements li');
 // 追踪被拖动元素的变量
 var elementDragged = null;
 
-{% endhighlight %}
+```
 
 上面代码在获取目标元素和可能的被拖动元素以后，新建了一个变量elementDragged，用来存放实际拖动的元素。
 
 然后，对可能的被拖动元素绑定dragstart事件和dragend事件。
 
-{% highlight javascript %}
+```javascript
 
 for (var i = 0; i < dragElements.length; i++) {
 
@@ -115,11 +115,11 @@ for (var i = 0; i < dragElements.length; i++) {
 
 };
 
-{% endhighlight %}
+```
 
 接着，绑定目标元素的dragover事件，主要是为了当被拖动元素进入目标元素后，改变鼠标形状。
 
-{% highlight javascript %}
+```javascript
 
 target.addEventListener('dragover', function(e) {
   e.preventDefault();
@@ -127,11 +127,11 @@ target.addEventListener('dragover', function(e) {
   return false;
 });
 
-{% endhighlight %}
+```
 
 最后，定义目标元素的drop事件，处理被拖动元素（从原来的位置删除）。
 
-{% highlight javascript %}
+```javascript
 
 target.addEventListener('drop', function(e) {
   e.preventDefault(); 
@@ -144,7 +144,7 @@ target.addEventListener('drop', function(e) {
   return false;
 });
 
-{% endhighlight %}
+```
 
 ### 实例：拖放文件
 
@@ -152,16 +152,16 @@ target.addEventListener('drop', function(e) {
 
 首先，获取拖动的目标元素和内容展示区。
 
-{% highlight javascript %}
+```javascript
 
 var target = document.querySelector('#target');
 var contentDiv = document.querySelector('#content');
 
-{% endhighlight %}
+```
 
 然后，定义目标元素的dragover事件，主要是为了当文件进入目标元素后，改变鼠标形状。
 
-{% highlight javascript %}
+```javascript
 
 target.addEventListener('dragover', function(e) {
 	e.preventDefault(); 
@@ -169,11 +169,11 @@ target.addEventListener('dragover', function(e) {
 	e.dataTransfer.dropEffect = 'copy';
 });
 
-{% endhighlight %}
+```
 
 接着，定义目标元素的drop事件，展示文件内容。
 
-{% highlight javascript %}
+```javascript
 
 target.addEventListener('drop', function(e) {
 
@@ -196,45 +196,45 @@ target.addEventListener('drop', function(e) {
 	}
 });
 
-{% endhighlight %}
+```
 
 ## 自定义网页元素（Custom Element）
 
 除了HTML语言预定义的网页元素，通过JavaScript还可以自定义网页元素。举例来说，你可以自定义一个叫做super-button的网页元素。
 
-{% highlight html %}
+```html
 
 <super-button></super-button>
 
-{% endhighlight %}
+```
 
 注意，自定义网页元素的名称中必须含有连字符（-）。这是因为标准预定义的HTML元素名称，都不含有连字符，自定义网页元素加入连字符，可以有效显示区别。
 
 在使用自定义元素前，必须用document对象的registerElement方法登记该元素，registerElement方法返回一个这个自定义元素的构造函数。
 
-{% highlight javascript %}
+```javascript
 
 var SuperButton = document.registerElement('super-button');
 
 document.body.appendChild(new SuperButton());
 
-{% endhighlight %}
+```
 
 上面代码生成自定义网页元素的构造函数，然后通过构造函数生成一个实例，将其插入网页。
 
 registerElement方法接受第二个参数，用来指定自定义网页元素的原型对象，默认就是HTMLElement对象的原型，即写成下面这样。
 
-{% highlight javascript %}
+```javascript
 
 var SuperButton = document.registerElement('super-button', {
   prototype: Object.create(HTMLElement.prototype)
 });
 
-{% endhighlight %}
+```
 
 但是，如果写成上面这样，自定义网页元素就跟普通元素没有太大区别。自定义元素的真正优势在于，可以自定义它的API。
 
-{% highlight javascript %}
+```javascript
 
 var buttonProto = Object.create(HTMLElement.prototype);
 
@@ -250,28 +250,28 @@ var supperButton = document.querySelector('super-button');
 
 supperButton.print();
 
-{% endhighlight %}
+```
 
 上面代码在网页元素的原型对象上定义了一个print方法，然后将其指定为super-button元素的原型。因此，所有supper-button元素的实例因此都可以调用print这个方法。
 
 registerElement方法的第二个参数，还可以延伸现有元素。
 
-{% highlight javascript %}
+```javascript
 
 var SuperButton = document.registerElement('super-button', {
   prototype: buttonProto,
   extends: 'button'
 });
 
-{% endhighlight %}
+```
 
 上面代码指定super-button元素延伸button元素。因此，button元素就可以通过is属性，继承super-button元素的API。
 
-{% highlight html %}
+```html
 
 <button is="supper-button"></button>
 
-{% endhighlight %}
+```
 
 上面代码指定button元素为supper-button元素的实例。
 
@@ -284,11 +284,11 @@ var SuperButton = document.registerElement('super-button', {
 
 下面是一个指定回调函数的例子。
 
-{% highlight javascript %}
+```javascript
 
 supperButton.createdCallback = function () {…};
 
-{% endhighlight %}
+```
 
 自定义元素（custom element）是一个非常新的API，目前只有Firefox和Chrome浏览器的最新版本支持。
 

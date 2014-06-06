@@ -16,7 +16,7 @@ Express是一个node.js模块，采用npm全局模块。
 
 sudo npm install -g express
 
-{% endhighlight %}
+```
 
 安装完成后，在工作目录新建一个新项目，假定叫做node-demo。
 
@@ -24,7 +24,7 @@ sudo npm install -g express
 
 express node-demo
 
-{% endhighlight %}
+```
 
 这时，工作目录中就会生成一个node-demo子目录。进入该目录，安装所需要的模块。
 
@@ -33,7 +33,7 @@ express node-demo
 cd node-demo
 npm installl
 
-{% endhighlight %}
+```
 
 如果浏览这个子目录，就会发现express自动生成了以下的子目录和文件。
 
@@ -50,7 +50,7 @@ npm installl
 
 node app
 
-{% endhighlight %}
+```
 
 默认情况下，网站运行在本机的3000端口，网页显示Welcome to Express。
 
@@ -62,7 +62,7 @@ Express框架建立在node.js内置的http模块上。
 
 http模块生成服务器的原始代码如下。
 
-{% highlight javascript %}
+```javascript
 
 var http = require("http");
 
@@ -74,7 +74,7 @@ var app = http.createServer(function(request, response) {
 app.listen(1337, "localhost");
 console.log("Server running at http://localhost:1337/");
 
-{% endhighlight %}
+```
 
 上面代码的关键是http模块的createServer方法，表示生成一个HTTP服务器实例。该方法接受一个回调函数，该回调函数的参数，分别为代表HTTP请求和HTTP回应的request对象和response对象。
 
@@ -82,7 +82,7 @@ console.log("Server running at http://localhost:1337/");
 
 Express框架的核心是对http模块的再包装。上面的代码用Express改写如下。
 
-{% highlight javascript %}
+```javascript
 
 var express = require("express");
 var http = require("http");
@@ -96,7 +96,7 @@ app.use(function(request, response) {
 
 http.createServer(app).listen(1337);
 
-{% endhighlight %}
+```
 
 比较两段代码，可以看到它们非常接近，唯一的差别是createServer方法的参数，从一个回调函数变成了一个Epress对象的实例。而这个实例使用了use方法，加载了与上一段代码相同的回调函数。
 
@@ -110,23 +110,23 @@ node.js的内置模块http的createServer方法，可以生成一个服务器实
 
 一个不进行任何操作、只传递request对象的中间件，大概是下面这样：
 
-{% highlight javascript %}
+```javascript
 
 function uselessMiddleware(req, res, next) { 
 	next();
 }
 
-{% endhighlight %}
+```
 
 上面代码的next为中间件的回调函数。如果它带有参数，则代表抛出一个错误，参数为错误文本。
 
-{% highlight javascript %}
+```javascript
 
 function uselessMiddleware(req, res, next) { 
 	next('出错了！');
 }
 
-{% endhighlight %}
+```
 
 抛出错误以后，后面的中间件将不再执行，直到发现一个错误处理函数为止。
 
@@ -134,7 +134,7 @@ function uselessMiddleware(req, res, next) {
 
 use是express调用中间件的方法，它返回一个函数。下面是一个连续调用两个中间件的例子。
 
-{% highlight javascript %}
+```javascript
 
 var express = require("express");
 var http = require("http");
@@ -153,13 +153,13 @@ app.use(function(request, response) {
 
 http.createServer(app).listen(1337);
 
-{% endhighlight %}
+```
 
 上面代码先调用第一个中间件，在控制台输出一行信息，然后通过next方法，调用第二个中间件，输出HTTP回应。由于第二个中间件没有调用next方法，所以不再request对象就不再向后传递了。
 
 使用use方法，可以根据请求的网址，返回不同的网页内容。
 
-{% highlight javascript %}
+```javascript
 
 var express = require("express");
 var http = require("http");
@@ -190,23 +190,23 @@ app.use(function(request, response) {
 
 http.createServer(app).listen(1337);
 
-{% endhighlight %}
+```
 
 上面代码通过request.url属性，判断请求的网址，从而返回不同的内容。
 
 除了在回调函数内部，判断请求的网址，Express也允许将请求的网址写在use方法的第一个参数。
 
-{% highlight javascript %}
+```javascript
 
 app.use('/', someMiddleware);
 
-{% endhighlight %}
+```
 
 上面代码表示，只对根目录的请求，调用某个中间件。
 
 因此，上面的代码可以写成下面的样子。
 
-{% highlight javascript %}
+```javascript
 
 var express = require("express");
 var http = require("http");
@@ -230,7 +230,7 @@ app.use(function(request, response) {
 
 http.createServer(app).listen(1337);
 
-{% endhighlight %}
+```
 
 ## Express的方法
 
@@ -238,7 +238,7 @@ http.createServer(app).listen(1337);
 
 针对不同的请求，Express提供了use方法的一些别名。比如，上面代码也可以用别名的形式来写。
 
-{% highlight javascript %}
+```javascript
 
 var express = require("express");
 var http = require("http");
@@ -263,7 +263,7 @@ app.get("*", function(request, response) {
 
 http.createServer(app).listen(1337);
 
-{% endhighlight %}
+```
 
 上面代码的all方法表示，所有请求都必须通过该中间件，参数中的“*”表示对所有路径有效。get方法则是只有GET动词的HTTP请求通过该中间件，它的第一个参数是请求的路径。由于get方法的回调函数没有调用next方法，所以只要有一个中间件被调用了，后面的中间件就不会再被调用了。
 
@@ -271,19 +271,19 @@ http.createServer(app).listen(1337);
 
 这些方法的第一个参数，都是请求的路径。除了绝对匹配以外，Express允许模式匹配。
 
-{% highlight javascript %}
+```javascript
 
 app.get("/hello/:who", function(req, res) {
   res.end("Hello, " + req.params.who + ".");
 });
 
-{% endhighlight %}
+```
 
 上面代码将匹配“/hello/alice”网址，网址中的alice将被捕获，作为req.params.who属性的值。需要注意的是，捕获后需要对网址进行检查，过滤不安全字符，上面的写法只是为了演示，生产中不应这样直接使用用户提供的值。
 
 如果在模式参数后面加上问号，表示该参数可选。
 
-{% highlight javascript %}
+```javascript
 
 app.get('/hello/:who?',function(req,res) {
 	if(req.params.id) {
@@ -294,11 +294,11 @@ app.get('/hello/:who?',function(req,res) {
 	}
 });
 
-{% endhighlight %}
+```
 
 下面是一些更复杂的模式匹配的例子。
 
-{% highlight javascript %}
+```javascript
 
 app.get('/forum/:fid/thread/:tid', middleware)
 
@@ -310,19 +310,19 @@ app.get(/^\/commits\/(\w+)(?:\.\.(\w+))?$/, function(req, res){
   res.send('commit range ' + from + '..' + to);
 });
 
-{% endhighlight %}
+```
 
 ### set方法
 
 set方法用于指定变量的值。
 
-{% highlight javascript %}
+```javascript
 
 app.set("views", __dirname + "/views");
 
 app.set("view engine", "jade");
 
-{% endhighlight %}
+```
 
 上面代码使用set方法，为系统变量“views”和“view engine”指定值。
 
@@ -332,35 +332,35 @@ app.set("view engine", "jade");
 
 response.redirect方法允许网址的重定向。
 
-{% highlight javascript %}
+```javascript
 
 response.redirect("/hello/anime");
 response.redirect("http://www.example.com");
 response.redirect(301, "http://www.example.com"); 
 
-{% endhighlight %}
+```
 
 **（2）response.sendFile方法**
 
 response.sendFile方法用于发送文件。
 
-{% highlight javascript %}
+```javascript
 
 response.sendFile("/path/to/anime.mp4");
 
-{% endhighlight %}
+```
 
 **（3）response.render方法**
 
 response.render方法用于渲染网页模板。
 
-{% highlight javascript %}
+```javascript
 
 app.get("/", function(request, response) {
   response.render("index", { message: "Hello World" });
 });
 
-{% endhighlight %}
+```
 
 上面代码使用render方法，将message变量传入index模板，渲染成HTML网页。
 
@@ -382,7 +382,7 @@ request.files用于获取上传的文件。
 
 先建立一个项目目录（假定这个目录叫做demo）。进入该目录，新建一个package.json文件，写入项目的配置信息。
 
-{% highlight javascript %}
+```javascript
 
 {
    "name": "demo",
@@ -393,22 +393,22 @@ request.files用于获取上传的文件。
    }
 }
 
-{% endhighlight %}
+```
 
 在项目目录中，新建文件app.js。项目的代码就放在这个文件里面。
 
-{% highlight javascript %}
+```javascript
 
 var express = require('express');
 var app = express();
 
-{% endhighlight %}
+```
 
 上面代码首先加载express模块，赋给变量express。然后，生成express实例，赋给变量app。
 
 接着，设定express实例的参数。
 
-{% highlight javascript %}
+```javascript
 
 // 设定port变量，意为访问端口
 app.set('port', process.env.PORT || 3000);
@@ -430,17 +430,17 @@ app.use(app.router);
 // 网址则显示为http://localhost:3000/images
 app.use(express.static(path.join(__dirname, 'public')));
 
-{% endhighlight %}
+```
 
 上面代码中的set方法用于设定内部变量，use方法用于调用express的中间件。
 
 最后，调用实例方法listen，让其监听事先设定的端口（3000）。
 
-{% highlight javascript %}
+```javascript
 
 app.listen(app.get('port'));
 
-{% endhighlight %}
+```
 
 这时，运行下面的命令，就可以在浏览器访问http://127.0.0.1:3000。
 
@@ -448,7 +448,7 @@ app.listen(app.get('port'));
 
 node app.js
 
-{% endhighlight %}
+```
 
 网页提示“Cannot GET /”，表示没有为网站的根路径指定可以显示的内容。所以，下一步就是配置路由。
 
@@ -460,13 +460,13 @@ node app.js
 
 在app.js之中，先指定根路径的处理方法。
 
-{% highlight javascript %}
+```javascript
 
 app.get('/', function(req, res) {
    res.send('Hello World');
 });
 
-{% endhighlight %}
+```
 
 上面代码的get方法，表示处理客户端发出的GET请求。相应的，还有app.post、app.put、app.del（delete是JavaScript保留字，所以改叫del）方法。
 
@@ -476,13 +476,13 @@ get方法的第一个参数是访问路径，正斜杠（/）就代表根路径�
 
 node app.js
 
-{% endhighlight %}
+```
 
 此时，在浏览器中访问http://127.0.0.1:3000，网页就会显示“Hello World”。
 
 如果需要指定HTTP头信息，回调函数就必须换一种写法，要使用setHeader方法与end方法。
 
-{% highlight javascript %}
+```javascript
 
 app.get('/', function(req, res){
   var body = 'Hello World';
@@ -491,34 +491,34 @@ app.get('/', function(req, res){
   res.end(body);
 });
 
-{% endhighlight %}
+```
 
 **（2）指定特定路径**
 
 上面是处理根目录的情况，下面再举一个例子。假定用户访问/api路径，希望返回一个JSON字符串。这时，get可以这样写。
 
-{% highlight javascript %}
+```javascript
 
 app.get('/api', function(request, response) {
    response.send({name:"张三",age:40});
 });
 
-{% endhighlight %}
+```
 
 上面代码表示，除了发送字符串，send方法还可以直接发送对象。重新启动node以后，再访问路径/api，浏览器就会显示一个JSON对象。
 
-{% highlight javascript %}
+```javascript
 
 {
   "name": "张三",
   "age": 40
 }
 
-{% endhighlight %}
+```
 
 我们也可以把app.get的回调函数，封装成模块。先在routes目录下面建立一个api.js文件。
 
-{% highlight javascript %}
+```javascript
 
 // routes/api.js
 
@@ -526,18 +526,18 @@ exports.index = function (req, res){
   res.json(200, {name:"张三",age:40});
 }
 
-{% endhighlight %}
+```
 
 然后，在app.js中加载这个模块。
 
-{% highlight javascript %}
+```javascript
 
 // app.js
 
 var api = require('./routes/api');
 app.get('/api', api.index);
 
-{% endhighlight %}
+```
 
 现在访问时，就会显示与上一次同样的结果。
 
@@ -549,7 +549,7 @@ app.get('/api', api.index);
 
 假定这个项目有三个路径：根路径（/）、自我介绍（/about）和文章（/article）。那么，app.js可以这样写：
 
-{% highlight javascript %}
+```javascript
 
 var express = require('express');
 var app = express();
@@ -568,13 +568,13 @@ app.get('/article', function(req, res) {
  
 app.listen(3000);
 
-{% endhighlight %}
+```
 
 上面代码表示，三个路径分别对应views目录中的三个模板：index.html、about.html和article.html。另外，向服务器发送信息的方法，从send变成了sendfile，后者专门用于发送文件。
 
 假定index.html的内容如下：
 
-{% highlight html %}
+```html
 
 <html>
 <head>
@@ -593,7 +593,7 @@ app.listen(3000);
 </body>
 </html>
 
-{% endhighlight %}
+```
 
 上面代码是一个静态网页。如果想要展示动态内容，就必须使用动态网页模板。
 
@@ -607,15 +607,15 @@ Express支持多种模板引擎，这里采用Handlebars模板引擎的服务器
 
 先安装hbs。
 
-{% highlight html %}
+```html
 
 npm install hbs --save-dev
 
-{% endhighlight %}
+```
 
 上面代码将hbs模块，安装在项目目录的子目录node_modules之中。save-dev参数表示，将依赖关系写入package.json文件。安装以后的package.json文件变成下面这样：
 
-{% highlight javascript %}
+```javascript
 
 // package.json文件
 
@@ -631,11 +631,11 @@ npm install hbs --save-dev
   }
 }
 
-{% endhighlight %}
+```
 
 安装模板引擎之后，就要改写app.js。
 
-{% highlight javascript %}
+```javascript
 
 // app.js文件
 
@@ -663,7 +663,7 @@ app.get('/article', function(req, res) {
 	res.render('article');
 });
 
-{% endhighlight %}
+```
 
 上面代码改用render方法，对网页模板进行渲染。render方法的参数就是模板的文件名，默认放在子目录views之中，后缀名已经在前面指定为html，这里可以省略。所以，res.render('index') 就是指，把子目录views下面的index.html文件，交给模板引擎hbs渲染。
 
@@ -673,7 +673,7 @@ app.get('/article', function(req, res) {
 
 在项目目录中，新建一个文件blog.js，用于存放数据。blog.js的写法符合CommonJS规范，使得它可以被require语句加载。
 
-{% highlight javascript %}
+```javascript
 
 // blog.js文件
 
@@ -696,13 +696,13 @@ exports.getBlogEntry = function (id){
    }
 }
 
-{% endhighlight %}
+```
 
 ### 新建网页模板
 
 接着，新建模板文件index.html。
 
-{% highlight html %}
+```html
 
 <!-- views/index.html文件 -->
 
@@ -715,11 +715,11 @@ exports.getBlogEntry = function (id){
    </p>
 {{"{{"}}/each}}
 
-{% endhighlight %}
+```
 
 模板文件about.html。
 
-{% highlight html %}
+```html
 
 <!-- views/about.html文件 -->
 
@@ -727,11 +727,11 @@ exports.getBlogEntry = function (id){
  
 <p>正文</p>
 
-{% endhighlight %}
+```
 
 模板文件article.html。
 
-{% highlight html %}
+```html
 
 <!-- views/article.html文件 -->
 
@@ -742,11 +742,11 @@ Published: {{"{{"}}blog.published}}
  
 {{"{{"}}blog.body}}
 
-{% endhighlight %}
+```
 
 可以看到，上面三个模板文件都只有网页主体。因为网页布局是共享的，所以布局的部分可以单独新建一个文件layout.html。
 
-{% highlight html %}
+```html
 
 <!-- views/layout.html文件 -->
 
@@ -769,13 +769,13 @@ Published: {{"{{"}}blog.published}}
 </body>
 </html>
 
-{% endhighlight %}
+```
 
 ### 渲染模板
 
 最后，改写app.js文件。
 
-{% highlight javascript %}
+```javascript
 
 // app.js文件
 
@@ -806,7 +806,7 @@ app.get('/article/:id', function(req, res) {
  
 app.listen(3000);
 
-{% endhighlight %}
+```
 
 上面代码中的render方法，现在加入了第二个参数，表示模板变量绑定的数据。
 
@@ -816,7 +816,7 @@ app.listen(3000);
 
 node app.js
 
-{% endhighlight %}
+```
 
 可以看得，模板已经使用加载的数据渲染成功了。
 
@@ -824,19 +824,19 @@ node app.js
 
 模板文件默认存放在views子目录。这时，如果要在网页中加载静态文件（比如样式表、图片等），就需要另外指定一个存放静态文件的目录。
 
-{% highlight javascript %}
+```javascript
 
 app.use(express.static('public'));
 
-{% endhighlight %}
+```
 
 上面代码在文件app.js之中，指定静态文件存放的目录是public。于是，当浏览器发出非HTML文件请求时，服务器端就到public目录寻找这个文件。比如，浏览器发出如下的样式表请求：
 
-{% highlight javascript %}
+```javascript
 
 <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-{% endhighlight %}
+```
 
 服务器端就到public/bootstrap/css/目录中寻找bootstrap.css文件。
 
@@ -848,7 +848,7 @@ Express 4.0的Router用法，做了大幅改变，增加了很多新的功能。
 
 Express 4.0的router对象，需要单独新建。然后，使用该对象的HTTP动词方法，为不同的访问路径，指定回调函数；最后，挂载到某个路径
 
-{% highlight javascript %}
+```javascript
 
 var router = express.Router();
 
@@ -862,7 +862,7 @@ router.get('/about', function(req, res) {
 
 app.use('/', router);
 
-{% endhighlight %}
+```
 
 上面代码先定义了两个访问路径，然后将它们挂载到根目录。如果最后一行改为app.use('/app', router)，则相当于/app和/app/about这两个路径，指定了回调函数。
 
@@ -872,7 +872,7 @@ app.use('/', router);
 
 router实例对象的route方法，可以接受访问路径作为参数。
 
-{% highlight javascript %}
+```javascript
 
 var router = express.Router();
 
@@ -889,20 +889,20 @@ router.route('/api')
 
 app.use('/', router);
 
-{% endhighlight %}
+```
 
 ### router中间件
 
 use方法为router对象指定中间件，即在数据正式发给用户之前，对数据进行处理。下面就是一个中间件的例子。
 
-{% highlight javascript %}
+```javascript
 
 router.use(function(req, res, next) {
 	console.log(req.method, req.url);
 	next();	
 });
 
-{% endhighlight %}
+```
 
 上面代码中，回调函数的next参数，表示接受其他中间件的调用。函数体中的next()，表示将数据传递给下一个中间件。
 
@@ -912,7 +912,7 @@ router.use(function(req, res, next) {
 
 router对象的param方法用于路径参数的处理，可以
 
-{% highlight javascript %}
+```javascript
 
 router.param('name', function(req, res, next, name) {
 	// 对name进行验证或其他处理……
@@ -925,7 +925,7 @@ router.get('/hello/:name', function(req, res) {
 	res.send('hello ' + req.name + '!');
 });
 
-{% endhighlight %}
+```
 
 上面代码中，get方法为访问路径指定了name参数，param方法则是对name参数进行处理。注意，param方法必须放在HTTP动词方法之前。
 
@@ -933,7 +933,7 @@ router.get('/hello/:name', function(req, res) {
 
 假定app是Express的实例对象，Express 4.0为该对象提供了一个route属性。app.route实际上是express.Router()的缩写形式，除了直接挂载到根路径。因此，对同一个路径指定get和post方法的回调函数，可以写成链式形式。
 
-{% highlight javascript %}
+```javascript
 
 app.route('/login')
 	.get(function(req, res) {
@@ -944,7 +944,7 @@ app.route('/login')
 		res.send('processing the login form!');
 	});
 
-{% endhighlight %}
+```
 
 上面代码的这种写法，显然非常简洁清晰。
 

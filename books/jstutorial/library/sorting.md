@@ -38,7 +38,7 @@ modifiedOn: 2013-01-30
 
 先定义一个交换函数，作用是交换两个位置的值。
 
-{% highlight javascript %}
+```javascript
 
 function swap(myArray, p1, p2){
     var temp = myArray[p1];
@@ -46,11 +46,11 @@ function swap(myArray, p1, p2){
     myArray[p2] = temp;
 }
 
-{% endhighlight %}
+```
 
 然后定义主函数。
 
-{% highlight javascript %}
+```javascript
 
 function bubbleSort(myArray){
 
@@ -68,7 +68,7 @@ function bubbleSort(myArray){
     return myArray;
 }
 
-{% endhighlight %}
+```
 
 ## 选择排序
 
@@ -96,7 +96,7 @@ function bubbleSort(myArray){
 
 先定义一个交换函数。
 
-{% highlight javascript %}
+```javascript
 
 function swap(myArray, p1, p2){
     var temp = myArray[p1];
@@ -104,11 +104,11 @@ function swap(myArray, p1, p2){
     myArray[p2] = temp;
 }
 
-{% endhighlight %}
+```
 
 然后定义主函数。
 
-{% highlight javascript %}
+```javascript
 
 function selectionSort(myArray){
 
@@ -136,7 +136,7 @@ function selectionSort(myArray){
     return myArray;
 }
 
-{% endhighlight %}
+```
 
 ## 插入排序
 
@@ -160,7 +160,7 @@ function selectionSort(myArray){
 
 算法的实现如下：
 
-{% highlight javascript %}
+```javascript
 
 function insertionSort(myArray) {
 
@@ -188,7 +188,7 @@ function insertionSort(myArray) {
     return myArray;
 }
 
-{% endhighlight %}
+```
 	
 ## 合并排序
 
@@ -216,7 +216,7 @@ function insertionSort(myArray) {
 
 这里的关键是如何合并两个已经排序的数组。具体实现请看下面的函数。
 
-{% highlight javascript %}
+```javascript
 
 function merge(left, right){
     var result  = [],
@@ -234,13 +234,13 @@ function merge(left, right){
     return result.concat(left.slice(il)).concat(right.slice(ir));
 }
 
-{% endhighlight %}
+```
 
 上面的merge函数，合并两个已经按升序排好序的数组。首先，比较两个数组的第一个元素，将其中较小的一个放入result数组；然后，将其中较大的一个与另一个数组的第二个元素进行比较，再将其中较小的一个放入result数组的第二个位置。以此类推，直到一个数组的所有元素都进入result数组为止，再将另一个数组剩下的元素接着result数组后面返回（使用concat方法）。
 
 有了merge函数，就可以对任意数组排序了。基本方法是将数组不断地拆成两半，直到每一半只包含零个元素或一个元素为止，然后就用merge函数，将拆成两半的数组不断合并，直到合并成一整个排序完成的数组。
 
-{% highlight javascript %}
+```javascript
 
 function mergeSort(myArray){
 
@@ -255,11 +255,11 @@ function mergeSort(myArray){
     return merge(mergeSort(left), mergeSort(right));
 }
 
-{% endhighlight %}
+```
 
 上面的代码有一个问题，就是返回的是一个全新的数组，会多占用空间。因此，修改上面的函数，使之在原地排序，不多占用空间。
 
-{% highlight javascript %}
+```javascript
 
 function mergeSort(myArray){
 
@@ -285,7 +285,7 @@ function mergeSort(myArray){
     return myArray;
 }
 
-{% endhighlight %}
+```
 
 ## 快速排序
 
@@ -331,7 +331,7 @@ function mergeSort(myArray){
 
 首先部署一个swap函数，用于互换两个位置的值。
 
-{% highlight javascript %}
+```javascript
 
 function swap(myArray, firstIndex, secondIndex){
     var temp = myArray[firstIndex];
@@ -339,11 +339,11 @@ function swap(myArray, firstIndex, secondIndex){
     myArray[secondIndex] = temp;
 }
 
-{% endhighlight %}
+```
 
 然后，部署一个partition函数，用于完成一轮排序。
 
-{% highlight javascript %}
+```javascript
 
 function partition(myArray, left, right) {
 
@@ -372,11 +372,11 @@ function partition(myArray, left, right) {
     return i;
 }
 
-{% endhighlight %}
+```
 
 接下来，就是递归上面的过程，完成整个排序。
 
-{% highlight javascript %}
+```javascript
 
 function quickSort(myArray, left, right) {
 
@@ -400,7 +400,7 @@ function quickSort(myArray, left, right) {
 
 }
 
-{% endhighlight %}
+```
 
 ## 参考链接
 

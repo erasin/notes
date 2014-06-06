@@ -16,7 +16,7 @@ sessionStorage保存的数据用于浏览器的一次会话，当会话结束（
 
 通过检查window对象是否包含sessionStorage和localStorage属性，可以确定浏览器是否支持这两个对象。
 
-{% highlight javascript %}
+```javascript
 
 function checkStorageSupport() {
  
@@ -35,7 +35,7 @@ function checkStorageSupport() {
   }
 }
 
-{% endhighlight %}
+```
 
 ## 操作方法
 
@@ -45,85 +45,85 @@ sessionStorage和localStorage保存的数据，都以“键值对”的形式存
 
 存入数据使用setItem方法。它接受两个参数，第一个是键名，第二个是保存的数据。
 
-{% highlight javascript %}
+```javascript
 
 sessionStorage.setItem("key","value");
 
 localStorage.setItem("key","value");
 
-{% endhighlight %}
+```
 
 读取数据使用getItem方法。它只有一个参数，就是键名。
 
-{% highlight javascript %}
+```javascript
 
 var valueSession = sessionStorage.getItem("key");
 
 var valueLocal = localStorage.getItem("key");
 
-{% endhighlight %}
+```
 
 ### 清除数据
 
 removeItem方法用于清除某个键名对应的数据。
 
-{% highlight javascript %}
+```javascript
 
 sessionStorage.removeItem('key');
 
 localStorage.removeItem('key');
 
-{% endhighlight %}
+```
 
 clear方法用于清除所有保存的数据。
 
-{% highlight javascript %}
+```javascript
 
 sessionStorage.clear();
 
 localStorage.clear(); 
 
-{% endhighlight %}
+```
 
 ### 遍历操作
 
 利用length属性和key方法，可以遍历所有的键。
 
-{% highlight javascript %}
+```javascript
 
 for(var i = 0; i < localStorage.length; i++){
     console.log(localStorage.key(i));
 }
 
-{% endhighlight %}
+```
 
 其中的key方法，根据位置（从0开始）获得键值。
 
-{% highlight javascript %}
+```javascript
 
 localStorage.key(1);
 
-{% endhighlight %}
+```
 
 ## storage事件
 
 当储存的数据发生变化时，会触发storage事件。我们可以指定这个事件的回调函数。
 
-{% highlight javascript %}
+```javascript
 
 window.addEventListener("storage",onStorageChange);
 
-{% endhighlight %}
+```
 
 回调函数接受一个event对象作为参数。这个event对象的key属性，保存发生变化的键名。
 
-{% highlight javascript %}
+```javascript
 
 function onStorageChange(e) {
      console.log(e.key);    
 }
 
-{% endhighlight %}
+```
 
 除了key属性，event对象的属性还有三个：
 
