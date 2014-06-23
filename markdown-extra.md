@@ -5,9 +5,9 @@ Copyright (c) 2004-2012 Michel Fortin
 
 
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~ .html
+```html
 <p>paragraph <b>emphasis</b>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
 ## Markdown Inside HTML Blocks
 

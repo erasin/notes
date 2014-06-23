@@ -1,5 +1,7 @@
 # centos服务器配置流程
 
+
+
 使用http用户服务： 
 
     user  : ngxin 
@@ -14,14 +16,19 @@
 
 ### 关于源
 
-* [centos or redhat yum 添加 163 源](yum163)
+* [阿里云镜像源](http://mirrors.aliyun.com/help/centos)
+* [163镜像源](http://mirrors.163.com/.help/centos.html)
 * [yum 命令](yum.md)
 
 ### PHP
 
 **安装：** 
-    
-    # yum install php php-fpm php-gd php-mcrypt php-pear php-mysql php-mysqlite
+
+```bash    
+yum install php php-fpm php-gd php-mcrypt php-pear php-mysql php-mysqlite
+##或者 
+yum install php php-*
+```
 
 检查版本： 
 
