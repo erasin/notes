@@ -32,56 +32,58 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
 
 我们从一个完整的例子开始认识 ng ：
 
-      <!DOCTYPE html>
-      <html>
-      <head>
-      <meta charset="utf-8" />
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
 
-      <title>试验</title>
+<title>试验</title>
 
-      <script type="text/javascript" src="jquery-1.8.3.js"></script>
-      <script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="angular.js"></script>
 
-      </head>
-      <body>
-      <div ng-controller="BoxCtrl">
-      <div style="width: 100px; height: 100px; background-color: red;"
-      ng-click="click()"></div>
-      <p>{{ w }} x {{ h }}</p>
-      <p>W: <input type="text" ng-model="w" /></p>
-      <p>H: <input type="text" ng-model="h" /></p>
-      </div>
+</head>
+<body>
+<div ng-controller="BoxCtrl">
+<div style="width: 100px; height: 100px; background-color: red;"
+ng-click="click()"></div>
+<p>{{ w }} x {{ h }}</p>
+<p>W: <input type="text" ng-model="w" /></p>
+<p>H: <input type="text" ng-model="h" /></p>
+</div>
 
-      <script type="text/javascript" charset="utf-8">
-      var BoxCtrl = function($scope, $element){
+<script type="text/javascript" charset="utf-8">
+var BoxCtrl = function($scope, $element){
 
-      //$element 就是一个 jQuery 对象
-      var e = $element.children().eq(0);
-      $scope.w = e.width();
-      $scope.h = e.height();
+//$element 就是一个 jQuery 对象
+var e = $element.children().eq(0);
+$scope.w = e.width();
+$scope.h = e.height();
 
-      $scope.click = function(){
-         $scope.w = parseInt($scope.w) + 10;
-         $scope.h = parseInt($scope.h) + 10;
-      }
+$scope.click = function(){
+   $scope.w = parseInt($scope.w) + 10;
+   $scope.h = parseInt($scope.h) + 10;
+}
 
-      $scope.$watch('w',
-         function(to, from){
-           e.width(to);
-         }
-      );
+$scope.$watch('w',
+   function(to, from){
+     e.width(to);
+   }
+);
 
-      $scope.$watch('h',
-         function(to, from){
-           e.height(to);
-         }
-      );
-      }
+$scope.$watch('h',
+   function(to, from){
+     e.height(to);
+   }
+);
+}
 
-      angular.bootstrap(document.documentElement);
-      </script>
-      </body>
-      </html>
+angular.bootstrap(document.documentElement);
+</script>
+</body>
+</html>
+```
 
 从上面的代码中，我们看到在通常的 HTML 代码当中，引入了一些标记，这些就是 ng 的模板机制，它不光完成数据渲染的工作，还实现了数据绑定的功能。
 
@@ -97,50 +99,55 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
 
 更完整的方法是定义一个 APP ：
 
-      <!DOCTYPE html>
-      <html ng-app="MyApp">
-      <head>
-      <meta charset="utf-8" />
+```
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+<meta charset="utf-8" />
 
-      <title>数据正向绑定</title>
+<title>数据正向绑定</title>
 
-      <script type="text/javascript" src="jquery-1.8.3.js"></script>
-      <script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="angular.js"></script>
 
-      </head>
-      <body>
+</head>
+<body>
 
-      <div ng-controller="TestCtrl">
-       <input type="text" value="" id="a" />
-      </div>
+<div ng-controller="TestCtrl">
+<input type="text" value="" id="a" />
+</div>
 
 
-      <script type="text/javascript">
-      var TestCtrl = function(){
-       console.log('ok');
-      }
+<script type="text/javascript">
+var TestCtrl = function(){
+console.log('ok');
+}
 
-      //angular.bootstrap(document.documentElement);
-      angular.module('MyApp', [], function(){console.log('here')});
-      </script>
+//angular.bootstrap(document.documentElement);
+angular.module('MyApp', [], function(){console.log('here')});
+</script>
 
-      </body>
-      </html>
+</body>
+</html>
+```
 
 这里说的一个 App 就是 ng 概念中的一个 Module 。对于 Controller 来说， 如果不想使用全局函数，也可以在 app 中定义：
 
-	var app = angular.module('MyApp', [], function(){console.log('here')});
-	app.controller('TestCtrl',
-		function($scope){
-		  console.log('ok');
-		}
-	);
+```javascript
+var app = angular.module('MyApp', [], function(){console.log('here')});
+app.controller('TestCtrl',
+	function($scope){
+	  console.log('ok');
+	}
+);
+```
 
 上面我们使用 ng-app 来指明要使用的 App ，这样的话可以把显式的初始化工作省了。一般完整的过程是：
 
-	var app = angular.module('Demo', [], angular.noop);
-	angular.bootstrap(document, ['Demo']);
-
+```javascript
+var app = angular.module('Demo', [], angular.noop);
+angular.bootstrap(document, ['Demo']);
+```
 使用 angular.bootstrap 来显示地做初始化工具，参数指明了根节点，装载的模块（可以是多个模块）。
 
 # 4. 依赖注入
@@ -149,7 +156,9 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
 
 先看我们之前代码中的一处函数定义：
 
-	var BoxCtrl = function($scope, $element){}
+```javascript
+var BoxCtrl = function($scope, $element){}
+```
 
 在这个函数定义中，注意那两个参数： `$scope` ， `$element` ，这是两个很有意思的东西。总的来说，它们是参数，这没什么可说的。但又不仅仅是参数——你换个名字代码就不能正常运行了。
 
@@ -167,35 +176,39 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
 
 在 Python 中受限于函数名的命名规则，写出来不太好看。不过也得利于反省机制，做到这点也很容易：
 
-	# -*- coding: utf-8 -*-
+```python
+# -*- coding: utf-8 -*-
 
-	def f(Ia, Ib):
-	  print Ia, Ib
+def f(Ia, Ib):
+  print Ia, Ib
 
-	args = f.func_code.co_varnames
-	SRV_MAP = {
-	  'Ia': '123',
-	  'Ib': '456',
-	}
+args = f.func_code.co_varnames
+SRV_MAP = {
+  'Ia': '123',
+  'Ib': '456',
+}
 
-	srv = {}
-	for a in args:
-	  if a in SRV_MAP:
-		  srv[a] = SRV_MAP[a]
-	f(**srv)
+srv = {}
+for a in args:
+  if a in SRV_MAP:
+	  srv[a] = SRV_MAP[a]
+f(**srv)
+```
 
 # 5. 作用域
 
 这里提到的“作用域”的概念，是一个在范围上与 DOM 结构一致，数据上相对于某个 $scope 对象的属性的概念。我们还是从 HTML 代码上来入手：
 
-	<div ng-controller="BoxCtrl">
-		<div style="width: 100px; height: 100px; background-color: red;"
-			 ng-click="click()">
-		</div>
-		<p>{{ w }} x {{ h }}</p>
-		<p>W: <input type="text" ng-model="w" /></p>
-		<p>H: <input type="text" ng-model="h" /></p>
+```html
+<div ng-controller="BoxCtrl">
+	<div style="width: 100px; height: 100px; background-color: red;"
+		 ng-click="click()">
 	</div>
+	<p>{{ w }} x {{ h }}</p>
+	<p>W: <input type="text" ng-model="w" /></p>
+	<p>H: <input type="text" ng-model="h" /></p>
+</div>
+```
 
 上面的代码中，我们给一个 div 元素指定了一个 `BoxCtrl` ，那么， div 元素之内，就是 BoxCtrl 这个函数运行时，`$scope` 这个注入资源的控制范围。在代码中我们看到的 `click()` ， `w` ， `h` 这些东西，它们本来的位置对应于` $scope.click` ， `$scope.w` ， `$scope.h` 。
 
@@ -211,68 +224,89 @@ ng 的一大特点，就是数据双向绑定。双向绑定是一体，为了�
 
 数据到表现的绑定，主要是使用模板标记直接完成的：
 
-	<p>{{ w }} x {{ h }}</p>
+```html
+<p>{{ w }} x {{ h }}</p>
+```
 
 使用 `{{ }}` 这个标记，就可以直接引用，并绑定一个作用域内的变量。在实现上， ng 自动创建了一个 watcher 。效果就是，不管因为什么，如果作用域的变量发生了改变，我们随时可以让相应的页面表现也随之改变。我们可以看一个更纯粹的例子：
 
-	<p id="test" ng-controller="TestCtrl">{{ a }}</p>
+```html
+<p id="test" ng-controller="TestCtrl">{{ a }}</p>
 
-	<script type="text/javascript">
-	var TestCtrl = function($scope){
-	$scope.a = '123';
-	}
-	angular.bootstrap(document.documentElement);
+<script type="text/javascript">
+
+var TestCtrl = function($scope){
+    $scope.a = '123';
+}
+
+// 加载初始
+angular.bootstrap(document.documentElement);
+
+```
 
 上面的例子在页面载入之后，我们可以在页面上看到 123 。这时，我们可以打开一个终端控制器，输入：
 
-	$('#test').scope().a = '12345';
-	$('#test').scope().$digest();
+```javascript
+$('#test').scope().a = '12345';
+$('#test').scope().$digest();
+```
 
 上面的代码执行之后，就可以看到页面变化了。
 
 对于使用 ng 进行的事件绑定，在处理函数中就不需要去关心 `$digest()` 的调用了。因为 ng 会自己处理。源码中，对于 ng 的事件绑定，真正的处理函数不是指定名字的函数，而是经过 $apply() 包装过的一个函数。这个 `$apply()` 做的一件事，就是调用根作用域 `$rootScope` 的 $digest() ，这样整个世界就清净了：
 
-	<p id="test" ng-controller="TestCtrl" ng-click="click()">{{ a }}</p>
+```html
+<p id="test" ng-controller="TestCtrl" ng-click="click()">{{ a }}</p>
 
-	<script type="text/javascript" charset="utf-8">
-	var TestCtrl = function($scope){
-		$scope.a = '123';
+<script type="text/javascript" charset="utf-8">
+var TestCtrl = function($scope){
+	$scope.a = '123';
 
-		$scope.click = function(){
-		  $scope.a = '456';
-		}
+	$scope.click = function(){
+	  $scope.a = '456';
 	}
-	angular.bootstrap(document.documentElement);
+}
+angular.bootstrap(document.documentElement);
+```
 
 那个 click 函数的定义，绑定时变成了类似于：
 
-	function(){
-		$scope.$apply(
-		  function(){
-		    $scope.click();
-		  }
-		)
-	}
+```js
+function(){
+	$scope.$apply(
+	  function(){
+	    $scope.click();
+	  }
+	)
+}
+```
 
 这里的 $scope.$apply() 中做的一件事：
 
-      $rootScope.$digest();
+```javascript
+$rootScope.$digest();
+```
+
 
 ## 6.2. 模板->数据
 
 模板到数据的绑定，主要是通过 ng-model 来完成的：
 
-      <input type="text" id="test" ng-controller="TestCtrl" ng-model="a" />
+```html
+<input type="text" id="test" ng-controller="TestCtrl" ng-model="a" />
 
-      <script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
 
-      var TestCtrl = function($scope){
-          $scope.a = '123';
-      }
+var TestCtrl = function($scope){
+    $scope.a = '123';
+}
+```
 
 这时修改 input 中的值，然后再在控制终端中使用：
 
-      i$('#test').scope().a
+```javascript
+$('#test').scope().a
+```
 
 查看，发现变量 a 的值已经更改了。
 
