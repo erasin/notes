@@ -164,7 +164,7 @@ var BoxCtrl = function($scope, $element){}
 
 事实上，这两个参数，除了完成“参数”的本身任务之外，还作为一种语法糖完成了“依赖声明”的任务。本来这个函数定义，完整的写法应该像 AMD 声明一样，写成：
 
-	var BoxCtrl = ['$scope', '$element', function(s, e){}];
+  	var BoxCtrl = ['$scope', '$element', function(s, e){}];
 
 这样就很明显，表示有一个函数，它依赖于两个东西，然后这两个东西会依次作为参数传入。
 

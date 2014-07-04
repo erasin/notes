@@ -14,5 +14,6 @@ __linux 下清空DNS缓存记录__
 
 > sudo /etc/init.d/nscd restart
 
-Archlinux下 
+Archlinux下重启
+
 > sudo /etc/rc.d/nscd restart

@@ -1,4 +1,9 @@
+<!-- 
+title: ASCII
+-->
+
 #ASCII 
+
 **title:** ASCII 码表  
 
 |ASCII Dec    |ASCII Hex    |Symbol    |HTML Number    |HTML Name    |Description
