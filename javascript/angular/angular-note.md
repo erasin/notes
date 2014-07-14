@@ -856,6 +856,7 @@ filter 是一个过滤内容的标签。
      
      angular.bootstrap(document.documentElement);
      </script>
+     
 8.5. 例子：搜索
 
     <div ng-controller="TestCtrl" ng-init="s=data[0].name; q=''">

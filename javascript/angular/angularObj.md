@@ -1,5 +1,3 @@
-
-
 # 使用 AngularJs 创建一个项目
 
 最为宽松的情况下也可以创建单页面APP，使用 HTML5+JS+CSS 和 RESTFUL 服务创建。
@@ -12,6 +10,39 @@
 * 文本编辑器或IDE 
 	- Sublime/vim
 * SERVER
+
+## SERVER 服务器端
+
+服务器段提供RESTFUL API接口，接口方案一下两种。
+
+方案1. 完全RESTFUL 鉴于PHP的NGINX OR APACHE 仅开放GET和POST两种提交方式，所以使用第三字段来辩明数据使用，`_ACTION` 字段，放入
+`GET`,`POST`,`PUT`,`DELETE`来辩明操作。
+
+eg: 修改list中的一条信息
+
+```text
+URL:  /list/info/:id 
+METHOD: 
+	GET  // 获取 
+	PUT  // 修改更新
+...
+```
+2. 使用传统的方式同有路由+GET/POST来辩明操作。
+
+
+eg: 修改list中的一条信息
+
+```text
+URL: /list/edit/:id
+METHOD: GET  // 获取
+
+URL: /list/edit/:id
+METHOD: POST // 修改
+```
+
+如果做外部接口建议使用方案一，而现有的bocms则使用方案二，以最低限度的修改就可以使用。
+
+信息的不对称性导个体对事物的差异
 
 ## 部署项目
 
@@ -85,5 +116,20 @@ AppName/
 // 使用引入的包
 var app = angular.module('app', ['ngRoute','app.controllers', 'app.services','app.filters'])
 ```
+
+在app的其他文件中分别定义自己的module，比如 controllers.js 中定义 `angular.module('app.controllers',[])`
+
+
+## app 文件
+
+**app.js** ,主要放置路由规则和一些配置文件，在引用块中包括所有要使用的`module`。  
+**controllers.js**
+
+`
+
+`
+
+
+
 
 
