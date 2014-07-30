@@ -1,4 +1,4 @@
-#subl3
+# subl3
 
 <https://sublime.wbond.net/installation#st3>
 
@@ -89,4 +89,15 @@ gist
 	LD_PRELOAD=/pwd/libsublime-imfix.so sublime_text
 
 可以为其定义 `alias` ,另外快捷方式也可以加上该前缀.
+
+编译环境
+
+sudo apt-get install pkg-config
+sudo apt-get install build-essential
+sudo apt-get install libgtk2.0-dev
+
+gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
+
+
+参看<http://www.apkdv.com/ubuntu-sublime-text-3-chinese-input/>
 

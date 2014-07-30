@@ -1,5 +1,12 @@
 # iptables
 
+## ip tcp
+
+```
+iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+```
+
+- - - - - - - - 
 
 
 但是我们在配置服务器时候往往是只打开某个端口，其他的端口全部
@@ -9,6 +16,7 @@
 看我现在服务器的情况：
 通过命令 netstat -tnl 可以查看当前服务器打开了哪些端口
 
+```
 [root@localhost ~]# netstat -tnl
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address Foreign Address State
@@ -20,6 +28,7 @@ tcp 0 0 127.0.0.1:25 0.0.0.0:* LISTEN
 tcp 0 0 :::80 :::* LISTEN
 tcp 0 0 :::22 :::* LISTEN
 tcp 0 0 :::443 :::* LISTEN
+```
 
 我这里的端口挺多的，比较常用80(web服务) 22(ssh) 3306(mysql数据库)
 再看看我的防火墙设置如何，通过命令:iptables -L -n 可以查看
@@ -29,9 +38,11 @@ tcp 0 0 :::443 :::* LISTEN
 做任何限制。
 下面我们关闭所有的端口
 
+```
 ]# iptables -P INPUT DROP
 ]# iptables -P FORWARD DROP
 ]# iptables -P OUTPUT DROP
+```
 
 再查看一下 iptables -L -n
 

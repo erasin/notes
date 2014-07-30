@@ -108,3 +108,12 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
 第二行表示对两个域名这两个来路进行判断
 
 if{}里面内容意思是：如果来入不是指定判断的来路时跳转到错误页面。
+
+## Access-Control-Allow-Origin
+
+add_header Access-Control-Allow-Origin *;
+
+
+##  上传
+
+    client_max_body_size 35m;        #客户端上传文件大小设为35M
