@@ -16,40 +16,40 @@
 
 
 SublimeLinter
-:	错误提示检查错误
+>错误提示检查错误
 
 Sublime CodeIntel
-:	 为部分语言增强自动完成功能，包括了Python。这个插件同时也可以让你跳转到符号定义的地方，通过按住alt并点击符号。非常方便。
+>它提供了很多IDE提供的功能，例如代码自动补齐，快速跳转到变量定义，在状态栏显示函数快捷信息等。
 
 
 DocBlockr
-: 	提供类PHP的注释 以 `/** tab` 开始
+> 提供类PHP的注释 以 `/** tab` 开始
 
 
 
-BracketHighlighter
-: 	标签高亮，括号双引号等
+Bracket Highlighter
+> 标签高亮，括号双引号等
 
 Sublime Alignment
-:   对齐
+>  对齐
 
 Theme-Spacegray
-:    主题
+>  主题
 
 
 CTags
-: 	ctags 还要说么，win下就不要装了，麻烦
+>  ctags 还要说么，win下就不要装了，麻烦
 
 ### Git
 
 Git
-:	git cmd
+>	git cmd
 
 
 GitGutter
-:	显示修改部分  这个有压力
-	cd ./config/sublime\ text\ 3/Packages/
-	git clone git://github.com/jisaacks/GitGutter.git
+>显示修改部分  这个有压力
+cd ./config/sublime\ text\ 3/Packages/
+git clone git://github.com/jisaacks/GitGutter.git
 
 
 gist  
@@ -58,46 +58,69 @@ gist
 ### PHP
 
 SublimeLinter-php  
-:   PHP 检查，windows需要给出php.exe所在位置位系统变量
+>   PHP 检查，windows需要给出php.exe所在位置位系统变量
 
 
 CodeIgniter Utilities
-:    CI 
+>  CI 
 
 phpcs
-:    php class
+>  php class
 
 
 
 ### 前端
 
 SublimeLinter-jscs
-:    js 检错
+>  js 检错
 
 Emmet(ZenCoding)
-: 	前端必备，快速开发HTML/CSS，现已更名为Emmet。
+> 前端必备，快速开发HTML/CSS，现已更名为Emmet。
 
 JsFormat
-:	javascript 格式化
+> javascript 格式化
 
 JQuery
-:	jQuery 必备
+> jQuery 必备
 
 
 
 javascript Patterns
-:    js处理
+> js处理
 
 
-AngularJS Snippets   
+AngularJS Snippets
 Ionic Framework Snippets
+
+Prefixr
+> Prefixr插件能将CSS3代码自动生成针对不同的浏览器写一堆的CSS3代码前缀; 按下control + command + X（Mac）或者 ctrl + Alt + X（Windows），会转换
+
+ColorPicker
+: 	色彩调试
 
 ### golang
 
 GoSublime
-:	golang 必备,需要gocode
+>  golang 必备,需要gocode 
 
+## markdown
 
+MarkdownEditting
+
+> MarkdownEditing 从视觉和便捷性上针对 Markdown 文档的编辑进行了一系列的优化。具体如下：
+> 安装后针对 md\mdown\mmd\txt 格式文件启用插件。颜色方案仿 Byword 及 iA writer。
+> 自动匹配星号（*）、下划线（_）及反引号（`），选中文本按下以上符号能自动在所选文本前后添加配对的符号，方便粗体、斜体和代码框的输入。
+直接输入配对的符号后按下退格键（backspace），则两个符号都会被删除；直接输入配对的符号后按下空格键，则会自动删除后一个。
+对“选中文字后输入左括号”这一动作进行了调整，以便插入 markdown 链接。
+拷贝一个链接，选中文本后按下 ⌘⌥V 会自动插入内联链接。
+拷贝一个链接，选中文本后按下 ⌘⌥R 会自动插入引用链接。
+⌘⌥K 插入链接；⌘⇧K 插入图片。
+⌘⌥B 和 ⌘⌥I 分别用于加粗体和斜体。
+选中文本后按下 # 会自动在文本前后进行配对，可重复按下来定义标题级别，还可用 ⌘⇧空格 来增加 # 与所选文本之间的空格（也是自动配对的）。
+
+AcademicMarkdown 
+
+> 一种写作方式来书写markdown
 
 ## linux下中文输入fcitx解决方案
 
@@ -108,7 +131,7 @@ GoSublime
 
 	gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPI
 
-为subl启动开启此插件. 注意将下面的`pwd`修改为自己的路径.
+为subl启动开启此插件. __注意__将_下_面的`pwd`修改为自己的路径.
 
 	LD_PRELOAD=/pwd/libsublime-imfix.so sublime_text
 
@@ -122,6 +145,4 @@ sudo apt-get install libgtk2.0-dev
 
 gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
 
-
-参看<http://www.apkdv.com/ubuntu-sublime-text-3-chinese-input/>
-
+参看[ubuntu sublime3 chinese input](http://www.apkdv.com/ubuntu-sublime-text-3-chinese-input/)

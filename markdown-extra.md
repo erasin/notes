@@ -4,11 +4,6 @@ Copyright (c) 2004-2012 Michel Fortin
 <http://michelf.com/projects/php-markdown/>
 
 
-
-```html
-<p>paragraph <b>emphasis</b>
-```
-
 ## Markdown Inside HTML Blocks
 
 Previously in **Markdown**, you couldn’t wrap Markdown-formatted content inside a `<div>` element. This is because `<div>` is a block element and plain Markdown do not format the content of such.
@@ -403,3 +398,7 @@ The same apply for strong emphasis: with PHP Markdown Extra, you can no longer s
 ## Backslash Escapes
 
 PHP Markdown Extra adds the colon (:) and the pipe (|) to the list of characters you can escape using a backslash. With this you can prevent them from triggering a definition list or a table.
+
+```js
+alert()
+```
