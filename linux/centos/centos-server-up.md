@@ -69,7 +69,7 @@ yum install php php-*
 
 端口
 
-    listen = 127.0.0.1:9000                                                     
+    listen = 127.0.0.1:9000
     ; listen = /var/run/php-fpm/php-fpm.sock
 
 用户写入文件的 user:group 和权限
@@ -221,9 +221,9 @@ SSL HTTPS 配置模板
         error_log   /home/nginx/logs/fb.geely.com_error.log;
 
         location / {
-            index index.html index.php;                                                                                                           
+            index index.html index.php; 
         }
-                                                                                                                                                             
+        
         location ~ ^.+\.php{
             fastcgi_pass  127.0.0.1:9000;
             #fastcgi_pass  unix:/var/run/php5-fpm.sock;

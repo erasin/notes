@@ -1,3 +1,3 @@
 # NOTES
 
-this log of articles;
+文章整理和经验积累。

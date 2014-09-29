@@ -14,6 +14,12 @@
 
 mp3tagiconv_0.1.tar
 
+
+graphviz-2.36.0  [website](http://www.graphviz.org/Download_macos.php)
+
+
+**MongoDB** [website](http://www.mongodb.org)
+
 ## 插件
 
 **copyclip** 
@@ -23,6 +29,10 @@ mp3tagiconv_0.1.tar
 **iStat pro** 网盘
 
 > 系统信息插件
+
+**LessLyric** [官方](http://ixhan.com/lesslyrics/) [下载](http://ixhan.com/app/LessLyrics_latest.tar.gz)
+
+> iTunes 歌词插件
 
 ## 开发工具
 
@@ -38,11 +48,21 @@ android-studio-bundle
 
 > 安卓官方开发工具包
 
-git
+**Git SourceTree** [官网](http://www.sourcetreeapp.com/)
+
+> MAC下git工具包
 
 **GitHub** [站点](https://pages.github.com/) 
 
 在页面上 I don't know? 位置上有可以下载的地址。
+
+**robomongo** [官网](http://www.robomongo.org/)
+
+> MongoDB 客户端
+
+**sequel pro** [官网](http://www.sequelpro.com/)
+
+> mysql 客户端
 
 ## 工具
 
@@ -57,14 +77,19 @@ git
 **CheatSheet** [官方](http://www.cheatsheetapp.com/CheatSheet/)
 > 快捷键查询
 
-NutstoreOSX
+**NutstoreOSX**  [官方](https://jianguoyun.com/)
+
+> 坚果云同步客户端，锅内小团队制作
+
+**迅雷**
+
+> 自己去下
 
 ## 文档类别 documents
 
 **clearview** [down](http://lnmac.com/clearview/)
 
 > Clearview 是一款简洁易用的电子书阅读器，标签页浏览外观，直观好用的图书管理功能，支持 PDF, Epub, MOBI, CHM 四种流行的电子书格式，可以方便地添加注解，插入书签，及迅速的搜索查找。
-
 
 **calibre**  [官方](http://calibre-ebook.com/download_osx)
 
@@ -75,6 +100,9 @@ NutstoreOSX
 
 > Movist 是一款使用的 QuickTime 和 FFmpeg 的解码器，良好支持挂载字幕，支持多种文件格式，CPU占用率低的高清媒体播放器.
 
+**mplayerx**  [website](http://mplayerx.org/#)
+
+**vlc** [website](http://www.videolan.org/vlc/download-macosx.html)
 
 ## 图片
 

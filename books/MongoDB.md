@@ -232,7 +232,7 @@ MongoDB 是由C++语言编写的开源数据库系统。
 在高负载的情况下，添加更多的节点，可以保证服务器性能。
 
 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。
- ![mongodb-logo](/wp-content/uploads/2013/10/mongodb-logo.png) 
+ ![mongodb-logo](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-logo.png) 
 
 MongoDB 将数据存储为一个文档。MongoDB是一个基于分布式文件存储的数据库。
  <div class="code"><div> FirstName="Arun", Address="St. Xavier's Road", Spouse=[{Name:"Kiran"}], Children=[{Name:"Rihit", Age:8}]. 
@@ -327,7 +327,7 @@ Gangila是MongoDB高性能的系统监视的工具，它作为一个插件应用
 ## MongoDB 下载
 
 MongoDB提供了可用于32位和64位系统的预编译二进制包，你可以从MongoDB官网下载安装，MongoDB预编译二进制包下载地址：
-[http://www.mongodb.org/downloads](//www.mongodb.org/downloads) ![mongodb-download-windows](/wp-content/uploads/2013/10/mongodb-download-windows.png)
+[http://www.mongodb.org/downloads](//www.mongodb.org/downloads) ![mongodb-download-windows](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-download-windows.png)
 
 * * *
 
@@ -340,7 +340,7 @@ MongoDB提供了可用于32位和64位系统的预编译二进制包，你可以
 MongoDB将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它。请注意，数据目录应该抽奖在根目录下（(如： C:\ 或者 D:\ 等 )。
 
 在本教程中，我们已经在D：盘中解压了mongodb文件，现在让我们创建一个data的目录然后在data目录里创建db目录。
- ![mongodb-installation-windows](/wp-content/uploads/2013/10/mongodb-installation-windows.png) 
+ ![mongodb-installation-windows](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-installation-windows.png) 
 
 你也可以通过window的资源管理器中创建这些目录，而不一定通过命令行。
 
@@ -349,7 +349,7 @@ MongoDB将数据目录存储在 db 目录下。但是这个数据目录不会主
 ## 命令行下运行 MongoDB 服务器
 
 为了从命令提示符下运行MongoDB服务器，你必须从MongoDB目录的bin目录中执行mongod.exe文件。
- ![mongodb-run-windows-command](/wp-content/uploads/2013/10/mongodb-run-windows-command.png) 
+ ![mongodb-run-windows-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-run-windows-command.png) 
 
 * * *
 
@@ -379,16 +379,16 @@ MongoDB将数据目录存储在 db 目录下。但是这个数据目录不会主
 如果你需要进入MongoDB后台管理，你需要先打开mongodb装目录的下的bin目录，然后执行mongo.exe文件，MongoDB Shell是MongoDB自带的交互式Javascript shell,用来对MongoDB进行操作和管理的交互式环境。
 
 当你进入mongoDB后台后，它默认会链接到 test 文档（数据库）：
- ![run-mongo-shell](/wp-content/uploads/2013/10/run-mongo-shell.png) 
+ ![run-mongo-shell](http://www.w3cschool.cc/wp-content/uploads/2013/10/run-mongo-shell.png) 
 
 由于它是一个JavaScript shell，您可以运行一些简单的算术运算:
- ![run-mongo-shell2](/wp-content/uploads/2013/10/run-mongo-shell2.png) 
+ ![run-mongo-shell2](http://www.w3cschool.cc/wp-content/uploads/2013/10/run-mongo-shell2.png) 
 
 db 命令先了当前操作的文档（数据库）：
- ![run-mongo-shell-db-command](/wp-content/uploads/2013/10/run-mongo-shell-db-command.png) 
+ ![run-mongo-shell-db-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/run-mongo-shell-db-command.png) 
 
 插入一些简单的记录并查找它：
- ![mongo-first-find](/wp-content/uploads/2013/10/mongo-first-find.png) 
+ ![mongo-first-find](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongo-first-find.png) 
 
 第一个命令将10插入到w3r集合的x字段中
  
@@ -405,7 +405,7 @@ db 命令先了当前操作的文档（数据库）：
 MongoDB提供了linux平台上32位和64位的安装包，你可以在官网下载安装包。
 
 下载地址：[http://www.mongodb.org/downloads](//www.mongodb.org/downloads)
- ![download-mongodb-linux](/wp-content/uploads/2013/10/download-mongodb-linux.png) 
+ ![download-mongodb-linux](http://www.w3cschool.cc/wp-content/uploads/2013/10/download-mongodb-linux.png) 
 
 * * *
 
@@ -420,14 +420,14 @@ MongoDB提供了linux平台上32位和64位的安装包，你可以在官网下�
 MongoDB的数据存储在data目录的db目录下，但是这个目录在安装过程不会自动创建，所以你需要手动创建data目录，并在data目录中创建db目录。
 
 注意：请将data目录创建于根目录下(/)。
- ![mongodb-installation-Linux](/wp-content/uploads/2013/10/mongodb-installation-Linux.png) 
+ ![mongodb-installation-Linux](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-installation-Linux.png) 
 
 * * *
 
 ## 命令行中运行 MongoDB 服务
 
 你可以再命令行中执行mongo安装目录中的bin目录执行mongod命令来启动mongdb服务。
- ![mongodb-run-linux-command](/wp-content/uploads/2013/10/mongodb-run-linux-command.png) 
+ ![mongodb-run-linux-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-run-linux-command.png) 
 
 * * *
 
@@ -438,13 +438,13 @@ MongoDB的数据存储在data目录的db目录下，但是这个目录在安装�
 MongoDB Shell是MongoDB自带的交互式Javascript shell,用来对MongoDB进行操作和管理的交互式环境。
 
 当你进入mongoDB后台后，它默认会链接到 test 文档（数据库）：
- ![mongodb-run-linux-command1](/wp-content/uploads/2013/10/mongodb-run-linux-command1.png) 
+ ![mongodb-run-linux-command1](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-run-linux-command1.png) 
 
 由于它是一个JavaScript shell，您可以运行一些简单的算术运算:
- ![run-mongo-shell-linux2](/wp-content/uploads/2013/10/run-mongo-shell-linux2.png) 
+ ![run-mongo-shell-linux2](http://www.w3cschool.cc/wp-content/uploads/2013/10/run-mongo-shell-linux2.png) 
 
 现在让我们插入一些简单的数据，并对插入的数据进行检索：
- ![mongo-first-find-linux](/wp-content/uploads/2013/10/mongo-first-find-linux.png) 
+ ![mongo-first-find-linux](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongo-first-find-linux.png) 
 
 第一个命令是将数据 8 插入到w3r集合（表）的 z 字段中。
 
@@ -455,7 +455,7 @@ MongoDB Shell是MongoDB自带的交互式Javascript shell,用来对MongoDB进行
 在比MongoDB服务的端口多1000的端口上，你可以访问到MondoDB的web用户界面。
 
 如：如果你的MongoDB运行端口使用默认的27017，你可以在端口号为28017访问web用户界面。
- ![mongodb-web-interface](/wp-content/uploads/2013/10/mongodb-web-interface.png) 
+ ![mongodb-web-interface](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-web-interface.png) 
 
 
  
@@ -479,13 +479,13 @@ MongoDB的默认数据库为"db"，该数据库存储在data目录中。
 在MongoDB中可以创建数据库，如果你想使用MongoDB，创建数据库不是必要的。
 
 "show dbs" 命令可以显示所有数据的列表。
- ![show-dbs-command](/wp-content/uploads/2013/10/show-dbs-command.png) 
+ ![show-dbs-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/show-dbs-command.png) 
 
 执行 "db" 命令可以显示当前数据库对象或者集合。
- ![db-command](/wp-content/uploads/2013/10/db-command.png) 
+ ![db-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/db-command.png) 
 
 运行"use"命令，可以连接到一个指定的数据库。
- ![use-command](/wp-content/uploads/2013/10/use-command.png) 
+ ![use-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/use-command.png) 
 
 以上实例命令中，"student" 是你要检索的数据库。
 
@@ -523,24 +523,24 @@ bson数据可以理解为在json的基础上添加了一些json中没有的数�
 下表将帮助您更容易理解Mongo中的一些概念：
 RDBMS	|	MongoDB
 ---------|----------------------
- <td>Table（表）	|	Collection（集合）</td> 
- <td>Column（栏）	|	Key（键）</td> 
- <td>Value（值）	|	Value（值）</td> 
- <td>Records / Rows（记录/列）	|	Document / Object（文档/对象）</tbody> </table> 
+Table（表）	|	Collection（集合） 
+Column（栏）	|	Key（键） 
+Value（值）	|	Value（值） 
+Records / Rows（记录/列）	|	Document / Object（文档/对象） 
 
 下表为MongoDB中常用的几种数据类型。
 数据类型	|	描述
 ---------|----------------------
- <td>string（字符串）	|	可以是一个空字符串或者字符组合。</td> 
- <td>integer（整型）	|	整数。</td> 
- <td>boolean（布尔型）	|	逻辑值 True 或者 False。</td> 
- <td>double	|	双精度浮点型</td> 
- <td>null	|	不是0，也不是空。</td> 
- <td>array	|	数组：一系列值</td> 
- <td>object	|	对象型，程序中被使用的实体。可以是一个值，变量，函数，或者数据结构。</td> 
- <td>timestamp	|	timestamp存储为64为的值，只运行一个mongod时可以确保是唯一的。前32位保存的是UTC时间，单位是秒，后32为是在这一秒内的计数值，从0开始，每新建一个MongoTimestamp对象就加一。</td> 
- <td>Internationalized Strings	|	UTF-8 字符串。</td> 
- <td>Object IDs	|	在mongodb中的文档需要使用唯一的关键字_id来标识他们。几乎每一个mongodb文档都使用_id字段作为第一个属性（在系统集合和定容量集合（capped collection）中有一些例外）。_id值可以是任何类型，最常见的做法是使用ObjectId类型。</tbody> </table> 
+string（字符串）	|	可以是一个空字符串或者字符组合。 
+integer（整型）	|	整数。 
+boolean（布尔型）	|	逻辑值 True 或者 False。 
+double	|	双精度浮点型 
+null	|	不是0，也不是空。 
+array	|	数组：一系列值 
+object	|	对象型，程序中被使用的实体。可以是一个值，变量，函数，或者数据结构。 
+timestamp	|	timestamp存储为64为的值，只运行一个mongod时可以确保是唯一的。前32位保存的是UTC时间，单位是秒，后32为是在这一秒内的计数值，从0开始，每新建一个MongoTimestamp对象就加一。 
+Internationalized Strings	|	UTF-8 字符串。 
+Object IDs	|	在mongodb中的文档需要使用唯一的关键字_id来标识他们。几乎每一个mongodb文档都使用_id字段作为第一个属性（在系统集合和定容量集合（capped collection）中有一些例外）。_id值可以是任何类型，最常见的做法是使用ObjectId类型。 
 
 * * *
 
@@ -605,11 +605,11 @@ Capped collections是高性能自动的维护对象的插入顺序。它非常�
 在MongoDB数据库中名字空间 &lt;dbname> .system.* 是包含多种系统信息的特殊集合(Collection)，如下:
 集合命名空间	|	描述
 ---------|----------------------
- <td>dbname.system.namespaces	|	列出所有名字空间。</td> 
- <td>dbname.system.indexes	|	列出所有索引。</td> 
- <td>dbname.system.profile	|	包含数据库概要(profile)信息。</td> 
- <td>dbname.system.users	|	列出所有可访问数据库的用户。</td> 
- <td>dbname.local.sources	|	包含复制对端（slave）的服务器信息和状态。</tbody> </table> 
+dbname.system.namespaces	|	列出所有名字空间。 
+dbname.system.indexes	|	列出所有索引。 
+dbname.system.profile	|	包含数据库概要(profile)信息。 
+dbname.system.users	|	列出所有可访问数据库的用户。 
+dbname.local.sources	|	包含复制对端（slave）的服务器信息和状态。 
 
 对于修改系统集合中的对象有如下限制。
 
@@ -653,10 +653,10 @@ Capped collections是高性能自动的维护对象的插入顺序。它非常�
  
 
 当你执行以上命令时，你可以看到以下输出结果：
- ![mongodb-connect](/wp-content/uploads/2013/10/mongodb-connect.png) 
+ ![mongodb-connect](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-connect.png) 
 
 如果你检查从哪里连接到MongoDB的服务器，您可以看到如下信息：
- ![mongodb-connected](/wp-content/uploads/2013/10/mongodb-connected.png) 最后一行（标记处），打印了你成功连接上MongoDB服务的信息。 
+ ![mongodb-connected](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-connected.png) 最后一行（标记处），打印了你成功连接上MongoDB服务的信息。 
 
 * * *
 
@@ -669,7 +669,7 @@ Capped collections是高性能自动的维护对象的插入顺序。它非常�
  
  
 
-以上命令中，用户 mongo_admin使用密码AxB6_w3r连接到本地的MongoDB服务上。输出结果如下所示：&lt;、p>  ![mongodb-connect-with-username-and-password-to-default-database](/wp-content/uploads/2013/10/mongodb-connect-with-username-and-password-to-default-database.png) 
+以上命令中，用户 mongo_admin使用密码AxB6_w3r连接到本地的MongoDB服务上。输出结果如下所示：&lt;、p>  ![mongodb-connect-with-username-and-password-to-default-database](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-connect-with-username-and-password-to-default-database.png) 
 
 使用用户名和密码连接登陆到指定数据库：
 
@@ -738,25 +738,22 @@ Capped collections是高性能自动的维护对象的插入顺序。它非常�
  
  标准的连接格式包含了多个选项(options)，如下所示：
 
- 选项	|	描述
+选项	|	描述
 ---------|----------------------
- <td>replicaSet=name	|	验证replica set的名称。 Impliesconnect=replicaSet.</td> 
- <td>slaveOk=true|false	|	 
-
+replicaSet=name	|	验证replica set的名称。 Impliesconnect=replicaSet. 
+slaveOk=true|false	|
 *   true:在connect=direct模式下，驱动会连接第一台机器，即使这台服务器不是主。在connect=replicaSet模式下，驱动会发送所有的写请求到主并且把读取操作分布在其他从服务器。
-*   false: 在 connect=direct模式下，驱动会自动找寻主服务器. 在connect=replicaSet 模式下，驱动仅仅连接主服务器，并且所有的读写命令都连接到主服务器。 </td> 
- <td>safe=true|false	|	 
-
- false: 在每次更新之后，驱动不会发送getLastError来确保更新成功。</td> 
- <td>w=n	|	驱动添加 { w : n } 到getLastError命令. 应用于safe=true。</td> 
- <td>wtimeoutMS=ms	|	驱动添加 { wtimeout : ms } 到 getlasterror 命令. 应用于 safe=true.</td> 
- <td>fsync=true|false	|	 
-
+*   false: 在 connect=direct模式下，驱动会自动找寻主服务器. 在connect=replicaSet 模式下，驱动仅仅连接主服务器，并且所有的读写命令都连接到主服务器。 
+safe=true|false	|
+ false: 在每次更新之后，驱动不会发送getLastError来确保更新成功。 
+w=n	|	驱动添加 { w : n } 到getLastError命令. 应用于safe=true。 
+wtimeoutMS=ms	|	驱动添加 { wtimeout : ms } 到 getlasterror 命令. 应用于 safe=true. 
+fsync=true|false	|
 *   true: 驱动添加 { fsync : true } 到 getlasterror 命令.应用于 safe=true.
-*   false: 驱动不会添加到getLastError命令中。 </td> 
- <td>journal=true|false	|	如果设置wie true, 同步到 journal (在提交到数据库前写入到实体中). 应用于 safe=true</td> 
- <td>connectTimeoutMS=ms	|	可以打开连接的时间。</td> 
- <td>socketTimeoutMS=ms	|	发送和接受sockets的时间。</tbody> </table> 
+*   false: 驱动不会添加到getLastError命令中。 
+journal=true|false	|	如果设置wie true, 同步到 journal (在提交到数据库前写入到实体中). 应用于 safe=true 
+connectTimeoutMS=ms	|	可以打开连接的时间。 
+socketTimeoutMS=ms	|	发送和接受sockets的时间。 
 
 
  
@@ -830,7 +827,7 @@ Github上已经提供了用于window平台的预编译php mongodb驱动二进制
 重启服务器。
 
 通过浏览器访问phpinfo，如果安装成功，就会看到类型以下的信息：
- ![mongo-php-driver-installed-windows](/wp-content/uploads/2013/10/mongo-php-driver-installed-windows.png) 
+ ![mongo-php-driver-installed-windows](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongo-php-driver-installed-windows.png) 
 
 * * *
 
@@ -873,7 +870,7 @@ BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON
 
  
 
-![mongo-switch-db](/wp-content/uploads/2013/10/mongo-switch-db.png)
+![mongo-switch-db](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongo-switch-db.png)
 
 ## 为MongoDB数据库定义一个文档
 
@@ -891,13 +888,13 @@ BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON
 
 命令执行如下图所示：
 
-![mongodb-insert-command](/wp-content/uploads/2013/10/mongodb-insert-command.png)
+![mongodb-insert-command](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-insert-command.png)
 
 ## 显示已定义的文档
 
 已定义的文档显示格式如下所示：
 
-![mongodb-insert1](/wp-content/uploads/2013/10/mongodb-insert1.png)
+![mongodb-insert1](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-insert1.png)
 
 ## 在集合中插入文档
 
@@ -906,7 +903,7 @@ BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON
 
  
 
-![mongodb-insert3](/wp-content/uploads/2013/10/mongodb-insert3.png)
+![mongodb-insert3](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-insert3.png)
 
 ## 使用换行符插入数据
 
@@ -922,7 +919,7 @@ BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON
 
 命令执行如下图所示：
 
-![mongodb-insert2](/wp-content/uploads/2013/10/mongodb-insert2.png)
+![mongodb-insert2](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-insert2.png)
 
 ## 集合中直接插入数据（无定义文档）
 
@@ -974,7 +971,7 @@ BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON
 
 命令执行如下图所示：
 
-![insert-data-into-a-collection-without-defining-a-document](/wp-content/uploads/2013/10/insert-data-into-a-collection-without-defining-a-document.png)
+![insert-data-into-a-collection-without-defining-a-document](http://www.w3cschool.cc/wp-content/uploads/2013/10/insert-data-into-a-collection-without-defining-a-document.png)
 
 ## 查看集合中的数据
 
@@ -983,7 +980,7 @@ BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON
  
  
 
-![view-the-inserted-data-into-the-collection](/wp-content/uploads/2013/10/view-the-inserted-data-into-the-collection.png)
+![view-the-inserted-data-into-the-collection](http://www.w3cschool.cc/wp-content/uploads/2013/10/view-the-inserted-data-into-the-collection.png)
  
 
 
@@ -1042,7 +1039,7 @@ BBB","MR. JJJ","MR MMM"],"community_members" : [500,200,1500],"friends_id" : ["M
  
  
 
-![update-data-into-mongodb-comand](/wp-content/uploads/2013/10/update-data-into-mongodb-comand.gif)
+![update-data-into-mongodb-comand](http://www.w3cschool.cc/wp-content/uploads/2013/10/update-data-into-mongodb-comand.gif)
 
 ## 查看集合中更新后的数据
 
@@ -1051,7 +1048,7 @@ BBB","MR. JJJ","MR MMM"],"community_members" : [500,200,1500],"friends_id" : ["M
  
  
 
-![update-data-into-mongodb-view](/wp-content/uploads/2013/10/update-data-into-mongodb-view.gif)
+![update-data-into-mongodb-view](http://www.w3cschool.cc/wp-content/uploads/2013/10/update-data-into-mongodb-view.gif)
 
 ## 更多实例
 
@@ -1114,7 +1111,7 @@ MUSIC","WESTERN MUSIC"],"community_moder_id" : ["MR. BBB","MR. JJJ","MR MMM"],"c
  
  
 
-![mongodb-show-data-into-collection](/wp-content/uploads/2013/10/mongodb-show-data-into-collection.gif)
+![mongodb-show-data-into-collection](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-show-data-into-collection.gif)
 
 ## 使用 remove() 函数移除数据
 
@@ -1137,7 +1134,7 @@ MUSIC","WESTERN MUSIC"],"community_moder_id" : ["MR. BBB","MR. JJJ","MR MMM"],"c
  
  
 
-![mongodb-remove-collection](/wp-content/uploads/2013/10/mongodb-remove-collection.gif)
+![mongodb-remove-collection](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-remove-collection.gif)
 
 drop()函数返回 true或者false。以上执行结果返回了true，说明操作成功。
 
@@ -1151,7 +1148,7 @@ drop()函数返回 true或者false。以上执行结果返回了true，说明操
 执行命令前查看当前使用的数据库是一个良好的习惯，这样可以确保你要删除数据库是正确的，以免造成误操作而产生数据丢失的后果：
  ![](//www.w3resource.com/mongodb/mongodb-show-current-database.gif) 
 
-![mongodb-drop-current-database](/wp-content/uploads/2013/10/mongodb-drop-current-database.gif)
+![mongodb-drop-current-database](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-drop-current-database.gif)
  
 
 
@@ -1204,7 +1201,7 @@ GYES","FAVOURIT GAMES"],"community_moder_id" : ["MR. Paul","MR. Das","MR Doglus"
 
 输出数据如下所示：
 
-![mongodb-query-view-data](/wp-content/uploads/2013/10/mongodb-query-view-data.gif)
+![mongodb-query-view-data](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-query-view-data.gif)
 
 ##  通过指定条件读取数据
 
@@ -1220,7 +1217,7 @@ GYES","FAVOURIT GAMES"],"community_moder_id" : ["MR. Paul","MR. Das","MR Doglus"
 
 输出结果如下所示：
 
-![mongodb-fetch-document-match-criteria](/wp-content/uploads/2013/10/mongodb-fetch-document-match-criteria.gif)
+![mongodb-fetch-document-match-criteria](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-fetch-document-match-criteria.gif)
  
 
 
@@ -1245,7 +1242,7 @@ MongoDB中条件操作符有：
 
 简单的集合"testtable"：
 
-![mongodb-testtable-dot-notation-sample](/wp-content/uploads/2013/10/mongodb-testtable-dot-notation-sample.gif)
+![mongodb-testtable-dot-notation-sample](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-testtable-dot-notation-sample.gif)
 
 ## MongoDB (> ) 大于操作符 - $gt
 
@@ -1261,7 +1258,7 @@ MongoDB中条件操作符有：
 
 输出结果：
 
-![mongodb-greater-than-operator](/wp-content/uploads/2013/10/mongodb-greater-than-operator.gif)
+![mongodb-greater-than-operator](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-greater-than-operator.gif)
 
 ## MongoDB（> =）大于等于操作符 - $gte
 
@@ -1275,7 +1272,7 @@ MongoDB中条件操作符有：
 
 输出结果：
 
- ![mongodb-greater-than-equal-to-operator](/wp-content/uploads/2013/10/mongodb-greater-than-equal-to-operator.gif)
+ ![mongodb-greater-than-equal-to-operator](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-greater-than-equal-to-operator.gif)
 
 ## MongoDB (&lt;) 小于操作符 - $lt
 
@@ -1288,7 +1285,7 @@ MongoDB中条件操作符有：
 
 输出结果：
 
- ![mongodb-less-than-operator](/wp-content/uploads/2013/10/mongodb-less-than-operator.gif)
+ ![mongodb-less-than-operator](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-less-than-operator.gif)
 
 ## MongoDB (&lt;=) 小于操作符 - $lte
 
@@ -1304,7 +1301,7 @@ MongoDB中条件操作符有：
 
 输出结果：
 
- ![mongodb-less-than-equal-to-operator](/wp-content/uploads/2013/10/mongodb-less-than-equal-to-operator.gif) 
+ ![mongodb-less-than-equal-to-operator](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-less-than-equal-to-operator.gif) 
 
 ## MongoDB 使用 (&lt;) 和 (> ) 查询operator - $lt 和 $gt
 
@@ -1320,7 +1317,7 @@ MongoDB中条件操作符有：
 
 输出结果：
 
- ![mongodb-less-than-greater-than-operator](/wp-content/uploads/2013/10/mongodb-less-than-greater-than-operator.gif)
+ ![mongodb-less-than-greater-than-operator](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-less-than-greater-than-operator.gif)
  
 
 
@@ -1338,30 +1335,30 @@ MongoDB中可以使用的类型：
 
 类型描述	|	类型值
 ---------|----------------------
- <td>Double	|	1</td> 
- <td>String	|	2</td> 
- <td>Object	|	3</td> 
- <td>Array	|	4</td> 
- <td>Binary data	|	5</td> 
- <td>Object id	|	7</td> 
- <td>Boolean	|	8</td> 
- <td>Date	|	9</td> 
- <td>Null	|	10</td> 
- <td>Regular expression	|	11</td> 
- <td>JavaScript code	|	13</td> 
- <td>Symbol	|	14</td> 
- <td>JavaScript code with scope	|	15</td> 
- <td>32-bit integer	|	16</td> 
- <td>Timestamp	|	17</td> 
- <td>64-bit integer	|	18</td> 
- <td>Min key	|	255</td> 
- <td>Max key	|	127</tbody> </table> 
+Double	|	1 
+String	|	2 
+Object	|	3 
+Array	|	4 
+Binary data	|	5 
+Object id	|	7 
+Boolean	|	8 
+Date	|	9 
+Null	|	10 
+Regular expression	|	11 
+JavaScript code	|	13 
+Symbol	|	14 
+JavaScript code with scope	|	15 
+32-bit integer	|	16 
+Timestamp	|	17 
+64-bit integer	|	18 
+Min key	|	255 
+Max key	|	127 
 
 **我们使用的数据库名称为"myinfo" 我们的集合名称为"testtable"，以下为我们插入的数据。**
 
 简单的集合"testtable"：
 
-![mongodb-sample-table](/wp-content/uploads/2013/10/mongodb-sample-table.gif)
+![mongodb-sample-table](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-sample-table.gif)
 
 ## MongoDB 操作符 - $type 实例
 
@@ -1370,7 +1367,7 @@ MongoDB中可以使用的类型：
  
  
 
-![mongodb-type-operator](/wp-content/uploads/2013/10/mongodb-type-operator.gif)
+![mongodb-type-operator](http://www.w3cschool.cc/wp-content/uploads/2013/10/mongodb-type-operator.gif)
 
 ## 更多实例
 
@@ -1549,16 +1546,16 @@ ensureIndex() 接收可选参数，可选参数列表如下：
 
  <table class="reference"> <tbody><tr><th style="width:10%;">Parameter</th><th style="width:10%;">Type</th><th>Description</th>
 ---------|----------------------
-<td>background</td><td>Boolean</td><td>建索引过程会阻塞其它数据库操作，background可指定以后台方式创建索引，即增加 "background" 可选参数。 "background" 默认值为**false**。</td>
-<td>unique</td><td>Boolean</td><td>建立的索引是否唯一。指定为true创建唯一索引。默认值为**false**.</td>
-<td>name</td><td>string</td><td>索引的名称。如果未指定，MongoDB的通过连接索引的字段名和排序顺序生成一个索引名称。</td>
-<td>dropDups</td><td>Boolean</td><td>在建立唯一索引时是否删除重复记录,指定 true 创建唯一索引。默认值为 **false**.</td>
-<td>sparse</td><td>Boolean</td><td>对文档中不存在的字段数据不启用索引；这个参数需要特别注意，如果设置为true的话，在索引字段中不会查询出不包含对应字段的文档.。默认值为 **false**.</td>
-<td>expireAfterSeconds</td><td>integer</td><td>指定一个以秒为单位的数值，完成 TTL设定，设定集合的生存时间。</td>
-<td>v</td><td>index version</td><td>索引的版本号。默认的索引版本取决于mongod创建索引时运行的版本。</td>
-<td>weights</td><td>document</td><td>索引权重值，数值在 1 到 99,999 之间，表示该索引相对于其他索引字段的得分权重。</td>
-<td>default_language</td><td>string</td><td>对于文本索引，该参数决定了停用词及词干和词器的规则的列表。 默认为英语</td>
-<td>language_override</td><td>string</td><td>对于文本索引，该参数指定了包含在文档中的字段名，语言覆盖默认的language，默认值为 language.</td></tr> 
+<td>background<td>Boolean<td>建索引过程会阻塞其它数据库操作，background可指定以后台方式创建索引，即增加 "background" 可选参数。 "background" 默认值为**false**。
+<td>unique<td>Boolean<td>建立的索引是否唯一。指定为true创建唯一索引。默认值为**false**.
+<td>name<td>string<td>索引的名称。如果未指定，MongoDB的通过连接索引的字段名和排序顺序生成一个索引名称。
+<td>dropDups<td>Boolean<td>在建立唯一索引时是否删除重复记录,指定 true 创建唯一索引。默认值为 **false**.
+<td>sparse<td>Boolean<td>对文档中不存在的字段数据不启用索引；这个参数需要特别注意，如果设置为true的话，在索引字段中不会查询出不包含对应字段的文档.。默认值为 **false**.
+<td>expireAfterSeconds<td>integer<td>指定一个以秒为单位的数值，完成 TTL设定，设定集合的生存时间。
+<td>v<td>index version<td>索引的版本号。默认的索引版本取决于mongod创建索引时运行的版本。
+<td>weights<td>document<td>索引权重值，数值在 1 到 99,999 之间，表示该索引相对于其他索引字段的得分权重。
+<td>default_language<td>string<td>对于文本索引，该参数决定了停用词及词干和词器的规则的列表。 默认为英语
+<td>language_override<td>string<td>对于文本索引，该参数指定了包含在文档中的字段名，语言覆盖默认的language，默认值为 language.</tr> 
  
 
 ### 实例
@@ -1658,14 +1655,14 @@ aggregate() 方法的基本语法格式如下所示：
 下表展示了一些聚合的表达式:
  <table class="reference"> <tbody><tr><th style="width:10%;">表达式</th><th style="width:50%">描述</th><th>实例</th>
 ---------|----------------------
-<td>$sum</td><td>计算总和。</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : "$likes"}}}])</td>
-<td>$avg</td><td>计算平均值</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$avg : "$likes"}}}])</td>
-<td>$min</td><td>获取集合中所有文档对应值得最小值。</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$min : "$likes"}}}])</td>
-<td>$max</td><td>获取集合中所有文档对应值得最大值。</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$max : "$likes"}}}])</td>
-<td>$push</td><td>在结果文档中插入值到一个数组中。</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", url : {$push: "$url"}}}])</td>
-<td>$addToSet</td><td>在结果文档中插入值到一个数组中，但不创建副本。</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", url : {$addToSet : "$url"}}}])</td>
-<td>$first</td><td>根据资源文档的排序获取第一个文档数据。</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", first_url : {$first : "$url"}}}])</td>
-<td>$last</td><td>根据资源文档的排序获取最后一个文档数据</td><td>db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])</td></tr> 
+<td>$sum<td>计算总和。<td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : "$likes"}}}])
+<td>$avg<td>计算平均值<td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$avg : "$likes"}}}])
+<td>$min<td>获取集合中所有文档对应值得最小值。<td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$min : "$likes"}}}])
+<td>$max<td>获取集合中所有文档对应值得最大值。<td>db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$max : "$likes"}}}])
+<td>$push<td>在结果文档中插入值到一个数组中。<td>db.mycol.aggregate([{$group : {_id : "$by_user", url : {$push: "$url"}}}])
+<td>$addToSet<td>在结果文档中插入值到一个数组中，但不创建副本。<td>db.mycol.aggregate([{$group : {_id : "$by_user", url : {$addToSet : "$url"}}}])
+<td>$first<td>根据资源文档的排序获取第一个文档数据。<td>db.mycol.aggregate([{$group : {_id : "$by_user", first_url : {$first : "$url"}}}])
+<td>$last<td>根据资源文档的排序获取最后一个文档数据<td>db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])</tr> 
  
 
 * * *
@@ -1770,7 +1767,7 @@ mongodb各个节点常见的搭配方式为：一主一从、一主多从。
 
 MongoDB复制结构图如下所示：
 
- ![MongoDB复制结构图](/wp-content/uploads/2013/12/replication.png) 
+ ![MongoDB复制结构图](http://www.w3cschool.cc/wp-content/uploads/2013/12/replication.png) 
 
 以上结构图总，客户端总主节点读取数据，在客户端写入数据到主节点是， 主节点与从节点进行数据交互保障数据的一致性。 
 
@@ -1872,7 +1869,7 @@ MongoDB的副本集与我们常见的主从有所不同，主从在主机宕机�
 
 下图展示了在MongoDB中使用分片集群结构分布：
 
- ![](/wp-content/uploads/2013/12/sharding.png)
+ ![](http://www.w3cschool.cc/wp-content/uploads/2013/12/sharding.png)
 
 上图中主要有如下所述三个主要组件：
 
@@ -2001,13 +1998,13 @@ mongodump命令脚本语法如下：
 
 执行以上命令后，客户端会连接到ip为 127.0.0.1 端口号为 27017 的MongoDB服务上，并备份所有数据到 bin/dump/ 目录中。命令输出结果如下： 
 
- ![MongoDB数据备份](/wp-content/uploads/2013/12/mongodump.png) 
+ ![MongoDB数据备份](http://www.w3cschool.cc/wp-content/uploads/2013/12/mongodump.png) 
 
 mongodump 命令可选参数列表如下所示：
  <table class="reference"> <tbody><tr><th style="width:40%">语法</th><th style="width:30%">描述</th><th>实例</th>
-<td>mongodump --host HOST_NAME --port PORT_NUMBER</td><td>该命令将备份所有MongoDB数据</td><td>mongodump --host w3cschool.cc --port 27017</td>
-<td>mongodump --dbpath DB_PATH --out BACKUP_DIRECTORY</td><td></td><td>mongodump --dbpath /data/db/ --out /data/backup/</td>
-<td>mongodump --collection COLLECTION --db DB_NAME</td><td>该命令将备份指定数据库的集合。</td><td>mongodump --collection mycol --db test</td></tr> 
+<td>mongodump --host HOST_NAME --port PORT_NUMBER<td>该命令将备份所有MongoDB数据<td>mongodump --host w3cschool.cc --port 27017
+<td>mongodump --dbpath DB_PATH --out BACKUP_DIRECTORY<td><td>mongodump --dbpath /data/db/ --out /data/backup/
+<td>mongodump --collection COLLECTION --db DB_NAME<td>该命令将备份指定数据库的集合。<td>mongodump --collection mycol --db test</tr> 
  
 
 * * *
@@ -2047,7 +2044,7 @@ mongorestore命令脚本语法如下：
 
 执行以上命令输出结果如下：
 
- ![MongoDB数据恢复](/wp-content/uploads/2013/12/mongorestore.png) 
+ ![MongoDB数据恢复](http://www.w3cschool.cc/wp-content/uploads/2013/12/mongorestore.png) 
  
 
 
@@ -2073,7 +2070,7 @@ D:\set up\mongodb\bin> mongostat
 
 
 以上命令输出结果如下：
- ![](/wp-content/uploads/2013/12/mongostat.png) 
+ ![](http://www.w3cschool.cc/wp-content/uploads/2013/12/mongostat.png) 
 
 ##  mongotop 命令
 
@@ -2088,7 +2085,7 @@ D:\set up\mongodb\bin> mongotop
 
 以上命令执行输出结果如下：
 
-![](/wp-content/uploads/2013/12/mongotop.png) 
+![](http://www.w3cschool.cc/wp-content/uploads/2013/12/mongotop.png) 
 
 带参数实例
 
@@ -2097,7 +2094,7 @@ D:\set up\mongodb\bin> mongotop
 ```
 
 
- ![](/wp-content/uploads/2013/12/29122412-e32a9f09e46e496a8833433fdb421311.gif) 
+ ![](http://www.w3cschool.cc/wp-content/uploads/2013/12/29122412-e32a9f09e46e496a8833433fdb421311.gif) 
 
  后面的10是_&lt;sleeptime> _参数 ，可以不使用，等待的时间长度，以秒为单位，mongotop等待调用之间。通过的默认mongotop返回数据的每一秒。 
 
@@ -2108,7 +2105,7 @@ D:\set up\mongodb\bin> mongotop
 
 报告每个数据库的锁的使用中，使用mongotop - 锁，这将产生以下输出： 
 
- ![](/wp-content/uploads/2013/12/29122706-bfdd58e62c404b948f8039c489f8be81.gif) 
+ ![](http://www.w3cschool.cc/wp-content/uploads/2013/12/29122706-bfdd58e62c404b948f8039c489f8be81.gif) 
 
 输出结果字段说明：
 
@@ -3877,7 +3874,7 @@ RockMongo是PHP5写的一个MongoDB管理工具。
 
 它提供了非常人性化的操作。类似 phpMyAdmin（PHP开发的MySql管理工具）。
 
-Rockmongo 下载地址：[http://rockmongo.com/downloads](//rockmongo.com/downloads) ![Rockmongo 管理工具](/wp-content/uploads/2014/08/rockmongo.png) 
+Rockmongo 下载地址：[http://rockmongo.com/downloads](//rockmongo.com/downloads) ![Rockmongo 管理工具](http://www.w3cschool.cc/wp-content/uploads/2014/08/rockmongo.png) 
 
 * * *
 

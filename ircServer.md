@@ -1,6 +1,5 @@
 #irc server
 
-
 **freenode**
 
 * server: irc.freenode.net 
