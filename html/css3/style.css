@@ -1,0 +1,14 @@
+
+.green{
+	color : green;
+}
+
+.red{
+	color:red;
+	padding: 3px;
+}
+
+.border-radius{
+	border:1px solid #333;
+	border-radius: 5px;
+}

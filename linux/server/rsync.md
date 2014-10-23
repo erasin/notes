@@ -9,7 +9,9 @@
 
 视频文件和图片文件比较大，不适合监控具体内容，利用 rsync 同步文件夹，可以快速计算文件夹对比索引同步。
 
-	rsync --log-file="/local/rsync.log" -az --delete -e ssh user@ssh-server-ip:/server/pwd /local/pwd
+```bash
+    rsync --log-file="/local/rsync.log" -az --delete -e ssh user@ssh-server-ip:/server/pwd /local/pwd
+```
 
 > 不使用同步删除时，去除  `--delete` 即可。
 
@@ -33,9 +35,9 @@
 
 如果没有库索引则建立git库
 
-	$ git init 
-	$ git add .
-	$ git commit -a -m "site source init"
+    $ git init 
+    $ git add .
+    $ git commit -a -m "site source init"
 
 > **建议** 建立分支 `develop` 开发分支，本地运行成功后推送到服务器，然后合并到`master`供同步端拉取
 
@@ -43,7 +45,7 @@
 
 拷贝站点
 
-	$ git clone user@ip:/pwd/.git
+    $ git clone user@ip:/pwd/.git
 
 每5m 更新下拉 master 分支 文件数据。
 
@@ -59,8 +61,8 @@
 3. 有变动的时候则将变动文件提交到临时git分支中，并删除。 之后拉取服务器A的变动内容
 4. 同时将被篡改的内容部分写入到日志文件中去。
 
-- - - - - - - 
 
+```bash
     #!/bin/bash
     # file : /pwd/shell/gitpull.sh
 
@@ -99,12 +101,14 @@
         echo '拉取'
         git pull >> $gitlog
     fi
+```
 
 添加执行
 
-	$ crontab -e
-	*/5 * * * * /pwd/shell/gitpull.sh
-
+```bash
+    $ crontab -e
+    */5 * * * * /pwd/shell/gitpull.sh
+```
 
 > 会产生5m的时间差。
 
@@ -114,56 +118,58 @@
 
 > 非均衡负载，可查阅[mysql 主从同步](mysql-master-slave.md)
 
-	#!/bin/bash
-	# filename: bakmysql.sh
+```bash
+    #!/bin/bash
+    # filename: bakmysql.sh
 
-	# set path 文件存储位置
+    # set path 文件存储位置
 
-	bakpath='/pwd/backup/'
-	logfile='/pwd/backup/bak.log'
+    bakpath='/pwd/backup/'
+    logfile='/pwd/backup/bak.log'
 
-	themonth=${bakpath}`date +%y%m`'/'
-	theday=${themonth}`date +%d`'/' 
-	thetime=${theday}`date +%Y%m%d%H%M`'.dbname.sql.bak' 
+    themonth=${bakpath}`date +%y%m`'/'
+    theday=${themonth}`date +%d`'/' 
+    thetime=${theday}`date +%Y%m%d%H%M`'.dbname.sql.bak' 
 
-	declare -i month=`date +%y%m`
-	month=$month-2
+    declare -i month=`date +%y%m`
+    month=$month-2
 
-	echo '' >> $logfile
-	echo `date +%D\ %T` >> $logfile
+    echo '' >> $logfile
+    echo `date +%D\ %T` >> $logfile
 
-	for i in `ls -F $bakpath`; do
-		if [[ -d $bakpath$i ]]; then
-			if [[ $i < $month ]]; then
-				echo 'delete out 2 month '$i >> $logfile
-				rm -rf ${bakpath}$i
-			fi
-		fi
-	done
+    for i in `ls -F $bakpath`; do
+        if [[ -d $bakpath$i ]]; then
+            if [[ $i < $month ]]; then
+                echo 'delete out 2 month '$i >> $logfile
+                rm -rf ${bakpath}$i
+            fi
+        fi
+    done
 
-	if [[ -d $themonth ]]; then
-		echo $themonth 'is exist;' >> $logfile
-	else
-		echo 'makedir ' $theday >> $logfile
-		mkdir -p $theday
-	fi
+    if [[ -d $themonth ]]; then
+        echo $themonth 'is exist;' >> $logfile
+    else
+        echo 'makedir ' $theday >> $logfile
+        mkdir -p $theday
+    fi
 
-	if [[ -d $theday ]]; then
-		echo $theday 'is exist;' >> $logfile
-	else
-		echo 'makedir ' $theday >> $logfile
-		mkdir $theday
-	fi
+    if [[ -d $theday ]]; then
+        echo $theday 'is exist;' >> $logfile
+    else
+        echo 'makedir ' $theday >> $logfile
+        mkdir $theday
+    fi
 
-	echo 'bakup mysqldatabase dbname - '${thetime} >> $logfile
-	mysqldump -uroot -p123456 dbname > $thtime 
+    echo 'bakup mysqldatabase dbname - '${thetime} >> $logfile
+    mysqldump -uroot -p123456 dbname > $thtime 
 
-	# -h host
-
+    # -h host
+```
 
 添加每 30m 执行 
 
+```bash
     $ crontab -e
     */30 * * * * /pwd/shell/mysqlbak.sh
-
+```
 

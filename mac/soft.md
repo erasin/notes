@@ -85,6 +85,10 @@ android-studio-bundle
 
 > 自己去下
 
+**Language Switcher** [官方](http://www.tj-hd.co.uk/en-gb/languageswitcher/)
+
+语言制定
+
 ## 文档类别 documents
 
 **clearview** [down](http://lnmac.com/clearview/)
@@ -123,6 +127,10 @@ android-studio-bundle
 > Autodesk SketchBook Pro 专为与平板电脑或数码笔手写板配合使用而设计，提供了业界顶级工具：快速感应式铅笔、马克笔和画笔；钢笔驱动式图层；背景模板；75笔划放弃/重做选项以及独一无二的平移/缩放工具，并且使用精心设计、简洁明了的用户界面以及快速直观的工作流程，在数分钟内您即可以获得高质量的数字草图。
 
 更多的画笔需要购买
+
+**Simple Comic** [官网](http://dancingtortoise.com/simplecomic/)
+
+> 漫画阅读器
 
 ## 游戏
 

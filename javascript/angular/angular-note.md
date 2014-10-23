@@ -5,10 +5,9 @@ category: unkown
 date: 2014-03-10
 modifiedOn: 2014-12-22
 -->
-#AngularJS
+# AngularJS
 
 原始文档<http://zouyesheng.com/angular.html>
-
 
 # 1. 关于AngularJS
 
@@ -32,58 +31,56 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
 
 我们从一个完整的例子开始认识 ng ：
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8" />
 
-<title>试验</title>
+    <title>试验</title>
 
-<script type="text/javascript" src="jquery-1.8.3.js"></script>
-<script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="angular.js"></script>
 
-</head>
-<body>
-<div ng-controller="BoxCtrl">
-<div style="width: 100px; height: 100px; background-color: red;"
-ng-click="click()"></div>
-<p>{{ w }} x {{ h }}</p>
-<p>W: <input type="text" ng-model="w" /></p>
-<p>H: <input type="text" ng-model="h" /></p>
-</div>
+    </head>
+    <body>
+    <div ng-controller="BoxCtrl">
+    <div style="width: 100px; height: 100px; background-color: red;"
+    ng-click="click()"></div>
+    <p>{{ w }} x {{ h }}</p>
+    <p>W: <input type="text" ng-model="w" /></p>
+    <p>H: <input type="text" ng-model="h" /></p>
+    </div>
 
-<script type="text/javascript" charset="utf-8">
-var BoxCtrl = function($scope, $element){
+    <script type="text/javascript" charset="utf-8">
+    var BoxCtrl = function($scope, $element){
 
-//$element 就是一个 jQuery 对象
-var e = $element.children().eq(0);
-$scope.w = e.width();
-$scope.h = e.height();
+    //$element 就是一个 jQuery 对象
+    var e = $element.children().eq(0);
+    $scope.w = e.width();
+    $scope.h = e.height();
 
-$scope.click = function(){
-   $scope.w = parseInt($scope.w) + 10;
-   $scope.h = parseInt($scope.h) + 10;
-}
+    $scope.click = function(){
+       $scope.w = parseInt($scope.w) + 10;
+       $scope.h = parseInt($scope.h) + 10;
+    }
 
-$scope.$watch('w',
-   function(to, from){
-     e.width(to);
-   }
-);
+    $scope.$watch('w',
+       function(to, from){
+         e.width(to);
+       }
+    );
 
-$scope.$watch('h',
-   function(to, from){
-     e.height(to);
-   }
-);
-}
+    $scope.$watch('h',
+       function(to, from){
+         e.height(to);
+       }
+    );
+    }
 
-angular.bootstrap(document.documentElement);
-</script>
-</body>
-</html>
-```
+    angular.bootstrap(document.documentElement);
+    </script>
+    </body>
+    </html>
 
 从上面的代码中，我们看到在通常的 HTML 代码当中，引入了一些标记，这些就是 ng 的模板机制，它不光完成数据渲染的工作，还实现了数据绑定的功能。
 
@@ -93,13 +90,15 @@ angular.bootstrap(document.documentElement);
 
 最后，可以使用：
 
+```javascript
 	angular.bootstrap(document.documentElement);
+```
 
 来把整个页面驱动起来了。（你可以看到一个可被控制大小的红色方块）
 
 更完整的方法是定义一个 APP ：
 
-```
+```html
 <!DOCTYPE html>
 <html ng-app="MyApp">
 <head>
@@ -148,6 +147,7 @@ app.controller('TestCtrl',
 var app = angular.module('Demo', [], angular.noop);
 angular.bootstrap(document, ['Demo']);
 ```
+
 使用 angular.bootstrap 来显示地做初始化工具，参数指明了根节点，装载的模块（可以是多个模块）。
 
 # 4. 依赖注入
