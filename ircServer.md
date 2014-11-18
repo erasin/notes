@@ -1,4 +1,4 @@
-#irc server
+# irc server
 
 **freenode**
 

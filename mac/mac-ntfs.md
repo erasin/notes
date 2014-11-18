@@ -14,3 +14,9 @@ http://bbs.feng.com/read-htm-tid-1042827.html
         #!/bin/sh
         /sbin/mount_ntfs.orig -o rw "$@"
     sudo chmod 755 /sbin/mount_ntfs
+
+## cli
+
+	sudo mount -t ntfs -o rw,auto,nobrowse /dev/disk3s1 ~/Desktop/external
+
+http://sourceforge.net/projects/ntfsfree/

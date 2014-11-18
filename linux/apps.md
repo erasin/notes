@@ -83,6 +83,9 @@
  
 * tcpdump
 * ethereal
+
+* bower  nodejs 包管理器
+* brew   mac管理器
  
 http://fanqiang.chinaunix.net/a5/b6/20010911/1500001274.html
  

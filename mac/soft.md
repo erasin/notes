@@ -6,7 +6,7 @@
 
 > 套件管理器
 
-安装命令
+安装命令，更新的时候注意
 
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 

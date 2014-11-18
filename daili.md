@@ -4,6 +4,7 @@
 ## SSH帐号
 
 服务器地址： you.sshchina.com 
+服务器地址： v23.sshchina.com 
 
 
 ## WIN 软件
@@ -31,6 +32,8 @@ ssh代理软件 [Myentunnel][Myentunnel-down]
 
 
 ## chrome 插件
+
+<http://switchysharp.com/install.html>
 
 [Proxy SwitchySharp][chrome-prx-ext]
 
