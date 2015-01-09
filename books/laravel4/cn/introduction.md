@@ -8,13 +8,13 @@
 
 学习一门框架既令人生畏，又令人兴奋。为了提供平稳的学习体验，我们尝试为Laravel创建了清晰简明的文档。下面列出了推荐的阅读顺序：
 
-- [安装](/docs/installation) 和 [配置](/docs/configuration)
-- [路由](/docs/routing)
-- [请求与输入](/docs/requests)
-- [视图与响应](/docs/responses)
-- [控制器](/docs/controllers)
+- [安装](installation) 和 [配置](/docs/configuration.md)
+- [路由](routing.md)
+- [请求与输入](requests.md)
+- [视图与响应](responses.md)
+- [控制器](controllers.md)
 
-通过阅读这些文档，你应该能够掌握Laravel框架对于基本请求/响应的处理。下一步你可能希望阅读 [配置数据库](/docs/database), [查询构造器](/docs/queries), 以及 [Eloquent ORM](/docs/eloquent)。或者你想要了解 [身份验证和安全](/docs/security) 以便在你的应用中实现用户登录功能。
+通过阅读这些文档，你应该能够掌握Laravel框架对于基本请求/响应的处理。下一步你可能希望阅读 [配置数据库](database), [查询构造器](/docs/queries), 以及 [Eloquent ORM](/docs/eloquent)。或者你想要了解 [身份验证和安全](/docs/security.md) 以便在你的应用中实现用户登录功能。
 
 <a name="laravel-philosophy"></a>
 ## Laravel哲学

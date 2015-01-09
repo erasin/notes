@@ -9,7 +9,7 @@
 <a name="introduction"></a>
 ## 简介
 
-Migrations是一种数据库版本控制功能.它允许团队开发者修改数据库结构,并使其保持最新状态.Migrations通常和[结构生成器](/docs/schema) 配合使用来管理您的应用程序结构.
+Migrations是一种数据库版本控制功能.它允许团队开发者修改数据库结构,并使其保持最新状态.Migrations通常和[结构生成器](schema.md) 配合使用来管理您的应用程序结构.
 
 <a name="creating-migrations"></a>
 ## 创建数据迁移

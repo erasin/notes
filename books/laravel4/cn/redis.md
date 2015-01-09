@@ -62,7 +62,7 @@ Redis的配置信息存储在 **app/config/database.php** 文件内. 在这个�
 
 	$values = Redis::lrange('names', 5, 10);
 
-> **注意:** Redis [cache(缓存)](/docs/cache) 和 [session](/docs/session) 驱动程序已经包含在Laravel框架内.
+> **注意:** Redis [cache(缓存)](cache) 和 [session](/docs/session.md) 驱动程序已经包含在Laravel框架内.
 
 <a name="pipelining"></a>
 ## 流水线(Pipelining)

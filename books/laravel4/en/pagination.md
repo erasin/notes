@@ -26,7 +26,7 @@ There are several ways to paginate items. The simplest is by using the `paginate
 
 #### Paginating An Eloquent Model
 
-You may also paginate [Eloquent](/docs/eloquent) models:
+You may also paginate [Eloquent](eloquent.md) models:
 
 	$allUsers = User::paginate(15);
 

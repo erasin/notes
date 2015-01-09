@@ -9,7 +9,7 @@
 <a name="basic-controllers"></a>
 ## 基本控制器
 
-与在单个`routes.php`文件中定义所有的路由逻辑不同，你可能想要使用多个控制器类来组织控制器逻辑行为。控制器可以将与之相关的路由逻辑组织进一个类中，同时控制器也能使用一些更加高级的框架特性例如自动[依赖注入](/docs/ioc)。
+与在单个`routes.php`文件中定义所有的路由逻辑不同，你可能想要使用多个控制器类来组织控制器逻辑行为。控制器可以将与之相关的路由逻辑组织进一个类中，同时控制器也能使用一些更加高级的框架特性例如自动[依赖注入](ioc.md)。
 
 
 控制器一般放在`app/controllers`目录下，这个目录默认会在你的`composer.json`文件的`classmap`选项中被注册。但是，从技术上来说，控制器可以存放在任意目录或者子目录中。路由声明并不依赖于控制器类文件在磁盘中的具体为止。因此，只要Composer能够知道在怎样自动加载控制器类，具体的控制器文件可以放在任何你想存放的地方。
@@ -59,7 +59,7 @@
 <a name="controller-filters"></a>
 ## 控制器过滤器
 
-[过滤器](/docs/routing#route-filters) 可以在控制器的路由中指定，它和"一般的"路由很相似：
+[过滤器](routing.md#route-filters) 可以在控制器的路由中指定，它和"一般的"路由很相似：
 
 	Route::get('profile', array('before' => 'auth',
 				'uses' => 'UserController@showProfile'));

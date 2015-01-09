@@ -23,6 +23,12 @@
 * xlock              # 锁屏
 * xclip              # 剪贴板
 * yuicompressor      # js,css 压缩机
+* uglifyjs           # [npm] 压缩机
+
+## package manager
+
+* gem 
+* npm
  
 ## game
  
@@ -86,6 +92,10 @@
 
 * bower  nodejs 包管理器
 * brew   mac管理器
+
+## 工具
+
+* pdf2html
  
 http://fanqiang.chinaunix.net/a5/b6/20010911/1500001274.html
  

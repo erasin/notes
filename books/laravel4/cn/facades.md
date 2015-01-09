@@ -10,11 +10,11 @@
 <a name="introduction"></a>
 ## 介绍
 
-Facades（一种设计模式，通常翻译为外观模式）提供了一个"static"（静态）接口去访问注册到[IoC 容器](/docs/4.2/ioc)中的类 。Laravel 含有很多 facades，你可能不知道其实你在某些地方已经使用过它们了。Laravel的"facades"就像"静态代理方法"，为IoC容器中的类服务，相比传统的静态方法，在保持了更强的可测试性和灵活性的同时，它提供更简洁，更富有表现力的语法。
+Facades（一种设计模式，通常翻译为外观模式）提供了一个"static"（静态）接口去访问注册到[IoC 容器](4.2/ioc.md)中的类 。Laravel 含有很多 facades，你可能不知道其实你在某些地方已经使用过它们了。Laravel的"facades"就像"静态代理方法"，为IoC容器中的类服务，相比传统的静态方法，在保持了更强的可测试性和灵活性的同时，它提供更简洁，更富有表现力的语法。
 
 有时候， 你可能想为你的应用程序或包创建自己的 facades， 所以，让我们来讨论一下如何开发和使用这些类。
 
-> **注意：** 在深入 facades 之前，我们强烈建议你多了解一下 Laravel [IoC 容器](/docs/4.2/ioc)。
+> **注意：** 在深入 facades 之前，我们强烈建议你多了解一下 Laravel [IoC 容器](4.2/ioc.md)。
 
 <a name="explanation"></a>
 ## 说明
@@ -84,7 +84,7 @@ Facades（一种设计模式，通常翻译为外观模式）提供了一个"sta
 		return new \PaymentGateway\Payment;
 	});
 
-最好注册该绑定的位置是创建一个新的名为`PaymentServiceProvider`[服务提供器](/docs/4.2/ioc#service-providers)，并且将该绑定加入到 `register` 方法。接下来你就可以配置 Laravel `app/config/app.php` 配置文件来加载该服务提供器。
+最好注册该绑定的位置是创建一个新的名为`PaymentServiceProvider`[服务提供器](4.2/ioc.md#service-providers)，并且将该绑定加入到 `register` 方法。接下来你就可以配置 Laravel `app/config/app.php` 配置文件来加载该服务提供器。
 
 接下来，我们就可以创建我们的 facade 类：
 
@@ -107,12 +107,12 @@ Facades（一种设计模式，通常翻译为外观模式）提供了一个"sta
 <a name="mocking-facades"></a>
 ## 模拟Facades
 
-单元测试是 facades 工作的重要体现。事实上，可测试性是 facedes 存在的主要原因。要了解更多信息，查看文档[模拟 facades](/docs/4.2/testing#mocking-facades)部分。
+单元测试是 facades 工作的重要体现。事实上，可测试性是 facedes 存在的主要原因。要了解更多信息，查看文档[模拟 facades](4.2/testing.md#mocking-facades)部分。
 
 <a name="facade-class-reference"></a>
 ## Facade 类参考
 
-下面你会找到所有的facade以及其包含的类。这是一个非常有用的工具，可以根据给定的facade快速定位到API文档。适用于[IoC 绑定](/docs/ioc) 的也同时给出了其key。
+下面你会找到所有的facade以及其包含的类。这是一个非常有用的工具，可以根据给定的facade快速定位到API文档。适用于[IoC 绑定](ioc.md) 的也同时给出了其key。
 
 
 Facade  |  Class  |  IoC Binding

@@ -88,7 +88,7 @@ Laravel 框架的所有配置文件都存储于 `app/config` 目录。每个文�
 <a name="provider-configuration"></a>
 ### 提供者配置
 
-当使用环境配置，你可能想要 "追加" 环境 [服务提供者](/docs/ioc#service-providers) 到你的基础 `app` 配置文件中。然而，如果你尝试这么做，你需要注意这个环境 `app` 提供者将会完全覆盖你的基础 `app` 配置文件中的值。要强制追加提供者，需要在你的环境 `app` 配置文件中使用 `append_config` 辅助函数：
+当使用环境配置，你可能想要 "追加" 环境 [服务提供者](ioc.md#service-providers) 到你的基础 `app` 配置文件中。然而，如果你尝试这么做，你需要注意这个环境 `app` 提供者将会完全覆盖你的基础 `app` 配置文件中的值。要强制追加提供者，需要在你的环境 `app` 配置文件中使用 `append_config` 辅助函数：
 
 	'providers' => append_config(array(
 		'LocalOnlyServiceProvider',
@@ -99,7 +99,7 @@ Laravel 框架的所有配置文件都存储于 `app/config` 目录。每个文�
 
 对于 "真实" 的应用程序，保持你所有的敏感配置信息位于配置文件之外，这是明智的。诸如数据库密码，第三方 API 密钥，加密密钥等尽可能的放置于配置文件之外。所以，要放在哪里呢？谢天谢地，Laravel 提供了一个非常简单的方案来保护这些配置项，使用 "点" 风格的文件。
 
-首先，[设置你的应用程序](/docs/configuration#environment-configuration) 识别你的机器是在 `local` 环境下。接着，在你项目的根目录创建一个 `.env.local.php` 文件，这通常与包含 `composer.json` 文件的目录相同。这个 `.env.local.php` 必须返回一个键值对数组，就像一个典型的 Laravel 配置文件：
+首先，[设置你的应用程序](configuration.md#environment-configuration) 识别你的机器是在 `local` 环境下。接着，在你项目的根目录创建一个 `.env.local.php` 文件，这通常与包含 `composer.json` 文件的目录相同。这个 `.env.local.php` 必须返回一个键值对数组，就像一个典型的 Laravel 配置文件：
 
 	<?php
 
@@ -143,4 +143,4 @@ Laravel 框架的所有配置文件都存储于 `app/config` 目录。每个文�
 
 ### 维护模式 & 队列
 
-在你的应用程序处于维护模式期间，不会有 [队列工作](/docs/queues) 被处理。一旦应用程序退出维护模式，这些工作将继续正常处理。
+在你的应用程序处于维护模式期间，不会有 [队列工作](queues.md) 被处理。一旦应用程序退出维护模式，这些工作将继续正常处理。

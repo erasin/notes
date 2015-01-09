@@ -123,11 +123,11 @@ Laravel 提供了几个方法使用 IoC 容器增强应用程序可扩展性和�
 
 	}
 
-在这个例子中，`OrderRepository` 将会自动注入到控制器。意味着当 [单元测试](/docs/4.2/testing) 模拟请求时，`OrderRepository` 将会绑定到容器以及注入到控制器中，允许无痛与数据库层交互。
+在这个例子中，`OrderRepository` 将会自动注入到控制器。意味着当 [单元测试](4.2/testing.md) 模拟请求时，`OrderRepository` 将会绑定到容器以及注入到控制器中，允许无痛与数据库层交互。
 
 #### IoC 使用的其他例子
 	
-[过滤器](/docs/4.2/routing#route-filters), [composers](/docs/4.2/responses#view-composers), 和 [事件句柄](/docs/4.2/events#using-classes-as-listeners)也能够从IoC容器中获取到。当注册它们的时候，只需要把它们使用的类名简单给出即可：
+[过滤器](4.2/routing#route-filters), [composers](/docs/4.2/responses#view-composers), 和 [事件句柄](/docs/4.2/events.md#using-classes-as-listeners)也能够从IoC容器中获取到。当注册它们的时候，只需要把它们使用的类名简单给出即可：
 
 	Route::filter('foo', 'FooFilter');
 

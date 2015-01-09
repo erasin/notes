@@ -8,13 +8,13 @@
 
 Learning a new framework can be daunting, but it's also exciting. To smooth your transition, we've attempted to create very clear, concise documentation for Laravel. Here are some recommendations for what to read first:
 
-- [Installation](/docs/installation) and [Configuration](/docs/configuration)
-- [Routing](/docs/routing)
-- [Requests & Input](/docs/requests)
-- [Views & Responses](/docs/responses)
-- [Controllers](/docs/controllers)
+- [Installation](installation) and [Configuration](/docs/configuration.md)
+- [Routing](routing.md)
+- [Requests & Input](requests.md)
+- [Views & Responses](responses.md)
+- [Controllers](controllers.md)
 
-After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](/docs/database), the [fluent query builder](/docs/queries), and the [Eloquent ORM](/docs/eloquent). Or, you may wish to read about [authentication and security](/docs/security) so you can start signing people into your application.
+After reading through these documents, you should have a good grasp on basic request / response handling in Laravel. Next, you may wish to read about [configuring your database](database), the [fluent query builder](/docs/queries), and the [Eloquent ORM](/docs/eloquent). Or, you may wish to read about [authentication and security](/docs/security.md) so you can start signing people into your application.
 
 <a name="laravel-philosophy"></a>
 ## Laravel Philosophy
