@@ -8,7 +8,7 @@
 
 vsftpd 服务
 
-	# service vsftpd status 
+	# service vsftpd status
 	# service vsftpd start
 	# service vsftpd stop
 	# service vsftpd restart
@@ -46,16 +46,16 @@ vsftpd 服务
 	chroot_local_user=YES
 	chroot_list_enable=YES
 	chroot_list_file=/etc/vsftpd/chroot_list
-	nopriv_user=ftpsecure 
+	nopriv_user=ftpsecure
 
 	idle_session_timeout=600
 	data_connection_timeout=120
 
 	dirmessage_enable=YES
-	xferlog_enable=YES 
-	xferlog_file=/var/log/xferlog 
+	xferlog_enable=YES
+	xferlog_file=/var/log/xferlog
 
-	listen_port=2121 
+	listen_port=2121
 
 参数                                                            | 说明
 ----------------------------------------------------------------|---------------------------------
@@ -96,7 +96,7 @@ download_enable= YES                                            | 是否允许�
 
 IP限制：`/etc/hosts.allow`
 
-	vsftpd:192.168.5.128:DENY 
+	vsftpd:192.168.5.128:DENY
 
 设置该IP地址不可以访问ftp服务
 
@@ -158,14 +158,24 @@ GUN/Linux Debian / ubuntu 使用牛力安装
 
 在默认的基础上添加禁止用户访问其他的目录
 
+	chroot_local_user=NO
 	chroot_list_enable=YES
 	chroot_list_file=/etc/vsftpd/chroot_list
 
+这样配置， 凡是写在/etc/vsftpd/chroot_list中的用户都是受限制的用户。
 去创建 `/etc/vsftpd/chroot_list`,并将要使用的ftp帐号添加其中。
 
     touch /etc/vsftpd/chroot_list
     echo username >> /etc/vsftpd/chroot_list
     service vsftpd restart
+
+另外一种
+
+	chroot_local_user=YES
+	chroot_list_enable=YES
+	chroot_list_file=/etc/vsftpd/chroot_list
+
+这样配置， 凡是写在/etc/vsftpd/chroot_list中的用户都是非限制的用户。
 
 ### 帐号
 
@@ -173,9 +183,9 @@ GUN/Linux Debian / ubuntu 使用牛力安装
 
 	useradd -s /sbin/nologin -d /pwd/dir -G groupname username  
 
-一般在服务器上，站点文件都在nginx或apache下， 
+一般在服务器上，站点文件都在nginx或apache下，
 
-* nginx 的默认组和帐号 有 `www:www` 或 `http:http`,`nginx:nginx` 具体查看`nginx.conf` 配置文件 
+* nginx 的默认组和帐号 有 `www:www` 或 `http:http`,`nginx:nginx` 具体查看`nginx.conf` 配置文件
 * apache 默认组和帐号 `apache:apache` , `web:web`, `http:http`
 
 查看系统上所有的帐号
@@ -183,7 +193,7 @@ GUN/Linux Debian / ubuntu 使用牛力安装
 	cat /etc/passwd
 
 查看系统上组
- 
+
 	cat /etc/group
 
 
@@ -208,7 +218,7 @@ GUN/Linux Debian / ubuntu 使用牛力安装
 
 如出现 `500 OOPS`... 错误
 
-    setsebool allow_ftpd_full_access 1 
+    setsebool allow_ftpd_full_access 1
 
 或
 

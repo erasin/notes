@@ -53,7 +53,7 @@ define(function () {
 		method2: function() {},
     };
 });
- 
+
 ```
 
 后一种写法的自由度更高一点，可以在函数体内写一些模块初始化代码。
@@ -134,7 +134,7 @@ define(
 
 ```javascript
 
-define(['math', 'graph'], 
+define(['math', 'graph'],
     function ( math, graph ) {
 		return {
             plot: function(x, y){
@@ -155,7 +155,7 @@ define(['math', 'graph'],
 define(('__proto__' in {} ? ['zepto'] : ['jquery']), function($) {
     return $;
 });
- 
+
 ```
 
 上面代码定义了一个中间模块，该模块先判断浏览器是否支持__proto__属性（除了IE，其他浏览器都支持），如果返回true，就加载zepto库，否则加载jQuery库。
@@ -204,18 +204,18 @@ define(function (require) {
 
 define(function ( require ) {
     var isReady = false, foobar;
- 
+
     require(['foo', 'bar'], function (foo, bar) {
         isReady = true;
         foobar = foo() + bar();
     });
- 
+
     return {
         isReady: isReady,
         foobar: foobar
     };
 });
- 
+
 ```
 
 上面代码所定义的模块，内部加载了foo和bar两个模块，在没有加载完成前，isReady属性值为false，加载完成后就变成了true。因此，可以根据isReady属性的值，决定下一步的动作。
@@ -225,7 +225,7 @@ define(function ( require ) {
 ```javascript
 
 define(['lib/Deferred'], function( Deferred ){
-    var defer = new Deferred(); 
+    var defer = new Deferred();
     require(['lib/templates/?index.html','lib/data/?stats'],
         function( template, data ){
             defer.resolve({ template: template, data:data });
@@ -242,7 +242,7 @@ define(['lib/Deferred'], function( Deferred ){
 
 ```javascript
 
-require( [ 
+require( [
     "http://someapi.com/foo?callback=define"
 ], function (data) {
     console.log(data);
@@ -255,10 +255,10 @@ require方法允许添加第三个参数，即错误处理的回调函数。
 ```javascript
 
 require(
-    [ "backbone" ], 
+    [ "backbone" ],
     function ( Backbone ) {
         return Backbone.View.extend({ /* ... */ });
-    }, 
+    },
     function (err) {
 		// ...
     }
@@ -345,7 +345,7 @@ require.config({
 
 ```
 
-上面代码中的backbone和underscore就是非AMD规范的库。shim指定它们的依赖关系（backbone依赖于underscore），以及输出符号（backbone为“Backbone”，underscore为“_”）。
+上面代码中的backbone和underscore就是非AMD规范的库。shim指定它们的依赖关系（backbone依赖于underscore），以及输出符号（backbone为“Backbone”，underscore为“`_`”）。
 
 ## 插件
 
@@ -516,6 +516,6 @@ node r.js -o build.js
 
 - NaorYe, [Optimize (Concatenate and Minify) RequireJS Projects](http://www.webdeveasy.com/optimize-requirejs-projects/)
 - Jonathan Creamer, [Deep dive into Require.js](http://tech.pro/tutorial/1300/deep-dive-into-requirejs)
-- Addy Osmani, [Writing Modular JavaScript With AMD, CommonJS & ES Harmony](http://addyosmani.com/writing-modular-js/) 
-- Jim Cowart, [Five Helpful Tips When Using RequireJS](http://tech.pro/blog/1561/five-helpful-tips-when-using-requirejs) 
+- Addy Osmani, [Writing Modular JavaScript With AMD, CommonJS & ES Harmony](http://addyosmani.com/writing-modular-js/)
+- Jim Cowart, [Five Helpful Tips When Using RequireJS](http://tech.pro/blog/1561/five-helpful-tips-when-using-requirejs)
 - Jim Cowart, [Using r.js to Optimize Your RequireJS Project](http://tech.pro/blog/1639/using-rjs-to-optimize-your-requirejs-project)
