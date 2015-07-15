@@ -97,7 +97,7 @@ b)错误的Json返回示例:
 </ul>
 每企业创建帐号数不可超过帐号上限数*3/月
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.020 seconds
 Real time usage: 0.026 seconds
@@ -174,7 +174,7 @@ EncodingAESKey用于消息体的加密，是AES密钥的Base64编码。
 <ul>
 <li>回调数据格式：</li>
 </ul>
-<pre>&lt;xml&gt; 
+<pre>&lt;xml&gt;
    &lt;ToUserName&gt;&lt;![CDATA[toUser]]&lt;/ToUserName&gt;
    &lt;AgentID&gt;&lt;![CDATA[toAgentID]]&lt;/AgentID&gt;
    &lt;Encrypt&gt;&lt;![CDATA[msg_encrypt]]&lt;/Encrypt&gt;
@@ -285,7 +285,7 @@ Https请求方式: GET
 }
 </pre>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.060 seconds
 Real time usage: 0.063 seconds
@@ -306,7 +306,7 @@ Expensive parser function count: 0/100
 
 注意，**每个部门的直属员工上限为1000个**；出于安全考虑，**某些接口需要在管理端有明确的授权**。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.004 seconds
 Real time usage: 0.003 seconds
@@ -498,7 +498,7 @@ Https请求方式: GET
 <tr><td> parentid</td><td> 父亲部门id。根部门为1</td></tr>
 </tbody></table>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.016 seconds
 Real time usage: 0.016 seconds
@@ -891,7 +891,7 @@ Https请求方式: POST
 <tr><td> errmsg</td><td> 对返回码的文本描述内容</td></tr>
 <tr><td> type</td><td> 1:微信邀请 2.邮件邀请</td></tr></tbody></table>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.056 seconds
 Real time usage: 0.062 seconds
@@ -1219,7 +1219,7 @@ Https请求方式: GET
    ]
 }
 </pre>
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.036 seconds
 Real time usage: 0.034 seconds
@@ -1238,7 +1238,7 @@ Expensive parser function count: 0/100
 
 注意，**每个多媒体文件（media_id）会在上传到微信服务器3天后自动删除**，以节省服务器资源。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.000 seconds
 Real time usage: 0.001 seconds
@@ -1299,7 +1299,7 @@ Https请求方式: POST
 
 普通文件（file）：10MB
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.012 seconds
 Real time usage: 0.015 seconds
@@ -1342,12 +1342,12 @@ a)正确时返回：
 <pre>{
    HTTP/1.1 200 OK
    Connection: close
-   Content-Type: image/jpeg 
+   Content-Type: image/jpeg
    Content-disposition: attachment; filename="MEDIA_ID.jpg"
    Date: Sun, 06 Jan 2013 10:20:18 GMT
    Cache-Control: no-cache, must-revalidate
    Content-Length: 339721
-   
+
    Xxxx
 }
 </pre>
@@ -1358,7 +1358,7 @@ b)错误时返回（这里省略了HTTP首部）：
 }
 </pre>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.007 seconds
@@ -1379,7 +1379,7 @@ Expensive parser function count: 0/100
 
 企业在接收消息，以及发送被动响应消息时，数据包以xml格式组成，以AES方式加密传输。具体可参考'建立连接'中的'回调模式'一节。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.000 seconds
 Real time usage: 0.001 seconds
@@ -1470,7 +1470,7 @@ Http请求方式: POST
 <tr><td> Event</td><td> 事件类型，subscribe(订阅)、unsubscribe(取消订阅)</td></tr>
 <tr><td> AgentID</td><td> 企业应用的id，整型。可在应用的设置页面获取；如果id为0，则表示是整个企业号的关注/取消关注事件</td></tr></tbody></table>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.011 seconds
@@ -1508,7 +1508,7 @@ Http请求方式: POST
 ### **text消息**
 <pre>&lt;xml&gt;
    &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
-   &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt; 
+   &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
    &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
    &lt;Content&gt;&lt;![CDATA[this is a test]]&gt;&lt;/Content&gt;
@@ -1627,7 +1627,7 @@ Http请求方式: POST
 <tr><td> MsgId</td><td> 消息id，64位整型</td></tr>
 <tr><td> AgentID</td><td> 企业应用的id，整型。可在应用的设置页面查看</td></tr></tbody></table>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.024 seconds
 Real time usage: 0.027 seconds
@@ -1985,7 +1985,7 @@ Http请求方式: POST
 <tr><td> Event</td><td> 事件类型，enter_agent</td></tr>
 <tr><td> EventKey</td><td> 事件KEY值，此事件该值为空</td></tr>
 </tbody></table>
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.052 seconds
 Real time usage: 0.059 seconds
@@ -2027,7 +2027,7 @@ Expensive parser function count: 0/100
 ### **text消息**
 <pre>&lt;xml&gt;
    &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;
-   &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt; 
+   &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;
    &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
    &lt;Content&gt;&lt;![CDATA[this is a test]]&gt;&lt;/Content&gt;
@@ -2115,7 +2115,7 @@ Expensive parser function count: 0/100
    &lt;ArticleCount&gt;2&lt;/ArticleCount&gt;
    &lt;Articles&gt;
        &lt;item&gt;
-           &lt;Title&gt;&lt;![CDATA[title1]]&gt;&lt;/Title&gt; 
+           &lt;Title&gt;&lt;![CDATA[title1]]&gt;&lt;/Title&gt;
            &lt;Description&gt;&lt;![CDATA[description1]]&gt;&lt;/Description&gt;
            &lt;PicUrl&gt;&lt;![CDATA[picurl]]&gt;&lt;/PicUrl&gt;
            &lt;Url&gt;&lt;![CDATA[url]]&gt;&lt;/Url&gt;
@@ -2142,7 +2142,7 @@ Expensive parser function count: 0/100
 <tr><td> PicUrl</td><td> 图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200</td></tr>
 <tr><td> Url</td><td> 点击图文消息跳转链接</td></tr></tbody></table>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.024 seconds
 Real time usage: 0.027 seconds
@@ -2162,7 +2162,7 @@ Expensive parser function count: 0/100
 
 目前支持文本、图片、语音、视频、文件、图文等消息类型。除了news类型，其它类型的消息可在发送时加上保密选项，保密消息会被打上水印，并且只有接收者才能阅读。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.000 seconds
 Real time usage: 0.003 seconds
@@ -2207,7 +2207,7 @@ Https请求方式: POST
 }
 </pre>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.004 seconds
 Real time usage: 0.006 seconds
@@ -2380,7 +2380,7 @@ Expensive parser function count: 0/100
                "description": "Description",
                "url": "URL",
                "picurl": "PIC_URL"
-           }    
+           }
        ]
    }
 }
@@ -2452,7 +2452,7 @@ Expensive parser function count: 0/100
 <tr><td> show_cover_pic</td><td> 否</td><td> 是否显示封面，1为显示，0为不显示</td></tr>
 <tr><td> safe</td><td> 否</td><td> 表示是否是保密消息，0表示否，1表示是，默认0</td></tr></tbody></table>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.048 seconds
 Real time usage: 0.052 seconds
@@ -2472,7 +2472,7 @@ Expensive parser function count: 0/100
 
 注意，在操作应用的菜单时，**应用必须处于回调模式；菜单最多为两级，一级菜单最多为3个，二级菜单最多为5个**。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.004 seconds
 Real time usage: 0.003 seconds
@@ -2514,7 +2514,7 @@ Https请求方式: POST
 click和view类型请求包如下：
 <pre>{
    "button":[
-       {    
+       {
            "type":"click",
            "name":"今日歌曲",
            "key":"V1001_TODAY_MUSIC"
@@ -2541,48 +2541,48 @@ click和view类型请求包如下：
 <pre>{
     "button": [
         {
-            "name": "扫码", 
+            "name": "扫码",
             "sub_button": [
                 {
-                    "type": "scancode_waitmsg", 
-                    "name": "扫码带提示", 
-                    "key": "rselfmenu_0_0", 
+                    "type": "scancode_waitmsg",
+                    "name": "扫码带提示",
+                    "key": "rselfmenu_0_0",
                     "sub_button": [ ]
-                }, 
+                },
                 {
-                    "type": "scancode_push", 
-                    "name": "扫码推事件", 
-                    "key": "rselfmenu_0_1", 
+                    "type": "scancode_push",
+                    "name": "扫码推事件",
+                    "key": "rselfmenu_0_1",
                     "sub_button": [ ]
                 }
             ]
-        }, 
+        },
         {
-            "name": "发图", 
+            "name": "发图",
             "sub_button": [
                 {
-                    "type": "pic_sysphoto", 
-                    "name": "系统拍照发图", 
-                    "key": "rselfmenu_1_0", 
+                    "type": "pic_sysphoto",
+                    "name": "系统拍照发图",
+                    "key": "rselfmenu_1_0",
                    "sub_button": [ ]
-                 }, 
+                 },
                 {
-                    "type": "pic_photo_or_album", 
-                    "name": "拍照或者相册发图", 
-                    "key": "rselfmenu_1_1", 
+                    "type": "pic_photo_or_album",
+                    "name": "拍照或者相册发图",
+                    "key": "rselfmenu_1_1",
                     "sub_button": [ ]
-                }, 
+                },
                 {
-                    "type": "pic_weixin", 
-                    "name": "微信相册发图", 
-                    "key": "rselfmenu_1_2", 
+                    "type": "pic_weixin",
+                    "name": "微信相册发图",
+                    "key": "rselfmenu_1_2",
                     "sub_button": [ ]
                 }
             ]
-        }, 
+        },
         {
-            "name": "发送位置", 
-            "type": "location_select", 
+            "name": "发送位置",
+            "type": "location_select",
             "key": "rselfmenu_2_0"
         }
     ]
@@ -2614,7 +2614,7 @@ click和view类型请求包如下：
 }
 </pre>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.024 seconds
 Real time usage: 0.030 seconds
@@ -2655,7 +2655,7 @@ Https请求方式：GET
 }
 </pre>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.010 seconds
@@ -2692,7 +2692,7 @@ Https请求方式：GET
 </ul>
 返回结果与菜单创建的参数一致。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.009 seconds
@@ -2720,7 +2720,7 @@ Expensive parser function count: 0/100
 
 注意，此URL的域名，**必须完全匹配企业应用设置项中的'可信域名'**，否则获取用户信息时会返回50001错误码。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.000 seconds
 Real time usage: 0.002 seconds
@@ -2752,7 +2752,7 @@ Expensive parser function count: 0/100
 <tr><td> #wechat_redirect</td><td> 是</td><td> 微信终端使用此参数判断是否需要带上身份信息</td></tr></tbody></table>
 员工点击后，页面将跳转至 redirect_uri/?code=CODE&amp;state=STATE，企业可根据code参数获得员工的userid。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.014 seconds
@@ -2806,7 +2806,7 @@ a)正确时返回示例如下：
 }
 </pre>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.012 seconds
 Real time usage: 0.011 seconds
@@ -3395,7 +3395,7 @@ addrSign的生成规则与JS-SDK权限验证的签名生成规则相同（参考
 邮件主题：【微信JS-SDK反馈】
 邮件内容说明：
 用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.100 seconds
 Real time usage: 0.100 seconds
@@ -3433,7 +3433,7 @@ Expensive parser function count: 0/100
 
 授权完成之后，企业号就可使用应用提供商所提供的应用服务了。一切将变得简单自然。以下章节将对每一个操作过程做具体的介绍和说明。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.011 seconds
@@ -3505,7 +3505,7 @@ Expensive parser function count: 0/100
 <th style="width:240px">应用参数内容</th><th>说明</th></tr>
 <tr><td> callbackurl</td><td> 用于接收托管企业号应用的用户消息，URL支持使用$CORPID$模板参数表示corpid，推送事件时会替换为企业的corpid。</td></tr>
 <tr><td> 特殊权限</td><td> 应用的特殊权限为上报地理位置的功能开关，若在创建应用时勾选了此特殊权限，在授权会提示用户。</td></tr></tbody></table>
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.020 seconds
 Real time usage: 0.026 seconds
@@ -3554,7 +3554,7 @@ Expensive parser function count: 0/100
 <tr><td> 使用应用发消息、自定义菜单、oAuth 2.0等接口</td><td> 读写</td></tr>
 <tr>
 <th style="width:120px"> 通讯录</th><td> 授权的通讯录（包括成员、部门、标签）</td><td> 读写</td></tr></tbody></table>
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.020 seconds
 Real time usage: 0.024 seconds
@@ -3657,8 +3657,8 @@ https请求方式: POST
 **POST数据示例**
 <pre>{
     "suite_id":"id_value" ,
-    "suite_secret": "secret_value", 
-    "suite_ticket": "ticket_value" 
+    "suite_secret": "secret_value",
+    "suite_ticket": "ticket_value"
 }
 </pre>
 **请求参数说明**
@@ -3674,7 +3674,7 @@ https请求方式: POST
     "expires_in":7200
 }
 </pre>
- 
+
 **结果参数说明**
 <table border="1" cellspacing="0" cellpadding="4" align="center" width="640px">
 <tbody><tr>
@@ -3743,10 +3743,10 @@ https请求方式: POST
 <tr><td> auth_code</td><td> 临时授权码会在授权成功时附加在redirect_uri中跳转回应用提供商网站。</td></tr></tbody></table>
 **返回结果示例**
 <pre>{
-    "access_token": "xxxxxx", 
-    "expires_in": 7200, 
-    "permanent_code": "xxxx", 
-    "auth_corp_info": 
+    "access_token": "xxxxxx",
+    "expires_in": 7200,
+    "permanent_code": "xxxx",
+    "auth_corp_info":
     {
         "corpid": "xxxx",
         "corp_name": "name",
@@ -3756,9 +3756,9 @@ https请求方式: POST
         "corp_user_max": "50",
         "corp_agent_max": "30"
     },
-    "auth_info": 
+    "auth_info":
     {
-    "agent"&nbsp;: 
+    "agent"&nbsp;:
         [
             {
                 "agentid":"1",
@@ -3789,7 +3789,7 @@ https请求方式: POST
     }
 }
 </pre>
- 
+
 **结果参数说明**
 <table border="1" cellspacing="0" cellpadding="4" align="center" width="640px">
 <tbody><tr>
@@ -3922,9 +3922,13 @@ https请求方式: POST
 
 https请求方式: POST
 
+```html
 <a rel="nofollow" class="external free" href="https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token=xxxx">https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token=xxxx</a>
+```
 
 **POST数据示例**
+
+```html
 <pre>{
     "suit_id":"suit_id_value" ,
     "auth_corpid": "auth_corpid_value",
@@ -3977,7 +3981,11 @@ https请求方式: POST
     "isreportuser":0
 }
 </pre>
+```
+
 **结果参数说明**
+
+```html
 <table border="1" cellspacing="0" cellpadding="4" align="center" width="640px">
 <tbody><tr>
 <th style="width:240px">参数</th><th>说明</th></tr>
@@ -3993,6 +4001,7 @@ https请求方式: POST
 <tr><td> redirect_domain</td><td> 授权方企业应用可信域名</td></tr>
 <tr><td> report_location_flag</td><td> 授权方企业应用是否打开地理位置上报  0：不上报；1：进入会话上报；2：持续上报</td></tr>
 <tr><td> isreportuser</td><td> 是否接收用户变更通知。0：不接收；1：接收</td></tr></tbody></table>
+```
 
 ### **设置企业号应用**
 该API用于设置授权方的企业应用的选项设置信息，如：地理位置上报等。注意，获取各项选项设置信息，需要有授权方的授权。
@@ -4008,7 +4017,7 @@ https请求方式: POST
     "suite_id":"id_value",
     "auth_corpid": "auth_corpid_value",
     "permanent_code ": "code_value",
-    "agent": 
+    "agent":
     {
         "agentid": "5",
         "report_location_flag": "0",
@@ -4067,18 +4076,18 @@ https请求方式: POST
 <tr><td> permanent_code</td><td> 永久授权码，通过get_permanent_code获取</td></tr></tbody></table>
 **返回结果示例**
 <pre>{
-    "access_token": "xxxxxx", 
-    "expires_in": 7200, 
+    "access_token": "xxxxxx",
+    "expires_in": 7200,
 }
 </pre>
- 
+
 **结果参数说明**
 <table border="1" cellspacing="0" cellpadding="4" align="center" width="640px">
 <tbody><tr>
 <th style="width:240px">参数</th><th>说明</th></tr>
 <tr><td> access_token</td><td> 授权方（企业）access_token</td></tr>
 <tr><td> expires_in</td><td> 授权方（企业）access_token超时时间</td></tr></tbody></table>
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.184 seconds
 Real time usage: 0.196 seconds
@@ -4104,7 +4113,7 @@ Expensive parser function count: 0/100
         &lt;InfoType&gt; &lt;![CDATA[suite_ticket]]&gt;&lt;/InfoType&gt;
         &lt;TimeStamp&gt;1403610513&lt;/TimeStamp&gt;
         &lt;SuiteTicket&gt;&lt;![CDATA[asdfasfdasdfasdf]]&gt;&lt;/SuiteTicket&gt;
-    &lt;/xml&gt;    
+    &lt;/xml&gt;
 }
 </pre>
 应用提供商在收到ticket推送后需要返回字符串success。
@@ -4135,7 +4144,7 @@ Expensive parser function count: 0/100
         &lt;InfoType&gt;&lt;![CDATA[change_auth]]&gt;&lt;/InfoType&gt;
         &lt;TimeStamp&gt;1403610513&lt;/TimeStamp&gt;
         &lt;AuthCorpId&gt;&lt;![CDATA[wxf8b4f85f3a794e77]]&gt;&lt;/AuthCorpId&gt;
-    &lt;/xml&gt;    
+    &lt;/xml&gt;
 }
 </pre>
 应用提供商在收到推送消息后需要返回字符串success
@@ -4166,7 +4175,7 @@ Expensive parser function count: 0/100
         &lt;InfoType&gt;&lt;![CDATA[cancel_auth]]&gt;&lt;/InfoType&gt;
         &lt;TimeStamp&gt;1403610513&lt;/TimeStamp&gt;
         &lt;AuthCorpId&gt;&lt;![CDATA[wxf8b4f85f3a794e77]]&gt;&lt;/AuthCorpId&gt;
-    &lt;/xml&gt;    
+    &lt;/xml&gt;
 }
 </pre>
 应用提供商在收到推送消息后需要返回字符串success
@@ -4185,7 +4194,7 @@ Expensive parser function count: 0/100
 
 注意需要将corpid替换为suiteid，并忽略AgentID参数
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.016 seconds
 Real time usage: 0.022 seconds
@@ -4225,7 +4234,7 @@ Expensive parser function count: 0/100
 小  
 <div class="center"><div class="floatnone"><a href="/wiki/index.php?title=%E6%96%87%E4%BB%B6:Bd-x.png" class="image"><img alt="Bd-x.png" src="/wiki/images/c/ca/Bd-x.png" width="168" height="30"></a></div></div>
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.124 seconds
 Real time usage: 0.150 seconds
@@ -4242,7 +4251,7 @@ Expensive parser function count: 0/100
 
 附录包含了企业号回调企业时加解密的详细方案、库和示例代码的下载，以及企业号api接口返回的错误码。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.000 seconds
 Real time usage: 0.001 seconds
@@ -4306,7 +4315,7 @@ AES加密的buf由16个字节的随机字符串、4个字节的msg长度、明�
 
 4.去掉rand_msg头部的16个随机字节，4个字节的msg_len,和尾部的$CorpID即为最终的消息体原文msg
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.008 seconds
 Real time usage: 0.011 seconds
@@ -4403,7 +4412,7 @@ Expensive parser function count: 0/100
 
 2.WXBizMsgCrypt.cs封装了VerifyURL, DecryptMsg, EncryptMsg三个接口，分别用于开发者验证回调url、接收消息的解密以及开发者回复消息的加密过程。使用方法可以参考Sample.cs文件。
 
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.024 seconds
 Real time usage: 0.028 seconds
@@ -4420,6 +4429,7 @@ Expensive parser function count: 0/100
 
 企业号每次调用接口时，可能获得正确或错误的返回码，企业可以根据返回码信息调试接口，排查错误。
 
+```
 **全局返回码说明如下：**
 <table border="1" cellspacing="0" cellpadding="4" align="center" width="640px">
 <tbody><tr>
@@ -4597,7 +4607,7 @@ Expensive parser function count: 0/100
 <tr><td> 60113</td><td> 身份认证信息（微信号/手机/邮箱）不能同时为空</td></tr>
 <tr><td> 60114</td><td> 性别不合法</td></tr>
 <tr><td> 60023</td><td> 应用已授权予第三方，不允许通过分级管理员修改菜单</td></tr></tbody></table>
-<!-- 
+<!--
 NewPP limit report
 CPU time usage: 0.020 seconds
 Real time usage: 0.019 seconds
@@ -4610,5 +4620,4 @@ Expensive parser function count: 0/100
 -->
 <!-- Saved in parser cache with key db_wiki:pcache:idhash:25-0!*!*!*!*!*!* and timestamp 20150116090425 and revision id 683
  -->
-
-
+```
