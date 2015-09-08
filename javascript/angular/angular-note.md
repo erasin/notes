@@ -1,6 +1,6 @@
 <!--
-title: AngularJS 
-layout: page 
+title: AngularJS
+layout: page
 category: unkown
 date: 2014-03-10
 modifiedOn: 2014-12-22
@@ -30,7 +30,7 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
 # 3. 开始的例子
 
 我们从一个完整的例子开始认识 ng ：
-
+```html
     <!DOCTYPE html>
     <html>
     <head>
@@ -81,7 +81,7 @@ ng 可以和 jQuery 集成工作，事实上，如果没有 jQuery ， ng 自己
     </script>
     </body>
     </html>
-
+```
 从上面的代码中，我们看到在通常的 HTML 代码当中，引入了一些标记，这些就是 ng 的模板机制，它不光完成数据渲染的工作，还实现了数据绑定的功能。
 
 同时，在 HTML 中的本身的 DOM 层级结构，被 ng 利用起来，直接作为它的内部机制中，上下文结构的判断依据。比如例子中 p 是 div 的子节点，那么 p 中的那些模板标记就是在 div 的 Ctrl 的作用范围之内。
@@ -325,6 +325,7 @@ input 中的值变化时，矩形的长度也要变化
 
 最开始，我们面对的应该是这样一个东西：
 
+```html
       <div ng-controller="TestCtrl">
           <div style="width: 100px; height: 10px; background-color: red"></div>
           <input type="text" name="width" ng-model="width" />
@@ -336,9 +337,10 @@ input 中的值变化时，矩形的长度也要变化
       }
       angular.bootstrap(document.documentElement);
       </script>
-
+```
 我们从响应数据变化，但又不使用 change 事件的角度来看，可以这样处理宽度变化：
 
+```js
       var TestCtrl = function($scope, $element){
           $scope.width = 100;
           $scope.$watch('width',
@@ -347,11 +349,12 @@ input 中的值变化时，矩形的长度也要变化
             }
           );
       }
+```
 
 使用 $watch() 来绑定数据变化。
 
 当然，这种样式的问题，有更直接有效的手段， ng 的数据绑定总是让人惊异：
-
+```js
       <div ng-controller="TestCtrl">
       <div style="width: 10px; height: 10px; background-color: red" ng-style="style">
       </div>
@@ -365,7 +368,7 @@ input 中的值变化时，矩形的长度也要变化
       }
       angular.bootstrap(document.documentElement);
       </script>
-
+```
 # 7. 模板
 
 前面讲了数据绑定之后，现在可以单独讲讲模板了。
@@ -384,46 +387,54 @@ input 中的值变化时，矩形的长度也要变化
 
 直接引入同域的外部文件作为模板的一部分：
 
-        <div ng-include src="'tpl.html'">
-        </div>
-        
-        <div ng-include="'tpl.html'">
-        </div>
+```js
+<div ng-include src="'tpl.html'">
+</div>
+
+<div ng-include="'tpl.html'">
+</div>
+```
 
 注意， src 中的字符串会作为表达式处理（可以是 $scope 中的变量），所以，直接写名字的话需要使用引号。
 
 引入 script 定义的“内部文件”：
 
-        <script type="text/ng-template" id="tpl">
-        here, {{ 1 + 1 }}
-        </script>
-        
-        <div ng-include src="'tpl'"></div>
-    
+```html
+<script type="text/ng-template" id="tpl">
+here, {{ 1 + 1 }}
+</script>
+
+<div ng-include src="'tpl'"></div>
+```
+
 配合变量使用：
 
-        <script type="text/ng-template" id="tpl">
-        here, {{ 1 + 1 }}
-        </script>
-        
-        <a ng-click="v='tpl'">Load</a>
-        <div ng-include src="v"></div>
+```html
+<script type="text/ng-template" id="tpl">
+here, {{ 1 + 1 }}
+</script>
+
+<a ng-click="v='tpl'">Load</a>
+<div ng-include src="v"></div>
+```
 
 ## 7.2. 内容渲染控制
 
 ### 7.2.1. 重复 ng-repeat
 这算是唯一的一个控制标签么……，它的使用方法类型于：
 
+```html
         <div ng-controller="TestCtrl">
           <ul ng-repeat="member in obj_list">
             <li>{{ member }}</li>
           </ul>
         </div>
-        
-        
+
+
         var TestCtrl = function($scope){
           $scope.obj_list = [1,2,3,4];
         }
+```
 
 除此之外，它还提供了几个变量可供使用：
 
@@ -438,7 +449,7 @@ input 中的值变化时，矩形的长度也要变化
             <li>{{ $index }}, {{ member.name }}</li>
           </ul>
         </div>
-        
+
         var TestCtrl = function($scope){
           $scope.obj_list = [{name: 'A'}, {name: 'B'}, {name: 'C'}];
         }
@@ -553,16 +564,16 @@ form 的行为中依赖它里面的各个输入控制的状态的，在这里，
           <input type="text" name="a" required ng-model="a"  />
           <span ng-click="see()">{{ test_form.$valid }}</span>
         </form>
-        
+
         var TestCtrl = function($scope){
-        
+
           $scope.see = function(){
             console.log($scope.test_form);
             console.log($scope.test_form.a);
           }
-        
+
         }
-        
+
 除去对象的方法与属性， form 这个标签本身有一些动态类可以使用：
 
 
@@ -586,7 +597,7 @@ $error 表单的验证错误
       <input type="text" name="b" required ng-model="b" ng-minlength="2" />
       <span ng-click="see()">{{ test_form.$error }}</span>
     </form>
-    
+
     var TestCtrl = function($scope){
       $scope.see = function(){
         console.log($scope.test_form.$error);
@@ -623,7 +634,7 @@ input type="email" 多了 email 错误类型。
           <input type="checkbox" name="a" ng-model="a" ng-true-value="AA" ng-false-value="BB" />
           <span>{{ a }}</span>
         </form>
-        
+
         var TestCtrl = function($scope){
           $scope.a = 'AA';
         }
@@ -657,14 +668,14 @@ controller 中的初始化值会关系到控件状态（双向绑定）。
             <option value="">可以加这个空值</option>
           </select>
         </form>
-        
+
         <script type="text/javascript">
         var TestCtrl = function($scope){
           $scope.show = function(){
             console.log($scope.a);
           }
         }
-    
+
         angular.bootstrap(document.documentElement);
         </script>
 
@@ -705,19 +716,19 @@ controller 中的初始化值会关系到控件状态（双向绑定）。
           <select ng-model="a" ng-options="k for (k, v) in o" ng-change="show()">
           </select>
         </form>
-        
+
         <form name="test_form" ng-controller="TestCtrl"
               ng-init="o={a: {name: 'AA', v: '00'}, b: {name: 'BB', v: '11'}}; a=o.a.v;">
           <select ng-model="a" ng-options="v.v as v.name for (k, v) in o" ng-change="show()">
           </select>
         </form>
-        
+
         <form name="test_form" ng-controller="TestCtrl"
               ng-init="o={a: {name: 'AA', v: '00', g: '=='}, b: {name: 'BB', v: '11', g: '=='}}; a=o.a;">
           <select ng-model="a" ng-options="v.name group by v.g for (k, v) in o" ng-change="show()">
           </select>
         </form>
-        
+
         <form name="test_form" ng-controller="TestCtrl"
               ng-init="o={a: {name: 'AA', v: '00', g: '=='}, b: {name: 'BB', v: '11', g: '=='}}; a=o.a.v;">
           <select ng-model="a" ng-options="v.v as v.name group by v.g for (k, v) in o" ng-change="show()">
@@ -739,8 +750,8 @@ orderBy 是一个排序用的过滤器标签。它可以像 sort 函数那样支
       {{ data | orderBy: '-age' | limitTo: 2 }} <br />
       {{ data | orderBy: ['-age', 'name'] }} <br />
     </div>
-    
-    
+
+
     <script type="text/javascript">
     var TestCtrl = function($scope){
       $scope.data = [
@@ -750,7 +761,7 @@ orderBy 是一个排序用的过滤器标签。它可以像 sort 函数那样支
         {name: 'C', age: 3},  
       ];
     }
-    
+
     angular.bootstrap(document.documentElement);
     </script>
 8.2. 过滤列表 filter
@@ -763,8 +774,8 @@ filter 是一个过滤内容的标签。
       {{ data | filter: 'b' }} <br />
       {{ data | filter: '!B' }} <br />
     </div>
-    
-    
+
+
     <script type="text/javascript">
     var TestCtrl = function($scope){
       $scope.data = [
@@ -774,7 +785,7 @@ filter 是一个过滤内容的标签。
         {name: 'C', age: 3},  
       ];
     }
-    
+
     angular.bootstrap(document.documentElement);
     </script>
 可以使用对象，来指定属性名， $ 表示任意属性：
@@ -787,8 +798,8 @@ filter 是一个过滤内容的标签。
     <div ng-controller="TestCtrl">
       {{ data | filter: f }} <br />
     </div>
-    
-    
+
+
     <script type="text/javascript">
     var TestCtrl = function($scope){
       $scope.data = [
@@ -797,12 +808,12 @@ filter 是一个过滤内容的标签。
         {name: 'D', age: 3},  
         {name: 'C', age: 3},  
       ];
-    
+
       $scope.f = function(e){
         return e.age > 2;
       }
     }
-    
+
     angular.bootstrap(document.documentElement);
     </script>
 8.3. 其它
@@ -812,12 +823,12 @@ filter 是一个过滤内容的标签。
     <div ng-controller="TestCtrl">
     {{ a | date: 'yyyy-MM-dd HH:mm:ss' }}
     </div>
-    
+
     <script type="text/javascript">
     var TestCtrl = function($scope){
       $scope.a = ((new Date().valueOf()));
     }
-    
+
     angular.bootstrap(document.documentElement);
     </script>
 列表截取 limitTo ，支持正负数：
@@ -836,14 +847,14 @@ filter 是一个过滤内容的标签。
            <th ng-click="f='name'; rev=!rev">名字</th>
            <th ng-click="f='age'; rev=!rev">年龄</th>
          </tr>
-     
+
          <tr ng-repeat="o in data | orderBy: f : rev">
            <td>{{ o.name }}</td>
            <td>{{ o.age }}</td>
          </tr>
        </table>
      </div>
-     
+
      <script type="text/javascript">
      var TestCtrl = function($scope){
        $scope.data = [
@@ -853,10 +864,10 @@ filter 是一个过滤内容的标签。
          {name: 'C', age: 3},  
        ];
      }
-     
+
      angular.bootstrap(document.documentElement);
      </script>
-     
+
 8.5. 例子：搜索
 
     <div ng-controller="TestCtrl" ng-init="s=data[0].name; q=''">
@@ -867,7 +878,7 @@ filter 是一个过滤内容的标签。
               ng-options="o.name as o.name + '(' + o.age + ')' for o in data | filter: {name: q} | orderBy: ['age', 'name'] ">
       </select>
     </div>
-    
+
     <script type="text/javascript">
     var TestCtrl = function($scope){
       $scope.data = [
@@ -877,7 +888,7 @@ filter 是一个过滤内容的标签。
         {name: 'C', age: 3},  
       ];
     }
-    
+
     angular.bootstrap(document.documentElement);
     </script>
 9. 锚点路由
@@ -900,11 +911,11 @@ ng 中的锚点路由功能是由几部分 API 共同完成的一整套方案。
 
     <html ng-app="ngView">
       ... ...
-    
+
     <div ng-view></div>
-    
+
     <script type="text/javascript">
-    
+
     angular.module('ngView', [],
       function($routeProvider){
         $routeProvider.when('/test',
@@ -914,7 +925,7 @@ ng 中的锚点路由功能是由几部分 API 共同完成的一整套方案。
         );
       }
     );
-    
+
     </script>
 首先看 ng-view 这个 directive ，它是一个标记“锚点作用区”的指令。目前页面上只能有一个“锚点作用区”。有人已经提了，“多个可命名”的锚点作用区的代码到官方，但是目前官方还没有接受合并，我觉得多个作用区这个功能是很重要的，希望下个发布版中能有。
 
@@ -938,10 +949,10 @@ ng 中的锚点路由功能是由几部分 API 共同完成的一整套方案。
 在作路由定义时，可以匹配一个规则，规则中可以定义路径中的某些部分作为参数之用，然后使用 $routeParams 服务获取到指定参数。比如 /#/book/test 中， test 作为参数传入到 controller 中：
 
     <div ng-view></div>
-    
-    
+
+
     <script type="text/javascript">
-    
+
     angular.module('ngView', [],
       function($routeProvider){
         $routeProvider.when('/book/:title',
@@ -954,7 +965,7 @@ ng 中的锚点路由功能是由几部分 API 共同完成的一整套方案。
         );
       }
     );
-    
+
     </script>
 访问： /#/book/test
 
@@ -992,7 +1003,7 @@ ng 中的锚点路由功能是由几部分 API 共同完成的一整套方案。
             }
           }
         );
-    
+
         $routeProvider.when('/b',
           {
             template: '{{ title }}',
@@ -1095,12 +1106,12 @@ withCredentials 跨域安全策略的一个东西
          }
          return data;
        }],
-     
+
        // transform outgoing request data
        transformRequest: [function(d) {
          return isObject(d) && !isFile(d) ? toJson(d) : d;
        }],
-     
+
        // default headers
        headers: {
          common: {
@@ -1276,10 +1287,10 @@ JSON转换： angular.fromJson() 和 angular.toJson()
 
     var l = {a: '1', b: '2'};
     angular.forEach(l, function(v, k){console.log(k + ': ' + v)});
-    
+
     var l = ['a', 'b', 'c'];
     angular.forEach(l, function(v, i, o){console.log(v)});
-    
+
     var context = {'t': 'xx'};
     angular.forEach(l, function(v, i, o){console.log(this.t)}, context);
 12.3. 类型判定
@@ -1315,12 +1326,12 @@ ng 提供了一个简单封装了缓存机制 $cacheFactory ，可以用来作�
 
     var TestCtrl = function($scope, $cacheFactory){
       $scope.cache = $cacheFactory('s_' + $scope.$id, {capacity: 3});
-    
+
       $scope.show = function(){
         console.log($scope.cache.get('a'));
         console.log($scope.cache.info());
       }
-    
+
       $scope.set = function(){
         $scope.cache.put((new Date()).valueOf(), 'ok');
       }
@@ -1368,7 +1379,7 @@ $parse 返回的函数，也提供了相应的 assign 功能，可以为表达�
     var set_name = get_name.assign;
     var r = get_name({name: 'xx'}, {name: 'abc'});
     console.log(r);
-    
+
     var s = {}
     set_name(s, '123');
     var r = get_name(s);
@@ -1428,12 +1439,12 @@ ng 中的模板是很重要，也很强大的一个机制，自然少不了单�
         return {'haha': '123'};
       }
     }
-    
+
     //我在模块的初始化过程当中, 定义了一个叫 PP 的服务
     var app = angular.module('Demo', [], function($provide){
       $provide.provider('PP', pp);
     });
-    
+
     //PP服务实际上就是 pp 这个 provider 的 $get() 方法返回的东西
     app.controller('TestCtrl',
       function($scope, PP){
@@ -1488,7 +1499,7 @@ service 方法的使用就很简单了：
         return {see: function(){return 'I am S2'}}
       });
     });
-    
+
     var app = angular.module('Demo', ['MyModule'], angular.noop);
     app.controller('TestCtrl', function($scope, S1, S2){
       console.log(S1)
@@ -1509,17 +1520,17 @@ ngResource 这个是 ng 官方提供的一个附加模块。附加的意思就�
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.js"></script>
     </head>
     <body>
-    
+
       <div ng-controller="TestCtrl"></div>
-    
-    
+
+
     <script type="text/javascript" charset="utf-8">
-    
+
     var app = angular.module('Demo', ['ngResource'], angular.noop);
     app.controller('TestCtrl', function($scope, $resource){
       console.log($resource);
     });
-    
+
     </script>
     </body>
     </html>
@@ -1713,23 +1724,23 @@ ngResource 要举一个实例是比较麻烦的事。因为它必须要一个后
      <title>AngularJS</title>
      </head>
      <body>
-     
+
      <div ng-controller="TestCtrl">
        <span ng-click="go()">{{ a }}</span>
      </div>
-     
+
      <script type="text/javascript"
        src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
      </script>
      <script type="text/javascript"
        src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js">
      </script>
-     
+
      <script type="text/javascript">
      var app = angular.module('Demo', [], angular.noop);
      app.controller('TestCtrl', function($scope, $timeout){
        $scope.a = '点击我开始';
-     
+
        var defer = $.Deferred();
        var f = function(){
          if($scope.a == ''){$scope.a = '已停止'; return}
@@ -1739,7 +1750,7 @@ ngResource 要举一个实例是比较麻烦的事。因为它必须要一个后
          });
        }
        defer.done(function(){$scope.a = '>'; f()});
-     
+
        $scope.go = function(){
          defer.resolve();
          $timeout(function(){$scope.a = ''}, 5000);
@@ -1763,34 +1774,34 @@ ngResource 要举一个实例是比较麻烦的事。因为它必须要一个后
        href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css" media="screen" />
      </head>
      <body class="claro">
-     
+
      <div ng-controller="TestCtrl" id="test_ctrl">
-     
+
        <p ng-show="!btn_disable">
          <button ng-click="change()">调用dojo修改按钮</button>
        </p>
-     
+
        <p id="btn_wrapper">
          <button data-dojo-type="dijit/form/Button" type="button">{{ a }}</button>
        </p>
-     
+
        <p>
          <input ng-model="dialog_text" ng-init="dialog_text='对话框内容'" />
          <button ng-click="dialog(dialog_text)">显示对话框</button>
        </p>
-     
+
        <p ng-show="show_edit_text" style="display: none;">
          <span>需要编辑的内容:</span>
          <input ng-model="text" />
        </p>
-     
+
        <div id="editor_wrapper">
          <div data-dojo-type="dijit/Editor" id="editor"></div>
        </div>
-     
+
      </div>
-     
-     
+
+
      <script type="text/javascript"
        src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js">
      </script>
@@ -1800,17 +1811,17 @@ ngResource 要举一个实例是比较麻烦的事。因为它必须要一个后
      <script type="text/javascript"
        src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js">
      </script>
-     
+
      <script type="text/javascript">
-     
+
      require(['dojo/parser', 'dijit/Editor'], function(parser){
        parser.parse($('#editor_wrapper')[0]).then(function(){
          var app = angular.module('Demo', [], angular.noop);
-     
+
          app.controller('TestCtrl', function($scope, $timeout){
            $scope.a = '我是ng, 也是dojo';
            $scope.show_edit_text = true;
-     
+
            $scope.change = function(){
              $scope.a = 'DOM结构已经改变(不建议这样做)';
              require(['dojo/parser', 'dijit/form/Button', 'dojo/domReady!'],
@@ -1820,7 +1831,7 @@ ngResource 要举一个实例是比较麻烦的事。因为它必须要一个后
                }
              );
            }
-     
+
            $scope.dialog = function(text){
              require(["dijit/Dialog", "dojo/domReady!"], function(Dialog){
                var dialog = new Dialog({
@@ -1831,21 +1842,21 @@ ngResource 要举一个实例是比较麻烦的事。因为它必须要一个后
                dialog.show();
              });
            }
-     
+
            require(['dijit/registry'], function(registry){
              var editor = registry.byId('editor');
              $scope.$watch('text', function(new_v){
                editor.setValue(new_v);
              });
            });
-     
+
          });
-     
+
          angular.bootstrap(document, ['Demo']);
        });
-     
+
      });
-     
+
      </script>
      </body>
      </html>
@@ -1885,10 +1896,10 @@ directive ，与 DOM 结构相关联的，特定功能的封装形式。
      <p>示例数据: {{ a|map:map_value:'>>':'(no)' }}</p>
      <p>示例数据: {{ b|map:map_value:'>>':'(no)' }}</p>
      </div>
-     
-     
+
+
      <script type="text/javascript">
-     
+
      var app = angular.module('Demo', [], angular.noop);
      app.controller('TestCtrl', function($scope){
        $scope.map_value = {
@@ -1898,7 +1909,7 @@ directive ，与 DOM 结构相关联的，特定功能的封装形式。
        }
        $scope.a = 'a';
      });
-     
+
      app.filter('map', function(){
        var filter = function(input, map_value, append, default_value){
          var r = map_value[input];
@@ -1907,7 +1918,7 @@ directive ，与 DOM 结构相关联的，特定功能的封装形式。
        };
        return filter;
      });
-     
+
      angular.bootstrap(document, ['Demo']);
      </script>
 18. 自定义指令directive
@@ -1957,21 +1968,21 @@ ng 引入，把 DOM 结构扔给 $compile 函数处理：
 自定义一个指令可以非常非常的复杂，但是其基本的调用形式，同自定义服务大概是相同的：
 
     <p show style="font-size: 12px;"></p>
-    
+
     <script type="text/javascript">
-    
+
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('show', function(){
       var func = function($scope, $element, $attrs){
         console.log($scope);
         console.log($element);
         console.log($attrs);
-      }    
+      }
       return func;
       //return {compile: function(){return func}}
     });
-    
+
     angular.bootstrap(document, ['Demo']);
     </script>
 如果在 directive 中直接返回一个函数，则这个函数会作为 compile 的返回值，也即是作为 link 函数使用。这里说的 compile 和 link 都是一个指令的组成部分，一个完整的定义应该返回一个对象，这个对象包括了多个属性：
@@ -2004,7 +2015,7 @@ link
       }
     });
     </code>
-    
+
     <div code lines>
     //失去焦点使用 jQuery 的扩展支持冒泡
     app.directive('ngBlur', function($parse){
@@ -2017,19 +2028,19 @@ link
     });
     </div>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('code', function(){
        var func = function($scope, $element, $attrs){
-     
+
          var html = $element.text();
          var lines = html.split('\n');
-     
+
          //处理首尾空白
          if(lines[0] == ''){lines = lines.slice(1, lines.length - 1)}
          if(lines[lines.length-1] == ''){lines = lines.slice(0, lines.length - 1)}
-     
+
          $element.empty();
-     
+
          //处理外框
          (function(){
            $element.css('clear', 'both');
@@ -2037,7 +2048,7 @@ link
            $element.css('line-height', '20px');
            $element.css('height', '200px');
          })();
-     
+
          //是否显示行号的选项
          if('lines' in $attrs){
            //处理行号
@@ -2052,7 +2063,7 @@ link
              $element.append(div);
            })();
          }
-     
+
          //处理内容
          (function(){
            var div = $('<div style="float: left;"></div>');
@@ -2064,11 +2075,11 @@ link
            $element.append(div);
          })();
        }
-     
+
        return {link: func,
                restrict: 'AE'}; //以元素或属性的形式使用命令
      });
-     
+
      angular.bootstrap(document, ['Demo']);
 上面这个自定义的指令，做的事情就是解析节点中的文本内容，然后修改它，再把生成的新内容填充到节点当中去。其间还涉及了节点属性值 lines 的处理。这算是指令中最简单的一种形式。因为它是“一次性使用”，中间没有变量的处理。比如如果节点原来的文本内容是一个变量引用，类似于 {{ code }} ，那上面的代码就不行了。这种情况麻烦得多。后面会讨论。
 
@@ -2078,11 +2089,11 @@ link
 
     <p color="red">有颜色的文本</p>
     <color color="red">有颜色的文本</color>
-    
+
     <script type="text/javascript">
-    
+
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('color', function(){
       var link = function($scope, $element, $attrs){
         $element.css('color', $attrs.color);
@@ -2090,21 +2101,21 @@ link
       return {link: link,
               restrict: 'AE'};
     });
-    
+
     angular.bootstrap(document, ['Demo']);
     </script>
 我们定义了一个叫 color 的指令，可以指定节点文本的颜色。但是这个例子还无法像 ng-show 那样工作的，这个例子只能渲染一次，然后就无法根据变量来重新改变显示了。要响应变化，我们需要手工使用 scope 的 $watch 来处理：
 
-     
+
      <div ng-controller="TestCtrl">
        <p color="color">有颜色的文本</p>
        <p color="'blue'">有颜色的文本</p>
      </div>
-     
+
      <script type="text/javascript">
-     
+
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('color', function(){
        var link = function($scope, $element, $attrs){
          $scope.$watch($attrs.color, function(new_v){
@@ -2113,11 +2124,11 @@ link
        }
        return link;
      });
-     
+
      app.controller('TestCtrl', function($scope){
        $scope.color = 'red';
      });
-     
+
      angular.bootstrap(document, ['Demo']);
      </script>
 18.5. Compile的细节
@@ -2145,14 +2156,14 @@ $compile 最基本的使用方式：
     <div id="b">B </div>
     app.controller('TestCtrl', function($scope, $compile){
       var link = $compile($('#a'));
-    
+
       //true参数表示新建一个完全隔离的scope,而不是继承的child scope
       var scope = $scope.$new(true);
       scope.text = '12345';
-    
+
       //var node = link(scope, function(){});
       var node = link(scope);
-    
+
       $('#b').append(node);
     });
 cloneAttachFn 对节点的处理是有限制的，你可以添加 class ，但是不能做与数据绑定有关的其它修改（修改了也无效）：
@@ -2161,13 +2172,13 @@ cloneAttachFn 对节点的处理是有限制的，你可以添加 class ，但�
       var link = $compile($('#a'));
       var scope = $scope.$new(true);
       scope.text = '12345';
-    
+
       var node = link(scope, function(clone_element, scope){
         clone_element.text(clone_element.text() + ' ...'); //无效
         clone_element.text('{{ text2 }}'); //无效
         clone_element.addClass('new_class');
       });
-    
+
       $('#b').append(node);
     });
 修改无效的原因是，像 {{ text }} 这种所谓的 Interpolate 在 $compile 中已经被处理过了，生成了相关函数（这里起作用的是 directive 中的一个 postLink 函数），后面执行 link 就是执行了 $compile 生成的这些函数。当然，如果你的文本没有数据变量的引用，那修改是会有效果的。
@@ -2198,25 +2209,25 @@ transclude 有两方面的东西，一个是使用 $compile 时传入的函数�
 看一个基本的例子：
 
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('more', function(){
       var func = function(element, attrs, transclude){
         var sum = transclude(1, 2);
         console.log(sum);
         console.log(element);  
       }
-    
+
       return {compile: func,
               restrict: 'E'};
     });
-    
+
     app.controller('TestCtrl', function($scope, $compile, $element){
       var s = '<more>123</more>';
       var link = $compile(s, function(a, b){return a + b});
       var node = link($scope);
       $element.append(node);
     });
-    
+
     angular.bootstrap(document, ['Demo']);
 我们定义了一个 more 指令，它的 compile 函数的第三个参数，就是我们手工 $compile 时传入的。
 
@@ -2229,7 +2240,7 @@ transclude 有两方面的东西，一个是使用 $compile 时传入的函数�
         node.removeAttr('more'); //不去掉就变死循环了
         $('body', $document).append(node);
       }
-    
+
       return {compile: func,
               transclude: 'element', // element是节点没,其它值是节点的内容没
               restrict: 'A'};
@@ -2257,19 +2268,19 @@ transclude 有两方面的东西，一个是使用 $compile 时传入的函数�
 
     app.directive('showLength', function($rootScope, $document){
       var func = function(element, attrs, link){
-    
+
         return function(scope, ielement, iattrs, controller){
           var node = link(scope);
           ielement.append(node);
           var lnode = $('<span></span>');
           ielement.prepend(lnode);
-    
+
           scope.$watch(function(scope){
             lnode.text(node.text().length);
           });
         };
       }
-    
+
       return {compile: func,
               transclude: true, // element是节点没,其它值是节点的内容没
               restrict: 'A'};
@@ -2327,22 +2338,22 @@ replace
 是否使用模板内容替换掉整个节点， true 替换整个节点， false 替换节点内容。
     <a b></a>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('a', function(){
       var func = function(element, attrs, link){
         console.log('a');
       }
-    
+
       return {compile: func,
               priority: 1,
               restrict: 'EA'};
     });
-    
+
     app.directive('b', function(){
       var func = function(element, attrs, link){
         console.log('b');
       }
-    
+
       return {compile: func,
               priority: 2,
               //terminal: true,
@@ -2356,30 +2367,30 @@ replace
       <div a b></div>
     </div>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('a', function(){
        var func = function(element, attrs, link){
          return function(scope){
            console.log(scope);
          }
        }
-     
+
        return {compile: func,
                scope: true,
                restrict: 'A'};
      });
-     
+
      app.directive('b', function(){
        var func = function(element, attrs, link){
          return function(scope){
            console.log(scope);
          }
        }
-     
+
        return {compile: func,
                restrict: 'A'};
      });
-     
+
      app.controller('TestCtrl', function($scope){
        $scope.a = '123';
        console.log($scope);
@@ -2396,19 +2407,19 @@ replace
       <div a abc="here" xx="{{ a }}" c="ccc"></div>
     </div>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('a', function(){
       var func = function(element, attrs, link){
         return function(scope){
           console.log(scope);
         }
       }
-    
+
       return {compile: func,
               scope: {a: '@abc', b: '@xx', c: '@'},
               restrict: 'A'};
     });
-    
+
     app.controller('TestCtrl', function($scope){
       $scope.a = '123';
     });
@@ -2421,19 +2432,19 @@ replace
       <div a abc="here"></div>
     </div>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('a', function(){
       var func = function(element, attrs, link){
         return function(scope){
           console.log(scope);
         }
       }
-    
+
       return {compile: func,
               scope: {a: '=abc'},
               restrict: 'A'};
     });
-    
+
     app.controller('TestCtrl', function($scope){
       $scope.here = '123';
     });
@@ -2444,30 +2455,30 @@ replace
       <div>{{ here }}</div>
     </div>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('a', function(){
        var func = function(element, attrs, link){
          return function llink(scope){
            console.log(scope);
            scope.a();
            scope.b();
-     
+
            scope.show = function(here){
              console.log('Inner, ' + here);
              scope.a({here: 5});
            }
          }
        }
-     
+
        return {compile: func,
                scope: {a: '&abc', b: '&ngClick'},
                restrict: 'A'};
      });
-     
+
      app.controller('TestCtrl', function($scope){
        $scope.here = 123;
        console.log($scope);
-     
+
        $scope.show = function(here){
          console.log(here);
        }
@@ -2498,7 +2509,7 @@ scope.b 是 &ngClick ，即：
 
     <a>haha</a>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('a', function(){
        var func = function(){
          console.log('compile');
@@ -2506,11 +2517,11 @@ scope.b 是 &ngClick ，即：
            console.log('link');
          }
        }
-     
+
        var controller = function($scope, $element, $attrs, $transclude){
          console.log('controller');
          console.log($scope);
-     
+
          var node = $transclude(function(clone_element, scope){
            console.log(clone_element);
            console.log('--');
@@ -2518,7 +2529,7 @@ scope.b 是 &ngClick ，即：
          });
          console.log(node);
        }
-     
+
        return {compile: func,
                controller: controller,
                transclude: true,
@@ -2530,33 +2541,33 @@ controller 的最后一个参数， $transclude ，是一个只接受 cloneAttac
 
     <a b>kk</a>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('a', function(){
        var func = function(){
        }
-     
+
        var controller = function($scope, $element, $attrs, $transclude){
          console.log('a');
          this.a = 'xx';
        }
-     
+
        return {compile: func,
                name: 'not_a',
                controller: controller,
                restrict: 'E'}
      });
-     
+
      app.directive('b', function(){
        var func = function(){
          return function($scope, $element, $attrs, $controller){
            console.log($controller);
          }
        }
-     
+
        var controller = function($scope, $element, $attrs, $transclude){
          console.log('b');
        }
-     
+
        return {compile: func,
                controller: controller,
                require: 'not_a',
@@ -2582,11 +2593,11 @@ replace 设置如何处理模板内容。为 true 时为替换掉指令节点，
       <h1 a>原始内容</h1>
     </div>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('a', function(){
       var func = function(){
       }
-    
+
       return {compile: func,
               template: '<p>标题 {{ name }} <button ng-click="name=\'hahaha\'">修改</button></p>',
               //replace: true,
@@ -2596,7 +2607,7 @@ replace 设置如何处理模板内容。为 true 时为替换掉指令节点，
               controller: function($scope){console.log($scope)},
               restrict: 'A'}
     });
-    
+
     app.controller('TestCtrl', function($scope){
       $scope.name = '123';
       console.log($scope);
@@ -2609,7 +2620,7 @@ templateUrl 是异步请求模板内容，并且是获取到内容之后才开�
 
     <a><b></b></a>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('a', function(){
        var func = function(){
          console.log('a compile');
@@ -2618,11 +2629,11 @@ templateUrl 是异步请求模板内容，并且是获取到内容之后才开�
            post: function(){console.log('a link post')},
          }
        }
-     
+
        return {compile: func,
                restrict: 'E'}
      });
-     
+
      app.directive('b', function(){
        var func = function(){
          console.log('b compile');
@@ -2631,7 +2642,7 @@ templateUrl 是异步请求模板内容，并且是获取到内容之后才开�
            post: function(){console.log('b link post')},
          }
        }
-     
+
        return {compile: func,
                restrict: 'E'}
      });
@@ -2641,12 +2652,12 @@ templateUrl 是异步请求模板内容，并且是获取到内容之后才开�
 
     <test a="1" b c="xxx"></test>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('test', function(){
       var func = function($element, $attrs){
         console.log($attrs);
       }
-    
+
       return {compile: func,
               restrict: 'E'}
 整个 Attributes 对象是比较简单的，它的成员包括了：
@@ -2665,20 +2676,20 @@ $set 设置对象属性，及节点属性的工具。
       <button ng-click="a=a+1">修改</button>
     </div>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('test', function(){
       var func = function($element, $attrs){
         console.log($attrs);
-    
+
         $attrs.$observe('a', function(new_v){
           console.log(new_v);
         });
       }
-    
+
       return {compile: func,
               restrict: 'E'}
     });
-    
+
     app.controller('TestCtrl', function($scope){
       $scope.a = 123;
     });
@@ -2692,7 +2703,7 @@ attrName 实际的属性名，与“标准化”之后的属性名有区别。
       <test a="1" ys-a="123" ng-click="show(1)">这里</test>
     </div>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('test', function(){
       var func = function($element, $attrs){
         $attrs.$set('b', 'ooo');
@@ -2700,11 +2711,11 @@ attrName 实际的属性名，与“标准化”之后的属性名有区别。
         $attrs.$set('c-d', '11', true, 'c_d');
         console.log($attrs);
       }
-    
+
       return {compile: func,
               restrict: 'E'}
     });
-    
+
     app.controller('TestCtrl', function($scope){
       $scope.show = function(v){console.log(v);}
     });
@@ -2729,24 +2740,24 @@ $parsers 与上面的方向相反，把显示的值变成变量值。
       <button ng-click="show(a)">查看</button>
     </div>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('test', function(){
        var link = function($scope, $element, $attrs, $ctrl){
-     
+
          $ctrl.$formatters.push(function(value){
            return value.join(',');
          });
-     
+
          $ctrl.$parsers.push(function(value){
            return value.split(',');
          });
        }
-     
+
        return {compile: function(){return link},
                require: 'ngModel',
                restrict: 'A'}
      });
-     
+
      app.controller('TestCtrl', function($scope){
        $scope.a = [];
        //$scope.a = [1,2,3];
@@ -2786,7 +2797,7 @@ $setDirty() 直接设置 $dirty 及 $pristine
       </div>
     </div>
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('test', function(){
       var link = function($scope, $element, $attrs, $ctrl){
         $scope.do = function(){
@@ -2798,12 +2809,12 @@ $setDirty() 直接设置 $dirty 及 $pristine
           console.log($ctrl.$error); //form中有错误的字段
         }
       }
-    
+
       return {compile: function(){return link},
               require: 'form',
               restrict: 'A'}
     });
-    
+
     app.controller('TestCtrl', function($scope){
     });
 $error 这个属性，是一个对象， key 是错误名， value 部分是一个列表，其成员是对应的 NgModelController 的实例。
@@ -2822,7 +2833,7 @@ $removeControl() 删除一个 controller
       </div>
     </div>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('test', function(){
        var link = function($scope, $element, $attrs, $ctrl){
          $scope.add = function(){
@@ -2830,23 +2841,23 @@ $removeControl() 删除一个 controller
            console.log($ctrl);
          }
        }
-     
+
        return {compile: function(){return link},
                require: 'form',
                restrict: 'A'}
      });
-     
+
      app.directive('bb', function(){
        var controller = function($scope, $element, $attrs, $transclude){
          $scope.bb = this;
          this.$name = 'bb';
        }
-     
+
        return {compile: angular.noop,
                restrict: 'E',
                controller: controller}
      });
-     
+
      app.controller('TestCtrl', function($scope){
      });
 整合 FormController 和 NgModelController 就很容易扩展各种类型的字段:
@@ -2858,7 +2869,7 @@ $removeControl() 删除一个 controller
       </form>
     </div>
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('input', function(){
        var link = function($scope, $element, $attrs, $ctrl){
          console.log($attrs.type);
@@ -2871,16 +2882,16 @@ $removeControl() 删除一个 controller
              return undefined;
            }
          }
-     
+
          $ctrl.$formatters.push(validator);
          $ctrl.$parsers.push(validator);
        }
-     
+
        return {compile: function(){return link},
                require: 'ngModel',
                restrict: 'E'}
      });
-     
+
      app.controller('TestCtrl', function($scope){
          $scope.show = function(){
            console.log($scope.f);
@@ -2911,7 +2922,7 @@ HTML 部分的代码：
 JS 部分的代码：
 
     var app = angular.module('Demo', [], angular.noop);
-    
+
     app.directive('ysBlock', function(){
       return {compile: angular.noop,
               template: '<div style="width: 200px; border: 1px solid black;"><h1 style="background-color: gray; color: white; font-size: 22px;">{{ title }}</h1><div>{{ text }}</div></div>',
@@ -2919,12 +2930,12 @@ JS 部分的代码：
               scope: {title: '=title', text: '=text'},
               restrict: 'E'};
     });
-    
+
     app.controller('TestCtrl', function($scope){
       $scope.title = '标题在这里';
       $scope.text = '内容在这里';
     });
-    
+
     angular.bootstrap(document, ['Demo']);
 可以看到，这种简单的组件式指令，只需要作 DOM 结构的变换即可实现，连 compile 函数都不需要写。
 
@@ -2951,7 +2962,7 @@ JS 部分的代码：
 JS 部分代码：
 
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('for', function($compile){
        var compile = function($element, $attrs, $link){
          var match = $element[0].outerHTML.match('<for (.*?)=.*? in=.*? (.*?)=.*?>');
@@ -2960,11 +2971,11 @@ JS 部分代码：
          var list = match[2];
          var tpl = $compile($.trim($element.html()));
          $element.empty();
-     
+
          var link = function($scope, $ielement, $iattrs, $controller){
-     
+
            var new_node = [];
-     
+
            $scope.$watch(list, function(list){
              angular.forEach(new_node, function(n){n.remove()});
              var scp, inode;
@@ -2975,10 +2986,10 @@ JS 部分代码：
                $ielement.before(inode);
                new_node.push(inode);
              }
-     
+
            });
          }
-     
+
          return link;
        }
        return {compile: compile,
@@ -2986,7 +2997,7 @@ JS 部分代码：
                terminal: true,
                restrict: 'E'};
      });
-     
+
      app.controller('TestCtrl', angular.noop);
      angular.bootstrap(document, ['Demo']);
 18.14. 示例：模板控制语句 if/else
@@ -3000,7 +3011,7 @@ JS 部分代码：
           <p>判断为假, {{ name }}</p>
         </else>
       </if>
-    
+
       <div>
         <p>a: <input ng-model="a" /></p>
         <p>name: <input ng-model="name" /></p>
@@ -3014,18 +3025,18 @@ true 属性的条件判断通过 $parse 服务很容易实现。
 JS 代码：
 
      var app = angular.module('Demo', [], angular.noop);
-     
+
      app.directive('if', function($parse, $compile){
        var compile = function($element, $attrs){
          var cond = $parse($attrs.true);
-         
+
          var link = function($scope, $ielement, $iattrs, $controller){
            $scope.if_node = $compile($.trim($ielement.html()))($scope, angular.noop);
            $ielement.empty();
            var mark = $('<!-- IF/ELSE -->');
            $element.before(mark);
            $element.remove();
-     
+
            $scope.$watch(function(scope){
              if(cond(scope)){
                mark.after($scope.if_node);
@@ -3040,30 +3051,30 @@ JS 代码：
          }
          return link;
        }
-     
+
        return {compile: compile,
                scope: true,
                restrict: 'E'}
      });
-     
+
      app.directive('else', function($compile){
        var compile = function($element, $attrs){
-         
+
          var link = function($scope, $ielement, $iattrs, $controller){
            $scope.else_node = $compile($.trim($ielement.html()))($scope, angular.noop);
            $element.remove();
          }
          return link;
        }
-     
+
        return {compile: compile,
                restrict: 'E'}
      });
-     
+
      app.controller('TestCtrl', function($scope){
        $scope.a = 1;
      });
-     
+
      angular.bootstrap(document, ['Demo']);
 代码中注意一点，就是 if_node 在得到之时，就已经是做了变量绑定的了。错误的思路是，在 $watch 中再去不断地得到新的 if_node 。
 
