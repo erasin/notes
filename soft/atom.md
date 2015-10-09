@@ -1,7 +1,26 @@
 # atom
 
+cmd+o
+cmd+t,cmd+p 查找打开当前项目的文件
+cmd+b 切换已经打开的标签
+cmd+f 当前文件查询
+cmd+shif+f 项目文件内全局查询
 
 ## plugins
+
+atom-beautify 代码美化，php美化需要配置php路径
+color-picker 取色器
+autocomplete-paths  系统文件路径自动提示
+vim-mode vim模式
+ex-mode  vim模式扩充
+file-icons 文件图标
+git-plus  git工具
+atom-alignment  自动对齐工具
+
+emmet html快速编辑
+
+go-plus go语言插件
+
 
 Remote-FTP@0.6.2  带有树形视图的FTP，保存时自动上传，基于项目(文件夹)的配置
 atom-beautify@0.24.1 代码美化，php美化需要配置php路径
@@ -12,9 +31,6 @@ autocomplete-paths@1.0.2 路径提示，实测从系统根目录开始提示，�
 autocomplete-plus@2.7.1 自动提示接口?
 autocomplete-snippets@1.3.0 snippet提示
 color-picker@1.7.0 取色？
-emmet@2.3.8 html速写
-file-icons@1.5.4 文件特色图标
-git-plus@4.5.0 git，需要配置git路径
 linter@0.12.1 语法错误提示接口
 linter-php@0.0.12 php文件中的语法错误提示
 merge-conflicts@1.3.1  ？
@@ -31,6 +47,23 @@ sloc@0.1.3 显示代码行数
 symbols-tree-view@0.9.2  代码大纲视图
 todo-show@0.8.0 查找项目(项目)所有的带有todo的注释
 vim-mode@0.45.0 部分vim的快捷键，但我用不习惯
+
+
+涉及到的技术：jQuery,Coffeescript,Python,tornado,bootstrap
+* livereload 相当重要
+
+filetype-color@0.1.4
+linter-coffeelint@0.3.2
+linter-jshint@0.1.2
+minimap@4.10.0
+monokai@0.14.0
+remote-edit@1.8.2
+remote-sync@3.1.2
+script@2.25.2
+symbols-tree-view@0.9.3
+unity-ui@2.0.11
+valign@1.0.2
+vim-mode@0.54.0
 
 
 
