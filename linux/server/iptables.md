@@ -3,6 +3,15 @@
 ## ip tcp
 
 ```
+# 开启hi
+service iptables start 
+```
+
+
+
+
+
+```
 iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 ```
 
@@ -130,3 +139,4 @@ iptables -A FORWARD -p udp -m ipp2p --kazaa -j DROP
 iptables -A INPUT -i ppp0 -p tcp -s 0/0 -m state --state ESTABLISHED,RELATED -j ACCEPT
 #其他情况不允许
 iptables -A INPUT -i eth0 -j DROP
+

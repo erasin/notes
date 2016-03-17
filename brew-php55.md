@@ -1,3 +1,12 @@
+# brew install php 
+
+brew install php --with-pear
+
+pear install PHP_CodeSniffer
+
+
+
+
 To enable PHP in Apache add the following to httpd.conf and restart Apache:
     LoadModule php5_module    /usr/local/opt/php55/libexec/apache2/libphp5.so
 

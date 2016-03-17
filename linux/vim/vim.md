@@ -17,3 +17,10 @@
 ## 编码转换
 
     :set fenc=编码  
+
+## 查询
+
+使用 nohl  取消高亮
+	
+	:nohl
+	:nohlsearch

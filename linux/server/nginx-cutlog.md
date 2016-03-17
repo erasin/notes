@@ -1,5 +1,8 @@
 # 日志分割
 
+
+
+
 利用**有名管道**和apache工具`rotatelogs`来切割日志文件
 
 参考 [1](http://blog.chinaunix.net/uid-11121450-id-3177198.html)

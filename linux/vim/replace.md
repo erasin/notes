@@ -13,7 +13,7 @@ s : 表示替换操作
 
 [option] : 表示操作类型
 
-如：g 表示全局替换; 
+如：g 表示全局替换;
 
 c 表示进行确认
 
@@ -27,7 +27,7 @@ p 表示替代结果逐行显示（Ctrl + L恢复屏幕）；
 
     #将That or this 换成 This or that
     :%s/\(That\) or \(this\)/\u\2 or \l\1/
-    —- 
+    —-
     #将句尾的child换成children
     :%s/child\([ ,.;!:?]\)/children\1/g
     —-

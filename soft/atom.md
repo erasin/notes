@@ -21,6 +21,8 @@ emmet html快速编辑
 
 go-plus go语言插件
 
+merge-conflicts，在 Atom 里面处理合并产生冲突的文件。
+
 
 Remote-FTP@0.6.2  带有树形视图的FTP，保存时自动上传，基于项目(文件夹)的配置
 atom-beautify@0.24.1 代码美化，php美化需要配置php路径

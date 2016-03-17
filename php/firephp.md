@@ -79,8 +79,7 @@ $firephp->getOptions();
 $firephp->setOptions($options);
 FB::setOptions($options);
  
-$firephp->setObjectFilter('ClassName',
-                           array('MemberName'));
+$firephp->setObjectFilter('ClassName', array('MemberName'));
 ```
 
 Error, Exception & Assertion Handling

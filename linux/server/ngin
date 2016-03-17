@@ -1,0 +1,875 @@
+op后看到大部分都是php-fpm和mysql占去的资源较多！
+这里随便也巩固一下linux top命令的知识，部分来自网络，这个也是很有用的！
+Top的第一、第二行：
+Up 51days -------机器已经运行了51天了
+2 users  ------- 现在机器上面有个连接用户
+Load average 0.16 0.10 0.07  ------- 分别是5分钟、10分钟、15分钟平均负载
+Tasks 245 total ------------现在一共245个进程
+1 running   ----------有一个正在运行的进程
+244 sleeping  ---------244个睡眠进程 (是不是有点多啊，具体是那些后面再具体查一下)
+0 stopped  ----------- 0个被停止或者终止的进程(不明白这里是什么意思，是强制中断的?)
+0 zombie --------0个僵死的进程
+第三行是现实cpu状态的：
+0.8%us ----------这是当前用户进程占去的cpu百分比
+0.1%sy ---------这是当前系统进程占去的cpu百分比
+0.0%ni ---------这是nice状态下占去的百分比，nice是经过系统优化过的意思(这个系数越到是不是代表用户跑的进程很垃圾啊，都要linux内核帮忙优化?又或者是在负载很大的时候系统才会进行优化？)
+98.4%id ---------idle空闲的cpu百分比(很多啊，证明cpu资源当前是足够的啊！)
+0.7%wa --------waite等待进程占去cpu百分比(也不多啊！)
+0.0%hi  --------hard interrupt 硬中断请求
+0.0%st  --------这个貌似是用到虚拟机的是才会有的，网上有介绍是虚拟出来的cpu，在提升效率的时候往真的cpu资源偷取一定的资源，估计一般不是服务器做虚拟化的时候都用不到！
+第四、五行是内存使用状况：
+Mem: 24692204k total
+物理内存总量
+10338168k  used
+使用的物理内存总量
+14354036k  free
+空闲内存总量
+1445008k  buffers
+用作内核缓存的内存量
+Swap: 1998832k total
+交换区总量
+3968k  used
+使用的交换区总量
+1994864k  free
+空闲交换区总量
+1188012k  cached
+缓冲的交换区总量。内存中的内容被换出到交换区，而后又被换入到内存，但使用过的交换区尚未被覆盖，该数值即为这些内容已存在于内存中的交换区的大小。相应的内存再次被换出时可不必再对交换区写入。
+#Free
+实际的程序可用内存数怎么算呢？
+free + (buffers + cached)
+程序已用内存数又怎么算呢？
+used – (buffers + cached)
+buffer 与cache 的区别：
+A buffer is something that has yet to be “written” to disk. Acache is something that has been “read” from the disk and stored for later use 从应用程序角度来看，buffers/cached是等于可用的，因为buffer/cached是为了提高文件读写的性能，当应用程序需在用到内存的时候，buffer/cached会很快地被回收。
+所以从应用程序的角度来说，可用内存 = 系统free memory + buffers + cached.
+buffers是指用来给块设备做的缓冲大小，他只记录文件系统的metadata以及 tracking in-flight pages.
+cached是用来给文件做缓冲。
+那就是说：buffers是用来存储，目录里面有什么内容，权限等等。
+而cached直接用来记忆我们打开的文件，如果你想知道他是不是真的生效，你可以试一下，先后执行两次命令#man X ,你就可以明显的感觉到第二次的开打的速度快很多。
+
+第五行后面就是一些进程运行状态：
+
+列名
+含义
+PID
+进程id
+PPID
+父进程id
+RUSER
+Real  user name
+UID
+进程所有者的用户id
+USER
+进程所有者的用户名
+GROUP
+进程所有者的组名
+TTY
+启动进程的终端名。不是从终端启动的进程则显示为 ?
+PR
+优先级
+NI
+nice值。负值表示高优先级，正值表示低优先级
+P
+最后使用的CPU，仅在多CPU环境下有意义
+%CPU
+上次更新到现在的CPU时间占用百分比
+TIME
+进程使用的CPU时间总计，单位秒
+TIME+
+进程使用的CPU时间总计，单位1/100秒
+%MEM
+进程使用的物理内存百分比
+VIRT
+进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES
+SWAP
+进程使用的虚拟内存中，被换出的大小，单位kb。
+RES
+进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA
+CODE
+可执行代码占用的物理内存大小，单位kb
+DATA
+可执行代码以外的部分(数据段+栈)占用的物理内存大小，单位kb
+SHR
+共享内存大小，单位kb
+nFLT
+页面错误次数
+nDRT
+最后一次写入到现在，被修改过的页面数。
+S
+进程状态。
+             D=不可中断的睡眠状态
+             R=运行
+             S=睡眠
+             T=跟踪/停止
+             Z=僵尸进程
+COMMAND
+命令名/命令行
+WCHAN
+若该进程在睡眠，则显示睡眠中的系统函数名
+Flags
+任务标志，参考 sched.h
+查看指定列：
+默认情况下仅显示比较重要的 PID、USER、PR、NI、VIRT、RES、SHR、S、%CPU、%MEM、TIME+、COMMAND 列。
+可以通过下面的快捷键来更改显示内容：
+
+5.1 f 键选择显示内容
+通过 f 键可以选择显示的内容。按 f 键之后会显示列的列表，按 a-z 即可显示或隐藏对应的列，最后按回车键确定。
+5.2 o 键改变显示顺序
+按 o 键可以改变列的显示顺序。按小写的 a-z 可以将相应的列向右移动，而大写的 A-Z 可以将相应的列向左移动。最后按回车键确定。
+5.3 F/O 键将进程按列排序
+按大写的 F 或 O 键，然后按 a-z 可以将进程按照相应的列进行排序。而大写的 R 键可以将当前的排序倒转。
+常用交互命令:
+从使用角度来看，熟练的掌握这些命令比掌握选项还重要一些。这些命令都是单字母的，如果在命令行选项中使用了s选项，则可能其中一些命令会被屏蔽掉。
+ Ctrl+L 擦除并且重写屏幕。
+h或者? 显示帮助画面，给出一些简短的命令总结说明。
+k 终止一个进程。系统将提示用户输入需要终止的进程PID，以及需要发送给该进程什么样的信号。一般的终止进程可以使用15信号；如果不能正常结束那就使用信号9强制结束该进程。默认值是信号15。在安全模式中此命令被屏蔽。
+i 忽略闲置和僵死进程。这是一个开关式命令。
+q 退出程序。
+r 重新安排一个进程的优先级别。系统提示用户输入需要改变的进程PID以及需要设置的进程优先级值。输入一个正值将使优先级降低，反之则可以使该进程拥有更高的优先权。默认值是10。
+S 切换到累计模式。
+s 改变两次刷新之间的延迟时间。系统将提示用户输入新的时间，单位为s。如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s。需要注意的是如果设置太小的时间，很可能会引起不断刷新，从而根本来不及看清显示的情况，而且系统负载也会大大增加。
+f或者F 从当前显示中添加或者删除项目。
+o或者O 改变显示项目的顺序。
+l 切换显示平均负载和启动时间信息。
+m 切换显示内存信息。
+t 切换显示进程和CPU状态信息。
+c 切换显示命令名称和完整命令行。
+M 根据驻留内存大小进行排序。
+P 根据CPU使用百分比大小进行排序。
+T 根据时间/累计时间进行排序。
+   W 将当前设置写入~/.toprc文件中。这是写top配置文件的推荐方法。
+最后的技能：top 命令小技巧:
+1、输入大写P，则结果按CPU占用降序排序。
+2、输入大写M，结果按内存占用降序排序。
+3、按数字 1 则可以显示所有CPU核心的负载情况。
+4、top -d 5    每隔 5 秒刷新一次，默认 1 秒
+5、top -p 4360,4358    监控指定进程
+6、top -U johndoe    ‘U’为真实/有效/保存/文件系统用户名。
+7、top -u 500    ‘u’为有效用户标识
+8、top -bn 1    显示所有进程信息，top -n 1 只显示一屏信息，供管道调用
+9、top -M   #show memory summary in megabytes not kilobytes
+10、top -p 25097 -n 1 -b    # -b 避免输出控制字符，管道调用出现乱码
+11、top翻页：top -bn1 | less
+12、增强版的 top：htop
+
+在检查服务器资源情况的命令还有以下一些：
+#vmstat 2 3
+wKioL1M89nCA10veAAEZYekfIH8853.jpg
+对上面每项的输出解释如下：
+procs
+r列表示运行和等待cpu时间片的进程数，这个值如果长期大于系统CPU的个数，说明CPU不足，需要增加CPU。
+b列表示在等待资源的进程数，比如正在等待I/O、或者内存交换等。
+memory
+swpd列表示切换到内存交换区的内存数量（以k为单位）。如果swpd的值不为0，或者比较大，只要si、so的值长期为0，这种情况下一般不用担心，不会影响系统性能。
+free列表示当前空闲的物理内存数量（以k为单位）
+buff列表示buffers cache的内存数量，一般对块设备的读写才需要缓冲。
+cache列表示page cached的内存数量，一般作为文件系统cached，频繁访问的文件都会被cached，如果cache值较大，说明cached的文件数较多，如果此时IO中bi比较小，说明文件系统效率比较好。
+swap
+si列表示由磁盘调入内存，也就是内存进入内存交换区的数量。
+so列表示由内存调入磁盘，也就是内存交换区进入内存的数量。
+一般情况下，si、so的值都为0，如果si、so的值长期不为0，则表示系统内存不足。需要增加系统内存。
+IO项显示磁盘读写状况
+Bi列表示从块设备读入数据的总量（即读磁盘）（每秒kb）。
+Bo列表示写入到块设备的数据总量（即写磁盘）（每秒kb）
+这里我们设置的bi+bo参考值为1000，如果超过1000，而且wa值较大，则表示系统磁盘IO有问题，应该考虑提高磁盘的读写性能。
+system 显示采集间隔内发生的中断数
+in列表示在某一时间间隔中观测到的每秒设备中断数。
+cs列表示每秒产生的上下文切换次数。
+上面这2个值越大，会看到由内核消耗的CPU时间会越多。
+CPU项显示了CPU的使用状态，此列是我们关注的重点。
+us列显示了用户进程消耗的CPU 时间百分比。us的值比较高时，说明用户进程消耗的cpu时间多，但是如果长期大于50%，就需要考虑优化程序或算法。
+sy列显示了内核进程消耗的CPU时间百分比。Sy的值较高时，说明内核消耗的CPU资源很多。
+根据经验，us+sy的参考值为80%，如果us+sy大于 80%说明可能存在CPU资源不足。
+id 列显示了CPU处在空闲状态的时间百分比。
+wa列显示了IO等待所占用的CPU时间百分比。wa值越高，说明IO等待越严重，根据经验，wa的参考值为20%，如果wa超过20%，说明IO等待严重，引起IO等待的原因可能是磁盘大量随机读写造成的，也可能是磁盘或者磁盘控制器的带宽瓶颈造成的（主要是块操作）。
+综上所述，在对CPU的评估中，需要重点注意的是procs项r列的值和CPU项中us、sy和id列的值。
+检查CPU性能的第二个工具是sar，sar功能很强大，可以对系统的每个方面进行单独的统计，但是使用sar命令会增加系统开销，不过这些开销是可以评估的，对系统的统计结果不会有很大影响。
+
+下面是sar命令对某个系统的CPU统计输出：
+[root@webserver ~]# sar -u 3 5
+Linux 2.6.9-42.ELsmp (webserver)       11/28/2008      _i686_  (8 CPU)
+11:41:24 AM    CPU     %user     %nice  %system   %iowait    %steal    %idle
+11:41:27 AM     all     0.88      0.00     0.29      0.00     0.00     98.83
+11:41:30 AM     all     0.13      0.00     0.17      0.21     0.00     99.50
+11:41:33 AM     all     0.04      0.00     0.04      0.00     0.00     99.92
+11:41:36 AM     all     0.29      0.00     0.13      0.00     0.00     99.58
+11:41:39 AM     all     0.38      0.00     0.17      0.04     0.00     99.41
+Average:       all      0.34     0.00      0.16     0.05      0.00     99.45
+对上面每项的输出解释如下：
+%user列显示了用户进程消耗的CPU 时间百分比。
+%nice列显示了运行正常进程所消耗的CPU 时间百分比。
+%system列显示了系统进程消耗的CPU时间百分比。
+%iowait列显示了IO等待所占用的CPU时间百分比
+%steal列显示了在内存相对紧张的环境下pagein强制对不同的页面进行的steal操作。
+%idle列显示了CPU处在空闲状态的时间百分比。
+这个输出是对系统整体CPU使用状况的统计，每项的输出都非常直观，并且最后一行Average是个汇总行，是上面统计信息的一个平均值。
+需要注意的一点是：第一行的统计信息中包含了sar本身的统计消耗，所以%user列的值会偏高一点，不过，这不会对统计结果产生多大影响。
+在一个多CPU的系统中，如果程序使用了单线程，会出现这么一个现象，CPU的整体使用率不高，但是系统应用却响应缓慢，这可能是由于程序使用单线程的原因，单线程只使用一个CPU，导致这个CPU占用率为100%，无法处理其它请求，而其它的CPU却闲置，这就导致了整体CPU使用率不高，而应用缓慢现象的发生。
+针对这个问题，可以对系统的每个CPU分开查询，统计每个CPU的使用情况：
+[root@webserver ~]# sar -P 0 3 5
+Linux 2.6.9-42.ELsmp (webserver)       11/29/2008      _i686_  (8 CPU)
+06:29:33 PM    CPU     %user     %nice  %system   %iowait    %steal    %idle
+06:29:36 PM       0     3.00      0.00     0.33      0.00     0.00     96.67
+06:29:39 PM       0     0.67      0.00     0.33      0.00     0.00     99.00
+06:29:42 PM       0     0.00      0.00     0.33      0.00     0.00     99.67
+06:29:45 PM       0     0.67      0.00     0.33      0.00     0.00     99.00
+06:29:48 PM       0     1.00      0.00     0.33      0.33      0.00    98.34
+Average:         0      1.07     0.00      0.33     0.07      0.00     98.53
+这个输出是对系统的第一颗CPU的信息统计，需要注意的是，sar中对CPU的计数是从0开始的，因此，“sar -P 0 3 5”表示对系统的第一颗CPU进行信息统计，“sar -P 4 3 5”则表示对系统的第五颗CPU进行统计。依次类推。可以看出，上面的系统有八颗CPU。
+
+2、内存：
+=============================================================
+可以使用一下命令查使用内存最多的10个进程
+ps -aux | sort -k4nr | head -n 10
+或者top （然后按下M，注意大写）
+可以使用一下命令查使用CPU最多的10个进程
+ps -aux | sort -k3nr | head -n 10
+或者top （然后按下P，注意大写）
+
+mysql   11234  4.6  1.2 4509704 309872 ?      Ssl Feb08 3457:37 /usr/sbin/mysqld
+www-data 31112  0.0 0.4 384968 99872 ?        S    03:10  0:03 php-fpm: pool www
+www-data 31082  0.0 0.3 374716 89560 ?        S    03:10  0:02 php-fpm: pool www
+www-data 31085  0.0 0.3 362656 77428 ?        S    03:10  0:01 php-fpm: pool www
+www-data 31086  0.0 0.3 364540 79100 ?        S    03:10  0:02 php-fpm: pool www
+www-data 31087  0.0 0.3 373984 88796 ?        S    03:10  0:03 php-fpm: pool www
+www-data 31089  0.0 0.3 366432 81048 ?        S    03:10  0:01 php-fpm: pool www
+www-data 31094  0.0 0.3 364804 79688 ?        S    03:10  0:03 php-fpm: pool www
+www-data 31097  0.0 0.3 370788 85620 ?        S    03:10  0:01 php-fpm: pool www
+www-data 31098  0.0 0.3 375548 90172 ?        S    03:10  0:03 php-fpm: pool www
+
+发现mysql跟php-fpm占有的内存是最多的，于是就着手看看
+
+①进入mysql看看：
+ Mysql>showglobal status like 'Innodb_buffer_pool_pages_data';
++-------------------------------+-------+
+| Variable_name              | Value |
++-------------------------------+-------+
+| Innodb_buffer_pool_pages_data | 7599  |
++-------------------------------+-------+
+1 row in set (0.03 sec)
+ Mysql>SHOWGLOBAL STATUS LIKE 'Innodb_buffer_pool_pages_total';
++--------------------------------+-------+
+| Variable_name                  | Value |
++--------------------------------+-------+
+| Innodb_buffer_pool_pages_total |8192  |
++--------------------------------+-------+
+1 row in set (0.00 sec)
+ Mysql>SHOWGLOBAL STATUS LIKE 'Innodb_page_size';
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| Innodb_page_size | 16384 |
++------------------+-------+
+1 row in set (0.00 sec)
+
+'Innodb_buffer_pool_pages_data' X 100 /'Innodb_buffer_pool_pages_total'
+当结果 > 95% 则增加 innodb_buffer_pool_size，建议使用 ram total 75%
+当结果 < 95% 则减少 innodb_buffer_pool_size，
+建议 'Innodb_buffer_pool_pages_data' X 'Innodb_page_size' X 1.05 /(1024*1024*1024)
+貌似mysql也没有太大的问题！
+===================================================================
+
+#free
+           total       used       free    shared    buffers     cached
+Mem:     24692204   21925456    2766748          0   5120908   10888396
+-/+ buffers/cache:    5916152  18776052
+Swap:     1998832       3972    1994860
+
+内存占用都90以上了，要释放一下内存
+#cat /proc/sys/vm/drop_caches
+0
+首先，/proc/sys/vm/drop_caches的值，默认为0
+# sync
+手动执行sync命令(描述：sync 命令运行 sync 子例程。如果必须停止系统，则运行 sync 命令以确保文件系统的完整性。sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
+# echo 3 >/proc/sys/vm/drop_caches
+# cat/proc/sys/vm/drop_caches
+3
+#free
+           total       used       free    shared    buffers     cached
+Mem:     24692204    4741228   19950976          0       9380    431832
+-/+ buffers/cache:    4300016  20392188
+Swap:     1998832       3972    1994860
+一下子释放了这么多内存！
+
+===========================================================================
+
+
+3、io:
+#iostat –d –k 1 10
+参数 -d 表示，显示设备（磁盘）使用状态；-k某些使用block为单位的列强制使用Kilobytes为单位；1 10表示，数据显示每隔1秒刷新一次，共显示10次。
+wKiom1M89rDxVqUxAALpUZT9sXc597.jpg
+tps：该设备每秒的传输次数（Indicatethe number of transfers per second that were issued to the device.）。“一次传输”意思是“一次I/O请求”。多个逻辑请求可能会被合并为“一次I/O请求”。“一次传输”请求的大小是未知的。
+kB_read/s：每秒从设备（driveexpressed）读取的数据量；kB_wrtn/s：每秒向设备（drive expressed）写入的数据量；kB_read：读取的总数据量；kB_wrtn：写入的总数量数据量；这些单位都为Kilobytes。
+# iostat -d -x -k 1 10
+wKioL1M89pWyI7K3AASQ_iAVvck011.jpg
+rrqm/s：每秒这个设备相关的读取请求有多少被Merge了（当系统调用需要读取数据的时候，VFS将请求发到各个FS，如果FS发现不同的读取请求读取的是相同Block的数据，FS会将这个请求合并Merge）；wrqm/s：每秒这个设备相关的写入请求有多少被Merge了。
+rsec/s：每秒读取的扇区数；wsec/：每秒写入的扇区数。r/s：The numberof read requests that were issued to the device per second；w/s：The numberof write requests that were issued to the device per second；
+await：每一个IO请求的处理的平均时间（单位是微秒毫秒）。这里可以理解为IO的响应时间，一般地系统IO响应时间应该低于5ms，如果大于10ms就比较大了。
+%util：在统计时间内所有处理IO时间，除以总共统计时间。例如，如果统计间隔1秒，该设备有0.8秒在处理IO，而0.2秒闲置，那么该设备的%util = 0.8/1 = 80%，所以该参数暗示了设备的繁忙程度。一般地，如果该参数是100%表示设备已经接近满负荷运行了（当然如果是多磁盘，即使%util是100%，因为磁盘的并发能力，所以磁盘使用未必就到了瓶颈）。
+一般iostat的用法命令如下：
+iostat -d -k 1 10 #查看TPS和吞吐量信息
+iostat -d -x -k 1 10 #查看设备使用率（%util）、响应时间（await）
+iostat -c 1 10 #查看cpu状态
+
+根据上面的iostat出来的数据，貌似服务器io也是没有太大的问题！
+
+4、php+nginx的配置：
+①有时候搭建好的环境，在启动的时候就无法启动，如果没有相关日志记录的话，不妨用stract命令来跟踪一下程序的运行情况
+#stract /usr/local/php/bin/php -i 2 >/tmp/php1.log ------查看php运行，并记录在/tmp/php1.log里面，这样就看php1.log就知道哪里出问题了。
+
+②php跟nginx是通过php-fpm进行通信的，可以直接修改php-fpm.conf
+影响PHP(5.0以上)运行效率的参数有如下：
+pm = dynamic
+pm.max_children = 512
+pm.start_servers = 128
+pm.min_spare_servers = 64
+pm.max_spare_servers =256
+pm.max_requests = 50000
+下面一一介绍他们的作用：
+
+pm = dynamic：表示动态调整
+
+pm.max_children = 512：表示服务器最大允许运行的子进程，这个主要是为了限制PHP运行，防止内存等资源被PHP耗光
+
+pm.start_servers = 128：表示启动PHP的时候生成多少个子进程
+
+pm.min_spare_servers = 64：表示服务器在空闲的时候最小保持的子进程数，注意不是空闲的线程，而是在服务器空闲的时候要保持待命状态的最小子进程数
+
+pm.max_spare_servers =256：表示服务器在空闲的时候最大保持的子进程数，注意不是空闲的线程，而是在服务器空闲的时候要保持待命状态的最大子进程数
+
+pm.max_requests = 50000：表示每个子进程在respawning(重生也就是重启)之前能要处理的最大请求数
+
+对于LNMP架构
+有几个参数需要调整，且保持一直
+
+1，nginx配置文件中：
+vi /usr/local/lnmp/nginx/conf/nginx.conf
+worker_connections 65535;
+
+2，php配置文件中：
+vi /usr/local/lnmp/php/etc/php-fpm.conf
+rlimit_files = 65535
+
+3，操作系统中
+vi /etc/sysctl.conf
+fs.file-max = 65535
+没有这个选项这在最底部添加即可
+
+4，操作系统设置
+ulimit -SHn 65535
+echo "ulimit -SHn 65535" /etc/profile
+
+③nginx优化，我这里引用了一下网上别人的方法，很值得借鉴
+一般来说nginx配置文件中对优化比较有作用的为以下几项：
+worker_processes 8;
+nginx进程数，建议按照cpu数目来指定，一般为它的倍数,平时设置为2倍。
+worker_cpu_affinity 00000001 0000001000000100 00001000 00010000 00100000 01000000 10000000;
+为每个进程分配cpu，上例中将8个进程分配到8个cpu，当然可以写多个，或者将一个进程分配到多个cpu。对worker_cu_affinity参数的优化参考:http://blog.haohtml.com/archives/14835
+worker_rlimit_nofile 102400;
+这个指令是指当一个nginx进程打开的最多文件描述符数目，理论值应该是最多打开文件数（ulimit -n）与nginx进程数相除，但是nginx分配请求并不是那么均匀，所以最好与ulimit -n的值保持一致。
+use epoll;
+使用epoll的I/O模型，这个不用说了吧。
+worker_connections 102400;
+每个进程允许的最多连接数，理论上每台nginx服务器的最大连接数为worker_processes*worker_connections。
+keepalive_timeout 60;
+keepalive超时时间。
+client_header_buffer_size 4k;
+客户端请求头部的缓冲区大小，这个可以根据你的系统分页大小来设置，一般一个请求头的大小不会超过1k，不过由于一般系统分页都要大于1k，所以这里设置为分页大小。分页大小可以用命令getconf PAGESIZE取得。
+open_file_cache max=102400 inactive=20s;
+这个将为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive是指经过多长时间文件没被请求后删除缓存。
+open_file_cache_valid 30s;
+这个是指多长时间检查一次缓存的有效信息。
+open_file_cache_min_uses 1;
+open_file_cache指令中的inactive参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive时间内一次没被使用，它将被移除。
+关于内核参数的优化(/etc/sysctl.conf)：
+net.ipv4.tcp_max_tw_buckets = 6000
+timewait的数量，默认是180000。
+net.ipv4.ip_local_port_range =1024    65000
+允许系统打开的端口范围。
+net.ipv4.tcp_tw_recycle = 1
+启用timewait快速回收。
+net.ipv4.tcp_tw_reuse = 1
+开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接。
+net.ipv4.tcp_syncookies = 1
+开启SYN Cookies，当出现SYN等待队列溢出时，启用cookies来处理。
+net.core.somaxconn = 262144
+web应用中listen函数的backlog默认会给我们内核参数的net.core.somaxconn限制到128，而nginx定义的NGX_LISTEN_BACKLOG默认为511，所以有必要调整这个值。
+net.core.netdev_max_backlog = 262144
+每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目。
+net.ipv4.tcp_max_orphans = 262144
+系统中最多有多少个TCP套接字不被关联到任何一个用户文件句柄上。如果超过这个数字，孤儿连接将即刻被复位并打印出警告信息。这个限制仅仅是为了防止简单的DoS攻击，不能过分依靠它或者人为地减小这个值，更应该增加这个值(如果增加了内存之后)。
+net.ipv4.tcp_max_syn_backlog = 262144
+记录的那些尚未收到客户端确认信息的连接请求的最大值。对于有128M内存的系统而言，缺省值是1024，小内存的系统则是128。
+net.ipv4.tcp_timestamps = 0
+时间戳可以避免序列号的卷绕。一个1Gbps的链路肯定会遇到以前用过的序列号。时间戳能够让内核接受这种“异常”的数据包。这里需要将其关掉。
+net.ipv4.tcp_synack_retries = 1
+为了打开对端的连接，内核需要发送一个SYN并附带一个回应前面一个SYN的ACK。也就是所谓三次握手中的第二次握手。这个设置决定了内核放弃连接之前发送SYN+ACK包的数量。
+net.ipv4.tcp_syn_retries = 1
+在内核放弃建立连接之前发送SYN包的数量。
+net.ipv4.tcp_fin_timeout = 1
+如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间。对端可以出错并永远不关闭连接，甚至意外当机。缺省值是60 秒。2.2 内核的通常值是180秒，你可以按这个设置，但要记住的是，即使你的机器是一个轻载的WEB服务器，也有因为大量的死套接字而内存溢出的风险，FIN- WAIT-2的危险性比FIN-WAIT-1要小，因为它最多只能吃掉1.5K内存，但是它们的生存期长些。
+net.ipv4.tcp_keepalive_time = 30
+当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时。
+下面贴一个完整的内核优化设置：
+引用
+net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+kernel.msgmnb = 65536
+kernel.msgmax = 65536
+kernel.shmmax = 68719476736
+kernel.shmall = 4294967296
+net.ipv4.tcp_max_tw_buckets = 6000
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_rmem =4096        87380   4194304
+net.ipv4.tcp_wmem =4096        16384   4194304
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.core.netdev_max_backlog = 262144
+net.core.somaxconn = 262144
+net.ipv4.tcp_max_orphans = 3276800
+net.ipv4.tcp_max_syn_backlog = 262144
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_synack_retries = 1
+net.ipv4.tcp_syn_retries = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_fin_timeout = 1
+net.ipv4.tcp_keepalive_time = 30
+net.ipv4.ip_local_port_range = 1024    65000
+下面是一个简单的nginx配置文件：
+user  www www;
+worker_processes 8;
+worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 0010000001000000;
+error_log  /www/log/nginx_error.log  crit;
+pid        /usr/local/nginx/nginx.pid;
+worker_rlimit_nofile 204800;
+events
+{
+use epoll;
+worker_connections 204800;
+}
+http
+{
+include       mime.types;
+default_type  application/octet-stream;
+charset  utf-8;
+server_names_hash_bucket_size 128;
+client_header_buffer_size 2k;
+large_client_header_buffers 4 4k;
+client_max_body_size 8m;
+sendfile on;
+tcp_nopush     on;
+keepalive_timeout 60;
+fastcgi_cache_path/usr/local/nginx/fastcgi_cache levels=1:2
+keys_zone=TEST:10m
+inactive=5m;
+fastcgi_connect_timeout 300;
+fastcgi_send_timeout 300;
+fastcgi_read_timeout 300;
+fastcgi_buffer_size 64k;
+fastcgi_buffers 8 64k;
+fastcgi_busy_buffers_size 128k;
+fastcgi_temp_file_write_size 128k;
+fastcgi_cache TEST;
+fastcgi_cache_valid 200 302 1h;
+fastcgi_cache_valid 301 1d;
+fastcgi_cache_valid any 1m;
+fastcgi_cache_min_uses 1;
+fastcgi_cache_use_stale error timeout invalid_header http_500;
+open_file_cache max=204800 inactive=20s;
+open_file_cache_min_uses 1;
+open_file_cache_valid 30s;
+tcp_nodelay on;
+gzip on;
+gzip_min_length  1k;
+gzip_buffers     4 16k;
+gzip_http_version 1.0;
+gzip_comp_level 2;
+gzip_types       text/plainapplication/x-javascript text/css application/xml;
+gzip_vary on;
+server
+{
+listen       8080;
+server_name  backup.aiju.com;
+index index.php index.htm;
+root  /www/html/;  #这里的位置很重要，不要写在其它指令里面，我曾经就调试了好久才发现这个问题的
+location /status
+{
+stub_status on;
+}
+location ~ .*\.(php|php5)?$
+{
+fastcgi_pass 127.0.0.1:9000;
+fastcgi_index index.php;
+include fcgi.conf;
+}
+location ~.*\.(gif|jpg|jpeg|png|bmp|swf|js|css)$
+{
+expires      30d;
+}
+log_format  access  '$remote_addr- $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" $http_x_forwarded_for';
+access_log  /www/log/access.log  access;
+}
+}
+关于FastCGI的几个指令(http://wiki.nginx.org/NginxChsHttpFcgiModule)：
+fastcgi_cache_path/usr/local/nginx/fastcgi_cache levels=1:2 keys_zone=TEST:10m inactive=5m;
+这个指令为FastCGI缓存指定一个路径，目录结构等级，关键字区域存储时间和非活动删除时间。
+fastcgi_connect_timeout 300;
+指定连接到后端FastCGI的超时时间。
+fastcgi_send_timeout 300;
+向FastCGI传送请求的超时时间，这个值是指已经完成两次握手后向FastCGI传送请求的超时时间。
+fastcgi_read_timeout 300;
+接收FastCGI应答的超时时间，这个值是指已经完成两次握手后接收FastCGI应答的超时时间。
+fastcgi_buffer_size 64k;
+指定读取FastCGI应答第一部分需要用多大的缓冲区，一般第一部分应答不会超过1k，由于页面大小为4k，所以这里设置为4k。
+fastcgi_buffers 8 64k;
+指定本地需要用多少和多大的缓冲区来缓冲FastCGI的应答。
+fastcgi_busy_buffers_size 128k;
+这个指令我也不知道是做什么用，只知道默认值是fastcgi_buffers的两倍。
+fastcgi_temp_file_write_size 128k;
+在写入fastcgi_temp_path时将用多大的数据块，默认值是fastcgi_buffers的两倍。
+fastcgi_cache TEST
+开启FastCGI缓存并且为其制定一个名称。个人感觉开启缓存非常有用，可以有效降低CPU负载，并且防止502错误。
+fastcgi_cache_valid 200 302 1h;
+fastcgi_cache_valid 301 1d;
+fastcgi_cache_valid any 1m;
+为指定的应答代码指定缓存时间，如上例中将200，302应答缓存一小时，301应答缓存1天，其他为1分钟。
+fastcgi_cache_min_uses 1;
+缓存在fastcgi_cache_path指令inactive参数值时间内的最少使用次数，如上例，如果在5分钟内某文件1次也没有被使用，那么这个文件将被移除。
+fastcgi_cache_use_stale error timeoutinvalid_header http_500;
+不知道这个参数的作用，猜想应该是让nginx知道哪些类型的缓存是没用的。
+以上为nginx中FastCGI相关参数，另外，FastCGI自身也有一些配置需要进行优化，如果你使用php-fpm来管理FastCGI，可以修改配置文件中的以下值：
+<value name="max_children">60</value>
+同时处理的并发请求数，即它将开启最多60个子线程来处理并发连接。
+<value name="rlimit_files">102400</value>
+最多打开文件数。
+<valuename="max_requests">204800</value>
+每个进程在重置之前能够执行的最多请求数。
+下面贴几张测试结果图。
+静态页面为我在squid配置4W并发那篇文章中提到的测试文件，下图为同时在6台机器运行webbench -c 30000 -t 600 http://backup.aiju.com:8080/index.html命令后的测试结果：
+使用netstat过滤后的连接数：
+php页面在status中的结果（php页面为调用phpinfo）：
+php页面在netstat过滤后的连接数：
+未使用FastCGI缓存之前的服务器负载：
+此时打开php页面已经有些困难，需要进行多次刷新才能打开。上图中cpu0负载偏低是因为测试时将网卡中断请求全部分配到cpu0上，并且在nginx中开启7个进程分别制定到cpu1-7。
+使用FastCGI缓存之后：
+此时可以很轻松的打开php页面。
+这个测试并没有连接到任何数据库，所以并没有什么参考价值，不过不知道上述测试是否已经到达极限，根据内存和cpu的使用情况来看似乎没有，但是已经没有多余的机子来让我运行webbench了。
+
+④导致nginx 502 bad gateway的PHP-CGI(FASTCGI)
+NGINX频爆502 BAD GATEWAY的错误，看了网上的教程，仍没有彻底解决。
+
+目前我总结的解决502 BAD GATEWAY的方式有：
+
+1.视服务器的性能，在php-fmp.conf里增加max_children的值，我目前用的15.
+
+2.用reload参数定时重载php-fpm。这个主要原因是php脚本执行时间过长造成的，重载php-fpm能杜绝这个问题。如何彻底解决php-cgi脚本占用大量内存从而导致502错误的产生还值得进一步探讨，目前该做法不失为一种好办法。
+
+具体的做法是，用crontab让php-fpm平滑重启，从而不影响PHP脚本的运行。
+*/10 * * * * /usr/local/php/sbin/php-fpmreload
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝　优化设置＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+When you running a highload website with PHP-FPM via FastCGI, thefollowing tips may be useful to you : )
+如果您高负载网站使用PHP-FPM管理FastCGI，这些技巧也许对您有用：)
+1. Compile PHP’s modules as less aspossible, the simple the best (fast);
+
+1.尽量少安装PHP模块，最简单是最好（快）的
+2. Increas PHP FastCGI child number to 100and even more. Sometime, 200 is OK! ( On 4GB memory server);
+2.把您的PHP FastCGI子进程数调到100或以上，在4G内存的服务器上200就可以
+
+注：我的1g测试机，开64个是最好的，建议使用压力测试获取最佳值
+3. Using SOCKET PHP FastCGI, and put into/dev/shm on Linux;
+
+3.使用socket连接FastCGI，linux操作系统可以放在 /dev/shm中
+
+注：在php-fpm.cnf里设置<value name=”listen_address”>/tmp/nginx.socket</value>就可以通过socket连接FastCGI了，/dev/shm是内存文件系统，放在内存中肯定会快了.记得这时也要在nginx里的配置里进行修改，保持一致．
+location ~ .*\.(php|php5)?$
+{
+#将Nginx与FastCGI的通信方式由TCP改为Unix Socket。TCP在高并发访问下比Unix Socket稳定，但Unix Socket速度要比TCP快。
+fastcgi_pass  unix:/tmp/php-cgi.sock;
+#fastcgi_pass  127.0.0.1:9000;
+fastcgi_index index.php;
+include fcgi.conf;
+}
+4. Increase Linux “max open files”, usingthe following command (must be root):
+# echo ‘ulimit -HSn 65536′ >>/etc/profile
+# echo ‘ulimit -HSn 65536 >> /etc/rc.local
+# source /etc/profile
+
+4.调高linux内核打开文件数量，可以使用这些命令(必须是root帐号)
+
+echo ‘ulimit -HSn 65536′ >> /etc/profile
+echo ‘ulimit -HSn 65536′ >> /etc/rc.local
+source /etc/profile
+
+注：我是修改/etc/rc.local，加入ulimit -SHn 51200的
+5. Increase PHP-FPM open filedescription rlimit:
+
+# vi /path/to/php-fpm.conf
+Find “<value name=”rlimit_files”>1024</value>”
+Change 1024 to 4096 or higher number.
+Restart PHP-FPM.
+
+5. 增加 PHP-FPM 打开文件描述符的限制:
+
+# vi /path/to/php-fpm.conf
+找到“<value name=”rlimit_files”>1024</value>”
+把1024 更改为 4096 或者更高.
+重启 PHP-FPM.
+
+6. Using PHP code accelerator, e.g eAccelerator, XCache. And set “cache_dir” to/dev/shm on Linux.
+6.使用php代码加速器，例如 eAccelerator, XCache.在linux平台上可以把`cache_dir`指向 /dev/shm
+
+
+ ==============
+ 使用Nginx搭配PHP已有7年的这份经历让我们学会如何为高流量站点优化NGINX和PHP-fpm配置。
+
+ 以下正是这方面的一些提示和建议：
+
+ 1. 将TCP切换为UNIX域套接字
+
+ UNIX域套接字相比TCP套接字在loopback接口上能提供更好的性能（更少的数据拷贝和上下文切换）。
+
+ 但有一点需要牢记：仅运行在同一台服务器上的程序可以访问UNIX域套接字（显然没有网络支持）。
+
+ upstream backend
+ {
+     # UNIX domain sockets
+     server unix:/var/run/fastcgi.sock;
+
+     # TCP sockets
+     # server 127.0.0.1:8080;
+ }
+ 2. 调整工作进程数
+
+ 现代计算机硬件是多处理器的，NGINX可以利用多物理或虚拟处理器。
+
+ 多数情况下，你的Web服务器都不会配置为处理多种任务（比如作为Web服务器提供服务的同时也是一个打印服务器），你可以配置NGINX使用所有可用的处理器，NGINX工作进程并不是多线程的。
+
+ 运行以下命令可以获知你的机器有多少个处理器：
+
+ Linux上 -
+
+ cat /proc/cpuinfo | grep processor
+ FreeBSD上 -
+
+ sysctl dev .cpu | grep location
+ 将nginx.conf文件中work_processes的值设置为机器的处理器核数。
+
+ 同时，增大worker_connections（每个处理器核心可以处理多少个连接）的值，以及将"multi_accept"设置为ON，如果你使用的是Linux，则也使用"epoll"：
+
+ # We have 16 cores
+ worker_processes 16;
+
+ # connections per worker
+ events
+ {
+     worker_connections 4096;
+     multi_accept on;
+ }
+ 3. 设置upstream负载均衡
+
+ 以我们的经验来看，同一台机器上多个upstream后端相比单个upstream后端能够带来更高的吞吐量。
+
+ 例如，如果你想支持最大1000个PHP-fpm子进程（children），可以将该数字平均分配到两个upstream后端，各自处理500个PHP-fpm子进程：
+
+ upstream backend {
+     server unix:/var/run/php5-fpm.sock1 weight=100 max_fails=5 fail_timeout=5;
+     server unix:/var/run/php5-fpm.sock2 weight=100 max_fails=5 fail_timeout=5;
+ }
+ 以下是两个来自php-fpm.conf的进程池：
+
+ <section name="pool">
+
+     <value name="name">www1</value>
+     <value name="listen_address">/var/run/php5-fpm.sock1</value>
+
+     <value name="listen_options">
+         <value name="backlog">-1</value>
+         <value name="owner"></value>
+         <value name="group"></value>
+         <value name="mode">0666</value>
+     </value>
+
+     <value name="user">www</value>
+     <value name="group">www</value>
+
+     <value name="pm">
+         <value name="style">static</value>
+         <value name="max_children">500</value>
+     </value>
+
+     <value name="rlimit_files">50000</value>
+     <value name="rlimit_core">0</value>
+     <value name="request_slowlog_timeout">20s</value>
+     <value name="slowlog">/var/log/php-slow.log</value>
+     <value name="chroot"></value>
+     <value name="chdir"></value>
+     <value name="catch_workers_output">no</value>
+     <value name="max_requests">5000</value>
+     <value name="allowed_clients">127.0.0.1</value>
+
+     <value name="environment">
+         <value name="HOSTNAME">$HOSTNAME</value>
+         <value name="PATH">/usr/local/bin:/usr/bin:/bin</value>
+         <value name="TMP">/usr/tmp</value>
+         <value name="TMPDIR">/usr/tmp</value>
+         <value name="TEMP">/usr/tmp</value>
+         <value name="OSTYPE">$OSTYPE</value>
+         <value name="MACHTYPE">$MACHTYPE</value>
+         <value name="MALLOC_CHECK_">2</value>
+     </value>
+
+ </section>
+
+ <section name="pool">
+
+     <value name="name">www2</value>
+     <value name="listen_address">/var/run/php5-fpm.sock2</value>
+
+     <value name="listen_options">
+         <value name="backlog">-1</value>
+         <value name="owner"></value>
+         <value name="group"></value>
+         <value name="mode">0666</value>
+     </value>
+
+     <value name="user">www</value>
+     <value name="group">www</value>
+
+     <value name="pm">
+         <value name="style">static</value>
+         <value name="max_children">500</value>
+     </value>
+
+     <value name="rlimit_files">50000</value>
+     <value name="rlimit_core">0</value>
+     <value name="request_slowlog_timeout">20s</value>
+     <value name="slowlog">/var/log/php-slow.log</value>
+     <value name="chroot"></value>
+     <value name="chdir"></value>
+     <value name="catch_workers_output">no</value>
+     <value name="max_requests">5000</value>
+     <value name="allowed_clients">127.0.0.1</value>
+
+     <value name="environment">
+         <value name="HOSTNAME">$HOSTNAME</value>
+         <value name="PATH">/usr/local/bin:/usr/bin:/bin</value>
+         <value name="TMP">/usr/tmp</value>
+         <value name="TMPDIR">/usr/tmp</value>
+         <value name="TEMP">/usr/tmp</value>
+         <value name="OSTYPE">$OSTYPE</value>
+         <value name="MACHTYPE">$MACHTYPE</value>
+         <value name="MALLOC_CHECK_">2</value>
+     </value>
+
+ </section>
+ 4. 禁用访问日志文件
+
+ 这一点影响较大，因为高流量站点上的日志文件涉及大量必须在所有线程之间同步的IO操作。
+
+ access_log off;
+ log_not_found off;
+ error_log /var/log/nginx-error.log warn;
+ 若你不能关闭访问日志文件，至少应该使用缓冲：
+
+ access_log /var/log/nginx/access.log main buffer=16k;
+ 5. 启用GZip
+
+ gzip on;
+ gzip_disable "msie6";
+ gzip_vary on;
+ gzip_proxied any;
+ gzip_comp_level 6;
+ gzip_min_length 1100;
+ gzip_buffers 16 8k;
+ gzip_http_version 1.1;
+ gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+ 6. 缓存被频繁访问的文件相关的信息
+
+ open_file_cache max=200000 inactive=20s;
+ open_file_cache_valid 30s;
+ open_file_cache_min_uses 2;
+ open_file_cache_errors on;
+ 7. 调整客户端超时时间
+
+ client_max_body_size 500M;
+ client_body_buffer_size 1m;
+ client_body_timeout 15;
+ client_header_timeout 15;
+ keepalive_timeout 2 2;
+ send_timeout 15;
+ sendfile on;
+ tcp_nopush on;
+ tcp_nodelay on;
+ 8. 调整输出缓冲区大小
+
+ fastcgi_buffers 256 16k;
+ fastcgi_buffer_size 128k;
+ fastcgi_connect_timeout 3s;
+ fastcgi_send_timeout 120s;
+ fastcgi_read_timeout 120s;
+ reset_timedout_connection on;
+ server_names_hash_bucket_size 100;
+ 9. /etc/sysctl.conf调优
+
+ # Recycle Zombie connections
+ net.inet.tcp.fast_finwait2_recycle=1
+ net.inet.tcp.maxtcptw=200000
+
+ # Increase number of files
+ kern.maxfiles=65535
+ kern.maxfilesperproc=16384
+
+ # Increase page share factor per process
+ vm.pmap.pv_entry_max=54272521
+ vm.pmap.shpgperproc=20000
+
+ # Increase number of connections
+ vfs.vmiodirenable=1
+ kern.ipc.somaxconn=3240000
+ net.inet.tcp.rfc1323=1
+ net.inet.tcp.delayed_ack=0
+ net.inet.tcp.restrict_rst=1
+ kern.ipc.maxsockbuf=2097152
+ kern.ipc.shmmax=268435456
+
+ # Host cache
+ net.inet.tcp.hostcache.hashsize=4096
+ net.inet.tcp.hostcache.cachelimit=131072
+ net.inet.tcp.hostcache.bucketlimit=120
+
+ # Increase number of ports
+ net.inet.ip.portrange.first=2000
+ net.inet.ip.portrange.last=100000
+ net.inet.ip.portrange.hifirst=2000
+ net.inet.ip.portrange.hilast=100000
+ kern.ipc.semvmx=131068
+
+ # Disable Ping-flood attacks
+ net.inet.tcp.msl=2000
+ net.inet.icmp.bmcastecho=1
+ net.inet.icmp.icmplim=1
+ net.inet.tcp.blackhole=2
+ net.inet.udp.blackhole=1
+ 10. 监控
+
+ 持续监控打开连接的数目，空闲内存以及等待状态线程的数目。
+
+ 设置警报在超出阈值时通知你。你可以自己构建这些警报，或者使用类似ServerDensity的东西。
+
+ 确认安装了NGINX的stub_status模块。该模块默认并不会编译进NGINX，所以可能你需要重新编译NGINX -
+
+ ./configure --with-http_ssl_module --with-http_stub_status_module --without-mail_pop3_module
+ --without-mail_imap_module --without-mail_smtp_module
+ make install BATCH=yes

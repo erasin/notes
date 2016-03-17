@@ -41,7 +41,7 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
         rewrite ^/(.*)$ /index.php/$1 last;
     }
 
-#### 404 
+#### 404
 
 为php节点添加
 
@@ -69,14 +69,14 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
 	sudo chown http:http htpasswd.mywebsite
 	sudo chmod 640 htpasswd.mywebsite
 
-上面的 `http:http` 为 nginx的进程用户，修改为自己系统的默认。 
+上面的 `http:http` 为 nginx的进程用户，修改为自己系统的默认。
 
 **添加到配置**
 
 	auth_basic "Restricted 限制注释";
     auth_basic_user_file /var/www/mywwebsite.com/htpasswd.mywebsite;
 
-## error 
+## error
 
 查看错误日志`/var/log/nginx/error.log`
 
@@ -87,7 +87,7 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
     fastcgi_buffer_size 128k;
     fastcgi_buffers 32 32k;
 
-`fastcgi_*` 可以理解成nginx接受client请求时的响应使用的。proxy是nginx作为client转发时使用的，如果header过大，超出了默认的1k，就会引发上述的upstream sent too big header。
+`fastcgi_*` 可以理解成nginx接受client请求时的响应使用的。proxy是nginx作为client转发时使用的，如果header过大，超出了默认的1k，就会引发上述的 upstream sent too big header。
 
 
 
@@ -101,6 +101,7 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
             rewrite ^/ http://www.demo1.com/403.html;
             #return 404;
         }
+        expires 3d;
     }
 
 第一行表示对gif、jpg、png、swf、flv后缀的文件实行防盗链
@@ -110,10 +111,29 @@ epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2
 if{}里面内容意思是：如果来入不是指定判断的来路时跳转到错误页面。
 
 ## Access-Control-Allow-Origin
-
+```
 add_header Access-Control-Allow-Origin *;
-
+```
 
 ##  上传
 
     client_max_body_size 35m;        #客户端上传文件大小设为35M
+
+
+## 连接数
+
+worker_rlimit_nofile
+注意：设置了这个后，你修改worker_connections值时，是不能超过worker_rlimit_nofile的这个值，不然又会有前面的那个warn提示。
+保存配置文件，退出重启nginx。
+
+
+如果nginx 中worker_connections 值设置是1024，worker_processes 值设置是4，按反向代理模式下最大连接数的理论计算公式：
+   最大连接数 = worker_processes * worker_connections/4
+查看相关资料，生产环境中worker_connections 建议值最好超过9000，计划将一台nginx 设置为10240，再观察一段时间。
+
+
+## 隐藏版本号
+
+ server_tokens off;
+
+php 则 expose_php = Off 

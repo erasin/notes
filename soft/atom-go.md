@@ -31,6 +31,7 @@ go get -u github.com/nsf/gocode
 go get -v code.google.com/p/rog-go/exp/cmd/godef
 go install -v code.google.com/p/rog-go/exp/cmd/godef
 
+github.com/sqs/goreturns
 
 gocode 提供代码补全
 
