@@ -69,3 +69,5 @@ rsync shell模式同步不需要密码的方法：
 然后可以ssh自动登录了，才能实现rsync免密码同步。
 
 	rsync -azv --delete -e ssh pi@ssh2:/pwd/ /pwd/
+
+
