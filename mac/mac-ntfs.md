@@ -1,8 +1,8 @@
-NTFS
+# NTFS
 
-http://bbs.feng.com/read-htm-tid-1042827.html
 
 1、手动挂载
+
     hdiutil eject  /Volumes/disk_name
     sudo mount_ntfs -o rw,nobrowser /dev/disk1s1  /pwd/mount_point
 
@@ -19,4 +19,7 @@ http://bbs.feng.com/read-htm-tid-1042827.html
 
 	sudo mount -t ntfs -o rw,auto,nobrowse /dev/disk3s1 ~/Desktop/external
 
-http://sourceforge.net/projects/ntfsfree/
+参考文件
+
+* <http://sourceforge.net/projects/ntfsfree/>
+* <http://bbs.feng.com/read-htm-tid-1042827.html>

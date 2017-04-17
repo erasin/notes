@@ -1,26 +1,25 @@
 # nginx
 
-
-
 Nginx 有2个模块用于控制访问“数量”和“速度”，简单的说，控制你最多同时有 多少个访问，并且控制你每秒钟最多访问多少次， 你的同时并发访问不能太多，也不能太快，不然就“杀无赦”。
 
     HttpLimitZoneModule    限制同时并发访问的数量
     HttpLimitReqModule      限制访问数据，每秒内最多几个请求
 
-一、普通配置
-什么叫普通配置？
+## 一、普通配置
 
 普通配置就是针对【用户浏览器】→【网站服务器】这种常规模式的nginx配置。那么，如果我要对单IP做访问限制，绝大多数教程都是这样写的：
 
 ```
 ## 用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址最多有 50 个并发连接
 ## 你想开 几千个连接 刷死我？ 超过 50 个连接，直接返回 503 错误给你，根本不处理你的请求了
+
 limit_conn_zone $binary_remote_addr zone=TotalConnLimitZone:10m ;
 limit_conn  TotalConnLimitZone  50;
 limit_conn_log_level notice;
 
 ## 用户的 IP 地址 $binary_remote_addr 作为 Key，每个 IP 地址每秒处理 10 个请求
 ## 你想用程序每秒几百次的刷我，没戏，再快了就不处理了，直接返回 503 错误给你
+
 limit_req_zone $binary_remote_addr zone=ConnLimitZone:10m  rate=10r/s;
 limit_req_log_level notice;
 
@@ -40,7 +39,7 @@ server {
 这样一个最简单的服务器安全限制访问就完成了，这个基本上你 Google 一搜索能搜索到  90% 的网站都是这个例子，
 而且还强调用“$binary_remote_addr”可以节省内存之类的云云。
 
-二、CDN之后
+## 二、CDN之后
 
 目前国内已经争相出现了百度云加速、加速乐、360网站卫士以及安全宝等免费CDN。让我们这些小网站也能免费享受以前高大上的CDN加速服务。
 

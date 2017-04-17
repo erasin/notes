@@ -3,12 +3,18 @@
 ## CLI
 
 **brew** [官网](http://brew.sh/index_zh-cn.html)
+	- [cakebrew](https://www.cakebrew.com/) brew GUI
 
 > 套件管理器
 
 安装命令，更新的时候注意
 
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+**mac-cli**
+- [m-cli](https://github.com/rgcr/m-cli) 工具
+- [mac-cli](https://github.com/guarinogabriel/Mac-CLI)
+
 
 **wget**
 
@@ -99,6 +105,10 @@ android-studio-bundle
 
 
 ## 视频
+
+**mpv** MPV
+
+**iina**  基于MPV 的播放器 [down](https://lhc70000.github.io/iina/zh-cn/)
 
 **movist**  [down](http://lnmac.com/movist/)
 

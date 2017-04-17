@@ -10,8 +10,7 @@
 
 server 
 
-* server1: irc.2ch.net/6667  
-* server2: irc2.2ch.net/6667
+* server1: irc.juggler.net/6667  
 * room     #japanese,#漫画雑談,#おもしろネタ速報,#ニュース速報 741
 * charset: ISO-2022-JP (Japanese)
 
