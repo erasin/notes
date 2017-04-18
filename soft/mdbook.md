@@ -1,6 +1,9 @@
 mdbook 
 ==============
 
+mdbook 是用 rust 仿照 gitbook 写的，下载地址为 <https://github.com/azerupi/mdBook>，也可以直接使用 `cargo install mdbook` 命令下载。
+
+
 ### 在mdbook 中使用 mermaid
 
 [meraid](https://github.com/knsv/mermaid) 是利用 js 来制作流程图，参考[文档](http://knsv.github.io/mermaid/)。

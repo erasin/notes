@@ -1,6 +1,6 @@
 # swift
 
-let 定义常量
+let 定义常量\
 var 定义变量
 
 ```swift
@@ -17,8 +17,7 @@ var red, green, blue: Double // 多个同类型定义
 var 变量: String  // Unicode 支持
 ```
 
-不同类型变量不可转换，只可以显示转换
-
+不同类型变量不可转换，只可以显示转换\
 print 输出， 组合变量的两种方式 `+` 和 `\()`
 
 ```swift
