@@ -5,6 +5,8 @@
 ```
 # 开启hi
 service iptables start 
+## 新版本 centos 7
+systemctl status iptables.service
 ```
 
 

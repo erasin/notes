@@ -33,6 +33,8 @@
 * iftop		# 网卡路由监控
 * iptraf  #  带宽监控
 
+* m [github](https://github.com/rgcr/m-cli)  Mac OSX 系统瑞士军刀
+
 * rg  ripgrep [site](http://blog.burntsushi.net/ripgrep/) [github](https://github.com/BurntSushi/ripgrep) {rust} 类似grep正则查询
     - cargo install rg
 * tokei [github](https://github.com/Aaronepower/tokei) {rust} 代码统计工具
@@ -102,3 +104,6 @@
 ## DESKTOP SOFT 软件
 
 * weflow [site](https://weflow.io/) 前端文件开发工作流工具
+* black-screen [github](https://github.com/railsware/black-screen) ts 漂亮的终端
+* clipy [site](https://clipy-app.com/)  mac 的粘贴板
+* IINA [site](https://lhc70000.github.io/iina/zh-cn/) 基于 mpv 的播放器

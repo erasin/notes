@@ -15,6 +15,8 @@
 - [m-cli](https://github.com/rgcr/m-cli) 工具
 - [mac-cli](https://github.com/guarinogabriel/Mac-CLI)
 
+- [mycli](https://github.com/dbcli/mycli)
+
 
 **wget**
 
